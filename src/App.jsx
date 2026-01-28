@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      123
+      主程式
     </>
   )
 }
