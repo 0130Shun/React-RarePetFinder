@@ -1,16 +1,43 @@
-# React + Vite
+## Commit 規則（簡單就好）
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+規則建構參考來源：https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-commit.html
 
-Currently, two official plugins are available:
+### type 只允許使用以下類別
+Type 是用來告訴進行 Code Review 的人應該以什麼態度來檢視 Commit 內容
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+feat: ... 新增/修改功能 (feature)
+fix: ... 修補 bug (bug fix)
+style: ... 切版/格式
+refactor: ... 重構 (既不是新增功能，也不是修補 bug 的程式碼變動)。
+chore: ... 雜項（設定、工具）建構程序或輔助工具的變動 (maintain)。
+perf: 改善效能 (A code change that improves performance)。
+docs: 文件 (documentation)。
+test: 增加測試 (when adding missing tests)。
+revert: 撤銷回覆先前的 commit 例如：revert: type(scope)
+subject: (回覆版本：xxxx)。
 
-## React Compiler
+### 範例 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+fix: 意見反應，信件看不到圖片問題
 
-## Expanding the ESLint configuration
+問題：
+1. 客戶反應：意見反應的信件都看不到圖片。
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+原因：
+1. 目前程式碼都會要求先登入後才可查看使用者上傳的檔案，
+   造成在信件上會看不見圖片的問題。
+
+調整項目：
+1. File.php，經討論後，開放讓意見反應頁面上傳的檔案，不用登入就可以查看/下載。
+```
+
+其他範例參見：https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-commit.html
+
+
+
+## PR 規則（避免炸鍋）
+
+PR 標題 = 你做了什麼
+描述：影響哪些頁、怎麼做測試
+PR 不超過 400 行改動（太大就拆開發）
