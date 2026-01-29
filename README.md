@@ -7,10 +7,22 @@
 git fetch 
 git switch dev 
 git pull
-git branch //確認你在哪個分支
-git switch feature/search-page //已經開過的分支
-git switch -c feature/xxx   //新開分支
+git branch  # 確認你在哪個分支
+# ↓ 二選一 ↓ #
+git switch feature/search-page  # 已經開過的分支
+git switch -c feature/xxx   # 新開分支
 ```
+## 每次收工標準流程：
+```
+git status
+git add .
+git commit -m "feat: xxx"
+git branch # 再次確認目前在 feature 分支
+# ↓ 二選一 ↓ #
+git push -u origin feature/xxx // 第一次推
+git push  // 之前推過，往後推用這個指令
+```
+❗ 任何寫 code / commit / push 前，請先確認 git branch 的星號位置
 
 解說：（幫你回憶指令的作用）
 ```
@@ -40,6 +52,7 @@ git pull
 📌用途：
 1.把其他組員已合併到 dev 的內容抓下來
 2.確保你不是用舊版本在開發
+3.git pull 請在 dev 分支上執行
 📌 如果有衝突：
 1.代表你本地和 dev 有同時改到同一段
 2.請先停下來處理或DC問組員
@@ -51,7 +64,7 @@ git branch
 
 ```
 ```
-git switch -b feature/xxx    
+git switch -c feature/xxx    
 👉 從 dev 開一條「只屬於你」的功能分支
 📌用途：
 1.每個人一條（或多條）功能分支
@@ -65,16 +78,6 @@ git switch -b feature/xxx
 git switch -c feature/search-page
 git switch -c feature/api-fetch
 git switch -c feature/modal-ui
-```
-
-## 每次收工標準流程：
-```
-git status
-git add .
-git commit -m "feat: xxx"
-git branch 
-git push -u origin feature/xxx // 第一次推
-git push  // 之後推的
 ```
 
 ## Commit 建議
