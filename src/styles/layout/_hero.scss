@@ -1,0 +1,443 @@
+// _hero.scss：專門負責 Hero / Page Banner 結構
+
+@use '../helpers/mixins' as *;
+@use '../helpers/variables' as *;
+
+.ui-hero {
+  position: relative;
+}
+
+// __ 代表 Element (元素) __bg 和 __container 是ui-hero組件內部的零件。
+.ui-hero__bg {
+  margin: 0 auto;
+}
+
+.ui-hero__container {
+  margin: 0 auto;
+}
+
+// -- 代表 Modifier (修飾符) --home 和 --search 是ui-hero組件的變體（版本）。
+.ui-hero--home {
+  min-height: 560px;
+}
+
+.ui-hero--search {
+  min-height: 240px;
+}
+
+
+/* 各自個分頁的Sub-HeroBanner */
+.ui-subHero {
+  position: relative;
+  background-color: $ui-color-secondary; 
+  padding: 64px 12px 108px 12px;
+  min-height: 297px;
+
+  @include respond(desktop) {
+    padding: 72px 272px 0 272px;
+    overflow: hidden; /* 逼免止浮水印超勒邊界 */
+    border-radius: 24px;
+  }
+}
+
+/* 浮水印文字：mobile 預設「不存在」 */
+.ui-subHero::after {
+  content: none; // mobile：根本不產生 pseudo-element
+
+  @include respond(desktop) {
+    content: attr(data-watermark);/* 關鍵：讓內容直接讀取 HTML 上的 data-watermark */
+    position: absolute;
+    right: calc((75% - 1296px) / 2);
+    bottom: -20px;
+
+    font-size: 128px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 2%;
+
+    color: rgba($ui-color-primary, 0.08);
+    white-space: nowrap;
+
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    filter: blur(0.5px);
+  }
+}
+
+// subHero 變體背景色
+.ui-subHero--warning {
+  /* 1. 改變背景色 */
+  background-color: rgba($ui-color-warning, 0.3) !important;
+  padding: 100px 12px 80px 12px;
+  min-height: 326px;
+
+  /* 2. 改變浮水印文字色 (::after) */
+  &::after {
+    @include respond(desktop) {
+      // 這裡改為偏黃或偏橘的透明色，使其與背景協調
+      color: rgba($ui-color-warning, 0.2);
+    }
+  }
+  /* 4. 甚至可以改變麵包屑的背景 (如果有需要的話，不需要改的可以不要寫) */
+  .ui-subHero__information{
+    position: relative; 
+
+    &::before {
+      content: "";
+      position: absolute;
+      background-image: url('/src/assets/img/duck-warning.png'); // 鴨子圖片路徑
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 2;
+
+      /* Mobile 樣式：鴨子放在框框上方 */
+      width: 200px; 
+      height: 164px;
+      top: -60%; // 往上浮出
+      left: 50%;
+      transform: translateX(-50%); // 水平置中
+
+      @include respond(desktop) {
+        /* Desktop 樣式：鴨子變大且移到左側 */
+        width: 400px;
+        height: 328px;
+        top: 50%;
+        // left: -260px; // 往左側移動，產生重疊感
+        left: -38%;
+        transform: translateY(-50%); // 垂直置中
+      }
+    }
+    
+    &::after {
+      content: none; // Mobile 隱藏
+
+      @include respond(desktop) {
+        content: "";
+        position: absolute;
+        background-image: url('/src/assets/img/Vector.png'); // 驚嘆號圖片
+        background-size: contain;
+        background-repeat: no-repeat;
+        
+        width: 88px;
+        height: 100px;
+        // top: -40px; // 浮出框框右上角
+        // right: -50px;
+        top: -20%; // 浮出框框右上角
+        right: -7%;
+      }
+    }
+
+    @include respond(desktop) {
+      // 向右移動一點讓浮水印蓋到
+      margin-left: 25%;
+    }
+  }
+
+}
+
+/* 包裹subHero content和aside餅處理desktop/mobile的顯示 */
+.ui-subHero__layout {
+  // mobile
+  display: block;
+  text-align: center;
+
+  @include respond(desktop) {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* subHero content主題文字 */
+.ui-subHero__content {
+  gap: 8px;
+  min-height: 61px;
+
+  h1 {
+    color: $ui-neutral-800;
+    font-family: "Chiron GoRound TC", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    color: $ui-neutral-800;
+    font-family: "Chiron GoRound TC", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;  
+    letter-spacing: 2%;
+  }
+
+  .ui-subHero__meta {
+    display: flex;
+    flex-direction: column; // 手機版預設垂直堆疊
+    align-items: center;    // 手機版置中
+    gap: 8px;
+    margin-top: 12px;
+    
+    color: $ui-neutral-600; // 假設這是次要文字顏色
+    font-size: 14px;
+    font-weight: 500;
+
+    &-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    &-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+
+      i, svg {
+        width: 14px;
+        height: 14px;
+        stroke-width: 2.5;
+      }
+    }
+
+    &-divider {
+      color: $ui-neutral-500;
+      user-select: none;
+    }
+
+    @include respond(desktop) {
+      flex-direction: row; // 桌面版變回橫向
+      gap: 16px;
+      align-items: flex-start; // 桌面版對齊左側
+      margin-top: 16px;
+      font-size: 16px;
+
+      &-group {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  @include respond(desktop) {
+    min-height: 96px;
+
+    h1 {
+      font-size: 48px;
+      letter-spacing: 2%;
+    }
+
+    p {
+      font-size: 24px;
+      line-height: 120%;  
+      letter-spacing: 0.025m;
+    }
+  }
+}
+
+/* subHero aside 方框+風味文字 */
+.ui-subHero__aside {
+  background-color: $ui-bg-default;
+  padding: 16px 8px;
+  gap: 10px;
+  border-radius: 12px;
+  // min-width: 303px;
+  // min-height: 40px;
+
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  display: flex;
+  flex-direction: column; // 關鍵：讓內部的 <p> 標籤由上而下排列
+  align-items: center;    // 讓內容在水平方向置中
+  justify-content: center; // 讓內容在垂直方向置中
+  text-align: center;     // 確保文字本身在多行時也是居中對齊
+
+
+  margin: 24px auto 0 auto;
+
+  p {
+    color: $ui-nav-link-active;
+    font-family: "Chiron GoRound TC", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 150%;  
+    letter-spacing: 0.02em;
+    transition: color 0.15s ease, transform 0.1s ease;   // 加上這行，變化才會順滑
+
+    &:hover {
+      color: $ui-nav-link-hover;            // 例如藍色 $sui-blue-500
+      // text-decoration: underline;         // 可選：很多設計會在 hover 加底線
+      // 或 cursor: pointer;                 // 如果想要更像連結感
+    }
+
+    &:active {
+      color: $ui-nav-link-active;           // 通常更深，例如 $sui-blue-700
+      transform: translateY(1px);           // 輕微下沉，模擬按下去
+    }
+  }
+
+
+  @include respond(desktop) {
+    padding: 20px 48px;
+    border-radius: 12px;
+    min-width: 512px;
+    min-height: 96px;
+    margin: 0;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+
+    p {
+      font-size: 20px;
+      line-height: 120%;  
+      letter-spacing: 0.05em;
+    }
+  }
+
+}
+
+/* subHero scam 詐騙資訊宣導頁面的方框+風味文字 */
+.ui-subHero__information {
+  background-color: $ui-bg-default;
+  padding: 8px 36px;
+  gap: 10px;
+  border-radius: 12px;
+  width: 351px;
+  min-height: 212px;
+
+  display: flex;
+  flex-direction: column; // 讓內部的 <h2> 和 <p> 標籤由上而下排列
+  align-items: flex-start;    
+  justify-content: center;
+  margin: 24px auto 0 auto;
+
+  h2 {
+    color: $ui-neutral-800;
+    font-family: "Chiron GoRound TC", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: 0.05em;
+    text-align: left;
+  }
+
+  p {
+    color: $ui-neutral-800;
+    font-family: "Chiron GoRound TC", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;  
+    letter-spacing: 2%;
+  }
+
+
+  @include respond(desktop) {
+    margin-top: 0;
+    padding: 36px 80px;
+    border-radius: 12px;
+    width: 747px;
+    min-height: 166px;
+
+    h2 {
+      font-size: 32px;
+      letter-spacing: 2%;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 120%;  
+      letter-spacing: 0.025m;
+    }
+  }
+
+}
+
+/* 麵包屑容器 */
+.ui-subHero__breadcrumb {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .ui-breadcrumb {
+    /* 1️ Box / layout */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    // --- 關鍵修正：強制文字不換行 ---
+    white-space: nowrap;
+
+    height: auto;
+    min-height: unset;
+    max-height: none;
+    width: auto;
+    // min-width: 168px;
+    // max-height: 44px;
+
+    background: $ui-neutral-50;
+    padding: 12px 20px 8px 20px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -1px 0 rgba(0,0,0,.06);
+
+    /* 2️ Typography */
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 150%;
+    letter-spacing: 0;
+    
+    /* 3️ Element states */
+    a {
+      color: $ui-nav-link;
+      text-decoration: none;
+      
+      &:hover {
+        color: $ui-nav-link-hover;
+      }
+    }
+
+    &__item  {
+      color: $ui-nav-link;
+
+      &:hover {
+        color: $ui-nav-link-hover;
+      }
+    }
+
+    &__item.is-current {
+      color: $ui-nav-link-active;
+      pointer-events: none;
+    }
+    /* 4 Icon */
+    i, svg {
+      flex-shrink: 0; // 防止圖示被擠壓變形
+      width: 16px;
+      height: 16px;
+      stroke-width: 2;
+      color: $ui-text-muted;
+      vertical-align: middle;
+    }
+
+     /* 5️ Responsive（desktop） */
+    @include respond(desktop) {
+      align-items: left;
+
+      width: 306px;
+      max-height: 56px;
+      padding: 24px 24px 8px 24px;
+    }
+  }
+
+  @include respond(desktop) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px; // 半貼出來
+    transform: none;
+  }
+}
