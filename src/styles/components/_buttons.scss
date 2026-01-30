@@ -1,4 +1,6 @@
 @use '../helpers/variables' as *;
+@use 'sass:color';
+
 
 // .ui-btn {
 //   display: inline-flex;
@@ -69,7 +71,7 @@
   color: $ui-bg-default;
 
   &:hover {
-    background-color: darken($ui-text-secondary, 8%);
+    background-color: color.scale($ui-text-secondary, $lightness: -8%)
   }
 }
 
@@ -98,7 +100,7 @@
   color: $ui-text-primary;
 
   &:hover {
-    background-color: darken($ui-color-danger, 8%);
+    background-color: color.scale($ui-color-warning, $lightness: -8%)
   }
 }
 
