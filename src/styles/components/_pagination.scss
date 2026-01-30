@@ -1,0 +1,82 @@
+@use '../helpers/variables' as *;
+
+/* =====================================
+  Pagination
+
+  HTML 結構：
+  <nav class="ui-pagination" aria-label="Pagination">
+    <button
+      class="ui-pagination__item ui-pagination__item--prev is-disabled"
+      aria-label="Previous page"
+      disabled
+    >
+      ‹
+    </button>
+
+    <button class="ui-pagination__item">1</button>
+
+    <button class="ui-pagination__item is-active" aria-current="page">
+      2
+    </button>
+
+    <button class="ui-pagination__item">3</button>
+
+    <button
+      class="ui-pagination__item ui-pagination__item--next"
+      aria-label="Next page"
+    >
+      ›
+    </button>
+  </nav>
+===================================== */
+
+.ui-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // 8px
+}
+
+/* 共用項目（數字 & 箭頭） */
+.ui-pagination__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.5rem;   // 40px
+  height: 2.5rem;  // 40px
+  padding: 0.5rem; // 8px
+
+  background-color: $ui-bg-subtle;
+  border-radius: 0.5rem; // 8px
+  border: none;
+  font-family: "Chiron GoRound TC", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: $ui-neutral-800;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition: background-color 0.2s ease,
+              color 0.2s ease;
+
+  /* hover 與 active 視覺共用 */
+  &:hover,
+  &.is-active {
+    background-color: $ui-color-warning;
+  }
+
+  &.is-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+/* 箭頭（語意角色，外觀不另外拆） */
+.ui-pagination__item--prev,
+.ui-pagination__item--next {
+  font-size: 1rem; // icon 或文字箭頭
+}
