@@ -73,7 +73,7 @@ const routes = [
     items: [
       {
         label: '登入',
-        to: { pathname: '/login', hash: '#login' },
+        to: { pathname: '/login', hash: '#logindiv' },
       },
       {
         label: '註冊',

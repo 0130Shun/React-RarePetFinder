@@ -8,13 +8,10 @@ export default function FrontendLayout() {
   return (
     <>
       <Header />
-      <hr />
-
-      <main>
+      <main class='container ui-layout'>
         <Outlet />
       </main>
       <hr />
-
       <footer className='mt-4 text-center'>
         <p>footer</p>
       </footer>
