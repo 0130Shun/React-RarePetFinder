@@ -1,46 +1,46 @@
-import { createHashRouter } from "react-router-dom";
-import FrontendLayout from "../layout/FrontendLayout";
+import { createHashRouter } from 'react-router-dom';
+import FrontendLayout from '../layout/FrontendLayout';
 
 //前台頁面
-import Home from "../views/front/home/Home";
-import Articles from "../views/front/Articles";
-import RarePetFinder from "../views/front/RarePetFinder";
-
+import Home from '../views/front/home/Home';
+import Articles from '../views/front/Articles';
+import RarePetFinder from '../views/front/RarePetFinder';
+import StoreDetail from '../views/front/StoreDetail';
 
 // auth
-import Login from "../views/auth/Login";
+import Login from '../views/auth/Login';
 // misc
-import NotFound from "../views/front/NotFound";
+import NotFound from '../views/front/NotFound';
 
 export const router = createHashRouter([
-    {
-        path: '/',
-        element: <FrontendLayout />,
-        children: [
-            {
-                index: true,
-                element: <Home />
-            },
-            {
-                path: 'articles',
-                element: <Articles />
-            },
-            {
-                path: 'rarepetfinder',
-                element: <RarePetFinder />
-            },
-            {
-                path: 'login',
-                element: <Login />
-            },
-            {
-                path: '*',
-                element: <NotFound />
-            },
-        ]
-    },
+  {
+    path: '/',
+    element: <FrontendLayout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'rarepetfinder',
+        element: <RarePetFinder />,
+      },
+      { path: 'StoreDetail/:storeId', element: <StoreDetail /> },
+      {
+        path: 'articles',
+        element: <Articles />,
+      },
+      {
+        path: 'login',
+        element: <Login />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
+      },
+    ],
+  },
 ]);
-
 
 // 之後確定進度來得及再放
 
