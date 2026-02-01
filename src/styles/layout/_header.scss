@@ -148,7 +148,8 @@
 // ===== UI Component: Nav Item =====
 .ui-nav-item {
   margin-left: 16px;
-  padding: 0px 16px;
+  // padding: 0px 16px;
+  padding: 0px;
   gap: 8px;
 
   @include respond(desktop) {
@@ -160,7 +161,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 8px;
+    // gap: 8px;
     border-radius: 0px;
     
     font-family: "Chiron GoRound TC", sans-serif;
@@ -203,7 +204,6 @@
       transform: translateX(-50%);
       border-radius: 8px;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
-      padding: 8px;
       min-width: 97px;
     }
   }

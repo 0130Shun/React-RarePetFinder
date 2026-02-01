@@ -1,13 +1,36 @@
-
 // 稀寵資訊 分頁
 // import '.../scss/main.scss'
 // import '../scss/pages/_articles.scss'
 
 export default function Articles() {
+  return (
+    <>
+      <section class='ui-section ui-section--light'>
+        <div
+          class='ui-subHero ui-subHero--warning'
+          data-watermark='Information'
+        >
+          <div class='ui-container'>
+            <div class='ui-subHero__information'>
+              <h2>小心假冒「動保處」的釣魚簡訊！</h2>
+              <p>
+                近日有賣家收到謊稱「寵物登記異常」的簡訊，要求點擊連結補件。這是詐騙！請直接刪除，勿輸入個資。
+              </p>
+            </div>
+          </div>
 
-    return (<>
-        <h1>稀寵資訊專欄列表</h1>
-    </>)
+          <div class='ui-subHero__breadcrumb ui-container'>
+            <nav class='ui-breadcrumb'>
+              <a href='#'>首頁</a>
+              <i data-feather='chevron-right'></i>
+              <span class='ui-breadcrumb__item is-current'>稀寵資訊</span>
+            </nav>
+          </div>
+        </div>
+      </section>
+      <h1>稀寵資訊專欄列表</h1>
+    </>
+  );
 }
 
 // { console.log('測試：console.log正常') }
@@ -111,8 +134,6 @@ export default function Articles() {
 //                 <button className="rp-filter-btn" data-filter="anti">防詐騙</button>
 //             </div>
 //         </div>
-
-
 
 //         {/* <!-- 卡片列表 Grid -->
 //                 <!-- data-type= anti-scam  event tips--> */}
@@ -336,4 +357,3 @@ export default function Articles() {
 //         </div>
 //     </div>
 // </div>
-
