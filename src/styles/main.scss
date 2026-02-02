@@ -11,6 +11,7 @@
 @use "./layout/layout";
 @use "./layout/hero";
 @use "./layout/header";
+@use "./layout/herosection";
 @use "./layout/hotspot";
 // @use './layout/footer';
 
@@ -19,6 +20,7 @@
 @use "./components/pagination";
 @use "./components/checkbox";
 @use "./components/dropdown-skin";
+@use "./components/searchbar";
 // @use './components/cards';
 
 // @use './pages/index';

@@ -1,0 +1,133 @@
+:root {
+  --primary-yellow: #fec631;
+  --primary-orange: #f59004;
+}
+a {
+  text-decoration: none;
+}
+
+/* ---------------- SearchBar 核心容器 ----------------- */
+.search-pill {
+  background-color: #fff;
+  border-radius: 16px; /* 手機板 */
+  /* overflow: visible;  */ /*確保下拉選單不被切掉*/
+  padding: 12px;
+}
+/* ---------- 下拉按鈕與文字區塊 ---------- */
+.search-pill .searchBarDropdown {
+  padding-top: 4px;
+}
+.search-pill .btn-dropdown {
+  background: transparent;
+  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 16px;
+}
+.searchBarDropdown .search-pill-label {
+  font-size: 14px;
+  color: #525252;
+}
+.searchBarDropdown .search-pill-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #262626;
+}
+/* -------------- 選單中的分隔黃線 -------------- */
+.searchBarDropdown:not(:last-child) {
+  position: relative;
+}
+.searchBarDropdown:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  transform: translateY(50%); /* 往下自身的50% */
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-yellow); /* 線的顏色 */
+  border-radius: 30px;
+}
+/* ---------- 下拉選單 icon ----------  */
+.btn-dropdown .feather {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+  margin-right: 0;
+}
+/* ---------- 下拉選單本體  ---------- */
+.search-pill .dropdown-menu {
+  max-width: 129px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 4px;
+  /* 置中對齊基準 */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px;
+}
+.search-pill .dropdown-item {
+  /* text-align: center; */
+  border-radius: 40px;
+}
+.search-pill .dropdown-item:hover,
+.search-pill .dropdown-item.active {
+  background-color: #c9e9f4;
+  color: #000;
+  font-weight: bold;
+}
+/* ---------- 立即搜搜按鈕 ---------- */
+.btn-search {
+  background-color: var(--primary-yellow);
+  width: 100%;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding-top: 14.5px;
+  padding-bottom: 14.5px;
+  margin-top: 16px;
+}
+/* ---------- 搜搜按鈕的icon ---------- */
+.btn-search .feather {
+  height: 24px;
+  width: 24px;
+  margin-left: 8px;
+  stroke-width: 2.5;
+}
+
+/* -------------------------------- */
+@media (min-width: 768px) {
+  .search-pill {
+    position: relative;
+    z-index: 3;
+    border-radius: 24px;
+    padding: 8px;
+    max-width: 656px;
+  }
+  .dropdown-select {
+    flex: 1;
+  }
+  /* -------------- 選單中的分隔黃線 -------------- */
+  .searchBarDropdown:not(:last-child)::after {
+    bottom: 0px;
+    transform: translateX(50%);
+    right: -12px;
+    width: 2px;
+    height: 100%;
+  }
+  /* ---------- 下拉選單本體 - 避免因外層 hero section 的 overflow:hidden 而被隱藏  ---------- */
+  .search-pill .dropdown-menu {
+    width: 145px;
+    min-width: 145px;
+    max-height: 192px; /* 嚴格對齊設計圖的高度 */
+    overflow-y: auto; /* 內容超過 192px 時自動出現捲軸 */
+    overflow-x: hidden; /* 防止左右晃動 */
+  }
+  /* ---------- 立即搜搜按鈕 ---------- */
+  .btn-search {
+    width: 145px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 16px;
+    margin-top: 0;
+  }
+}
