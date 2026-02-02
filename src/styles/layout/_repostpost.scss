@@ -1,0 +1,217 @@
+// 首頁投稿section
+
+@use '../helpers/variables' as *;
+
+/* breakpoints */
+$cta-lg: 1100px;
+$cta-xl: 1450px;
+
+/* 整個 section */
+.section-cta {
+    padding: 40px 15px;
+
+    &__list {
+        max-width: 375px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    /* 卡片（共用） */
+    &__card {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        padding: 80px 16px;
+        transition: transform .16s ease, box-shadow .16s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 黃底 */
+        &--alert {
+            background-color: #F590041A;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: url("../../assets/img/report-ill.png") no-repeat center;
+                background-size: 105%;
+                opacity: 0.35;
+                pointer-events: none;
+                transform: none;
+            }
+        }
+
+        /* 藍底 */
+        &--contribute {
+            background-color: #85BDDE1A;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: url("../../assets/img/post-ill.png") no-repeat center;
+                background-size: 110%;
+                opacity: 0.35;
+                pointer-events: none;
+                transform: none;
+            }
+        }
+    }
+
+    /* 內容區（兩張卡共用） */
+    &-alter__content,
+    &-contribute__content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    /* 文字（手機） */
+    &__title {
+        font-family: "Chiron GoRound TC", sans-serif;
+        font-size: 24px;
+        line-height: 1.2;
+        letter-spacing: 0.05rem;
+        font-weight: 700;
+    }
+
+    &__text {
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.02rem;
+        max-width: 320px;
+        text-align: center;
+    }
+
+    &__btn {
+        font-family: "Chiron GoRound TC", sans-serif;
+        min-width: 200px;
+        min-height: 53px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.02rem;
+        padding: 8px 48px;
+    }
+
+    /* =========================
+     >= 1100px
+     ========================= */
+    @media (min-width: $cta-lg) {
+
+        &__list {
+            max-width: 1650px;
+            flex-direction: row;
+            justify-content: center;
+            align-items: stretch;
+            gap: 32px;
+        }
+
+        &__card {
+            flex: 1 1 0;
+            min-height: 260px;
+            border-radius: 24px;
+            padding-top: 72px;
+            padding-bottom: 72px;
+
+            &--alert {
+                padding: 100px 5% 180px 15%;
+
+                &::before {
+                    background-position: right;
+                    background-size: 78%;
+                    opacity: 1;
+                    transform: translateX(-20px);
+                }
+            }
+
+            &--contribute {
+                padding: 100px 15% 180px 5%;
+
+                &::before {
+                    background-position: left;
+                    background-size: 75%;
+                    opacity: 1;
+                    transform: translateX(60px);
+                }
+            }
+        }
+
+        &-alter__content,
+        &-contribute__content {
+            max-width: 700px;
+            width: 100%;
+            margin: 0;
+            text-align: center;
+            gap: 20px;
+            transform: translateY(50px);
+        }
+
+        &__title {
+            font-size: 25px;
+            letter-spacing: 0.02rem;
+        }
+
+        &__text {
+            font-size: 13px;
+            line-height: 1.6;
+            max-width: 420px;
+        }
+
+        &__btn {
+            min-width: 180px;
+            min-height: 43px;
+            font-size: 15px;
+            padding: 10px 56px;
+        }
+    }
+
+    /* =========================
+     >= 1450px
+     ========================= */
+    @media (min-width: $cta-xl) {
+
+        &__card {
+
+            &--alert {
+                padding: 200px 8% 180px 18%;
+
+                &::before {
+                    background-size: 73%;
+                }
+            }
+
+            &--contribute {
+                padding: 200px 18% 180px 8%;
+
+                &::before {
+                    background-size: 70%;
+                }
+            }
+        }
+
+        &-alter__content,
+        &-contribute__content {
+            transform: translateY(0);
+        }
+
+        &__title {
+            font-size: 30px;
+        }
+
+        &__btn {
+            min-width: 230px;
+            min-height: 56px;
+            font-size: 17px;
+        }
+    }
+}
