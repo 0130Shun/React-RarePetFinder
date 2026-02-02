@@ -1,4 +1,14 @@
+@use "swiper/css";
+@use "swiper/css/pagination";
+@use "swiper/css/navigation";
 /* -- 熱門店家 -- */
+:root {
+  --primary-yellow: #fec631;
+  --primary-orange: #f59004;
+}
+a {
+  text-decoration: none;
+}
 /* 使用 class section-title 的顏色 */
 .section-title.primary-yellow::before {
   color: #fec631;

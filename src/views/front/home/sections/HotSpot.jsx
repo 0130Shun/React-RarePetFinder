@@ -56,7 +56,7 @@ const HotSpot = () => {
               <div className="icon-box mb-3 mb-md-4 mx-auto d-flex align-items-center justify-content-center">
                 <img
                   className="store-img"
-                  src="./image/hotel.png"
+                  src="/src/assets/img/hotel.png"
                   alt="店家圖片"
                 />
               </div>
@@ -77,7 +77,7 @@ const HotSpot = () => {
               <div className="icon-box mb-3 mb-md-4 mx-auto d-flex align-items-center justify-content-center">
                 <img
                   className="store-img"
-                  src="./image/clinic.png"
+                  src="/src/assets/img/clinic.png"
                   alt="店家圖片"
                 />
               </div>
@@ -98,7 +98,7 @@ const HotSpot = () => {
               <div className="icon-box mb-3 mb-md-4 mx-auto d-flex align-items-center justify-content-center">
                 <img
                   className="store-img"
-                  src="./image/Shop.png"
+                  src="/src/assets/img/Shop.png"
                   alt="店家圖片"
                 />
               </div>
@@ -119,7 +119,7 @@ const HotSpot = () => {
               <div className="icon-box mb-3 mb-md-4 mx-auto d-flex align-items-center justify-content-center">
                 <img
                   className="store-img"
-                  src="./image/clinic.png"
+                  src="/src/assets/img/clinic.png"
                   alt="店家圖片"
                 />
               </div>
@@ -140,7 +140,7 @@ const HotSpot = () => {
               <div className="icon-box mb-3 mb-md-4 mx-auto d-flex align-items-center justify-content-center">
                 <img
                   className="store-img"
-                  src="./image/hotel.png"
+                  src="/src/assets/img/hotel.png"
                   alt="店家圖片"
                 />
               </div>
