@@ -1,0 +1,213 @@
+@use '../helpers/variables' as *;
+
+
+
+
+/* 熱門分類 Section */
+.trending-section {
+    min-height: auto;
+    padding: 30px 0;
+    position: relative;
+
+    .container-slider-zone {
+        max-width: 375px;
+        margin: 0 auto;
+        padding: 0 0 20px 0;
+    }
+
+
+    /* Swiper */
+    .trending-swiper {
+        padding: 20px 0 50px 0;
+
+        /* 只限定在這個區塊內的 swiper-slide，避免影響其他區塊的 swiper */
+        .swiper-slide {
+            transition: opacity 0.3s ease;
+        }
+    }
+
+    /* Card */
+    .trending-card {
+        opacity: 1;
+        filter: none;
+        flex: 0 0 auto;
+        width: 164px;
+        height: 260px;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        transition: transform 0.18s ease, opacity 0.18s ease, filter 0.18s ease;
+
+        &__link {
+            display: block;
+            padding: 15px 0 40px 0;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 被 JS 加上 is-dim 的 → 變暗 */
+        &.is-dim {
+            opacity: 0.2;
+            filter: grayscale(20%);
+        }
+
+        /* active 狀態（Swiper 加的 class） */
+        &.swiper-slide-active {
+            transform: translateY(-2px);
+        }
+
+        /* 活動中的那一組以外 hover */
+        &:not(.swiper-slide-active):hover {
+            filter: grayscale(10%);
+        }
+
+        &:hover {
+            transform: translateY(-4px);
+            opacity: 1;
+        }
+
+        &:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        /* 圓框 */
+        &__circle {
+            width: 164px;
+            height: 164px;
+            border-radius: 50%;
+            border: 4px solid #fec631;
+            display: grid;
+            place-items: center;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            z-index: 3;
+        }
+
+        &__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 黃底版 */
+        &__plate {
+            width: 148px;
+            min-height: 160px;
+            border-radius: 16px;
+            background: #fec631;
+            margin: -60px auto 0;
+            padding: 75px 12px 8px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 文字 */
+        &__name {
+            font-family: "Chiron GoRound TC", sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            letter-spacing: 0.02em;
+        }
+
+        &__count {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.5;
+            letter-spacing: 0.02em;
+            opacity: 0.7;
+        }
+    }
+
+    /* Arrow（預設隱藏，桌機再顯示） */
+    .trending-nav {
+        display: none; // ✅ 手機沒有箭頭
+    }
+
+    /* 桌機版：>= 700px */
+    @media (min-width: 700px) {
+        min-height: 663px;
+        padding: 80px 0;
+
+        .container-slider-zone {
+            max-width: 100%;
+            padding: 0 0 20px 0;
+        }
+
+        .trending-title {
+            margin-bottom: 90px;
+
+            &-zh {
+                font-size: 48px;
+                letter-spacing: 0.125em;
+            }
+
+            &-en {
+                font-size: 128px;
+                top: 6px;
+                opacity: 0.2;
+            }
+        }
+
+        .trending-card {
+            width: 306px;
+            height: 359px;
+
+            &__circle {
+                width: 258px;
+                height: 258px;
+                border-width: 4px;
+            }
+
+            &__plate {
+                width: 186px;
+                height: 165px;
+                margin-top: -55px;
+                padding: 70px 16px 5px;
+                border-radius: 16px;
+            }
+
+            &__name {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            &__count {
+                font-size: 16px;
+            }
+        }
+
+        /* 桌機才出現箭頭 */
+        .trending-nav {
+            display: block;
+            position: absolute;
+            top: 75%;
+            width: 68px;
+            height: 68px;
+            border: 0;
+            background: transparent;
+            padding: 0;
+            z-index: 5;
+
+            &--prev {
+                left: clamp(100px, 3vw, 190px);
+            }
+
+            &--next {
+                right: clamp(100px, 3vw, 190px);
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+        }
+    }
+}
