@@ -4,7 +4,7 @@ import FrontendLayout from '../layout/FrontendLayout';
 //前台頁面
 import Home from '../views/front/home/Home';
 import Articles from '../views/front/Articles';
-import RarePetFinder from '../views/front/RarePetFinder';
+import FindStores from '../views/front/FindStores';
 import StoreDetail from '../views/front/StoreDetail';
 
 // auth
@@ -22,10 +22,13 @@ export const router = createHashRouter([
         element: <Home />,
       },
       {
-        path: 'rarepetfinder',
-        element: <RarePetFinder />,
+        path: 'findstores',
+        element: <FindStores />,
       },
-      { path: 'StoreDetail/:storeId', element: <StoreDetail /> },
+      {
+        path: 'storedetail/:storeId',
+        element: <StoreDetail />,
+      },
       {
         path: 'articles',
         element: <Articles />,

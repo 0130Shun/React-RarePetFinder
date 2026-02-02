@@ -1,51 +1,48 @@
 // Header.jsx
-// import React from 'react';
-import { useEffect } from 'react';
 // import { NavLink, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-// 如果使用 react-router，可改用 <Link> 取代 <a>
-import { Link } from 'react-router-dom'; // 可選
+import { Link } from 'react-router-dom';
 
-import feather from 'feather-icons'; //react-feather可能版本有問題，暫時不要用
+// import feather from 'feather-icons'; //react-feather可能版本有問題，暫時不要用
 
-// import logo from '@/src/assets/logo.png';
+// import logo from '@/src/assets/logo.png'; // 使用import引入圖片檔案，日後可以考慮做component包裝
 
 // Header routes config (React Router v6 友善寫法)
 const routes = [
   {
-    type: 'link',
-    label: '首頁',
-    to: '/',
-  },
-  {
     type: 'dropdown',
-    label: '稀寵資訊',
+    label: '搜尋頁',
     items: [
       {
         label: '找診所',
         to: {
-          pathname: '/rarepetfinder',
+          pathname: '/findstores',
           search: '?storeType=clinic',
         },
       },
       {
         label: '找商家',
         to: {
-          pathname: '/rarepetfinder',
+          pathname: '/findstores',
           search: '?storeType=shop',
         },
       },
       {
         label: '找旅館',
         to: {
-          pathname: '/rarepetfinder',
+          pathname: '/findstores',
           search: '?storeType=hotel',
         },
       },
     ],
   },
   {
-    type: 'link', // 暫時用一般連結，拆分後改成 type: 'dropdown',
+    type: 'link',
+    label: '稀寵資訊',
+    to: '/articles',
+  },
+  {
+    type: 'link', // 暫時用一般連結回首頁，拆分後改成 type: 'dropdown',
     label: '投稿 / 回報',
     to: '/',
     //未來拆分的寫法
@@ -65,7 +62,7 @@ const routes = [
     // ],
   },
   // ──────────────────
-  // 登入 / 會員中心（假頁面，hash 切區塊）
+  // 登入 / 註冊 & 會員中心（先連線到login頁面，hash 切區塊，日後在拆分功能）
   // ──────────────────
   {
     type: 'dropdown',
@@ -85,6 +82,7 @@ const routes = [
     type: 'link',
     label: '會員中心',
     to: '/login',
+    hash: '#membercenter',
   },
 ];
 // 用物件映射（當有多個特殊 icon+ route 時最好維護），使用時：
@@ -103,12 +101,6 @@ const routes = [
 // }
 
 export default function Header() {
-  useEffect(() => {
-    feather.replace();
-    //畫面渲染後初步載入_XXX
-    // get_XXX();
-  }, []);
-
   return (
     <header className='header ui-layout'>
       <nav className='navbar navbar-expand-lg bg-white'>
