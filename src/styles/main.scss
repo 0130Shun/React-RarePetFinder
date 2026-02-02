@@ -11,10 +11,14 @@
 @use "./layout/layout";
 @use "./layout/hero";
 @use "./layout/header";
+@use "./layout/articles";
 @use "./layout/herosection";
 @use "./layout/infosection";
 @use "./layout/hotspot";
 @use "./layout/storedetail";
+@use "./layout/trending";
+@use "./layout/scam";
+@use "./layout/repostpost";
 // @use './layout/footer';
 
 @use "./components/buttons";
