@@ -1,0 +1,163 @@
+/* -- 熱門店家 -- */
+/* 使用 class section-title 的顏色 */
+.section-title.primary-yellow::before {
+  color: #fec631;
+}
+
+.hotSpot .store-img {
+  width: 132px; /* 圖片通常可以比線條 icon 大一點，看你需求調整 */
+  height: auto; /* 高度自動，維持比例 */
+  object-fit: contain; /* 確保圖片完整顯示不變形 */
+}
+
+/* --- 熱門店家區塊 Swiper 設定 --- */
+.swiper {
+  background-color: var(--primary-yellow); /* 整個背景是黃的 */
+}
+/* 1. 卡片預設樣式 (針對旁邊沒選中的卡片) */
+.store-card {
+  /* 關鍵：背景透明，透出底下的黃色，看起來就像黃色遮罩 */
+  background-color: transparent;
+  background-color: #ffffff;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  /* 稍微透明一點，讓文字不跟背景打架 */
+  opacity: 0.2;
+  /* 動畫過渡效果 */
+  transition: all 0.3s ease;
+  padding: 16px 12px 24px 12px;
+  max-height: 261px;
+}
+.fav-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+}
+.store-content {
+  min-height: 104px;
+}
+.store-name {
+  font-weight: bold;
+  color: #262626;
+}
+.store-add {
+  font-size: 14px;
+  color: #777777;
+  margin: 0;
+}
+/* 3. 🔥 Active 狀態：當卡片被選中時 (變回實心) */
+.swiper-slide-active .store-card {
+  background-color: #fff; /* 變成純白背景 */
+  opacity: 1; /* 完全不透明 */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* 加上浮起來的陰影 */
+}
+.swiper-slide-active .fav-icon {
+  fill: currentColor;
+  color: var(--primary-orange);
+}
+.swiper-slide-active span {
+  color: var(--primary-orange);
+}
+/* 4. 分頁點點顏色修正 */
+.swiper-pagination-bullet-active {
+  background-color: #333 !important;
+}
+@media (min-width: 768px) {
+  .hotSpot {
+    background-color: var(--primary-yellow);
+    border-radius: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+    position: relative;
+  }
+  .swiper {
+    background-color: transparent;
+  }
+  .hotSpot-content {
+    max-width: 1296px;
+    margin: 0 auto;
+  }
+  .store-card {
+    opacity: 1;
+    padding-bottom: 48px;
+    padding-top: 36px;
+    border-radius: 16px;
+  }
+  .fav-icon {
+    fill: currentColor;
+    color: var(--primary-orange);
+  }
+  .store-card {
+    max-height: 383px;
+  }
+  .store-card span {
+    color: var(--primary-orange);
+  }
+  .hotSpot .store-img {
+    width: 274px; /* 圖片通常可以比線條 icon 大一點，看你需求調整 */
+  }
+  .store-name {
+    font-size: 20px;
+  }
+  .store-add {
+    font-size: 16px;
+  }
+
+  .hotSpot .swiper-button-prev,
+  .hotSpot .swiper-button-next {
+    /* -- 形狀與大小 -- */
+    position: absolute;
+    width: 56px; /* 設定固定寬度 */
+    height: 56px; /* 設定固定高度 */
+    border-radius: 50%; /* 變成正圓形 */
+    background-color: #ffffff; /* 白色背景 */
+    /* -- 讓裡面的 Feather Icon 置中 -- */
+    align-items: center;
+    justify-content: center;
+    /* -- 視覺美化 -- */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 加一點陰影讓它浮起來 */
+    color: #333333; /* 箭頭顏色 (深灰/黑) */
+    z-index: 10; /* 確保浮在最上層 */
+    /* -- 移除預設的邊框與背景透明 -- */
+    margin: 0;
+    border: none;
+    /* -- 垂直置中 (Swiper 預設已經有 top: 50%，若沒有則加上) -- */
+    top: 55%;
+    /* transform: translateY(-50%); */
+  }
+  /* 3. 定位調整：把按鈕拉到卡片外側 */
+  /* 根據你的容器寬度，用負數把它拉出去 */
+  .hotSpot .swiper-button-prev {
+    left: 10px;
+  }
+  .hotSpot .swiper-button-next {
+    right: 10px;
+  }
+  /* 4. (選用) Hover 效果：滑鼠移上去變色 */
+  .hotSpot .swiper-button-prev:hover,
+  .hotSpot .swiper-button-next:hover {
+    border: 2px solid var(--primary-yellow);
+    cursor: pointer;
+  }
+  .hotSpot .swiper-button-prev .feather,
+  .hotSpot .swiper-button-next .feather {
+    fill: none;
+    width: 36px;
+    height: 36px;
+    stroke-width: 1.5;
+  }
+}
+@media (min-width: 1600px) {
+  .hotSpot .swiper-button-prev,
+  .hotSpot .swiper-button-next {
+    top: 55%;
+  }
+  .hotSpot .swiper-button-prev {
+    /* left: 230px; */
+    left: calc(50% - 648px - 80px);
+  }
+  .hotSpot .swiper-button-next {
+    /* right: 230px; */
+    right: calc(50% - 648px - 80px);
+  }
+}
