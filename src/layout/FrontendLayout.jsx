@@ -15,7 +15,6 @@ export default function FrontendLayout() {
     <>
       <Header />
       <main class="container ui-layout">
-        {/* 請問這個 container 是可以拿掉的嗎? */}
         <Outlet />
       </main>
       <hr />
