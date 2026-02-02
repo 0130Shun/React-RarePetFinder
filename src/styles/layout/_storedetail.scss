@@ -1,0 +1,242 @@
+:root {
+  --primary-yellow: #fec631;
+  --primary-orange: #f59004;
+  --Primary-blue-500: #85bdde;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  li {
+    letter-spacing: 0.02em;
+  }
+}
+
+.store-info-section {
+  padding: 40px 12px 40px 12px;
+  border-radius: 8px;
+}
+.store-profile-box {
+  background-color: var(--primary-yellow);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: inherit;
+}
+.store-detail-img {
+  width: 100%;
+  height: 240px;
+  border-radius: inherit;
+  background-color: #ffffff;
+}
+.store-detail-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* contain = 保持比例完整顯示 (適合插圖/Logo) */
+  /* cover = 填滿並裁切多餘部分 (適合滿版照片) */
+  object-position: center;
+  border-radius: inherit;
+}
+.store-link {
+  padding: 36px 77.5px 36px 77.5px;
+  background-color: #ffffff;
+  border-radius: inherit;
+  position: relative;
+}
+.store-link a {
+  font-weight: bold;
+  color: #0a0a0a;
+  font-size: 16px;
+  width: 100%;
+  display: block;
+}
+.store-link-icon {
+  color: var(--primary-yellow);
+  position: absolute;
+  height: 64px;
+  width: 64px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3; /* 關鍵：透明度，讓它變淡 */
+  z-index: 0; /* 放在最底層 */
+}
+@media (min-width: 768px) {
+  .store-info-section {
+    max-width: 1296px;
+    align-items: flex-start;
+    border-radius: 16px;
+    flex-wrap: nowrap;
+  }
+  .store-profile-box {
+    max-width: 307px;
+    padding: 16px;
+    width: auto;
+    height: auto;
+    gap: 16px;
+  }
+  .store-detail-img {
+    height: 275px;
+  }
+  .store-link {
+    padding: 0;
+    text-align: center;
+  }
+  .store-link a {
+    padding: 36px 0;
+  }
+}
+/* 店家公開資訊 */
+.store-info-box {
+  background-color: var(--Primary-blue-500);
+  padding: 8px;
+  border-radius: inherit;
+}
+.store-info-content {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: inherit;
+}
+.store-info-content h4 {
+  font-weight: bold;
+  font-size: 20px;
+  color: #262626;
+  margin-bottom: 16px;
+}
+@media (min-width: 768px) {
+  .store-info-box {
+    padding: 16px;
+  }
+  .store-info-content {
+    padding: 48px;
+  }
+  .store-info-content ul {
+    padding: 0 0 0 16px;
+  }
+}
+/* ----店家地址電話--- */
+.store-contact-box {
+  background-color: #f0f0f0;
+  border-radius: inherit;
+  padding: 8px;
+  gap: 8px;
+}
+.store-detail-add {
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: inherit;
+}
+.add-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--Primary-blue-500);
+}
+.add-icon .feather {
+  width: 100%;
+  height: 100%;
+  stroke-width: 2.5;
+}
+.add-text {
+  color: #262626;
+}
+.add-text h4 {
+  font-weight: bold;
+  font-size: 20px;
+}
+.add-text p {
+  font-size: 16px;
+  margin: 0;
+}
+.store-tel {
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: inherit;
+}
+.tel-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--Primary-blue-500);
+}
+.tel-icon .feather {
+  width: 100%;
+  height: 100%;
+  stroke-width: 2.5;
+}
+.tel-text h4 {
+  font-weight: bold;
+  font-size: 20px;
+}
+.tel-text p {
+  font-size: 16px;
+  margin: 0;
+}
+.share-btn {
+  padding: 14.5px 51px;
+  background-color: var(--Primary-blue-500);
+  margin: 0 auto;
+  border: 0;
+  border-radius: inherit;
+  font-weight: bold;
+}
+.info-disclaimer {
+  color: #525252;
+  text-align: center;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .store-contact-box {
+    padding: 24px;
+    gap: 24px;
+  }
+  .store-add {
+    padding: 16px 24px 16px 24px;
+  }
+  .store-tel {
+    padding: 16px 24px 16px 24px;
+  }
+  .info-disclaimer {
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+}
+/* --- 相關評價 --- */
+.reviewsContent {
+  background-color: #f0f0f0;
+}
+.section-title.black-400::before {
+  color: #a3a3a3;
+}
+.reviewsContentCard {
+  background-color: #fff;
+  border-radius: 16px;
+  position: relative;
+  padding: 24px;
+}
+.userIcon {
+  color: #2f6382;
+  border-radius: 80px;
+  background-color: #f0f0f0;
+  padding: 8px;
+  height: 40px;
+  width: 40px;
+}
+.card-text.black600 {
+  color: #525252;
+}
+.moreInfoBtn.black-400 {
+  background-color: #a3a3a3;
+  color: #ffffff;
+}
+@media (min-width: 768px) {
+  .infoSection.black-100 {
+    background-color: #f0f0f0;
+  }
+  .reviewsContentCard {
+    height: 200px;
+  }
+}
