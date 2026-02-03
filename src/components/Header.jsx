@@ -1,13 +1,9 @@
 // Header.jsx
 // import { NavLink, useNavigate } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import { Menu, X } from 'react-feather';
 
-// import feather from 'feather-icons'; //react-feather可能版本有問題，暫時不要用
-
-// import logo from '@/src/assets/logo.png'; // 使用import引入圖片檔案，日後可以考慮做component包裝
-
-// Header routes config (React Router v6 友善寫法)
 const routes = [
   {
     type: 'dropdown',
@@ -45,7 +41,7 @@ const routes = [
     type: 'link', // 暫時用一般連結回首頁，拆分後改成 type: 'dropdown',
     label: '投稿 / 回報',
     to: '/',
-    //未來拆分的寫法
+    //未來拆分的寫法+google form連結
     // items: [
     //   {
     //     label: '投稿稀寵資訊',
@@ -101,6 +97,34 @@ const routes = [
 // }
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef(null);
+
+  // 處理 Body Class 的邏輯（這段不醜了，且有清理機制）
+  useEffect(() => {
+    const navElement = navRef.current;
+    if (!navElement) return;
+
+    // 監聽 Bootstrap 的事件來同步 React 狀態
+    const handleShow = () => {
+      setIsOpen(true);
+      document.body.classList.add('is-nav-open');
+    };
+    const handleHide = () => {
+      setIsOpen(false);
+      document.body.classList.remove('is-nav-open');
+    };
+
+    navElement.addEventListener('show.bs.collapse', handleShow);
+    navElement.addEventListener('hidden.bs.collapse', handleHide);
+
+    return () => {
+      navElement.removeEventListener('show.bs.collapse', handleShow);
+      navElement.removeEventListener('hidden.bs.collapse', handleHide);
+      document.body.classList.remove('is-nav-open');
+    };
+  }, []);
+
   return (
     <header className='header ui-layout'>
       <nav className='navbar navbar-expand-lg bg-white'>
@@ -116,89 +140,22 @@ export default function Header() {
 
           {/* 漢堡按鈕 */}
           <button
-            className='navbar-toggler'
+            className={`navbar-toggler ${isOpen ? '' : 'collapsed'}`}
             type='button'
             data-bs-toggle='collapse'
             data-bs-target='#mainNav'
             aria-controls='mainNav'
-            aria-expanded='false'
-            aria-label='Toggle navigation'
+            aria-expanded={isOpen}
           >
-            <i data-feather='align-justify' className='hamburger' />
-            <i data-feather='x' className='close-icon' />
+            {isOpen ? (
+              <X className='close-icon' size={24} />
+            ) : (
+              <Menu className='hamburger' size={24} />
+            )}
           </button>
 
           {/* 導覽內容 */}
-          <div className='collapse navbar-collapse' id='mainNav'>
-            {/* <ul className='navbar-nav ui-nav ms-auto'>
-              <li className='nav-item dropdown ui-nav-item'>
-                <a
-                  className='nav-link dropdown-toggle'
-                  href='#'
-                  role='button'
-                  data-bs-toggle='dropdown'
-                  aria-expanded='false'
-                >
-                  搜尋頁
-                </a>
-                <ul className='dropdown-menu'>
-                  <li>
-                    <a className='dropdown-item' href='/'>
-                      找診所
-                    </a>
-                  </li>
-                  <li>
-                    <a className='dropdown-item' href='/'>
-                      找旅館
-                    </a>
-                  </li>
-                  <li>
-                    <a className='dropdown-item' href='/'>
-                      找賣家
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className='nav-item ui-nav-item'>
-                <a className='nav-link' href='/'>
-                  稀寵資訊
-                </a>
-              </li>
-              <li className='nav-item ui-nav-item'>
-                <a className='nav-link' href='/'>
-                  投稿/回報
-                </a>
-              </li>
-              <li className='nav-item dropdown ui-nav-item'>
-                <a
-                  className='nav-link dropdown-toggle'
-                  href='#'
-                  role='button'
-                  data-bs-toggle='dropdown'
-                  aria-expanded='false'
-                >
-                  登入/註冊
-                </a>
-                <ul className='dropdown-menu'>
-                  <li>
-                    <a className='dropdown-item' href='/'>
-                      登入會員
-                    </a>
-                  </li>
-                  <li>
-                    <a className='dropdown-item' href='/'>
-                      註冊會員
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className='nav-item ui-nav-item'>
-                <a className='nav-link' href='/'>
-                  <i data-feather='user' className='me-1' />
-                  會員中心
-                </a>
-              </li>
-            </ul> */}
+          <div className='collapse navbar-collapse' id='mainNav' ref={navRef}>
             <ul className='navbar-nav ms-auto'>
               {routes.map(route => {
                 // 一般連結 || 下拉選單
@@ -234,14 +191,6 @@ export default function Header() {
                       >
                         {route.label}
                       </a>
-                      {/* <button
-                        className='nav-link dropdown-toggle'
-                        data-bs-toggle='dropdown'
-                        type='button'
-                      >
-                        {route.label}
-                      </button> */}
-
                       <ul className='dropdown-menu'>
                         {route.items.map(item => (
                           <li key={item.label}>

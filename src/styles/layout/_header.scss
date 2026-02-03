@@ -19,9 +19,11 @@
   .navbar-nav {
     border-radius: 0 0 16px 16px;
     gap: 8px;
+    padding-bottom: 24px;
 
     @include respond(desktop) {
       min-height: 32px;
+      padding-bottom: 0px;
     }
   }
 
@@ -48,29 +50,17 @@
     }
   }
 
-  .navbar-toggler{ 
+  .navbar-toggler { 
     position: relative;
-    max-width: 40px;
-    max-height: 40px;
+    width: 40px;   // 建議給固定寬高，避免切換圖標時按鈕抖動
+    height: 40px;
     margin-right: 16px;
     padding: 8px;
-    
-    .hamburger {  // hamburger 預設顯示
-      display: inline-block !important;
-    }
-    .close-icon { // 強制初始隱藏 close-icon
-      display: none !important;
-    }
+    display: flex;       // 讓圖標置中
+    align-items: center;
+    justify-content: center;
 
-      // 當 navbar 展開時（非 collapsed 狀態）
-    &:not(.collapsed) {
-      .hamburger {
-        display: none !important;
-      }
-      .close-icon {
-        display: inline-block !important;
-      }
-    }
+    // 這裡不需要再寫 .hamburger 或 .close-icon 的 display 控制了
 
     @include respond(desktop) {
       display: none;
