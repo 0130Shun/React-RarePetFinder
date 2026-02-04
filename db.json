@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "userId": 1,
+      "id": 1,
       "email": "[test@mail.com](mailto:test@mail.com)",
       "password": "123456",
       "userName": "測試使用者",
@@ -11,11 +11,13 @@
   ],
   "stores": [
     {
-      "storeId": 1,
+      "id": 1,
       "storeName": "柯爾鴨精品休閒館",
       "type": ["診所", "賣家"],
+      "typeText": "診所 賣家",
       "area": "台中",
       "petTypes": ["柯爾鴨", "鸚鵡"],
+      "petTypesText": "柯爾鴨 鸚鵡",
       "description": "溫馨、專業的寵物照護空間的主店",
       "phone": "04-22223333",
       "openTime": {
@@ -24,17 +26,34 @@
       "coverImage": "/images/stores/store1.jpg"
     },
     {
-      "storeId": 2,
+      "id": 2,
       "storeName": "柯爾鴨精品休閒館-分店2",
       "type": ["診所", "賣家"],
+      "typeText": "診所 賣家",
       "area": "台中",
       "petTypes": ["柯爾鴨", "鸚鵡"],
+      "petTypesText": "柯爾鴨 鸚鵡",
       "description": "溫馨、專業的寵物照護空間的休閒館-分店2",
       "phone": "04-22892533",
       "openTime": {
         "mon": "09:00-19:00"
       },
       "coverImage": "/images/stores/store2.jpg"
+    },
+    {
+      "id": 3,
+      "storeName": "柯爾鴨精品休閒館-嘉義分店&寵物旅館",
+      "type": ["賣家", "旅館"],
+      "typeText": "賣家 旅館",
+      "area": "嘉義",
+      "petTypes": ["柯爾鴨", "鸚鵡"],
+      "petTypesText": "柯爾鴨 鸚鵡",
+      "description": "溫馨、專業的寵物照護空間的休閒館-嘉義分店&寵物旅館",
+      "phone": "05-2282533",
+      "openTime": {
+        "mon": "09:00-19:00"
+      },
+      "coverImage": "/images/stores/store3.jpg"
     }
   ],
   "favorites": [
@@ -47,7 +66,7 @@
   ],
   "articles": [
     {
-      "articleId": 1,
+      "id": 1,
       "title": "刺蝟能不能喝牛奶？10 種錯誤餵食",
       "category": "飼養知識",
       "excerpt": "刺蝟腸胃較敏感，這些食物千萬別碰…",
@@ -60,7 +79,7 @@
   ],
   "scamAlerts": [
     {
-      "scamAlertId": 1,
+      "id": 1,
       "title": "小心假冒『動保處』的釣魚簡訊！",
       "excerpt": "近期出現假借政府名義的詐騙訊息，請勿點擊連結。",
       "content": "詳細詐騙內容說明…",
