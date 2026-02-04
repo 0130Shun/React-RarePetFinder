@@ -1,11 +1,10 @@
 //主控layout 放header、footer、main
 
-import { Outlet, NavLink } from "react-router-dom";
-import { useEffect } from "react";
-import Header from "../components/Header"; // 可選
-import Footer from "../components/Footer"
-import feather from "feather-icons"; //react-feather可能版本有問題，暫時不要用
-
+import { Outlet, NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import Header from '../components/Header'; // 可選
+import Footer from '../components/Footer';
+import feather from 'feather-icons'; //react-feather 等之後整合後啟用，feather-icons + feather.replace();暫時不關閉
 
 export default function FrontendLayout() {
   useEffect(() => {
@@ -16,7 +15,7 @@ export default function FrontendLayout() {
   return (
     <>
       <Header />
-      <main class="container ui-layout">
+      <main className="container ui-layout">
         <Outlet />
       </main>
       {/* <hr /> */}
