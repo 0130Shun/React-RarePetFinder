@@ -2,7 +2,7 @@
 // import { NavLink, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X } from 'react-feather';
+import { User, Menu, X } from 'react-feather';
 
 const routes = [
   {
@@ -13,21 +13,21 @@ const routes = [
         label: '找診所',
         to: {
           pathname: '/findstores',
-          search: '?storeType=clinic',
-        },
-      },
-      {
-        label: '找商家',
-        to: {
-          pathname: '/findstores',
-          search: '?storeType=shop',
+          search: '?type=診所',
         },
       },
       {
         label: '找旅館',
         to: {
           pathname: '/findstores',
-          search: '?storeType=hotel',
+          search: '?type=旅館',
+        },
+      },
+      {
+        label: '找賣家',
+        to: {
+          pathname: '/findstores',
+          search: '?type=賣家',
         },
       },
     ],
@@ -126,46 +126,47 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='header ui-layout'>
-      <nav className='navbar navbar-expand-lg bg-white'>
-        <div className='container ui-container d-flex align-items-center'>
+    <header className="header ui-layout">
+      <nav className="navbar navbar-expand-lg bg-white">
+        <div className="container ui-container d-flex align-items-center">
           {/* 品牌區 */}
-          <a className='navbar-brand' href='/'>
+          <a className="navbar-brand" href="/">
             <img
-              src='/src/assets/logo.png'
-              alt='稀寵搜尋.logo'
-              className='me-2'
+              src="/src/assets/logo.png"
+              alt="稀寵搜尋.logo"
+              className="me-2"
             />
           </a>
 
           {/* 漢堡按鈕 */}
           <button
             className={`navbar-toggler ${isOpen ? '' : 'collapsed'}`}
-            type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#mainNav'
-            aria-controls='mainNav'
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-controls="mainNav"
             aria-expanded={isOpen}
           >
             {isOpen ? (
-              <X className='close-icon' size={24} />
+              <X className="close-icon" size={24} />
             ) : (
-              <Menu className='hamburger' size={24} />
+              <Menu className="hamburger" size={24} />
             )}
           </button>
 
           {/* 導覽內容 */}
-          <div className='collapse navbar-collapse' id='mainNav' ref={navRef}>
-            <ul className='navbar-nav ms-auto'>
-              {routes.map(route => {
+          <div className="collapse navbar-collapse" id="mainNav" ref={navRef}>
+            <ul className="navbar-nav ms-auto">
+              {routes.map((route) => {
                 // 一般連結 || 下拉選單
                 if (route.type === 'link') {
                   return (
-                    <li className='nav-item ui-nav-item' key={route.label}>
-                      <NavLink className='nav-link' to={route.to}>
+                    <li className="nav-item ui-nav-item" key={route.label}>
+                      <NavLink className="nav-link" to={route.to}>
                         {route.label === '會員中心' ? (
                           <>
-                            <i data-feather='user' className='me-1' />
+                            <User className="me-2" size={24}></User>
+                            {/* <i data-feather="user" className="me-1" /> */}
                             {route.label}
                           </>
                         ) : (
@@ -179,32 +180,32 @@ export default function Header() {
                 if (route.type === 'dropdown') {
                   return (
                     <li
-                      className='nav-item dropdown ui-nav-item'
+                      className="nav-item dropdown ui-nav-item"
                       key={route.label}
                     >
                       <a
-                        className='nav-link dropdown-toggle'
-                        href='#'
-                        role='button'
-                        data-bs-toggle='dropdown'
-                        aria-expanded='false'
+                        className="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
                       >
                         {route.label}
                       </a>
-                      <ul className='dropdown-menu'>
-                        {route.items.map(item => (
+                      <ul className="dropdown-menu">
+                        {route.items.map((item) => (
                           <li key={item.label}>
                             {item.external ? (
                               <a
-                                className='dropdown-item'
+                                className="dropdown-item"
                                 href={item.href}
-                                target='_blank'
-                                rel='noopener noreferrer'
+                                target="_blank"
+                                rel="noopener noreferrer"
                               >
                                 {item.label}
                               </a>
                             ) : (
-                              <Link className='dropdown-item' to={item.to}>
+                              <Link className="dropdown-item" to={item.to}>
                                 {item.label}
                               </Link>
                             )}
@@ -221,7 +222,7 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <div className='nav-backdrop' />
+      <div className="nav-backdrop" />
     </header>
   );
 }
