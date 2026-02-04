@@ -57,7 +57,9 @@ export const storeService = {
   //   "typeText": "診所 賣家",
   //   ...
   // }q: type ? type : keyword || undefined,
-  // 但這屬於「資料端作弊」，維護起來會比較麻煩。=>決定用前端過濾，getStoresByQuery 可以暫時不用，api 可以簡化只用 getAllStores 載全部
+  // 但這屬於「資料端作弊」，維護起來會比較麻煩。=>
+
+  // 決定用前端過濾，getStoresByQuery 可以暫時不用getStoresByQueryapi，只用 getAllStores 載全部後分類
   async getStoresByQuery({
     page = 1,
     limit = 9,
