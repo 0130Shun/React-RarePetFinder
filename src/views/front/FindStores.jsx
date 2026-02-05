@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-
-import { storeService } from "../../api"; // 稀寵搜搜專題的api入口
+import { storeService } from '../../api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
-import BannerForFindStores from "../../components/BannerForFindStores";
+import BannerForFindStores from '../../components/BannerForFindStores';
 
 //每頁顯示 9 筆店家
 const PAGE_SIZE = 9;
@@ -14,20 +13,20 @@ const PAGE_SIZE = 9;
 
 //把 URL 的 "診所,賣家" 這種字串 → 轉成 ["診所","賣家"]
 function splitCSV(value) {
-  return (value || "")
-    .split(",")
+  return (value || '')
+    .split(',')
     .map((s) => s.trim())
     .filter(Boolean);
 }
 //把 URL 參數讀出來，轉成 filters 物件（含 page）
 //回傳{ area, query, storeType, petType, page }
 function parseFilters(searchParams) {
-  const area = searchParams.get("area") || "";
-  const query = searchParams.get("query") || "";
-  const storeType = splitCSV(searchParams.get("storeType"));
-  const petType = splitCSV(searchParams.get("petType"));
+  const area = searchParams.get('area') || '';
+  const query = searchParams.get('query') || '';
+  const storeType = splitCSV(searchParams.get('storeType'));
+  const petType = splitCSV(searchParams.get('petType'));
 
-  const pageRaw = parseInt(searchParams.get("page"), 10);
+  const pageRaw = parseInt(searchParams.get('page'), 10);
   const page = Number.isNaN(pageRaw) || pageRaw < 1 ? 1 : pageRaw;
 
   return { area, query, storeType, petType, page };
@@ -37,36 +36,36 @@ function parseFilters(searchParams) {
 function buildSearchParams(filters) {
   const params = new URLSearchParams();
 
-  if (filters.area) params.set("area", filters.area);
+  if (filters.area) params.set('area', filters.area);
 
-  const query = (filters.query || "").trim();
-  if (query) params.set("query", query);
+  const query = (filters.query || '').trim();
+  if (query) params.set('query', query);
 
   const storeType = Array.isArray(filters.storeType) ? filters.storeType : [];
-  if (storeType.length > 0) params.set("storeType", storeType.join(","));
+  if (storeType.length > 0) params.set('storeType', storeType.join(','));
 
   const petType = Array.isArray(filters.petType) ? filters.petType : [];
-  if (petType.length > 0) params.set("petType", petType.join(","));
+  if (petType.length > 0) params.set('petType', petType.join(','));
 
   const page = Number(filters.page) || 1;
-  if (page > 1) params.set("page", String(page));
+  if (page > 1) params.set('page', String(page));
 
   return params;
 }
-
 
 // ##  篩選工具：交集判斷 + 關鍵字比對
 
 //判斷「店家的某個欄位陣列」和「使用者選的條件陣列」有沒有交集
 function hasIntersection(storeValues, selectedValues) {
-  if (!Array.isArray(selectedValues) || selectedValues.length === 0) return true;
+  if (!Array.isArray(selectedValues) || selectedValues.length === 0)
+    return true;
   if (!Array.isArray(storeValues) || storeValues.length === 0) return false;
   return selectedValues.some((v) => storeValues.includes(v));
 }
 
 // 關鍵字搜尋 query 比對欄位：name/description/area/type/petTypes 都比對
 function matchQuery(store, query) {
-  const keyword = (query || "").trim().toLowerCase();
+  const keyword = (query || '').trim().toLowerCase();
   if (!keyword) return true;
 
   const haystack = [
@@ -77,19 +76,19 @@ function matchQuery(store, query) {
     ...(Array.isArray(store.petTypes) ? store.petTypes : []),
   ]
     .filter(Boolean)
-    .join(" ")
+    .join(' ')
     .toLowerCase();
 
   return haystack.includes(keyword);
 }
 
 export default function FindStores() {
-  const [searchParams, setSearchParams] = useSearchParams();  //更新網址用(query params)
+  const [searchParams, setSearchParams] = useSearchParams(); //更新網址用(query params)
 
   // 已套用到結果的條件
   const [filters, setFilters] = useState({
-    area: "",
-    query: "",
+    area: '',
+    query: '',
     storeType: [],
     petType: [],
     page: 1,
@@ -97,8 +96,8 @@ export default function FindStores() {
 
   // 勾勾選選、打字時，先存在這裡，不影響結果→ 按「搜尋」才把 draft 寫入 URL
   const [draft, setDraft] = useState({
-    area: "",
-    query: "",
+    area: '',
+    query: '',
     storeType: [],
     petType: [],
   });
@@ -107,18 +106,29 @@ export default function FindStores() {
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
   const [totalPages, setTotalPages] = useState(1); //用篩選後的總筆數 / PAGE_SIZE 算出來
 
-  //介面狀態 
+  //介面狀態
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   //select/checkbox 會用到的選項
   const AREA_OPTIONS = useMemo(
-    () => ["", "新北", "台北", "桃園", "高雄", "台中", "台南", "嘉義", "新竹", "屏東"],
+    () => [
+      '',
+      '新北',
+      '台北',
+      '桃園',
+      '高雄',
+      '台中',
+      '台南',
+      '嘉義',
+      '新竹',
+      '屏東',
+    ],
     []
   );
-  const STORE_TYPE_OPTIONS = useMemo(() => ["診所", "旅館", "賣家"], []);
+  const STORE_TYPE_OPTIONS = useMemo(() => ['診所', '旅館', '賣家'], []);
   const PET_TYPE_OPTIONS = useMemo(
-    () => ["柯爾鴨", "鸚鵡", "倉鼠", "烏龜", "守宮", "刺蝟"],
+    () => ['柯爾鴨', '鸚鵡', '倉鼠', '烏龜', '守宮', '刺蝟'],
     []
   );
 
@@ -135,7 +145,9 @@ export default function FindStores() {
       } catch (err) {
         console.error(err);
         if (!mounted) return;
-        setError("載入店家資料失敗，請確認 json-server 是否已啟動 (localhost:3001)");
+        setError(
+          '載入店家資料失敗，請確認 json-server 是否已啟動 (localhost:3001)'
+        );
         setAllStores([]);
       } finally {
         if (mounted) setIsLoading(false);
@@ -166,18 +178,26 @@ export default function FindStores() {
     // 篩選流程
     // 地區
     const areaFiltered =
-      nextFilters.area === ""
+      nextFilters.area === ''
         ? allStores
         : allStores.filter((s) => s.area === nextFilters.area);
     // 關鍵字
-    const queryFiltered = areaFiltered.filter((s) => matchQuery(s, nextFilters.query));
+    const queryFiltered = areaFiltered.filter((s) =>
+      matchQuery(s, nextFilters.query)
+    );
     // 店家
     const storeTypeFiltered = queryFiltered.filter((s) =>
-      hasIntersection(Array.isArray(s.type) ? s.type : [], nextFilters.storeType)
+      hasIntersection(
+        Array.isArray(s.type) ? s.type : [],
+        nextFilters.storeType
+      )
     );
     //寵物
     const filtered = storeTypeFiltered.filter((s) =>
-      hasIntersection(Array.isArray(s.petTypes) ? s.petTypes : [], nextFilters.petType)
+      hasIntersection(
+        Array.isArray(s.petTypes) ? s.petTypes : [],
+        nextFilters.petType
+      )
     );
 
     // 分頁
@@ -195,8 +215,7 @@ export default function FindStores() {
     setItems(filtered.slice(start, start + PAGE_SIZE));
   }, [searchParams, allStores, setSearchParams]);
 
-
-  // ## handlers：使用者操作但不立刻影響結果 
+  // ## handlers：使用者操作但不立刻影響結果
   //  checkbox 多選切換
   const toggleDraftMulti = (key, value) => {
     setDraft((prev) => {
@@ -209,11 +228,11 @@ export default function FindStores() {
   };
   // 只清空關鍵字 input
   const onResetQueryOnly = () => {
-    setDraft((prev) => ({ ...prev, query: "" }));
+    setDraft((prev) => ({ ...prev, query: '' }));
   };
   // 按下搜尋才生效
   const onSubmitSearch = () => {
-  // 按搜尋才寫進 URL，並回到第 1 頁
+    // 按搜尋才寫進 URL，並回到第 1 頁
     const next = { ...draft, page: 1 };
     setSearchParams(buildSearchParams(next));
   };
@@ -223,17 +242,17 @@ export default function FindStores() {
     setSearchParams(buildSearchParams(next));
   };
 
-//載入時和載入失敗時會顯示的畫面，之後切版的東西進來可以考慮轉成元件
+  //載入時和載入失敗時會顯示的畫面，之後切版的東西進來可以考慮轉成元件
   if (isLoading) return <p>載入中...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
     <div>
-     <BannerForFindStores/>
+      <BannerForFindStores />
       <br />
       <h1>店家檢索（按搜尋才更新）</h1>
 
-      <div style={{ margin: "16px 0", display: "grid", gap: 12 }}>
+      <div style={{ margin: '16px 0', display: 'grid', gap: 12 }}>
         <div>
           <label style={{ marginRight: 8 }}>縣市：</label>
           <select
@@ -241,8 +260,8 @@ export default function FindStores() {
             onChange={(e) => setDraft((p) => ({ ...p, area: e.target.value }))}
           >
             {AREA_OPTIONS.map((a) => (
-              <option key={a || "all"} value={a}>
-                {a === "" ? "全部縣市" : a}
+              <option key={a || 'all'} value={a}>
+                {a === '' ? '全部縣市' : a}
               </option>
             ))}
           </select>
@@ -255,20 +274,29 @@ export default function FindStores() {
             onChange={(e) => setDraft((p) => ({ ...p, query: e.target.value }))}
             placeholder="例如：柯爾鴨 / 旅館 / 淡水"
           />
-          <button type="button" onClick={onResetQueryOnly} style={{ marginLeft: 8 }}>
+          <button
+            type="button"
+            onClick={onResetQueryOnly}
+            style={{ marginLeft: 8 }}
+          >
             清空關鍵字
           </button>
         </div>
 
         <div>
-          <div style={{ fontWeight: 600, marginBottom: 6 }}>店家種類（多選）</div>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ fontWeight: 600, marginBottom: 6 }}>
+            店家種類（多選）
+          </div>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             {STORE_TYPE_OPTIONS.map((t) => (
-              <label key={t} style={{ display: "flex", gap: 6, alignItems: "center" }}>
+              <label
+                key={t}
+                style={{ display: 'flex', gap: 6, alignItems: 'center' }}
+              >
                 <input
                   type="checkbox"
                   checked={draft.storeType.includes(t)}
-                  onChange={() => toggleDraftMulti("storeType", t)}
+                  onChange={() => toggleDraftMulti('storeType', t)}
                 />
                 {t}
               </label>
@@ -277,14 +305,19 @@ export default function FindStores() {
         </div>
 
         <div>
-          <div style={{ fontWeight: 600, marginBottom: 6 }}>寵物種類（多選）</div>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ fontWeight: 600, marginBottom: 6 }}>
+            寵物種類（多選）
+          </div>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             {PET_TYPE_OPTIONS.map((p) => (
-              <label key={p} style={{ display: "flex", gap: 6, alignItems: "center" }}>
+              <label
+                key={p}
+                style={{ display: 'flex', gap: 6, alignItems: 'center' }}
+              >
                 <input
                   type="checkbox"
                   checked={draft.petType.includes(p)}
-                  onChange={() => toggleDraftMulti("petType", p)}
+                  onChange={() => toggleDraftMulti('petType', p)}
                 />
                 {p}
               </label>
@@ -292,7 +325,7 @@ export default function FindStores() {
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: 12 }}>
+        <div style={{ display: 'flex', gap: 12 }}>
           <button type="button" onClick={onSubmitSearch}>
             搜尋
           </button>
@@ -309,14 +342,24 @@ export default function FindStores() {
           <ul>
             {items.map((store) => (
               <li key={store.id}>
-                {store.storeName}（{store.area}）｜{store.type?.join(" / ")}｜
-                {store.petTypes?.join(" / ")}
+                {store.storeName}（{store.area}）｜{store.type?.join(' / ')}｜
+                {store.petTypes?.join(' / ')}
               </li>
             ))}
           </ul>
 
-          <div style={{ marginTop: 16, display: "flex", gap: 12, alignItems: "center" }}>
-            <button disabled={filters.page <= 1} onClick={() => goToPage(filters.page - 1)}>
+          <div
+            style={{
+              marginTop: 16,
+              display: 'flex',
+              gap: 12,
+              alignItems: 'center',
+            }}
+          >
+            <button
+              disabled={filters.page <= 1}
+              onClick={() => goToPage(filters.page - 1)}
+            >
               上一頁
             </button>
 
@@ -340,4 +383,3 @@ export default function FindStores() {
     </div>
   );
 }
-
