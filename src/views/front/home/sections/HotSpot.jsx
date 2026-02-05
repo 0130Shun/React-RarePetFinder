@@ -1,6 +1,6 @@
-import { Swiper, SwiperSlide } from "swiper/react"; // 引入 Swiper React 元件
-import { Pagination, Autoplay, Navigation } from "swiper/modules"; // 引入模組
-import { Heart, ArrowLeft, ArrowRight, Search } from "react-feather";
+import { Swiper, SwiperSlide } from 'swiper/react'; // 引入 Swiper React 元件
+import { Pagination, Autoplay, Navigation } from 'swiper/modules'; // 引入模組
+import { Heart, ArrowLeft, ArrowRight, Search } from 'react-feather';
 const HotSpot = () => {
   return (
     <>
@@ -27,8 +27,8 @@ const HotSpot = () => {
           // pagination={{ clickable: true }}
           // 導航按鈕 (綁定下方的 class)
           navigation={{
-            nextEl: ".custom-next",
-            prevEl: ".custom-prev",
+            nextEl: '.custom-next',
+            prevEl: '.custom-prev',
           }}
           // RWD
           breakpoints={{
@@ -105,7 +105,7 @@ const HotSpot = () => {
               <div className="store-content">
                 <p className="store-name mb-2">水手兩棲爬蟲.特寵-南港店</p>
                 <p className="store-add">台北市南港區南港路二段20巷5號B1</p>
-              </div>{" "}
+              </div>{' '}
             </div>
           </SwiperSlide>
           <SwiperSlide>
@@ -150,7 +150,7 @@ const HotSpot = () => {
               </div>
             </div>
           </SwiperSlide>
-        </Swiper>{" "}
+        </Swiper>{' '}
         <div className="custom-prev swiper-button-prev d-none d-md-flex">
           {/* <i data-feather="arrow-left"></i> */}
           <ArrowLeft className="feather" />

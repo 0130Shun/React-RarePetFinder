@@ -26,18 +26,14 @@
 }
 
 // 範例： section 背景色系變體寫法
-.ui-section--light { 
-  background: $ui-bg-default; 
+.ui-section--light {
+  background: $ui-bg-default;
 }
 
-.ui-section--yellow { 
-  background: $ui-color-warning 
+.ui-section--yellow {
+  background: $ui-color-warning;
 }
 
 .ui-section--info {
   background: $ui-color-primary;
 }
-
-
-
-

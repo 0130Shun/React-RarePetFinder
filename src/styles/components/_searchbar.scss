@@ -40,7 +40,7 @@ a {
   position: relative;
 }
 .searchBarDropdown:not(:last-child)::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -12px;
   transform: translateY(50%); /* 往下自身的50% */
