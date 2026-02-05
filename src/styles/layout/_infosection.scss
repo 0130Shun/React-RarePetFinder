@@ -1,0 +1,150 @@
+:root {
+  --primary-yellow: #fec631;
+  --primary-orange: #f59004;
+}
+a {
+  text-decoration: none;
+}
+/* -- 稀寵資訊專區 -- */
+
+/* 1. 設定標題本體 (父元素) */
+.section-title {
+  position: relative; /* 關鍵：讓偽元素以此為定位基準 */
+  /* display: inline-block; 讓寬度貼合文字，比較好置中 */
+  z-index: 1; /* 確保中文在最上層 */
+  font-weight: bold;
+  color: #333;
+  font-size: 24px;
+}
+/* 2. 設定背後的英文浮水印 (偽元素) */
+.section-title::before {
+  /* 🔥 魔法：去抓 HTML 裡面的 data-en-title 屬性值 */
+  content: attr(data-en-title);
+  /* 定位設定 */
+  position: absolute;
+  left: 50%; /* 1. 先把左側推到父元素的正中間 */
+  top: 50%; /* 2. 高度也推到中間 */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* 3. 把自己往回拉 50% (水平和垂直都回拉)，達成完美置中 */
+  /* 文字樣式設定 */
+  font-size: 40px; /* 字要超大！ (你可以依設計稿調整) */
+  font-family: sans-serif; /* 英文通常用無襯線體 */
+  color: #85bdde;
+  opacity: 0.2; /* 關鍵：透明度！讓它淡淡的 */
+  white-space: nowrap; /* 強制不換行 */
+  z-index: -1; /* 關鍵：放到中文的後面 (圖層 -1) */
+}
+
+.infoContent {
+  background-color: #c9e9f4;
+}
+.infoContentCard {
+  background-color: #fff;
+  border-radius: 16px;
+  position: relative;
+  padding: 24px;
+}
+.infoContentCard::after {
+  content: "";
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background-color: #ffffff;
+  color: #c9e9f4;
+  background-image: url("/src/assets/img/Frame87685.png");
+  width: 24px;
+  height: 17px;
+}
+.infoContentCard a {
+  color: #2f6382;
+}
+.card-title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 25px;
+}
+.card-text {
+  color: #525252;
+  margin-bottom: 8px;
+}
+.moreInfoBtn {
+  background-color: #ffffff;
+  font-weight: bold;
+  padding: 15px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+}
+.moreInfoBtn:hover {
+  background-color: #2f6382;
+  color: #ffffff;
+}
+@media (min-width: 768px) {
+  .section-title-outside {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    position: relative;
+  }
+  /* -- 背景削成圓角 -- */
+  .section-title-outside::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border-top-right-radius: 30px;
+    top: 0px;
+    left: -50px;
+    box-shadow: 12px -5px 0 0 #ffffff;
+    /* border: 1px solid red; */
+    z-index: 1;
+  }
+  .section-title-outside::before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border-top-left-radius: 30px;
+    top: 0px;
+    right: -50px;
+    box-shadow: -12px -5px 0 0 #ffffff;
+    /* border: 1px solid red; */
+    z-index: 1;
+  }
+
+  .infoSection {
+    background-color: #c9e9f4;
+    border-radius: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  .section-title {
+    font-size: 48px;
+    margin-bottom: 40px;
+  }
+  .section-title::before {
+    font-size: 128px;
+    transform: translate(-50%, -30%);
+  }
+  .infoContent {
+    /* 這是中間卡片的區域 */
+    /* position: relative; */
+    max-width: 1296px;
+    margin: 0 auto;
+    background-color: transparent;
+  }
+  .card-title {
+    font-size: 24px;
+  }
+  .card-text {
+    margin-bottom: 24px;
+  }
+}
+/* -- 以上為稀寵資訊專區 -- */

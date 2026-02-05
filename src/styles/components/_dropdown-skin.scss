@@ -1,0 +1,26 @@
+// components/_dropdown-skin.scss
+@use '../helpers/mixins' as *;
+@use "../helpers/variables" as *;
+
+%ui-dropdown-item-base {
+  font-family: "Chiron GoRound TC", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-align: left;
+  border-radius: 40px;
+  padding: 4px 16px;
+  color: $ui-neutral-800;
+
+  &:hover,
+  &.active {
+    background-color: $ui-color-secondary;
+    // color: #1c7ed6;
+    // color: $ui-neutral-800;
+  }
+
+  @include respond(desktop) {
+    text-align: center;
+  }
+}
