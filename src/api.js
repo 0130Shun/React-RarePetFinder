@@ -1,18 +1,17 @@
-import axios from "axios";
+import axios from 'axios';
 // const API_URL = 'http://localhost:3001';
 // 請建立.env後，請設定"VITE_API_URL=http://localhost:3001"
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 const apiRequest = axios.create({
   baseURL: API_URL,
   timeout: 5000,
 });
 
-
 export const storeService = {
   // 方法 C：一次抓全量，前端自行 filter / slice
   async getAllStores() {
-    const res = await apiRequest.get("/stores");
+    const res = await apiRequest.get('/stores');
     return Array.isArray(res.data) ? res.data : [];
   },
 
