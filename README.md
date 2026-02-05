@@ -4,15 +4,17 @@
 建議都改用`git switch`來創建或切換分支
 
 ```
-git fetch 
-git switch dev 
+git fetch
+git switch dev
 git pull
 git branch  # 確認你在哪個分支
 # ↓ 二選一 ↓ #
 git switch feature/search-page  # 已經開過的分支
 git switch -c feature/xxx   # 新開分支
 ```
+
 ## 每次收工標準流程：
+
 ```
 git status
 git add .
@@ -22,11 +24,13 @@ git branch # 再次確認目前在 feature 分支
 git push -u origin feature/xxx // 第一次推
 git push  // 之前推過，往後推用這個指令
 ```
+
 ❗ 任何寫 code / commit / push 前，請先確認 git branch 的星號位置
 
 解說：（幫你回憶指令的作用）
+
 ```
-git fetch  
+git fetch
 👉 更新遠端資訊，不會動到你本地的程式碼
 📌用途：
 1.抓最新的分支與 commit 狀態
@@ -36,8 +40,9 @@ git fetch
 1.不會合併
 2.不會覆蓋你正在寫的檔案
 ```
+
 ```
-git switch dev    
+git switch dev
 👉 切換到團隊的開發整合分支（dev）
 📌用途：
 1.所有功能分支都要從 dev 開
@@ -46,8 +51,9 @@ git switch dev
 1.不要直接在 main 開發
 2.不要長期在 dev 寫個人功能
 ```
+
 ```
-git pull    
+git pull
 👉 把 dev 的最新程式碼更新到你本地
 📌用途：
 1.把其他組員已合併到 dev 的內容抓下來
@@ -57,14 +63,16 @@ git pull
 1.代表你本地和 dev 有同時改到同一段
 2.請先停下來處理或DC問組員
 ```
+
 ```
 git branch
 👉 列出你本地有哪些分支，並告訴你「現在站在哪一支」
 * 代表你現在正在使用的分支
 
 ```
+
 ```
-git switch -c feature/xxx    
+git switch -c feature/xxx
 👉 從 dev 開一條「只屬於你」的功能分支
 📌用途：
 1.每個人一條（或多條）功能分支
@@ -73,7 +81,9 @@ git switch -c feature/xxx
 1.一個 feature 分支只做一件事
 2.做完再開 PR 合回 dev
 ```
+
 命名範例：
+
 ```
 git switch -c feature/search-page
 git switch -c feature/api-fetch
@@ -85,7 +95,9 @@ git switch -c feature/modal-ui
 規則建構參考來源：https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-commit.html
 
 ### type
+
 Type 是用來告訴進行 Code Review 的人應該以什麼態度來檢視 Commit 內容
+
 ```
 feat: ... 新增/修改功能 (feature)
 fix: ... 修補 bug (bug fix)
@@ -99,7 +111,7 @@ revert: 撤銷回覆先前的 commit 例如：revert: type(scope)
 subject: (回覆版本：xxxx)。
 ```
 
-### 範例 
+### 範例
 
 ```
 fix: 意見反應，信件看不到圖片問題
@@ -118,6 +130,7 @@ fix: 意見反應，信件看不到圖片問題
 📌 其他範例參見上面附的網址
 
 ## PR 規則（避免炸鍋）
+
 ```
 PR 標題 = 你做了什麼
 描述：影響哪些頁、怎麼做測試
