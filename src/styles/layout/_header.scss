@@ -30,18 +30,18 @@
   .navbar-brand {
     margin-top: 18.5px;
     margin-bottom: 18.5px;
-    margin-left:  12px;
+    margin-left: 12px;
     padding: 0px;
 
     img {
       max-width: 100px;
       max-height: 35px;
     }
-    
+
     @include respond(desktop) {
       margin-top: 64px;
       margin-bottom: 40px;
-      margin-left:  0px;
+      margin-left: 0px;
 
       img {
         max-width: 180px;
@@ -50,13 +50,13 @@
     }
   }
 
-  .navbar-toggler { 
+  .navbar-toggler {
     position: relative;
-    width: 40px;   // 建議給固定寬高，避免切換圖標時按鈕抖動
+    width: 40px; // 建議給固定寬高，避免切換圖標時按鈕抖動
     height: 40px;
     margin-right: 16px;
     padding: 8px;
-    display: flex;       // 讓圖標置中
+    display: flex; // 讓圖標置中
     align-items: center;
     justify-content: center;
 
@@ -68,7 +68,8 @@
     }
   }
 
-  .navbar-collapse { //「實際形成 mobile menu 面板的，是 .navbar-collapse，不是 <ul>」，所以這邊設定menu面板的樣式
+  .navbar-collapse {
+    //「實際形成 mobile menu 面板的，是 .navbar-collapse，不是 <ul>」，所以這邊設定menu面板的樣式
     position: absolute;
     top: 100%;
     left: 0;
@@ -101,7 +102,6 @@
     pointer-events: auto; // 保證會吃點擊
   }
 
-
   // 只在 mobile + 展開時生效
   .navbar-collapse.show ~ .nav-backdrop {
     display: block;
@@ -113,7 +113,6 @@
       display: none !important;
     }
   }
-
 }
 
 .header:has(.navbar-collapse.show) .nav-backdrop {
@@ -127,7 +126,7 @@
 
   @include respond(desktop) {
     //ms-auto align-items-lg-center gap-lg-2
-    margin-left: auto;  // 等同 ms-auto
+    margin-left: auto; // 等同 ms-auto
     display: flex;
     // flex-direction: row;        // 預設 row，可省略
     align-items: center;
@@ -153,8 +152,8 @@
     justify-content: flex-start;
     // gap: 8px;
     border-radius: 0px;
-    
-    font-family: "Chiron GoRound TC", sans-serif;
+
+    font-family: 'Chiron GoRound TC', sans-serif;
     font-size: 16px;
     font-weight: 700;
     line-height: 1.5;
@@ -185,7 +184,7 @@
     // transform: translateX(-50%);
     border: none;
     border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     padding: 8px;
     min-width: 224px;
 
@@ -193,7 +192,7 @@
       left: 50%;
       transform: translateX(-50%);
       border-radius: 8px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       min-width: 97px;
     }
   }

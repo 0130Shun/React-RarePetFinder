@@ -1,25 +1,25 @@
-import { useState } from "react";
-import { Search, ChevronDown } from "react-feather";
+import { useState } from 'react';
+import { Search, ChevronDown } from 'react-feather';
 
 const SearchBar = () => {
-  const [location, setLocation] = useState("台北");
-  const [pet, setPet] = useState("柯爾鴨");
-  const [type, setType] = useState("旅館");
+  const [location, setLocation] = useState('台北');
+  const [pet, setPet] = useState('柯爾鴨');
+  const [type, setType] = useState('旅館');
 
   const locations = [
-    "台北",
-    "新北",
-    "桃園",
-    "新竹",
-    "台中",
-    "彰化",
-    "嘉義",
-    "台南",
-    "高雄",
-    "屏東",
+    '台北',
+    '新北',
+    '桃園',
+    '新竹',
+    '台中',
+    '彰化',
+    '嘉義',
+    '台南',
+    '高雄',
+    '屏東',
   ];
-  const pets = ["刺蝟", "守宮", "倉鼠", "鸚鵡", "烏龜", "柯爾鴨"];
-  const types = ["診所", "旅館", "賣家"];
+  const pets = ['刺蝟', '守宮', '倉鼠', '鸚鵡', '烏龜', '柯爾鴨'];
+  const types = ['診所', '旅館', '賣家'];
 
   return (
     <div className="search-pill d-md-flex align-items-center ">
@@ -42,7 +42,7 @@ const SearchBar = () => {
             {locations.map((item) => (
               <li key={item}>
                 <button
-                  className={`dropdown-item ${location === item ? "active" : ""}`}
+                  className={`dropdown-item ${location === item ? 'active' : ''}`}
                   onClick={() => setLocation(item)}
                 >
                   {item}
@@ -70,7 +70,7 @@ const SearchBar = () => {
             {pets.map((item) => (
               <li key={item}>
                 <button
-                  className={`dropdown-item ${pet === item ? "active" : ""}`}
+                  className={`dropdown-item ${pet === item ? 'active' : ''}`}
                   onClick={() => setPet(item)}
                 >
                   {item}
@@ -98,7 +98,7 @@ const SearchBar = () => {
             {types.map((item) => (
               <li key={item}>
                 <button
-                  className={`dropdown-item ${type === item ? "active" : ""}`}
+                  className={`dropdown-item ${type === item ? 'active' : ''}`}
                   onClick={() => setType(item)}
                 >
                   {item}

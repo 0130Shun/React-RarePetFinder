@@ -42,14 +42,14 @@
   align-items: center;
   justify-content: center;
 
-  width: 2.5rem;   // 40px
-  height: 2.5rem;  // 40px
+  width: 2.5rem; // 40px
+  height: 2.5rem; // 40px
   padding: 0.5rem; // 8px
 
   background-color: $ui-bg-subtle;
   border-radius: 0.5rem; // 8px
   border: none;
-  font-family: "Chiron GoRound TC", sans-serif;
+  font-family: 'Chiron GoRound TC', sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
@@ -59,8 +59,9 @@
   cursor: pointer;
   user-select: none;
 
-  transition: background-color 0.2s ease,
-              color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 
   /* hover 與 active 視覺共用 */
   &:hover,
