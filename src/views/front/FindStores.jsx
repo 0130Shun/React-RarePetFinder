@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
+import { useForm } from 'react-hook-form'; // 引入 RHF
 import { storeService } from '../../api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
@@ -92,7 +92,15 @@ const PAGE_SIZE = 9;
 
 export default function FindStores() {
   const [searchParams, setSearchParams] = useSearchParams(); //更新網址用(query params)
-
+  // 一行搞定初始化，defaultValues 對應原本的 initialState
+  const { register, handleSubmit, setValue, reset, watch } = useForm({
+    defaultValues: {
+      area: '',
+      query: '',
+      storeType: [], // RHF 會自動把多選 checkbox 處理成陣列
+      petType: [],
+    },
+  });
   // 已套用到結果的條件
   const [filters, setFilters] = useState({
     area: '',
@@ -103,12 +111,13 @@ export default function FindStores() {
   });
 
   // 勾勾選選、打字時，先存在這裡，不影響結果→ 按「搜尋」才把 draft 寫入 URL
-  const [draft, setDraft] = useState({
-    area: '',
-    query: '',
-    storeType: [],
-    petType: [],
-  });
+  // RHF 已有內建功能
+  // const [draft, setDraft] = useState({
+  //   area: '',
+  //   query: '',
+  //   storeType: [],
+  //   petType: [],
+  // });
 
   const [allStores, setAllStores] = useState([]); //從 API 抓回來的「全部店家」
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
@@ -173,7 +182,8 @@ export default function FindStores() {
     const nextFilters = parseFilters(searchParams);
 
     //如果重新整理或貼上連結，也會顯示打勾等等對應的選項
-    setDraft({
+    // 用 RHF 的 reset 取代原本的 setDraft
+    reset({
       area: nextFilters.area,
       query: nextFilters.query,
       storeType: nextFilters.storeType,
@@ -221,29 +231,41 @@ export default function FindStores() {
 
     const start = (safePage - 1) * PAGE_SIZE;
     setItems(filtered.slice(start, start + PAGE_SIZE));
-  }, [searchParams, allStores, setSearchParams]);
+  }, [searchParams, allStores, setSearchParams, reset]); //記得依賴加入 reset
 
   // ## handlers：使用者操作但不立刻影響結果
   //  checkbox 多選切換
-  const toggleDraftMulti = (key, value) => {
-    setDraft((prev) => {
-      const current = Array.isArray(prev[key]) ? prev[key] : [];
-      const nextArr = current.includes(value)
-        ? current.filter((x) => x !== value)
-        : [...current, value];
-      return { ...prev, [key]: nextArr };
-    });
-  };
+  // RHF 已有包含功能故註記掉
+  // const toggleDraftMulti = (key, value) => {
+  //   setDraft((prev) => {
+  //     const current = Array.isArray(prev[key]) ? prev[key] : [];
+  //     const nextArr = current.includes(value)
+  //       ? current.filter((x) => x !== value)
+  //       : [...current, value];
+  //     return { ...prev, [key]: nextArr };
+  //   });
+  // };
   // 只清空關鍵字 input
-  const onResetQueryOnly = () => {
-    setDraft((prev) => ({ ...prev, query: '' }));
-  };
+  // RHF 已有包含功能故註記掉
+  // const onResetQueryOnly = () => {
+  //   setDraft((prev) => ({ ...prev, query: '' }));
+  // };
   // 按下搜尋才生效
-  const onSubmitSearch = () => {
-    // 按搜尋才寫進 URL，並回到第 1 頁
-    const next = { ...draft, page: 1 };
-    setSearchParams(buildSearchParams(next));
+  // const onSubmitSearch = () => {
+  //   // 按搜尋才寫進 URL，並回到第 1 頁
+  //   const next = { ...draft, page: 1 };
+  //   setSearchParams(buildSearchParams(next));
+  // };
+  // RHF 轉換後的寫法-> RHF 的 submit：它會自動把收集好的 data (也就是原本的 draft) 傳給你
+  const onSubmitSearch = (data) => {
+    const params = buildSearchParams({ ...data, page: 1 });
+    setSearchParams(params);
   };
+  // RHF 的清空：用 setValue 指定欄位改值
+  const onResetQueryOnly = () => {
+    setValue('query', '');
+  };
+
   // 換頁
   const goToPage = (page) => {
     const next = { ...filters, page };
@@ -260,13 +282,13 @@ export default function FindStores() {
       <br />
       <h1>店家檢索（按搜尋才更新）</h1>
 
-      <div style={{ margin: '16px 0', display: 'grid', gap: 12 }}>
+      <form
+        style={{ margin: '16px 0', display: 'grid', gap: 12 }}
+        onSubmit={handleSubmit(onSubmitSearch)}
+      >
         <div>
           <label style={{ marginRight: 8 }}>縣市：</label>
-          <select
-            value={draft.area}
-            onChange={(e) => setDraft((p) => ({ ...p, area: e.target.value }))}
-          >
+          <select {...register('area')}>
             {AREA_OPTIONS.map((a) => (
               <option key={a || 'all'} value={a}>
                 {a === '' ? '全部縣市' : a}
@@ -278,8 +300,7 @@ export default function FindStores() {
         <div>
           <label style={{ marginRight: 8 }}>關鍵字：</label>
           <input
-            value={draft.query}
-            onChange={(e) => setDraft((p) => ({ ...p, query: e.target.value }))}
+            {...register('query')}
             placeholder="例如：柯爾鴨 / 旅館 / 淡水"
           />
           <button
@@ -301,11 +322,7 @@ export default function FindStores() {
                 key={t}
                 style={{ display: 'flex', gap: 6, alignItems: 'center' }}
               >
-                <input
-                  type="checkbox"
-                  checked={draft.storeType.includes(t)}
-                  onChange={() => toggleDraftMulti('storeType', t)}
-                />
+                <input type="checkbox" value={t} {...register('storeType')} />
                 {t}
               </label>
             ))}
@@ -322,11 +339,7 @@ export default function FindStores() {
                 key={p}
                 style={{ display: 'flex', gap: 6, alignItems: 'center' }}
               >
-                <input
-                  type="checkbox"
-                  checked={draft.petType.includes(p)}
-                  onChange={() => toggleDraftMulti('petType', p)}
-                />
+                <input type="checkbox" value={p} {...register('petType')} />
                 {p}
               </label>
             ))}
@@ -334,11 +347,9 @@ export default function FindStores() {
         </div>
 
         <div style={{ display: 'flex', gap: 12 }}>
-          <button type="button" onClick={onSubmitSearch}>
-            搜尋
-          </button>
+          <button type="submit">搜尋</button>
         </div>
-      </div>
+      </form>
 
       <hr />
 
