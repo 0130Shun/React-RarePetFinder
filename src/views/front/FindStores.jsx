@@ -12,7 +12,7 @@ import {
   buildSearchParams,
   hasIntersection,
   matchQuery,
-} from '../../utils/storeSearchUtils';
+} from '@/utils/storeSearchUtils';
 
 //每頁顯示 9 筆店家
 const PAGE_SIZE = 9;
