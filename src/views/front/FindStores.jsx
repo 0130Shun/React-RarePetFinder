@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
+import { useForm } from 'react-hook-form'; // 引入 RHF
 import { storeService } from '../../api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
@@ -12,87 +12,22 @@ import {
   buildSearchParams,
   hasIntersection,
   matchQuery,
-} from '../../utils/storeSearchUtils';
+} from '@/utils/storeSearchUtils';
 
 //每頁顯示 9 筆店家
 const PAGE_SIZE = 9;
 
-// ##  處理 URL 字串 ↔ 陣列
-
-//把 URL 的 "診所,賣家" 這種字串 → 轉成 ["診所","賣家"]
-// function splitCSV(value) {
-//   return (value || '')
-//     .split(',')
-//     .map((s) => s.trim())
-//     .filter(Boolean);
-// }
-//把 URL 參數讀出來，轉成 filters 物件（含 page）
-//回傳{ area, query, storeType, petType, page }
-// function parseFilters(searchParams) {
-//   const area = searchParams.get('area') || '';
-//   const query = searchParams.get('query') || '';
-//   const storeType = splitCSV(searchParams.get('storeType'));
-//   const petType = splitCSV(searchParams.get('petType'));
-
-//   const pageRaw = parseInt(searchParams.get('page'), 10);
-//   const page = Number.isNaN(pageRaw) || pageRaw < 1 ? 1 : pageRaw;
-
-//   return { area, query, storeType, petType, page };
-// }
-//把 filters 物件 → 組回 URLSearchParams
-//回傳 params，拿去 setSearchParams(params)
-// function buildSearchParams(filters) {
-//   const params = new URLSearchParams();
-
-//   if (filters.area) params.set('area', filters.area);
-
-//   const query = (filters.query || '').trim();
-//   if (query) params.set('query', query);
-
-//   const storeType = Array.isArray(filters.storeType) ? filters.storeType : [];
-//   if (storeType.length > 0) params.set('storeType', storeType.join(','));
-
-//   const petType = Array.isArray(filters.petType) ? filters.petType : [];
-//   if (petType.length > 0) params.set('petType', petType.join(','));
-
-//   const page = Number(filters.page) || 1;
-//   if (page > 1) params.set('page', String(page));
-
-//   return params;
-// }
-
-// ##  篩選工具：交集判斷 + 關鍵字比對
-
-//判斷「店家的某個欄位陣列」和「使用者選的條件陣列」有沒有交集
-// function hasIntersection(storeValues, selectedValues) {
-//   if (!Array.isArray(selectedValues) || selectedValues.length === 0)
-//     return true;
-//   if (!Array.isArray(storeValues) || storeValues.length === 0) return false;
-//   return selectedValues.some((v) => storeValues.includes(v));
-// }
-
-// 關鍵字搜尋 query 比對欄位：name/description/area/type/petTypes 都比對
-// function matchQuery(store, query) {
-//   const keyword = (query || '').trim().toLowerCase();
-//   if (!keyword) return true;
-
-//   const haystack = [
-//     store.storeName,
-//     store.description,
-//     store.area,
-//     ...(Array.isArray(store.type) ? store.type : []),
-//     ...(Array.isArray(store.petTypes) ? store.petTypes : []),
-//   ]
-//     .filter(Boolean)
-//     .join(' ')
-//     .toLowerCase();
-
-//   return haystack.includes(keyword);
-// }
-
 export default function FindStores() {
   const [searchParams, setSearchParams] = useSearchParams(); //更新網址用(query params)
-
+  // 一行搞定初始化，defaultValues 對應原本的 initialState
+  const { register, handleSubmit, setValue, reset, watch } = useForm({
+    defaultValues: {
+      area: '',
+      query: '',
+      storeType: [], // RHF 會自動把多選 checkbox 處理成陣列
+      petType: [],
+    },
+  });
   // 已套用到結果的條件
   const [filters, setFilters] = useState({
     area: '',
@@ -100,14 +35,6 @@ export default function FindStores() {
     storeType: [],
     petType: [],
     page: 1,
-  });
-
-  // 勾勾選選、打字時，先存在這裡，不影響結果→ 按「搜尋」才把 draft 寫入 URL
-  const [draft, setDraft] = useState({
-    area: '',
-    query: '',
-    storeType: [],
-    petType: [],
   });
 
   const [allStores, setAllStores] = useState([]); //從 API 抓回來的「全部店家」
@@ -173,7 +100,8 @@ export default function FindStores() {
     const nextFilters = parseFilters(searchParams);
 
     //如果重新整理或貼上連結，也會顯示打勾等等對應的選項
-    setDraft({
+    // 用 RHF 的 reset 取代原本的 setDraft
+    reset({
       area: nextFilters.area,
       query: nextFilters.query,
       storeType: nextFilters.storeType,
@@ -221,29 +149,18 @@ export default function FindStores() {
 
     const start = (safePage - 1) * PAGE_SIZE;
     setItems(filtered.slice(start, start + PAGE_SIZE));
-  }, [searchParams, allStores, setSearchParams]);
+  }, [searchParams, allStores, setSearchParams, reset]); //記得依賴加入 reset
 
-  // ## handlers：使用者操作但不立刻影響結果
-  //  checkbox 多選切換
-  const toggleDraftMulti = (key, value) => {
-    setDraft((prev) => {
-      const current = Array.isArray(prev[key]) ? prev[key] : [];
-      const nextArr = current.includes(value)
-        ? current.filter((x) => x !== value)
-        : [...current, value];
-      return { ...prev, [key]: nextArr };
-    });
+  // RHF 轉換後的寫法-> RHF 的 submit：它會自動把收集好的 data (也就是原本的 draft) 傳給你
+  const onSubmitSearch = (data) => {
+    const params = buildSearchParams({ ...data, page: 1 });
+    setSearchParams(params);
   };
-  // 只清空關鍵字 input
+  // RHF 的清空：用 setValue 指定欄位改值
   const onResetQueryOnly = () => {
-    setDraft((prev) => ({ ...prev, query: '' }));
+    setValue('query', '');
   };
-  // 按下搜尋才生效
-  const onSubmitSearch = () => {
-    // 按搜尋才寫進 URL，並回到第 1 頁
-    const next = { ...draft, page: 1 };
-    setSearchParams(buildSearchParams(next));
-  };
+
   // 換頁
   const goToPage = (page) => {
     const next = { ...filters, page };
@@ -260,13 +177,13 @@ export default function FindStores() {
       <br />
       <h1>店家檢索（按搜尋才更新）</h1>
 
-      <div style={{ margin: '16px 0', display: 'grid', gap: 12 }}>
+      <form
+        style={{ margin: '16px 0', display: 'grid', gap: 12 }}
+        onSubmit={handleSubmit(onSubmitSearch)}
+      >
         <div>
           <label style={{ marginRight: 8 }}>縣市：</label>
-          <select
-            value={draft.area}
-            onChange={(e) => setDraft((p) => ({ ...p, area: e.target.value }))}
-          >
+          <select {...register('area')}>
             {AREA_OPTIONS.map((a) => (
               <option key={a || 'all'} value={a}>
                 {a === '' ? '全部縣市' : a}
@@ -278,8 +195,7 @@ export default function FindStores() {
         <div>
           <label style={{ marginRight: 8 }}>關鍵字：</label>
           <input
-            value={draft.query}
-            onChange={(e) => setDraft((p) => ({ ...p, query: e.target.value }))}
+            {...register('query')}
             placeholder="例如：柯爾鴨 / 旅館 / 淡水"
           />
           <button
@@ -301,11 +217,7 @@ export default function FindStores() {
                 key={t}
                 style={{ display: 'flex', gap: 6, alignItems: 'center' }}
               >
-                <input
-                  type="checkbox"
-                  checked={draft.storeType.includes(t)}
-                  onChange={() => toggleDraftMulti('storeType', t)}
-                />
+                <input type="checkbox" value={t} {...register('storeType')} />
                 {t}
               </label>
             ))}
@@ -322,11 +234,7 @@ export default function FindStores() {
                 key={p}
                 style={{ display: 'flex', gap: 6, alignItems: 'center' }}
               >
-                <input
-                  type="checkbox"
-                  checked={draft.petType.includes(p)}
-                  onChange={() => toggleDraftMulti('petType', p)}
-                />
+                <input type="checkbox" value={p} {...register('petType')} />
                 {p}
               </label>
             ))}
@@ -334,11 +242,9 @@ export default function FindStores() {
         </div>
 
         <div style={{ display: 'flex', gap: 12 }}>
-          <button type="button" onClick={onSubmitSearch}>
-            搜尋
-          </button>
+          <button type="submit">搜尋</button>
         </div>
-      </div>
+      </form>
 
       <hr />
 
