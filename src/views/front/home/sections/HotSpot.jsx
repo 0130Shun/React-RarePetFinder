@@ -71,6 +71,11 @@ const HotSpot = () => {
           breakpoints={{
             768: {
               centeredSlides: false,
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            1000: {
+              centeredSlides: false,
               slidesPerView: 3,
               spaceBetween: 20,
             },
