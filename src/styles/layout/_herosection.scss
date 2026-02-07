@@ -21,9 +21,9 @@ a {
 }
 .hero-img-sign::after {
   /* 行動版箭頭 */
-  content: "";
+  content: '';
   position: absolute;
-  background-image: url("/src/assets/img/Frame87783.png");
+  background-image: url('/src/assets/img/Frame87783.png');
   background-size: contain;
   background-repeat: no-repeat;
   width: 84px;
@@ -38,9 +38,9 @@ a {
 }
 .heroSection::after {
   /* 行動版六寶大圖 */
-  content: "";
+  content: '';
   position: absolute;
-  background-image: url("/src/assets/img//minnie-zhou-0hiUWSi7jvs-unsplash1.png");
+  background-image: url('/src/assets/img//minnie-zhou-0hiUWSi7jvs-unsplash1.png');
   background-size: contain;
   background-repeat: no-repeat;
   width: 200px;
@@ -145,7 +145,7 @@ a {
   .hero-img-sign::after {
     /* --桌機板右上方虛線箭頭-- */
     /* border: 1px solid red; */
-    background-image: url("/src/assets/img/Frame87781.png");
+    background-image: url('/src/assets/img/Frame87781.png');
     background-size: cover;
     position: absolute;
     display: block;
@@ -159,8 +159,8 @@ a {
   .heroSection::before {
     /* --桌機板左下方虛線箭頭-- */
     /* border: 1px solid red; */
-    content: "";
-    background-image: url("/src/assets/img/Frame87780.png");
+    content: '';
+    background-image: url('/src/assets/img/Frame87780.png');
     background-size: cover;
     position: absolute;
     width: 640px;

@@ -85,8 +85,6 @@
     // <span className="ui-form-check__icon">
     //   {checked && <CheckIcon />}
     // </span>
-  
-  
   }
 }
 
@@ -103,23 +101,10 @@
   font-weight: 500;
 }
 
-
-
-
 /* 正確方式：用 :has（現代瀏覽器 OK） */
 .ui-form-check:has(.ui-form-check__input:checked) {
   background-color: #c9e9f4;
 }
-
-
-
-
-
-
-
-
-
-
 
 @media (max-width: 768px) {
   .ui-form-check {

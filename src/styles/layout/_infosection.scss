@@ -47,13 +47,13 @@ a {
   padding: 24px;
 }
 .infoContentCard::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 25px;
   right: 25px;
   background-color: #ffffff;
   color: #c9e9f4;
-  background-image: url("/src/assets/img/Frame87685.png");
+  background-image: url('/src/assets/img/Frame87685.png');
   width: 24px;
   height: 17px;
 }
@@ -93,7 +93,7 @@ a {
   }
   /* -- 背景削成圓角 -- */
   .section-title-outside::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 50px;
     height: 50px;
@@ -106,7 +106,7 @@ a {
     z-index: 1;
   }
   .section-title-outside::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 50px;
     height: 50px;

@@ -25,11 +25,10 @@
   min-height: 240px;
 }
 
-
 /* 各自個分頁的Sub-HeroBanner */
 .ui-subHero {
   position: relative;
-  background-color: $ui-color-secondary; 
+  background-color: $ui-color-secondary;
   padding: 64px 12px 108px 12px;
   min-height: 297px;
 
@@ -45,7 +44,9 @@
   content: none; // mobile：根本不產生 pseudo-element
 
   @include respond(desktop) {
-    content: attr(data-watermark);/* 關鍵：讓內容直接讀取 HTML 上的 data-watermark */
+    content: attr(
+      data-watermark
+    ); /* 關鍵：讓內容直接讀取 HTML 上的 data-watermark */
     position: absolute;
     right: calc((75% - 1296px) / 2);
     bottom: -20px;
@@ -80,11 +81,11 @@
     }
   }
   /* 4. 甚至可以改變麵包屑的背景 (如果有需要的話，不需要改的可以不要寫) */
-  .ui-subHero__information{
-    position: relative; 
+  .ui-subHero__information {
+    position: relative;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       background-image: url('/src/assets/img/duck-warning.png'); // 鴨子圖片路徑
       background-size: contain;
@@ -92,7 +93,7 @@
       z-index: 2;
 
       /* Mobile 樣式：鴨子放在框框上方 */
-      width: 200px; 
+      width: 200px;
       height: 164px;
       top: -60%; // 往上浮出
       left: 50%;
@@ -108,17 +109,17 @@
         transform: translateY(-50%); // 垂直置中
       }
     }
-    
+
     &::after {
       content: none; // Mobile 隱藏
 
       @include respond(desktop) {
-        content: "";
+        content: '';
         position: absolute;
         background-image: url('/src/assets/img/Vector.png'); // 驚嘆號圖片
         background-size: contain;
         background-repeat: no-repeat;
-        
+
         width: 88px;
         height: 100px;
         // top: -40px; // 浮出框框右上角
@@ -133,7 +134,6 @@
       margin-left: 25%;
     }
   }
-
 }
 
 /* 包裹subHero content和aside餅處理desktop/mobile的顯示 */
@@ -157,7 +157,7 @@
 
   h1 {
     color: $ui-neutral-800;
-    font-family: "Chiron GoRound TC", sans-serif;
+    font-family: 'Chiron GoRound TC', sans-serif;
     font-size: 24px;
     font-weight: 700;
     line-height: 120%;
@@ -166,20 +166,20 @@
 
   p {
     color: $ui-neutral-800;
-    font-family: "Chiron GoRound TC", sans-serif;
+    font-family: 'Chiron GoRound TC', sans-serif;
     font-size: 16px;
     font-weight: 400;
-    line-height: 150%;  
+    line-height: 150%;
     letter-spacing: 2%;
   }
 
   .ui-subHero__meta {
     display: flex;
     flex-direction: column; // 手機版預設垂直堆疊
-    align-items: center;    // 手機版置中
+    align-items: center; // 手機版置中
     gap: 8px;
     margin-top: 12px;
-    
+
     color: $ui-neutral-600; // 假設這是次要文字顏色
     font-size: 14px;
     font-weight: 500;
@@ -197,7 +197,8 @@
       align-items: center;
       gap: 4px;
 
-      i, svg {
+      i,
+      svg {
         width: 14px;
         height: 14px;
         stroke-width: 2.5;
@@ -232,7 +233,7 @@
 
     p {
       font-size: 24px;
-      line-height: 120%;  
+      line-height: 120%;
       letter-spacing: 0.025m;
     }
   }
@@ -252,34 +253,34 @@
   // justify-content: center;
   display: flex;
   flex-direction: column; // 關鍵：讓內部的 <p> 標籤由上而下排列
-  align-items: center;    // 讓內容在水平方向置中
+  align-items: center; // 讓內容在水平方向置中
   justify-content: center; // 讓內容在垂直方向置中
-  text-align: center;     // 確保文字本身在多行時也是居中對齊
-
+  text-align: center; // 確保文字本身在多行時也是居中對齊
 
   margin: 24px auto 0 auto;
 
   p {
     color: $ui-nav-link-active;
-    font-family: "Chiron GoRound TC", sans-serif;
+    font-family: 'Chiron GoRound TC', sans-serif;
     font-size: 16px;
     font-weight: 700;
-    line-height: 150%;  
+    line-height: 150%;
     letter-spacing: 0.02em;
-    transition: color 0.15s ease, transform 0.1s ease;   // 加上這行，變化才會順滑
+    transition:
+      color 0.15s ease,
+      transform 0.1s ease; // 加上這行，變化才會順滑
 
     &:hover {
-      color: $ui-nav-link-hover;            // 例如藍色 $sui-blue-500
+      color: $ui-nav-link-hover; // 例如藍色 $sui-blue-500
       // text-decoration: underline;         // 可選：很多設計會在 hover 加底線
       // 或 cursor: pointer;                 // 如果想要更像連結感
     }
 
     &:active {
-      color: $ui-nav-link-active;           // 通常更深，例如 $sui-blue-700
-      transform: translateY(1px);           // 輕微下沉，模擬按下去
+      color: $ui-nav-link-active; // 通常更深，例如 $sui-blue-700
+      transform: translateY(1px); // 輕微下沉，模擬按下去
     }
   }
-
 
   @include respond(desktop) {
     padding: 20px 48px;
@@ -293,11 +294,10 @@
 
     p {
       font-size: 20px;
-      line-height: 120%;  
+      line-height: 120%;
       letter-spacing: 0.05em;
     }
   }
-
 }
 
 /* subHero scam 詐騙資訊宣導頁面的方框+風味文字 */
@@ -311,13 +311,13 @@
 
   display: flex;
   flex-direction: column; // 讓內部的 <h2> 和 <p> 標籤由上而下排列
-  align-items: flex-start;    
+  align-items: flex-start;
   justify-content: center;
   margin: 24px auto 0 auto;
 
   h2 {
     color: $ui-neutral-800;
-    font-family: "Chiron GoRound TC", sans-serif;
+    font-family: 'Chiron GoRound TC', sans-serif;
     font-size: 24px;
     font-weight: 700;
     line-height: 120%;
@@ -327,13 +327,12 @@
 
   p {
     color: $ui-neutral-800;
-    font-family: "Chiron GoRound TC", sans-serif;
+    font-family: 'Chiron GoRound TC', sans-serif;
     font-size: 16px;
     font-weight: 400;
-    line-height: 150%;  
+    line-height: 150%;
     letter-spacing: 2%;
   }
-
 
   @include respond(desktop) {
     margin-top: 0;
@@ -349,11 +348,10 @@
 
     p {
       font-size: 16px;
-      line-height: 120%;  
+      line-height: 120%;
       letter-spacing: 0.025m;
     }
   }
-
 }
 
 /* 麵包屑容器 */
@@ -382,26 +380,26 @@
     background: $ui-neutral-50;
     padding: 12px 20px 8px 20px;
     border-radius: 12px 12px 0 0;
-    box-shadow: 0 -1px 0 rgba(0,0,0,.06);
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.06);
 
     /* 2️ Typography */
-    font-family: "Noto Sans TC", sans-serif;
+    font-family: 'Noto Sans TC', sans-serif;
     font-size: 16px;
     font-weight: 700;
     line-height: 150%;
     letter-spacing: 0;
-    
+
     /* 3️ Element states */
     a {
       color: $ui-nav-link;
       text-decoration: none;
-      
+
       &:hover {
         color: $ui-nav-link-hover;
       }
     }
 
-    &__item  {
+    &__item {
       color: $ui-nav-link;
 
       &:hover {
@@ -414,7 +412,8 @@
       pointer-events: none;
     }
     /* 4 Icon */
-    i, svg {
+    i,
+    svg {
       flex-shrink: 0; // 防止圖示被擠壓變形
       width: 16px;
       height: 16px;
@@ -423,7 +422,7 @@
       vertical-align: middle;
     }
 
-     /* 5️ Responsive（desktop） */
+    /* 5️ Responsive（desktop） */
     @include respond(desktop) {
       align-items: left;
 
