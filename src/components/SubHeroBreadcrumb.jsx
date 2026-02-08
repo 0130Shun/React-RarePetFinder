@@ -1,4 +1,5 @@
 import { ChevronRight } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 export default function SubHeroBreadcrumb({ items }) {
   return (
@@ -11,9 +12,13 @@ export default function SubHeroBreadcrumb({ items }) {
           {item.current ? (
             <span className="ui-breadcrumb__item is-current">{item.label}</span>
           ) : (
-            <a href={item.to} className="ui-breadcrumb__item">
+            // <a href={item.to} className="ui-breadcrumb__item">
+            //   {item.label}
+            // </a>
+
+            <Link className="ui-breadcrumb__item" to={item.to}>
               {item.label}
-            </a>
+            </Link>
           )}
 
           {/* 不是最後一個才顯示 chevron */}
