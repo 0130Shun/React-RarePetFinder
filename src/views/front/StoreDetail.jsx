@@ -1,30 +1,53 @@
 import { User } from 'react-feather';
+// import { useParams } from 'react-router-dom';
+// import { useStore } from 'react-redux';
+import StoreDetailHero from '../../components/StoreDetailHero';
+
+import {
+  ChevronRight,
+  Heart,
+  Home,
+  ShoppingBag,
+  PlusSquare,
+} from 'react-feather';
 
 export default function RarePetFinder() {
+  // 透過storeId去讀取資料後，再把資料傳給StoreDetailHero，這邊暫時用storeId代表實際的store店家物件資料
+
   return (
     <>
+      {/* <StoreDetailHero store={storeId} /> */}
       <section className="ui-section ui-section--light">
         <div className="ui-subHero" data-watermark="Results Info">
           <div className="ui-container ui-subHero__layout">
             <div className="ui-subHero__content">
               <h1>柯爾鴨精品休閒館-台中店</h1>
-              <div className="ui-subHero__meta">
+              <div className="ui-subHero__meta d-flex align-items-center">
                 <div className="ui-subHero__meta-group">
                   <span className="ui-subHero__meta-item">
-                    <i data-feather="heart"></i> 153
+                    <Heart className="ui-breadcrumb__separator" size={20} /> 153
                   </span>
                   <span className="ui-subHero__meta-divider">|</span>
                   <span className="ui-subHero__meta-item">10 則評論</span>
                 </div>
                 <div className="ui-subHero__meta-group">
                   <span className="ui-subHero__meta-item">
-                    <i data-feather="home"></i> 旅館
+                    <Home className="ui-breadcrumb__separator" size={20} />
+                    旅館、
                   </span>
                   <span className="ui-subHero__meta-item">
-                    <i data-feather="shopping-bag"></i> 賣家
+                    <ShoppingBag
+                      className="ui-breadcrumb__separator"
+                      size={20}
+                    />
+                    賣家、
                   </span>
-                  <span clasclassNames="ui-subHero__meta-item">
-                    <i data-feather="plus-square"></i> 診所
+                  <span className="ui-subHero__meta-item">
+                    <PlusSquare
+                      className="ui-breadcrumb__separator"
+                      size={20}
+                    />
+                    診所
                   </span>
                 </div>
               </div>
@@ -37,9 +60,9 @@ export default function RarePetFinder() {
           <div className="ui-subHero__breadcrumb ui-container">
             <nav className="ui-breadcrumb">
               <a href="#">首頁</a>
-              <i data-feather="chevron-right"></i>
+              <ChevronRight className="ui-breadcrumb__separator" size={20} />
               <span className="ui-breadcrumb__item">搜尋頁面結果</span>
-              <i data-feather="chevron-right"></i>
+              <ChevronRight className="ui-breadcrumb__separator" size={20} />
               <span className="ui-breadcrumb__item is-current">店家資訊</span>
             </nav>
           </div>

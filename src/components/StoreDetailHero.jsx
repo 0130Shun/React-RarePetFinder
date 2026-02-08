@@ -3,6 +3,7 @@ import SubHero from '../components/SubHero';
 import SubHeroBreadcrumb from '../components/SubHeroBreadcrumb';
 import { Heart, Home, ShoppingBag, PlusSquare } from 'react-feather';
 
+//store 是 StoreDetail所傳入的店家物件資料
 export default function StoreDetailHero({ store }) {
   if (!store) return null;
 
@@ -22,8 +23,8 @@ export default function StoreDetailHero({ store }) {
       <div className="ui-container ui-subHero__layout">
         <div className="ui-subHero__content">
           {/* meta 區 */}
-          {/* 這裡完全照你原本的 JSX */}
           {/* <h1>{store.name}</h1> */}
+          {/* ui-subHero__meta 根據 store 去map顯示樣式 + 資訊 */}
           <h1>柯爾鴨精品休閒館-台中店</h1>
           <div className="ui-subHero__meta d-flex align-items-center">
             <div className="ui-subHero__meta-group">
@@ -50,6 +51,7 @@ export default function StoreDetailHero({ store }) {
           </div>
         </div>
 
+        {/* ui-subHero__aside 根據 store 去map顯示樣式 + 資訊 */}
         <div className="ui-subHero__aside shadow-sm">
           <p>可接待的寵物：</p>
           {/* <p>{store.pets.join('、')}</p> */}

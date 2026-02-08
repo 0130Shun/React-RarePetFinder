@@ -1,3 +1,4 @@
+import { ChevronRight } from 'react-feather';
 export default function BannerForFindStores() {
   return (
     <section className="ui-section ui-section--light">
@@ -14,7 +15,7 @@ export default function BannerForFindStores() {
         <div className="ui-subHero__breadcrumb ui-container">
           <nav className="ui-breadcrumb">
             <a href="#">首頁</a>
-            <i data-feather="chevron-right"></i>
+            <ChevronRight className="ui-breadcrumb__separator" size={20} />
             <span className="ui-breadcrumb__item is-current">搜尋結果</span>
           </nav>
         </div>

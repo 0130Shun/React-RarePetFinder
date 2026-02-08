@@ -1,8 +1,12 @@
 // 稀寵資訊 分頁
 
+// import ArticlesHero from '../../components/ArticlesHero';
+import { ChevronRight } from 'react-feather';
+
 export default function Articles() {
   return (
     <>
+      {/* <ArticlesHero /> */}
       <section className="ui-section ui-section--light">
         <div
           className="ui-subHero ui-subHero--warning"
@@ -16,11 +20,10 @@ export default function Articles() {
               </p>
             </div>
           </div>
-          {/* 麵包屑 */}
           <div className="ui-subHero__breadcrumb ui-container">
             <nav className="ui-breadcrumb">
-              <a href="#">首頁</a>
-              <i data-feather="chevron-right"></i>
+              <a href="/">首頁</a>
+              <ChevronRight className="ui-breadcrumb__separator" size={20} />
               <span className="ui-breadcrumb__item is-current">稀寵資訊</span>
             </nav>
           </div>
