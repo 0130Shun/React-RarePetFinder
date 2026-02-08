@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'; // 引入 Swiper React 元件
 import { Pagination, Autoplay, Navigation } from 'swiper/modules'; // 引入模組
 import { Heart, ArrowLeft, ArrowRight, Search } from 'react-feather';
+import { Link, NavLink } from 'react-router-dom';
 const HotSpot = () => {
   const hotSpotData = [
     {
@@ -59,7 +60,7 @@ const HotSpot = () => {
           slidesPerView={2}
           spaceBetween={24}
           loop={true}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          autoplay={{ delay: 30000, disableOnInteraction: false }}
           // 下面的小黑點(分頁註記)
           // pagination={{ clickable: true }}
           // 導航按鈕 (綁定下方的 class)
@@ -89,7 +90,10 @@ const HotSpot = () => {
         >
           {hotSpotData.map((store) => (
             <SwiperSlide>
-              <div className="store-card text-center">
+              <Link
+                to="#" // 還需調整網址 ！！`/findStores?query=${store.name}`
+                className="d-block store-card text-center"
+              >
                 <div className="d-flex justify-content-end align-items-center mb-3 pe-3">
                   <Heart className="feather fav-icon me-1" size={20} />
                   <span className="small fw-bold">{store.likes}</span>
@@ -101,7 +105,7 @@ const HotSpot = () => {
                   <p className="store-name mb-2">{store.storeName}</p>
                   <p className="store-add">{store.address}</p>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
