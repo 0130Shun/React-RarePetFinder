@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form'; // 引入 RHF
 import { storeService } from '../../api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
-import BannerForFindStores from '../../components/BannerForFindStores';
-// import FindStoresHero from '../../components/FindStoresHero';
+// import BannerForFindStores from '../../components/BannerForFindStores';
+import FindStoresHero from '../../components/FindStoresHero';
 
 // 將 storeSearchUtils 中的工具引入
 import {
@@ -174,8 +174,8 @@ export default function FindStores() {
 
   return (
     <div>
-      <BannerForFindStores />
-      {/* <FindStoresHero /> */}
+      {/* <BannerForFindStores /> */}
+      <FindStoresHero />
       <br />
       <h1>店家檢索（按搜尋才更新）</h1>
 

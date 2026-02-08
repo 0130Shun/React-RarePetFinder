@@ -1,13 +1,13 @@
 // 稀寵資訊 分頁
 
-// import ArticlesHero from '../../components/ArticlesHero';
-import { ChevronRight } from 'react-feather';
+import ArticlesHero from '../../components/ArticlesHero';
+// import { ChevronRight } from 'react-feather';
 
 export default function Articles() {
   return (
     <>
-      {/* <ArticlesHero /> */}
-      <section className="ui-section ui-section--light">
+      <ArticlesHero />
+      {/* <section className="ui-section ui-section--light">
         <div
           className="ui-subHero ui-subHero--warning"
           data-watermark="Information"
@@ -28,7 +28,7 @@ export default function Articles() {
             </nav>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* 主要內容 */}
       <section className="rarepet-info-section pt-1 pb-5 mt-5">
         <div className="container pb-5 ">

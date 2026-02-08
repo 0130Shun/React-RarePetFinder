@@ -3,21 +3,29 @@ import { User } from 'react-feather';
 // import { useStore } from 'react-redux';
 import StoreDetailHero from '../../components/StoreDetailHero';
 
-import {
-  ChevronRight,
-  Heart,
-  Home,
-  ShoppingBag,
-  PlusSquare,
-} from 'react-feather';
+// import {
+//   ChevronRight,
+//   Heart,
+//   Home,
+//   ShoppingBag,
+//   PlusSquare,
+// } from 'react-feather';
 
-export default function RarePetFinder() {
-  // 透過storeId去讀取資料後，再把資料傳給StoreDetailHero，這邊暫時用storeId代表實際的store店家物件資料
+export default function StoreDetail() {
+  // 透過storeId去讀取資料後，再把資料傳給StoreDetailHero，
+  // 這邊暫時用storeData代表實際的store店家物件資料，未來應該是store+favorite筆數+評論比數混合倒入
+  const storeData = {
+    storeName: '柯爾鴨精品休閒館-台中店',
+    type: ['旅館', '賣家', '診所'],
+    area: '新北',
+    petTypes: ['倉鼠', '柯爾鴨', '鸚鵡', '守宮', '刺蝟'],
+  };
 
   return (
     <>
       {/* <StoreDetailHero store={storeId} /> */}
-      <section className="ui-section ui-section--light">
+      <StoreDetailHero store={storeData} />
+      {/* <section className="ui-section ui-section--light">
         <div className="ui-subHero" data-watermark="Results Info">
           <div className="ui-container ui-subHero__layout">
             <div className="ui-subHero__content">
@@ -67,7 +75,7 @@ export default function RarePetFinder() {
             </nav>
           </div>
         </div>
-      </section>
+      </section> */}
       <h1>檢索頁面</h1>
       <section className="container">
         <div className="row store-info-section gap-md-3">
