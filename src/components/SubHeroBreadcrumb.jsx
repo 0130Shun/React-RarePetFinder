@@ -12,10 +12,6 @@ export default function SubHeroBreadcrumb({ items }) {
           {item.current ? (
             <span className="ui-breadcrumb__item is-current">{item.label}</span>
           ) : (
-            // <a href={item.to} className="ui-breadcrumb__item">
-            //   {item.label}
-            // </a>
-
             <Link className="ui-breadcrumb__item" to={item.to}>
               {item.label}
             </Link>
