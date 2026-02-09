@@ -1,19 +1,13 @@
 import { User } from 'react-feather';
 // import { useParams } from 'react-router-dom';
 // import { useStore } from 'react-redux';
-import StoreDetailHero from '../../components/subHero/StoreDetailHero';
-
-// import {
-//   ChevronRight,
-//   Heart,
-//   Home,
-//   ShoppingBag,
-//   PlusSquare,
-// } from 'react-feather';
+// import StoreDetailHero from '../../components/subHero/StoreDetailHero';
+import SubHero from '../../components/subHero/SubHero';
 
 export default function StoreDetail() {
-  // 透過storeId去讀取資料後，再把資料傳給StoreDetailHero，
-  // 這邊暫時用storeData代表實際的store店家物件資料，未來應該是store+favorite筆數+評論比數混合倒入
+  // 透過useEffect的await storeService.getStoreDetail(storeId)去讀取資料後，再把資料傳給StoreDetailHero，
+  // 這邊暫時用storeData代表實際的store店家物件資料，
+  // 未來應該是store+favorite筆數+評論比數混合倒入，測試時請自由刪減type、petTypes
   const storeData = {
     storeName: '柯爾鴨精品休閒館-台中店',
     type: ['旅館', '賣家', '診所'],
@@ -23,59 +17,9 @@ export default function StoreDetail() {
 
   return (
     <>
-      {/* <StoreDetailHero store={storeId} /> */}
-      <StoreDetailHero store={storeData} />
-      {/* <section className="ui-section ui-section--light">
-        <div className="ui-subHero" data-watermark="Results Info">
-          <div className="ui-container ui-subHero__layout">
-            <div className="ui-subHero__content">
-              <h1>柯爾鴨精品休閒館-台中店</h1>
-              <div className="ui-subHero__meta d-flex align-items-center">
-                <div className="ui-subHero__meta-group">
-                  <span className="ui-subHero__meta-item">
-                    <Heart className="ui-breadcrumb__separator" size={20} /> 153
-                  </span>
-                  <span className="ui-subHero__meta-divider">|</span>
-                  <span className="ui-subHero__meta-item">10 則評論</span>
-                </div>
-                <div className="ui-subHero__meta-group">
-                  <span className="ui-subHero__meta-item">
-                    <Home className="ui-breadcrumb__separator" size={20} />
-                    旅館、
-                  </span>
-                  <span className="ui-subHero__meta-item">
-                    <ShoppingBag
-                      className="ui-breadcrumb__separator"
-                      size={20}
-                    />
-                    賣家、
-                  </span>
-                  <span className="ui-subHero__meta-item">
-                    <PlusSquare
-                      className="ui-breadcrumb__separator"
-                      size={20}
-                    />
-                    診所
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="ui-subHero__aside shadow-sm row">
-              <p> 可接待的寵物：</p>
-              <p> 🐁 倉鼠、🦆 柯爾鴨、🐢 烏龜、🦔 刺蝟</p>
-            </div>
-          </div>
-          <div className="ui-subHero__breadcrumb ui-container">
-            <nav className="ui-breadcrumb">
-              <a href="#">首頁</a>
-              <ChevronRight className="ui-breadcrumb__separator" size={20} />
-              <span className="ui-breadcrumb__item">搜尋頁面結果</span>
-              <ChevronRight className="ui-breadcrumb__separator" size={20} />
-              <span className="ui-breadcrumb__item is-current">店家資訊</span>
-            </nav>
-          </div>
-        </div>
-      </section> */}
+      {/* <StoreDetailHero store={storeData} /> */}
+      <SubHero variant="storeDetail" store={storeData} />
+
       <h1>檢索頁面</h1>
       <section className="container">
         <div className="row store-info-section gap-md-3">

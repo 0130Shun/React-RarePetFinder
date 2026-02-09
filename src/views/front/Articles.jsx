@@ -1,12 +1,15 @@
 // 稀寵資訊 分頁
 
 import ArticlesHero from '../../components/subHero/ArticlesHero';
+import SubHero from '../../components/subHero/SubHero';
 // import { ChevronRight } from 'react-feather';
 
 export default function Articles() {
   return (
     <>
-      <ArticlesHero />
+      {/* <ArticlesHero /> */}
+      <SubHero variant="articles" />
+
       {/* 主要內容 */}
       <section className="rarepet-info-section pt-1 pb-5 mt-5">
         <div className="container pb-5 ">
