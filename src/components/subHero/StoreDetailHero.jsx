@@ -38,22 +38,18 @@ export default function StoreDetailHero({ store }) {
             </div>
 
             <div className="ui-subHero__meta-group">
-              <div className="ui-subHero__meta-group">
-                <div className="ui-subHero__meta-group">
-                  {store.type.map((typeItem, i) => {
-                    const Icon = STORE_TYPE_ICON_MAP[typeItem];
-                    if (!Icon) return null;
+              {store.type.map((typeItem, i) => {
+                const Icon = STORE_TYPE_ICON_MAP[typeItem];
+                if (!Icon) return null;
 
-                    return (
-                      <span key={typeItem} className="ui-subHero__meta-item">
-                        <Icon size={20} className="me-1" />
-                        {typeItem}
-                        {i < store.type.length - 1 && '、'}
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
+                return (
+                  <span key={typeItem} className="ui-subHero__meta-item">
+                    <Icon size={20} className="me-1" />
+                    {typeItem}
+                    {i < store.type.length - 1 && '、'}
+                  </span>
+                );
+              })}
             </div>
           </div>
         </div>

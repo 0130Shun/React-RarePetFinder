@@ -6,7 +6,7 @@ export default function SubHeroBreadcrumb({ items }) {
     <nav className="ui-breadcrumb">
       {items.map((item, i) => (
         <span
-          key={i}
+          key={`${item.label}-${i}`}
           className="ui-breadcrumb__group d-flex align-items-center"
         >
           {item.current ? (
