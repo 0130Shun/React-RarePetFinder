@@ -168,15 +168,14 @@ export default function FindStores() {
   };
 
   //載入時和載入失敗時會顯示的畫面，之後切版的東西進來可以考慮轉成元件
-  if (isLoading) return <p>載入中...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  // if (isLoading) return <p>載入中...</p>;
+  // if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
     <div>
       <BannerForFindStores />
       <br />
       <h1>店家檢索（按搜尋才更新）</h1>
-
       <form
         style={{ margin: '16px 0', display: 'grid', gap: 12 }}
         onSubmit={handleSubmit(onSubmitSearch)}
@@ -248,7 +247,11 @@ export default function FindStores() {
 
       <hr />
 
-      {items.length === 0 ? (
+      {isLoading ? (
+        <p>載入中...</p>
+      ) : error ? (
+        <p style={{ color: 'red' }}>{error}</p>
+      ) : items.length === 0 ? (
         <p>找不到符合條件的店家</p>
       ) : (
         <>
