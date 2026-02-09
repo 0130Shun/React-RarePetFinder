@@ -91,7 +91,7 @@ const HotSpot = () => {
           {hotSpotData.map((store) => (
             <SwiperSlide>
               <Link
-                to="#" // 還需調整網址 ！！`/findStores?query=${store.name}`
+                to={`/findStores?query=${store.storeName}`}
                 className="d-block store-card text-center"
               >
                 <div className="d-flex justify-content-end align-items-center mb-3 pe-3">
