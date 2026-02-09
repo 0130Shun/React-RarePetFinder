@@ -45,15 +45,24 @@ a {
   border-radius: 16px;
   position: relative;
   padding: 24px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-5px);
+  }
 }
 .infoContentCard::after {
   content: '';
   position: absolute;
   top: 25px;
   right: 25px;
-  background-color: #ffffff;
+  background-color: transparent;
   color: #c9e9f4;
   background-image: url('/src/assets/img/Frame87685.png');
+  background-size: contain;
   width: 24px;
   height: 17px;
 }
@@ -118,6 +127,20 @@ a {
     /* border: 1px solid red; */
     z-index: 1;
   }
+  .infoContentCard {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-5px);
+      &::after {
+        background-image: url('/src/assets/img/Frame87685md-hover.png');
+      }
+    }
+    &::after {
+      width: 48px;
+      height: 35px;
+      background-image: url('/src/assets/img/Frame87685md.png');
+    }
+  }
 
   .infoSection {
     background-color: #c9e9f4;
@@ -125,6 +148,7 @@ a {
     margin-left: 40px;
     margin-right: 40px;
   }
+
   .section-title {
     font-size: 48px;
     margin-bottom: 40px;
