@@ -1,9 +1,9 @@
-import SubHero from '../components/SubHero';
-import SubHeroBreadcrumb from '../components/SubHeroBreadcrumb';
+import SubHeroLayout from './SubHeroLayout';
+import SubHeroBreadcrumb from './SubHeroBreadcrumb';
 
 export default function FindStoresHero() {
   return (
-    <SubHero
+    <SubHeroLayout
       watermark="Search Results"
       breadcrumb={
         <SubHeroBreadcrumb
@@ -24,6 +24,6 @@ export default function FindStoresHero() {
           <p>吃的、洗的、住的、醫療一次找齊</p>
         </div>
       </div>
-    </SubHero>
+    </SubHeroLayout>
   );
 }

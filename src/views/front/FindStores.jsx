@@ -5,7 +5,7 @@ import { storeService } from '../../api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
 // import BannerForFindStores from '../../components/BannerForFindStores';
-import FindStoresHero from '../../components/FindStoresHero';
+import FindStoresHero from '../../components/subHero/FindStoresHero';
 
 // 將 storeSearchUtils 中的工具引入
 import {

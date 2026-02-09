@@ -1,10 +1,10 @@
 // variants/ArticlesHero.jsx
-import SubHero from '../components/SubHero';
-import SubHeroBreadcrumb from '../components/SubHeroBreadcrumb';
+import SubHeroLayout from './SubHeroLayout';
+import SubHeroBreadcrumb from './SubHeroBreadcrumb';
 
 export default function ArticlesHero() {
   return (
-    <SubHero
+    <SubHeroLayout
       variant="warning"
       watermark="Information"
       breadcrumb={
@@ -24,6 +24,6 @@ export default function ArticlesHero() {
           </p>
         </div>
       </div>
-    </SubHero>
+    </SubHeroLayout>
   );
 }

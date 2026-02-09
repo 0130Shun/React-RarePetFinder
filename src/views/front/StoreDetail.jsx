@@ -1,7 +1,7 @@
 import { User } from 'react-feather';
 // import { useParams } from 'react-router-dom';
 // import { useStore } from 'react-redux';
-import StoreDetailHero from '../../components/StoreDetailHero';
+import StoreDetailHero from '../../components/subHero/StoreDetailHero';
 
 // import {
 //   ChevronRight,

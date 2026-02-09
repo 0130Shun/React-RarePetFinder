@@ -1,34 +1,12 @@
 // 稀寵資訊 分頁
 
-import ArticlesHero from '../../components/ArticlesHero';
+import ArticlesHero from '../../components/subHero/ArticlesHero';
 // import { ChevronRight } from 'react-feather';
 
 export default function Articles() {
   return (
     <>
       <ArticlesHero />
-      {/* <section className="ui-section ui-section--light">
-        <div
-          className="ui-subHero ui-subHero--warning"
-          data-watermark="Information"
-        >
-          <div className="ui-container">
-            <div className="ui-subHero__information">
-              <h2>小心假冒「動保處」的釣魚簡訊！</h2>
-              <p>
-                近日有賣家收到謊稱「寵物登記異常」的簡訊，要求點擊連結補件。這是詐騙！請直接刪除，勿輸入個資。
-              </p>
-            </div>
-          </div>
-          <div className="ui-subHero__breadcrumb ui-container">
-            <nav className="ui-breadcrumb">
-              <a href="/">首頁</a>
-              <ChevronRight className="ui-breadcrumb__separator" size={20} />
-              <span className="ui-breadcrumb__item is-current">稀寵資訊</span>
-            </nav>
-          </div>
-        </div>
-      </section> */}
       {/* 主要內容 */}
       <section className="rarepet-info-section pt-1 pb-5 mt-5">
         <div className="container pb-5 ">

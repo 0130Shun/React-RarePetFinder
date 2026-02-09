@@ -1,4 +1,4 @@
-export default function SubHero({
+export default function SubHeroLayout({
   watermark,
   variant = 'default',
   children,
