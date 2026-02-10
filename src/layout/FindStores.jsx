@@ -291,7 +291,7 @@ const FindStores = () => {
                       <div className="mt-12">
                         {STORE_TYPE_OPTIONS.map((type, index) => (
                           <div
-                            className={`mt-${index === 0 ? '0' : '12'}`}
+                            className={`mt-${index === 0 ? '0' : '12'} store-type-checkbox`}
                             key={type}
                           >
                             <div className="form-check">
@@ -319,7 +319,7 @@ const FindStores = () => {
                       <div className="mt-12">
                         {PET_TYPE_OPTIONS.map((type, index) => (
                           <div
-                            className={`mt-${index === 0 ? '0' : '12'}`}
+                            className={`mt-${index === 0 ? '0' : '12'} pet-type-checkbox`}
                             key={type}
                           >
                             <div className="form-check ">

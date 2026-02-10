@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form'; // 引入 RHF
-import { storeService } from '../../api'; // 稀寵搜搜專題的api入口
+import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
 // import FindStoresHero from '../../components/subHero/FindStoresHero';
-import SubHero from '../../components/subHero/SubHero';
+import SubHero from '@/components/subHero/SubHero';
 
 // 將 storeSearchUtils 中的工具引入
 import {
