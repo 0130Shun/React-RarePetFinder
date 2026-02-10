@@ -7,6 +7,10 @@ import Articles from '../views/front/Articles';
 import FindStores from '../views/front/FindStores';
 import StoreDetail from '../views/front/StoreDetail';
 
+// 皆順搜尋頁
+
+import FindStoresShun from '../layout/FindStores';
+
 // auth
 import Login from '../views/auth/Login';
 // misc
@@ -24,6 +28,10 @@ export const router = createHashRouter([
       {
         path: 'findstores',
         element: <FindStores />,
+      },
+      {
+        path: 'testfindstores',
+        element: <FindStoresShun />,
       },
       {
         path: 'storedetail/:storeId',
