@@ -28,7 +28,7 @@
 /* 各自個分頁的Sub-HeroBanner */
 .ui-subHero {
   position: relative;
-  background-color: $ui-color-secondary;
+  // background-color: $ui-color-secondary;
   padding: 64px 12px 108px 12px;
   min-height: 297px;
 
@@ -56,7 +56,7 @@
     line-height: 100%;
     letter-spacing: 2%;
 
-    color: rgba($ui-color-primary, 0.08);
+    color: rgba($ui-color-primary, 0.2);
     white-space: nowrap;
 
     z-index: 1;
@@ -66,10 +66,16 @@
   }
 }
 
-// subHero 變體背景色
+// subHero 背景色基本款
+.ui-subHero--default {
+  background-color: $ui-color-secondary;
+}
+
+// subHero 變體背景色 + 帶入warning所屬邊框樣式調整
 .ui-subHero--warning {
   /* 1. 改變背景色 */
-  background-color: rgba($ui-color-warning, 0.3) !important;
+  // background-color: rgba($ui-color-warning, 0.3) !important;
+  background-color: rgba($ui-color-warning, 0.3);
   padding: 100px 12px 80px 12px;
   min-height: 326px;
 
@@ -234,7 +240,7 @@
     p {
       font-size: 24px;
       line-height: 120%;
-      letter-spacing: 0.025m;
+      letter-spacing: 0.025em;
     }
   }
 }
@@ -349,7 +355,7 @@
     p {
       font-size: 16px;
       line-height: 120%;
-      letter-spacing: 0.025m;
+      letter-spacing: 0.025em;
     }
   }
 }
@@ -424,7 +430,7 @@
 
     /* 5️ Responsive（desktop） */
     @include respond(desktop) {
-      align-items: left;
+      align-items: flex-start;
 
       width: 306px;
       max-height: 56px;

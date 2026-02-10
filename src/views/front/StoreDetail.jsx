@@ -1,50 +1,25 @@
 import { User } from 'react-feather';
+// import { useParams } from 'react-router-dom';
+// import { useStore } from 'react-redux';
+// import StoreDetailHero from '../../components/subHero/StoreDetailHero';
+import SubHero from '../../components/subHero/SubHero';
 
-export default function RarePetFinder() {
+export default function StoreDetail() {
+  // 透過useEffect的await storeService.getStoreDetail(storeId)去讀取資料後，再把資料傳給StoreDetailHero，
+  // 這邊暫時用storeData代表實際的store店家物件資料，
+  // 未來應該是store+favorite筆數+評論比數混合倒入，測試時請自由刪減type、petTypes
+  const storeData = {
+    storeName: '柯爾鴨精品休閒館-台中店',
+    type: ['旅館', '賣家', '診所'],
+    area: '新北',
+    petTypes: ['倉鼠', '柯爾鴨', '鸚鵡', '守宮', '刺蝟'],
+  };
+
   return (
     <>
-      <section className="ui-section ui-section--light">
-        <div className="ui-subHero" data-watermark="Results Info">
-          <div className="ui-container ui-subHero__layout">
-            <div className="ui-subHero__content">
-              <h1>柯爾鴨精品休閒館-台中店</h1>
-              <div className="ui-subHero__meta">
-                <div className="ui-subHero__meta-group">
-                  <span className="ui-subHero__meta-item">
-                    <i data-feather="heart"></i> 153
-                  </span>
-                  <span className="ui-subHero__meta-divider">|</span>
-                  <span className="ui-subHero__meta-item">10 則評論</span>
-                </div>
-                <div className="ui-subHero__meta-group">
-                  <span className="ui-subHero__meta-item">
-                    <i data-feather="home"></i> 旅館
-                  </span>
-                  <span className="ui-subHero__meta-item">
-                    <i data-feather="shopping-bag"></i> 賣家
-                  </span>
-                  <span clasclassNames="ui-subHero__meta-item">
-                    <i data-feather="plus-square"></i> 診所
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="ui-subHero__aside shadow-sm row">
-              <p> 可接待的寵物：</p>
-              <p> 🐁 倉鼠、🦆 柯爾鴨、🐢 烏龜、🦔 刺蝟</p>
-            </div>
-          </div>
-          <div className="ui-subHero__breadcrumb ui-container">
-            <nav className="ui-breadcrumb">
-              <a href="#">首頁</a>
-              <i data-feather="chevron-right"></i>
-              <span className="ui-breadcrumb__item">搜尋頁面結果</span>
-              <i data-feather="chevron-right"></i>
-              <span className="ui-breadcrumb__item is-current">店家資訊</span>
-            </nav>
-          </div>
-        </div>
-      </section>
+      {/* <StoreDetailHero store={storeData} /> */}
+      <SubHero variant="storeDetail" store={storeData} />
+
       <h1>檢索頁面</h1>
       <section className="container">
         <div className="row store-info-section gap-md-3">
