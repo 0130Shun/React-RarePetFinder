@@ -40,7 +40,8 @@ const FindStores = () => {
     petType: [],
     page: 1,
   });
-
+  const watchedPetTypes = watch('petType') || [];
+  const watchedStoreTypes = watch('storeType') || [];
   const [allStores, setAllStores] = useState([]); //從 API 抓回來的「全部店家」
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
   const [totalPages, setTotalPages] = useState(1); //用篩選後的總筆數 / PAGE_SIZE 算出來
@@ -289,56 +290,62 @@ const FindStores = () => {
                     <div className="storeTypes mb-36">
                       <span className="span-style">店家種類</span>
                       <div className="mt-12">
-                        {STORE_TYPE_OPTIONS.map((type, index) => (
-                          <div
-                            className={`mt-${index === 0 ? '0' : '12'} store-type-checkbox`}
-                            key={type}
-                          >
-                            <div className="form-check">
-                              <input
-                                className="form-check-input checkbox-input"
-                                type="checkbox"
-                                value={type}
-                                id={`storeType-${type}`}
-                                {...register('storeType')}
-                              />
-                              <label
-                                className="form-check-label checkbox-label"
-                                htmlFor={`storeType-${type}`}
-                              >
-                                {type}
-                              </label>
+                        {STORE_TYPE_OPTIONS.map((type, index) => {
+                          const isChecked = watchedStoreTypes.includes(type);
+                          return (
+                            <div
+                              className={`mt-${index === 0 ? '0' : '12'} store-type-checkbox ${isChecked ? 'checked' : ''} `}
+                              key={type}
+                            >
+                              <div className="form-check">
+                                <input
+                                  className="form-check-input checkbox-input"
+                                  type="checkbox"
+                                  value={type}
+                                  id={`storeType-${type}`}
+                                  {...register('storeType')}
+                                />
+                                <label
+                                  className="form-check-label checkbox-label"
+                                  htmlFor={`storeType-${type}`}
+                                >
+                                  {type}
+                                </label>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                     {/* <!-- 寵物種類 --> */}
                     <div className="petTypes mb-36">
                       <span className="span-style">寵物種類</span>
                       <div className="mt-12">
-                        {PET_TYPE_OPTIONS.map((type, index) => (
-                          <div
-                            className={`mt-${index === 0 ? '0' : '12'} pet-type-checkbox`}
-                            key={type}
-                          >
-                            <div className="form-check ">
-                              <input
-                                className="form-check-input checkbox-input"
-                                type="checkbox"
-                                value={type}
-                                id={`petType-${type}`}
-                                {...register('petType')}
-                              />
-                              <label
-                                className="form-check-label checkbox-label"
-                                htmlFor={`petType-${type}`}
-                              >
-                                {type}
-                              </label>
+                        {PET_TYPE_OPTIONS.map((type, index) => {
+                          const isChecked = watchedPetTypes.includes(type);
+                          return (
+                            <div
+                              className={`mt-${index === 0 ? '0' : '12'} pet-type-checkbox ${isChecked ? 'checked' : ''}`}
+                              key={type}
+                            >
+                              <div className="form-check ">
+                                <input
+                                  className="form-check-input checkbox-input"
+                                  type="checkbox"
+                                  value={type}
+                                  id={`petType-${type}`}
+                                  {...register('petType')}
+                                />
+                                <label
+                                  className="form-check-label checkbox-label"
+                                  htmlFor={`petType-${type}`}
+                                >
+                                  {type}
+                                </label>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                     {/* <!-- 搜尋按鈕 --> */}

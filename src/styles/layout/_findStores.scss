@@ -140,6 +140,9 @@
   background-color: #f0f0f0;
   padding: 8px 0px 8px 12px;
   border-radius: 4px;
+  &.checked {
+    background-color: #c9e9f4;
+  }
 }
 .checkbox-input {
   width: 24px;
