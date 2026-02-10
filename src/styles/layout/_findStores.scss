@@ -101,6 +101,7 @@
   background-image:
     url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"),
     linear-gradient(#f0f0f0, #f0f0f0); /* 這層是灰色背景 */
+    background-image
   /* 2. 設定這兩層背景的大小 */
   /* 第一個是箭頭大小，第二個是灰色塊寬度 (例如 45px 寬) */
   background-size:
@@ -184,8 +185,17 @@
 //卡片
 .card-style {
   padding: 36px 24px 48px 24px;
+  border: none;
   border-radius: 16px;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 0px 8px 0px rgba(254, 198, 49, 0.5);
+    transform: translateY(-5px);
+  }
 }
 //收藏
 .love {
