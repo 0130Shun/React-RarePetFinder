@@ -1,15 +1,25 @@
 import { useCallback, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
-
+import { Link } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'react-feather';
+//引入swiper
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
+//引入圖片
+import callDuckImg from '@/assets/img/homeTrending/trending-callDuck.jpg';
+import gekkota from '@/assets/img/homeTrending/trending-Gekkota.jpg';
+import hamster from '@/assets/img/homeTrending/trending-Hamster.jpg';
+import hedgehog from '@/assets/img/homeTrending/trending-Hedgehog.jpg';
+import parrot from '@/assets/img/homeTrending/trending-Parrot.jpg';
+import tortoise from '@/assets/img/homeTrending/trending-Tortoise.jpg';
 
 export default function Tranding() {
+  //swiper 功能
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-
+  //swiper 功能
   const updateDim = useCallback((swiper) => {
     if (!swiper?.slides?.length) return;
 
@@ -34,6 +44,85 @@ export default function Tranding() {
     }
   }, []);
 
+  //寫死的data，之後可以改成api
+  const trendingData = [
+    {
+      id: 1,
+      animal: '柯爾鴨',
+      searchNum: 15,
+      img: callDuckImg,
+    },
+    {
+      id: 2,
+      animal: '鸚鵡',
+      searchNum: 9,
+      img: parrot,
+    },
+    {
+      id: 3,
+      animal: '烏龜',
+      searchNum: 20,
+      img: tortoise,
+    },
+    {
+      id: 4,
+      animal: '守宮',
+      searchNum: 19,
+      img: gekkota,
+    },
+    {
+      id: 5,
+      animal: '倉鼠',
+      searchNum: 10,
+      img: hamster,
+    },
+    {
+      id: 6,
+      animal: '刺蝟',
+      searchNum: 5,
+      img: hedgehog,
+    },
+    {
+      id: 7,
+      animal: '柯爾鴨',
+      searchNum: 15,
+      img: callDuckImg,
+    },
+    {
+      id: 8,
+      animal: '鸚鵡',
+      searchNum: 9,
+      img: parrot,
+    },
+    {
+      id: 9,
+      animal: '烏龜',
+      searchNum: 20,
+      img: tortoise,
+    },
+    {
+      id: 10,
+      animal: '守宮',
+      searchNum: 19,
+      img: gekkota,
+    },
+    {
+      id: 11,
+      animal: '倉鼠',
+      searchNum: 10,
+      img: hamster,
+    },
+    {
+      id: 12,
+      animal: '刺蝟',
+      searchNum: 5,
+      img: hedgehog,
+    },
+  ];
+
+  //待修問題：
+  //最後記得npm prettier --write 指定檔案名
+
   return (
     <section className="trending-section">
       <header className="scam-header">
@@ -42,9 +131,28 @@ export default function Tranding() {
       </header>
 
       <div className="container-slider-zone">
+        {/* 桌機左右箭頭 */}
+        <button
+          ref={prevRef}
+          type="button"
+          className="ui-carousel__btn ui-carousel__btn--prev"
+          aria-label="Previous"
+        >
+          <ChevronLeft size={20} />
+        </button>
+        <button
+          ref={nextRef}
+          type="button"
+          className="ui-carousel__btn ui-carousel__btn--next"
+          aria-label="Next"
+        >
+          <ChevronRight size={20} />
+        </button>
+
         <Swiper
           className="trending-swiper"
           modules={[Navigation, Autoplay]}
+          navigation={true}
           loop={true}
           centeredSlides={true}
           slidesPerView={1.9}
@@ -53,6 +161,7 @@ export default function Tranding() {
             delay: 3000,
             disableOnInteraction: false,
           }}
+          //RWD解法
           breakpoints={{
             800: {
               slidesPerView: 3.2,
@@ -84,261 +193,48 @@ export default function Tranding() {
               loop: true,
             },
           }}
-          navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
           onBeforeInit={(swiper) => {
-            // ✅ init 前把 navigation 綁到 ref（不靠 selector）
             swiper.params.navigation.prevEl = prevRef.current;
             swiper.params.navigation.nextEl = nextRef.current;
           }}
           onInit={(swiper) => {
-            // ✅ navigation 需要 init/update
             swiper.navigation.init();
             swiper.navigation.update();
-
             updateDim(swiper);
           }}
-          onSlideChange={(swiper) => updateDim(swiper)}
-          onResize={(swiper) => updateDim(swiper)}
+          onSlideChange={updateDim}
+          onResize={updateDim}
         >
-          {/*  Card 1   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-callDuck.jpg"
-                    alt="柯爾鴨"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">柯爾鴨</div>
-                  <div className="trending-card__count">15項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 2   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Parrot.jpg"
-                    alt="鸚鵡"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">鸚鵡</div>
-                  <div className="trending-card__count">23項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 3   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Tortoise.jpg"
-                    alt="烏龜"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">烏龜</div>
-                  <div className="trending-card__count">32項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 4   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Gekkota.jpg"
-                    alt="守宮"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">守宮</div>
-                  <div className="trending-card__count">9項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 5   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Hamster.jpg"
-                    alt="倉鼠"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">倉鼠</div>
-                  <div className="trending-card__count">16項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 6   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Hedgehog.jpg"
-                    alt="刺蝟"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">刺蝟</div>
-                  <div className="trending-card__count">15項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 1   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-callDuck.jpg"
-                    alt="柯爾鴨"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">柯爾鴨</div>
-                  <div className="trending-card__count">15項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 2   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Parrot.jpg"
-                    alt="鸚鵡"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">鸚鵡</div>
-                  <div className="trending-card__count">23項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 3   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Tortoise.jpg"
-                    alt="烏龜"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">烏龜</div>
-                  <div className="trending-card__count">32項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 4   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Gekkota.jpg"
-                    alt="守宮"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">守宮</div>
-                  <div className="trending-card__count">9項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 5   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Hamster.jpg"
-                    alt="倉鼠"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">倉鼠</div>
-                  <div className="trending-card__count">16項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
-          {/*  Card 6   */}
-          <SwiperSlide className="trending-card">
-            <article className="swiper-slide trending-card">
-              <a className="trending-card__link" href="#">
-                <div className="trending-card__circle">
-                  <img
-                    className="trending-card__img"
-                    src="/src/assets/img/homeTrending/trending-Hedgehog.jpg"
-                    alt="刺蝟"
-                  />
-                </div>
-                <div className="trending-card__plate">
-                  <div className="trending-card__name">刺蝟</div>
-                  <div className="trending-card__count">15項搜尋結果</div>
-                </div>
-              </a>
-            </article>
-          </SwiperSlide>
+          {/*  Card round 1   */}
+          {trendingData.map((item) => {
+            return (
+              <>
+                <SwiperSlide className="trending-card" key={item.id}>
+                  <article className="trending-card">
+                    <Link
+                      className="trending-card__link"
+                      to={`/findStores?query=${item.animal}`}
+                    >
+                      <div className="trending-card__circle">
+                        <img
+                          className="trending-card__img"
+                          src={item.img}
+                          alt={item.animal}
+                        />
+                      </div>
+                      <div className="trending-card__plate">
+                        <div className="trending-card__name">{item.animal}</div>
+                        <div className="trending-card__count">
+                          {item.searchNum}項搜尋結果
+                        </div>
+                      </div>
+                    </Link>
+                  </article>
+                </SwiperSlide>
+              </>
+            );
+          })}
         </Swiper>
-
-        {/* 桌機左右箭頭 暫時用svg之後用元件替換 */}
-        <button
-          ref={prevRef}
-          type="button"
-          className="trending-nav trending-nav--prev"
-          aria-label="上一個熱門分類"
-        >
-          <img src="/src/assets/btn-arrowA1.svg" aria-hidden="true" />
-        </button>
-
-        <button
-          ref={nextRef}
-          type="button"
-          className="trending-nav trending-nav--next"
-          aria-label="下一個熱門分類"
-        >
-          <img src="/src/assets/btn-arrowA2.svg" aria-hidden="true" />
-        </button>
       </div>
     </section>
   );

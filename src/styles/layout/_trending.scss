@@ -12,6 +12,26 @@
     padding: 0 0 20px 0;
   }
 
+  /* swiper按鈕 */
+  .ui-carousel__btn {
+    position: absolute;
+    z-index: 10;
+    pointer-events: auto;
+  }
+
+  .ui-carousel__btn--prev {
+    transform: translateX(170%);
+    top: 70%;
+    left: 0%;
+  }
+
+  .ui-carousel__btn--next {
+    right: 5%;
+    transform: translateX(50%);
+    transform: translateY(440%);
+    z-index: 20;
+  }
+
   /* Swiper */
   .trending-swiper {
     padding: 20px 0 50px 0;
