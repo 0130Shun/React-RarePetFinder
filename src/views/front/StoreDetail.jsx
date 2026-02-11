@@ -80,9 +80,10 @@ export default function StoreDetail() {
           <div className="col-md-5 store-info-box mb-4">
             <div className="store-info-content">
               <h4>店家公開資訊</h4>
-              <ul className="d-flex flex-column gap-1 mb-4">
+              <p className=" mb-4">{store.description}</p>
+              {/* <ul className="d-flex flex-column gap-1 mb-4">
                 <li>{store.description}</li>
-              </ul>
+              </ul> */}
 
               <h4>營業時間</h4>
               <ul className="d-flex flex-column gap-1">
