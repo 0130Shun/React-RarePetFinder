@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form'; // 引入 RHF
-import { storeService } from '../../api'; // 稀寵搜搜專題的api入口
+import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
 // import FindStoresHero from '../../components/subHero/FindStoresHero';
-import SubHero from '../../components/subHero/SubHero';
-
+import SubHero from '@/components/subHero/SubHero';
 // 將 storeSearchUtils 中的工具引入
 import {
   parseFilters,
@@ -15,10 +14,14 @@ import {
   matchQuery,
 } from '@/utils/storeSearchUtils';
 
+import StoreCard from '@/components/StoreCard.jsx';
+import Sliders from '@/assets/img/sliders.png';
+import Search from '@/assets/img/search.svg';
+import { ChevronLeft, ChevronRight } from 'react-feather';
 //每頁顯示 9 筆店家
 const PAGE_SIZE = 9;
 
-export default function FindStores() {
+const FindStores = () => {
   const [searchParams, setSearchParams] = useSearchParams(); //更新網址用(query params)
   // 一行搞定初始化，defaultValues 對應原本的 initialState
   const { register, handleSubmit, setValue, reset, watch } = useForm({
@@ -37,7 +40,8 @@ export default function FindStores() {
     petType: [],
     page: 1,
   });
-
+  const watchedPetTypes = watch('petType') || [];
+  const watchedStoreTypes = watch('storeType') || [];
   const [allStores, setAllStores] = useState([]); //從 API 抓回來的「全部店家」
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
   const [totalPages, setTotalPages] = useState(1); //用篩選後的總筆數 / PAGE_SIZE 算出來
@@ -89,7 +93,6 @@ export default function FindStores() {
         if (mounted) setIsLoading(false);
       }
     }
-
     load();
     return () => {
       mounted = false;
@@ -167,138 +170,264 @@ export default function FindStores() {
     const next = { ...filters, page };
     setSearchParams(buildSearchParams(next));
   };
-
-  //載入時和載入失敗時會顯示的畫面，之後切版的東西進來可以考慮轉成元件
-  // if (isLoading) return <p>載入中...</p>;
-  // if (error) return <p style={{ color: 'red' }}>{error}</p>;
-
   return (
-    <div>
-      {/* <FindStoresHero /> */}
+    <>
       <SubHero variant="findStores" />
-      <br />
-      <h1>店家檢索（按搜尋才更新）</h1>
-      <form
-        style={{ margin: '16px 0', display: 'grid', gap: 12 }}
-        onSubmit={handleSubmit(onSubmitSearch)}
-      >
-        <div>
-          <label style={{ marginRight: 8 }}>縣市：</label>
-          <select {...register('area')}>
-            {AREA_OPTIONS.map((a) => (
-              <option key={a || 'all'} value={a}>
-                {a === '' ? '全部縣市' : a}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label style={{ marginRight: 8 }}>關鍵字：</label>
-          <input
-            {...register('query')}
-            placeholder="例如：柯爾鴨 / 旅館 / 淡水"
-          />
-          <button
-            type="button"
-            onClick={onResetQueryOnly}
-            style={{ marginLeft: 8 }}
-          >
-            清空關鍵字
-          </button>
-        </div>
-
-        <div>
-          <div style={{ fontWeight: 600, marginBottom: 6 }}>
-            店家種類（多選）
-          </div>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            {STORE_TYPE_OPTIONS.map((t) => (
-              <label
-                key={t}
-                style={{ display: 'flex', gap: 6, alignItems: 'center' }}
-              >
-                <input type="checkbox" value={t} {...register('storeType')} />
-                {t}
-              </label>
-            ))}
+      <div className="container ui-container mt-md-5">
+        <div className="row">
+          <div className="col-12 d-md-none p-3">
+            <div className="findStores-search mb-36 mobile-search">
+              <div className="d-flex justify-content-between">
+                <span className="span-style">搜尋</span>
+                <button
+                  type="button"
+                  className="fw-bold shadow-sm btn-style"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#searchOffcanvas"
+                >
+                  進階篩選
+                  <img className="sliders" src={Sliders} alt="" />
+                </button>
+              </div>
+              <form onSubmit={handleSubmit(onSubmitSearch)}>
+                <div className="findStores-search-group mt-12">
+                  <div className="findStores-search-bar text">
+                    <input
+                      type="text"
+                      placeholder="搜尋關鍵字"
+                      {...register('query')}
+                    />
+                    <button type="submit">
+                      <img src={Search} alt="" />
+                    </button>
+                  </div>
+                  <div className="findStores-search-button">
+                    <button type="button" onClick={onResetQueryOnly}>
+                      重置
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-
-        <div>
-          <div style={{ fontWeight: 600, marginBottom: 6 }}>
-            寵物種類（多選）
-          </div>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            {PET_TYPE_OPTIONS.map((p) => (
-              <label
-                key={p}
-                style={{ display: 'flex', gap: 6, alignItems: 'center' }}
-              >
-                <input type="checkbox" value={p} {...register('petType')} />
-                {p}
-              </label>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', gap: 12 }}>
-          <button type="submit">搜尋</button>
-        </div>
-      </form>
-
-      <hr />
-
-      {isLoading ? (
-        <p>載入中...</p>
-      ) : error ? (
-        <p style={{ color: 'red' }}>{error}</p>
-      ) : items.length === 0 ? (
-        <p>找不到符合條件的店家</p>
-      ) : (
-        <>
-          <h3>此頁店家：</h3>
-          <ul>
-            {items.map((store) => (
-              <li key={store.id}>
-                {store.storeName}（{store.area}）｜{store.type?.join(' / ')}｜
-                {store.petTypes?.join(' / ')}
-              </li>
-            ))}
-          </ul>
-
-          <div
-            style={{
-              marginTop: 16,
-              display: 'flex',
-              gap: 12,
-              alignItems: 'center',
-            }}
-          >
-            <button
-              disabled={filters.page <= 1}
-              onClick={() => goToPage(filters.page - 1)}
+        <div className="row">
+          <aside className="col-lg-3">
+            <div
+              className="offcanvas-lg offcanvas-top h-100"
+              tabindex="-1"
+              id="searchOffcanvas"
             >
-              上一頁
-            </button>
-
-            <span>
-              第 {filters.page} / {totalPages} 頁
+              {/*<!-- 彈跳視窗上方 / 手機板的進階篩選 --*/}
+              <div className="offcanvas-header d-lg-none">
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="offcanvas"
+                  data-bs-target="#searchOffcanvas"
+                ></button>
+              </div>
+              {/*<!-- 彈跳視窗內容 -->*/}
+              <div className="offcanvas-body sidebar-sticky">
+                <div className="p-3 w-100">
+                  <form onSubmit={handleSubmit(onSubmitSearch)}>
+                    {/*<!-- 搜尋關鍵字 -->*/}
+                    <div className="findStores-search mb-36">
+                      <span className="span-style">搜尋</span>
+                      <div className="findStores-search-group mt-12">
+                        <div className="findStores-search-bar tc-1-small-regular">
+                          <input
+                            type="text"
+                            placeholder="搜尋關鍵字"
+                            {...register('query')}
+                          />
+                          <button type="submit">
+                            <img src={Search} alt="" />
+                          </button>
+                        </div>
+                        <div className="findStores-search-button">
+                          <button type="button" onClick={onResetQueryOnly}>
+                            重置
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    {/* <!-- 縣市 --> */}
+                    <div className="city mb-36">
+                      <span className="span-style">縣市</span>
+                      <div className="mt-12 city-select">
+                        <select
+                          className="form-select form-select-lg select-arrow tc-1-small-regular"
+                          aria-label=".form-select-lg example"
+                          {...register('area')}
+                        >
+                          <option value="">全部縣市</option>
+                          {AREA_OPTIONS.filter((a) => a !== '').map((a) => (
+                            <option key={a} value={a}>
+                              {a}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    {/* <!-- 鄉鎮市區 --> */}
+                    {/* 暫時隱藏 因邏輯還沒有這一塊 */}
+                    {/* <div className="township mb-36">
+                    <span className="span-style">鄉鎮地區</span>
+                    <div className="mt-12 township-select">
+                      <select
+                        className="form-select form-select-lg select-arrow"
+                        aria-label=".form-select-lg example"
+                      >
+                        <option selected>請選擇鄉鎮地區</option>
+                        <option value="1">大同區</option>
+                        <option value="2">神岡區</option>
+                        <option value="3">三民區</option>
+                      </select>
+                    </div>
+                  </div> */}
+                    {/* <!-- 店家種類 --> */}
+                    <div className="storeTypes mb-36">
+                      <span className="span-style">店家種類</span>
+                      <div className="mt-12">
+                        {STORE_TYPE_OPTIONS.map((type, index) => {
+                          const isChecked = watchedStoreTypes.includes(type);
+                          return (
+                            <div
+                              className={`mt-${index === 0 ? '0' : '12'} store-type-checkbox ${isChecked ? 'checked' : ''} `}
+                              key={type}
+                            >
+                              <div className="form-check">
+                                <input
+                                  className="form-check-input checkbox-input"
+                                  type="checkbox"
+                                  value={type}
+                                  id={`storeType-${type}`}
+                                  {...register('storeType')}
+                                />
+                                <label
+                                  className="form-check-label checkbox-label"
+                                  htmlFor={`storeType-${type}`}
+                                >
+                                  {type}
+                                </label>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    {/* <!-- 寵物種類 --> */}
+                    <div className="petTypes mb-36">
+                      <span className="span-style">寵物種類</span>
+                      <div className="mt-12">
+                        {PET_TYPE_OPTIONS.map((type, index) => {
+                          const isChecked = watchedPetTypes.includes(type);
+                          return (
+                            <div
+                              className={`mt-${index === 0 ? '0' : '12'} pet-type-checkbox ${isChecked ? 'checked' : ''}`}
+                              key={type}
+                            >
+                              <div className="form-check ">
+                                <input
+                                  className="form-check-input checkbox-input"
+                                  type="checkbox"
+                                  value={type}
+                                  id={`petType-${type}`}
+                                  {...register('petType')}
+                                />
+                                <label
+                                  className="form-check-label checkbox-label"
+                                  htmlFor={`petType-${type}`}
+                                >
+                                  {type}
+                                </label>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    {/* <!-- 搜尋按鈕 --> */}
+                    <div className="findStores-search-btn">
+                      <button
+                        type="submit"
+                        data-bs-dismiss="offcanvas"
+                        data-bs-target="#searchOffcanvas"
+                      >
+                        搜尋
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <main className="col-lg-9 text-center text-lg-start">
+            <span className="findStores-searchResults text-center text-lg-start">
+              搜尋結果
             </span>
+            {/* 顯示目前筆數/總筆數 */}
+            <span className="text-muted small">共 {items.length} 筆</span>
+            {/* Loading / Error 狀態顯示 */}
+            {isLoading && <div className="py-5 text-center">載入中...</div>}
+            {error && (
+              <div className="py-5 text-center text-danger">{error}</div>
+            )}
+            {!isLoading && !error && items.length === 0 && (
+              <div className="py-5 text-center text-muted">
+                找不到符合條件的店家，請嘗試放寬篩選條件。
+              </div>
+            )}
+            {/* 卡片列表 */}
+            <div className="row g-3 mt-16">
+              {items.map((store) => (
+                <StoreCard key={store.id} store={store} />
+              ))}
+            </div>
+            {/* 分頁 (Pagination) */}
+            {totalPages > 1 && (
+              <nav
+                className="ui-pagination justify-content-center mt-5 d-flex gap-2"
+                aria-label="Pagination"
+              >
+                <button
+                  className="ui-pagination__item ui-pagination__item--prev "
+                  aria-label="Previous page"
+                  disabled={filters.page <= 1}
+                  onClick={() => goToPage(filters.page - 1)}
+                >
+                  <ChevronLeft />
+                </button>
 
-            <button
-              disabled={filters.page >= totalPages}
-              onClick={() => goToPage(filters.page + 1)}
-            >
-              下一頁
-            </button>
-          </div>
+                {/* 簡單版：只顯示當前頁面，如果要像 UI 一樣顯示 1, 2, 3 需要寫額外邏輯產生陣列 */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (pageNum) => (
+                    <button
+                      key={pageNum}
+                      className={`ui-pagination__item btn btn-sm ${filters.page === pageNum ? 'is-active btn-primary' : 'btn-outline-light text-dark'}`}
+                      onClick={() => goToPage(pageNum)}
+                    >
+                      {pageNum}
+                    </button>
+                  )
+                )}
 
-          <hr />
-          <h3>本頁資料（debug）：</h3>
-          <pre>{JSON.stringify(items, null, 2)}</pre>
-        </>
-      )}
-    </div>
+                <button
+                  className="ui-pagination__item ui-pagination__item--next "
+                  aria-label="Next page"
+                  disabled={filters.page >= totalPages}
+                  onClick={() => goToPage(filters.page + 1)}
+                >
+                  <ChevronRight />
+                </button>
+              </nav>
+            )}
+          </main>
+        </div>
+      </div>
+    </>
   );
-}
+};
+
+export default FindStores;

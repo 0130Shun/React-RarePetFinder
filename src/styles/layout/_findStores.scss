@@ -1,204 +1,234 @@
-@use "../helpers/custom-text" as *;
-@use "../helpers/variables" as *;
-@use "../layout/layout" as *;
-
+@use '../helpers/custom-text' as *;
+@use '../helpers/variables' as *;
+@use '../layout/layout' as *;
 
 //共用CSS
-.mt-12{
-    margin-top: 12px;
+.mt-12 {
+  margin-top: 12px;
 }
-.mt-16{
-    margin-top: 16px;
+.mt-16 {
+  margin-top: 16px;
 }
-.mb-6{
-    margin-bottom: 6px;
+.mb-6 {
+  margin-bottom: 6px;
 }
-.mb-12{
-    margin-bottom: 12px;
+.mb-12 {
+  margin-bottom: 12px;
 }
-.mb-24{
-    margin-bottom: 24px;
+.mb-24 {
+  margin-bottom: 24px;
 }
-.mb-36{
-    margin-bottom: 36px;
+.mb-36 {
+  margin-bottom: 36px;
 }
-.tc-1-small-regular{
-    @include apply-font($TC-1-Small-Regular);
+.tc-1-small-regular {
+  @include apply-font($TC-1-Small-Regular);
 }
 
 //搜尋列
-.span-style{
-    color: $ui-blue-700;
-    @include apply-font($TC-1-Body-Bold);
+.span-style {
+  color: $ui-blue-700;
+  @include apply-font($TC-1-Body-Bold);
 }
-.search-group{
-    display: flex;
+.findStores-search-group {
+  display: flex;
 }
-.search-bar {
-    width: 209px;
-    border-radius: 4px;
-    border: 2px solid #E5E5E5;
-    display: flex;
-    align-items: center;         
-    overflow: hidden;      /* 確保內部的背景色不會超出圓角 */
-    box-sizing: border-box; /* 重要：確保 padding 不會撐開總寬度 */
-    margin-right: 8px;
+.findStores-search-bar {
+  width: 209px;
+  border-radius: 4px;
+  border: 2px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  overflow: hidden; /* 確保內部的背景色不會超出圓角 */
+  box-sizing: border-box; /* 重要：確保 padding 不會撐開總寬度 */
+  margin-right: 8px;
 }
 @media (max-width: 575.98px) {
-    .search-bar{
-        width:245px;
-    }
-    .mobile-search-input{
-        width:260px;
-    }
-    .card-style .cardName{
-        @include apply-font($TC-2-Body-Bold);
-    }
+  .findStores-search-bar {
+    width: 245px;
+  }
+  .mobile-search-input {
+    width: 260px;
+  }
+  .card-style .cardName {
+    @include apply-font($TC-2-Body-Bold);
+  }
 }
-.search-bar input {
-    flex: 1;               /* 自動佔滿剩餘寬度 */
-    width: 0;              /* 避免 input 預設寬度撐破容器 */
-    border: none;
-    outline: none;
-    padding: 13.5px 0px 13.5px 20px;        /* 縮減左右內距 */
-    font-size: 14px;
-    width: 150px;       /* 窄寬度建議字體小一點 */
+.findStores-search-bar input {
+  flex: 1; /* 自動佔滿剩餘寬度 */
+  width: 0; /* 避免 input 預設寬度撐破容器 */
+  border: none;
+  outline: none;
+  padding: 13.5px 0px 13.5px 20px; /* 縮減左右內距 */
+  font-size: 14px;
+  width: 150px; /* 窄寬度建議字體小一點 */
 }
-.search-bar button {
-    width: 40px;           /* 固定按鈕寬度 */
-    height: 40px;
-    border-radius: 4px;          /* 跟隨容器高度 */
-    background-color: #f5f5f5;
-    border: none;
-    border-left: 1px solid #eee; /* 按鈕左側小分隔線 */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 4px;
+.findStores-search-bar button {
+  width: 40px; /* 固定按鈕寬度 */
+  height: 40px;
+  border-radius: 4px; /* 跟隨容器高度 */
+  background-color: #f5f5f5;
+  border: none;
+  border-left: 1px solid #eee; /* 按鈕左側小分隔線 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px;
 }
-.search-bar button:hover {
+.findStores-search-bar button:hover {
   background-color: #e2e2e2; /* 滑鼠懸停效果 */
 }
-.search-button{
-    border-radius: 4px; 
-    border: 2px solid #E5E5E5;
+.findStores-search-button {
+  border-radius: 4px;
+  border: 2px solid #e5e5e5;
 }
-.search-button button{
-    @include apply-font($TC-2-Body-Regular);
-    font-size: 14px;
-    color: #777777;
-    border: 0px;
-    background-color: #F0F0F0;
-    margin: 4px 4px 0px 4px;
-    padding: 8px 8px 11px 8px;
-    border-radius: 4px;
+.findStores-search-button button {
+  @include apply-font($TC-2-Body-Regular);
+  font-size: 14px;
+  color: #777777;
+  border: 0px;
+  background-color: #f0f0f0;
+  margin: 4px 4px 0px 4px;
+  padding: 8px 8px 11px 8px;
+  border-radius: 4px;
 }
 
 //Select 下拉式選單的灰色
-.select-arrow{
-    /* 1. 保留原本的箭頭 SVG，並疊加一個灰色的線性漸層作為背景塊 */
-    /* 這裡使用的是 Bootstrap 預設的箭頭 SVG 代碼 */
-    background-image: 
-        url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"), 
-        linear-gradient(#F0F0F0, #F0F0F0); /* 這層是灰色背景 */
-    /* 2. 設定這兩層背景的大小 */
-    /* 第一個是箭頭大小，第二個是灰色塊寬度 (例如 45px 寬) */
-    background-size: 16px 12px, 40px 80%;
-    /* 3. 設定背景位置 */
-    /* 讓箭頭靠右，灰色塊也靠右 */
-    background-position: right 17px center, right 5px center;
-    /* 4. 確保背景不要重複 */
-    background-repeat: no-repeat;
-    /* 5. 調整內距，避免文字重疊到灰色區域 */
-    padding-right: 50px;
-    /* 圓角調整 (選配，根據圖片) */
-    border-radius: 4px;
-    border: 2px solid #E5E5E5; 
+.select-arrow {
+  /* 1. 保留原本的箭頭 SVG，並疊加一個灰色的線性漸層作為背景塊 */
+  /* 這裡使用的是 Bootstrap 預設的箭頭 SVG 代碼 */
+  background-image:
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"),
+    linear-gradient(#f0f0f0, #f0f0f0); /* 這層是灰色背景 */
+  /* 2. 設定這兩層背景的大小 */
+  /* 第一個是箭頭大小，第二個是灰色塊寬度 (例如 45px 寬) */
+  background-size:
+    16px 12px,
+    40px 80%;
+  /* 3. 設定背景位置 */
+  /* 讓箭頭靠右，灰色塊也靠右 */
+  background-position:
+    right 17px center,
+    right 5px center;
+  /* 4. 確保背景不要重複 */
+  background-repeat: no-repeat;
+  /* 5. 調整內距，避免文字重疊到灰色區域 */
+  padding-right: 50px;
+  /* 圓角調整 (選配，根據圖片) */
+  border-radius: 4px;
+  border: 2px solid #e5e5e5;
 }
 //下拉式選單樣式
-.city select,.township select{
-    font-size: 14px;
-    padding: 13.5px 0px 13.5px 20px; 
+.city select,
+.township select {
+  font-size: 14px;
+  padding: 13.5px 0px 13.5px 20px;
 }
 //checkbox
-.clinicCheckbox,.hostelCheckbox,.legitimateStoresCheckbox,.parrotCheckbox,.callDuckCheckbox,.turtleCheckbox,.geckoCheckbox,.hedgehogCheckbox,.thamsterCheckbox{
-    background-color: #F0F0F0;
-    padding: 8px 0px 8px 12px;
-    border-radius: 4px; 
+.clinicCheckbox,
+.hostelCheckbox,
+.legitimateStoresCheckbox,
+.parrotCheckbox,
+.callDuckCheckbox,
+.turtleCheckbox,
+.geckoCheckbox,
+.hedgehogCheckbox,
+.thamsterCheckbox,
+.store-type-checkbox,
+.pet-type-checkbox {
+  background-color: #f0f0f0;
+  padding: 8px 0px 8px 12px;
+  border-radius: 4px;
+  &.checked {
+    background-color: #c9e9f4;
+  }
 }
-.checkbox-input{
-    width: 24px;
-    height: 24px;
-    margin-top:0px;
-    margin-right: 12px;
+.checkbox-input {
+  width: 24px;
+  height: 24px;
+  margin-top: 0px;
+  margin-right: 12px;
 }
-.checkbox-label{
-    @include apply-font($TC-2-Body-Regular);
+.checkbox-label {
+  @include apply-font($TC-2-Body-Regular);
 }
-.search-btn button{
-    background-color: $ui-yellow-400;
-    @include apply-font($TC-1-Body-Bold);
-    padding: 14.5px 117px;
-    border-radius: 8px;
-    border: 0px;
+.findStores-search-btn button {
+  background-color: $ui-yellow-400;
+  @include apply-font($TC-1-Body-Bold);
+  padding: 14.5px 117px;
+  border-radius: 8px;
+  border: 0px;
 }
 
-.mobile-search{
-    background-color: #F0F0F0;
-    border-radius: 8px;
-        padding: 16px;
-    }
-    .mobile-search .sliders{
-        display: none;
-    }
-
-    .btn-style{
-        @include apply-font($TC-2-Body-Regular);
-        font-size: 14px;
-    color: #777777;
-    border: 0px;
-    background-color: #F0F0F0;
+.mobile-search {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
 }
-.btn-style img{
-    color: #777777;
+.mobile-search .sliders {
+  display: none;
+}
+
+.btn-style {
+  @include apply-font($TC-2-Body-Regular);
+  font-size: 14px;
+  color: #777777;
+  border: 0px;
+  background-color: #f0f0f0;
+}
+.btn-style img {
+  color: #777777;
 }
 
 //右側內容
-.searchResults{
-    @include apply-font($TC-1-Heading04-Bold);
+.findStores-searchResults {
+  @include apply-font($TC-1-Heading04-Bold);
 }
 
 //卡片
-.card-style{
-    padding: 36px 24px 48px 24px;
-    border-radius: 16px;
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+.card-style {
+  padding: 36px 24px 48px 24px;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 0px 8px 0px rgba(254, 198, 49, 0.5);
+    transform: translateY(-5px);
+  }
 }
 //收藏
-.love{
-    display: flex;
-    justify-content: flex-end;
+.love {
+  display: flex;
+  justify-content: flex-end;
 }
 //卡片收藏按鈕
-.love button{
-    border: 0px;
-    background-color: #fff;
+.love button {
+  border: 0px;
+  background-color: #fff;
+}
+.love .feather {
+  width: 16px;
+  height: 16px;
 }
 //卡片圖片CSS
-.card-img img{
-    max-width: 100%;
+.card-img img {
+  max-width: 100%;
 }
 //卡片商店名稱CSS
-.cardName{
-    @include apply-font($TC-2-Heading06-Bold);
+.cardName {
+  @include apply-font($TC-2-Heading06-Bold);
 }
 //卡片店家類型
-.industry{
-    color: $ui-blue-700;
-    @include apply-font($TC-2-Body-Bold);
+.industry {
+  color: $ui-blue-700;
+  @include apply-font($TC-2-Body-Bold);
 }
 //卡片地點
-.area{
-    @include apply-font($TC-2-Body-Regular);
+.area {
+  @include apply-font($TC-2-Body-Regular);
 }
