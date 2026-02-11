@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Search, ChevronDown } from 'react-feather';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 
 const SearchBar = () => {
-  const [location, setLocation] = useState('台北');
-  const [pet, setPet] = useState('柯爾鴨');
-  const [type, setType] = useState('旅館');
+  const navigate = useNavigate();
+  const [area, setArea] = useState('台北');
+  const [petType, setPetType] = useState('柯爾鴨');
+  const [storeType, setStoreType] = useState('旅館');
 
-  const locations = [
+  const areas = [
     '台北',
     '新北',
     '桃園',
@@ -18,8 +20,8 @@ const SearchBar = () => {
     '高雄',
     '屏東',
   ];
-  const pets = ['刺蝟', '守宮', '倉鼠', '鸚鵡', '烏龜', '柯爾鴨'];
-  const types = ['診所', '旅館', '賣家'];
+  const petTypes = ['刺蝟', '守宮', '倉鼠', '鸚鵡', '烏龜', '柯爾鴨'];
+  const storeTypes = ['診所', '旅館', '賣家'];
 
   return (
     <div className="search-pill d-md-flex align-items-center ">
@@ -34,16 +36,16 @@ const SearchBar = () => {
           >
             <div className="text-start">
               <div className="search-pill-label">地區</div>
-              <div className="search-pill-value">{location}</div>
+              <div className="search-pill-value">{area}</div>
             </div>
             <ChevronDown className="feather" />
           </button>
           <ul className="dropdown-menu ">
-            {locations.map((item) => (
+            {areas.map((item) => (
               <li key={item}>
                 <button
-                  className={`dropdown-item ${location === item ? 'active' : ''}`}
-                  onClick={() => setLocation(item)}
+                  className={`dropdown-item ${area === item ? 'active' : ''}`}
+                  onClick={() => setArea(item)}
                 >
                   {item}
                 </button>
@@ -62,16 +64,16 @@ const SearchBar = () => {
           >
             <div className="text-start">
               <div className="search-pill-label">寵物類別</div>
-              <div className="search-pill-value">{pet}</div>
+              <div className="search-pill-value">{petType}</div>
             </div>
             <ChevronDown className="feather" />
           </button>
           <ul className="dropdown-menu ">
-            {pets.map((item) => (
+            {petTypes.map((item) => (
               <li key={item}>
                 <button
-                  className={`dropdown-item ${pet === item ? 'active' : ''}`}
-                  onClick={() => setPet(item)}
+                  className={`dropdown-item ${petType === item ? 'active' : ''}`}
+                  onClick={() => setPetType(item)}
                 >
                   {item}
                 </button>
@@ -90,16 +92,16 @@ const SearchBar = () => {
           >
             <div className="text-start">
               <div className="search-pill-label">全部</div>
-              <div className="search-pill-value">{type}</div>
+              <div className="search-pill-value">{storeType}</div>
             </div>
             <ChevronDown className="feather" />
           </button>
           <ul className="dropdown-menu ">
-            {types.map((item) => (
+            {storeTypes.map((item) => (
               <li key={item}>
                 <button
-                  className={`dropdown-item ${type === item ? 'active' : ''}`}
-                  onClick={() => setType(item)}
+                  className={`dropdown-item ${storeType === item ? 'active' : ''}`}
+                  onClick={() => setStoreType(item)}
                 >
                   {item}
                 </button>
@@ -109,7 +111,15 @@ const SearchBar = () => {
         </div>
       </div>
       {/* 搜尋按鈕 */}
-      <button className="btn-search border-0 fw-bold d-flex align-items-center justify-content-center ">
+      <button
+        type="button"
+        onClick={() => {
+          navigate(
+            `/findstores?${createSearchParams({ area, petType, storeType }).toString()}`
+          );
+        }}
+        className="btn-search border-0 fw-bold d-flex align-items-center justify-content-center "
+      >
         立即搜尋 <Search className="feather" />
       </button>
     </div>
