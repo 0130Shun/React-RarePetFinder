@@ -182,6 +182,10 @@ ul {
   border: 0;
   border-radius: inherit;
   font-weight: bold;
+  &:hover {
+    background-color: #2f6382;
+    color: #ffffff;
+  }
 }
 .info-disclaimer {
   color: #525252;
@@ -231,6 +235,9 @@ ul {
 .moreInfoBtn.black-400 {
   background-color: #a3a3a3;
   color: #ffffff;
+  &:hover {
+    background-color: #525252;
+  }
 }
 @media (min-width: 768px) {
   .infoSection.black-100 {

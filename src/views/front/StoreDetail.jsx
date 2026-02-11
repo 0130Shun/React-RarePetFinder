@@ -1,35 +1,79 @@
-import { User } from 'react-feather';
-// import { useParams } from 'react-router-dom';
-// import { useStore } from 'react-redux';
 // import StoreDetailHero from '../../components/subHero/StoreDetailHero';
 import SubHero from '../../components/subHero/SubHero';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { storeService } from '@/api';
+import { User, MapPin, Phone, Link as LinkIcon } from 'react-feather';
+
+// 圖片引入
+import ShopImg from '@/assets/img/Shop.png';
+import HotelImg from '@/assets/img/hotel.png';
+import ClinicImg from '@/assets/img/clinic.png';
 
 export default function StoreDetail() {
   // 透過useEffect的await storeService.getStoreDetail(storeId)去讀取資料後，再把資料傳給StoreDetailHero，
   // 這邊暫時用storeData代表實際的store店家物件資料，
   // 未來應該是store+favorite筆數+評論比數混合倒入，測試時請自由刪減type、petTypes
-  const storeData = {
-    storeName: '柯爾鴨精品休閒館-台中店',
-    type: ['旅館', '賣家', '診所'],
-    area: '新北',
-    petTypes: ['倉鼠', '柯爾鴨', '鸚鵡', '守宮', '刺蝟'],
+  // const storeData = {
+  //   storeName: '柯爾鴨精品休閒館-台中店',
+  //   type: ['旅館', '賣家', '診所'],
+  //   area: '新北',
+  //   petTypes: ['倉鼠', '柯爾鴨', '鸚鵡', '守宮', '刺蝟'],
+  // };
+  const { storeId } = useParams(); // 1. 抓網址上的 ID
+  const [store, setStore] = useState(null); // 2. 存資料的變數
+  const [isLoading, setIsLoading] = useState(true); // 3. 載入狀態
+  const [error, setError] = useState(null); // 4. 錯誤訊息
+
+  const imageMap = {
+    'Shop.png': ShopImg,
+    'hotel.png': HotelImg,
+    'clinic.png': ClinicImg,
+  };
+  const getCoverImage = (filename) => {
+    // 嘗試去 imageMap 找，如果找不到 (undefined) 就回傳預設圖 ShopImg
+    return imageMap[filename] || ShopImg;
   };
 
+  useEffect(() => {
+    const fetchStore = async () => {
+      setIsLoading(true);
+      try {
+        // 🔥 這裡記得用你 api.js 定義的名字：getStoreDetail
+        const data = await storeService.getStoreDetail(storeId);
+        setStore(data);
+      } catch (err) {
+        console.error(err);
+        setError('找不到店家資料');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (storeId) fetchStore();
+  }, [storeId]);
+
+  if (isLoading) return <div className="py-5 text-center">載入中...</div>;
+  if (error) return <div className="py-5 text-center text-danger">{error}</div>;
+  if (!store) return null;
   return (
     <>
       {/* <StoreDetailHero store={storeData} /> */}
-      <SubHero variant="storeDetail" store={storeData} />
+      <SubHero variant="storeDetail" store={store} />
 
-      <h1>檢索頁面</h1>
+      {/* <h1>檢索頁面</h1> */}
       <section className="container">
         <div className="row store-info-section gap-md-3">
           <div className="col-md-3 store-profile-box mb-4">
             <div className="store-detail-img">
-              <img src="/src/assets/img/Shop.png" alt="店家照片" />
+              <img
+                src={getCoverImage(store.coverImage)}
+                alt={store.storeName}
+              />
             </div>
             <div className="store-link">
-              <i data-feather="link" className="store-link-icon"></i>
-              <a href="#">此店家官方線上聯絡管道</a>
+              <LinkIcon className="store-link-icon" />
+              <a href={store.website}>此店家官方線上聯絡管道</a>
             </div>
           </div>
           {/* <!-- 店家公開資訊 --> */}
@@ -37,11 +81,7 @@ export default function StoreDetail() {
             <div className="store-info-content">
               <h4>店家公開資訊</h4>
               <ul className="d-flex flex-column gap-1 mb-4">
-                <li>寵物寄宿：貓、狗、鴨、鸚、鼠、龜、兔、鳥</li>
-                <li>寵物周邊用品：飼料、零食、飾品、玩具…等等</li>
-                <li>
-                  店門口前面可停3輛車 對面停車場《7號格》《8號格》可以停車
-                </li>
+                <li>{store.description}</li>
               </ul>
 
               <h4>營業時間</h4>
@@ -61,23 +101,23 @@ export default function StoreDetail() {
           <div className="col-md-4 store-contact-box d-flex flex-column">
             <div className="store-detail-add d-flex align-items-center gap-4">
               <div className="add-icon">
-                <i data-feather="map-pin"></i>
+                <MapPin className="feather" />
               </div>
               <div className="add-text">
                 <h4>地址</h4>
-                <p>427臺中市潭子區勝利八街53巷65號</p>
+                <p>{store.address}</p>
               </div>
             </div>
             <div className="store-tel d-flex align-items-center gap-4 mb-4">
               <div className="tel-icon">
-                <i data-feather="phone"></i>
+                <Phone className="feather" />
               </div>
               <div className="tel-text">
                 <h4>電話</h4>
-                <p>0925227236</p>
+                <p>{store.phone}</p>
               </div>
             </div>
-            <button className="share-btn mb-4">我要分享體驗</button>
+            <button className="share-btn mb-4 ">我要分享體驗</button>
             <p className="info-disclaimer">
               本平台僅提供資訊，與商家沒有商業合作關係，
               請勿向本平台客訴或詢問商家詳情。
