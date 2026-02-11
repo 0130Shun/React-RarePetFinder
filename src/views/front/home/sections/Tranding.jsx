@@ -120,9 +120,6 @@ export default function Tranding() {
     },
   ];
 
-  //待修問題：
-  //最後記得npm prettier --write 指定檔案名
-
   return (
     <section className="trending-section">
       <header className="scam-header">

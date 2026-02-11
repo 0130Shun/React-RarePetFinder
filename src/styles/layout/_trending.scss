@@ -124,9 +124,9 @@
       opacity: 0.7;
     }
   }
-  /* 桌機才出現箭頭 */
+  /* 手機沒有箭頭 */
   .ui-carousel__btn {
-    display: none; // ✅ 手機沒有箭頭
+    display: none;
   }
 
   /* 桌機版：>= 700px */
