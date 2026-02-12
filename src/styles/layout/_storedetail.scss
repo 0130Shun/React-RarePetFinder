@@ -1,8 +1,11 @@
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
 :root {
   --primary-yellow: #fec631;
   --primary-orange: #f59004;
   --Primary-blue-500: #85bdde;
 }
+
 a {
   text-decoration: none;
 }
@@ -53,13 +56,14 @@ ul {
   }
 }
 .store-link a {
-  font-weight: bold;
+  // font-weight: bold;
   color: #0a0a0a;
-  font-size: 16px;
+  // font-size: 16px;
   width: 100%;
   display: block;
   position: relative;
   z-index: 1;
+  @include apply-font($TC-1-Body-Bold);
 }
 .store-link-icon {
   color: var(--primary-yellow);
@@ -109,10 +113,13 @@ ul {
   border-radius: inherit;
 }
 .store-info-content h4 {
-  font-weight: bold;
-  font-size: 20px;
+  @include apply-font($TC-1-Heading06-Bold);
   color: #262626;
   margin-bottom: 16px;
+}
+.store-info-content p,
+.store-info-content li {
+  @include apply-font($TC-2-Body-Regular);
 }
 @media (min-width: 768px) {
   .store-info-box {
@@ -131,6 +138,13 @@ ul {
   border-radius: inherit;
   padding: 8px;
   gap: 8px;
+  padding-bottom: 24px;
+}
+.store-contact-box h4 {
+  @include apply-font($TC-1-Heading06-Bold);
+}
+.store-contact-box p {
+  @include apply-font($TC-2-Body-Regular);
 }
 .store-detail-add {
   padding: 16px;
@@ -145,7 +159,7 @@ ul {
 .add-icon .feather {
   width: 100%;
   height: 100%;
-  stroke-width: 2.5;
+  stroke-width: 2;
 }
 .add-text {
   color: #262626;
@@ -171,7 +185,7 @@ ul {
 .tel-icon .feather {
   width: 100%;
   height: 100%;
-  stroke-width: 2.5;
+  stroke-width: 2;
 }
 .tel-text h4 {
   font-weight: bold;
@@ -187,7 +201,7 @@ ul {
   margin: 0 auto;
   border: 0;
   border-radius: inherit;
-  font-weight: bold;
+  @include apply-font($TC-1-Body-Bold);
   &:hover {
     background-color: #2f6382;
     color: #ffffff;
@@ -196,7 +210,7 @@ ul {
 .info-disclaimer {
   color: #525252;
   text-align: center;
-  font-size: 14px;
+  @include apply-font($TC-2-Body-Regular);
 }
 @media (min-width: 768px) {
   .store-contact-box {
@@ -215,6 +229,15 @@ ul {
   }
 }
 /* --- 相關評價 --- */
+.review-bg {
+  margin-top: 20px;
+}
+@media (min-width: 768px) {
+  .review-bg {
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+}
 .reviewsContent {
   background-color: #f0f0f0;
 }
@@ -235,6 +258,12 @@ ul {
     transform: translateY(-5px);
   }
 }
+.reviewsContentCard h3 {
+  @include apply-font($TC-2-Heading06-Bold);
+}
+.reviewsContentCard p {
+  @include apply-font($TC-2-Body-Regular);
+}
 .userIcon {
   color: #2f6382;
   border-radius: 80px;
@@ -249,6 +278,7 @@ ul {
 .moreInfoBtn.black-400 {
   background-color: #a3a3a3;
   color: #ffffff;
+  @include apply-font($TC-1-Body-Bold);
   &:hover {
     background-color: #525252;
   }

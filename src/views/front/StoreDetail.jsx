@@ -127,8 +127,8 @@ export default function StoreDetail() {
         </div>
       </section>
       {/* <!-- --- 相關評價 ---  --> */}
-      <section className="container-fluid p-0 review-bg">
-        <div className="infoSection black-100 container-md-fluid mb-5">
+      <section className="container-fluid p-0 review-bg ">
+        <div className="infoSection black-100 container-md-fluid">
           {/* <!-- 相關評價title --> */}
           <div className="d-flex justify-content-center section-title-outside pb-md-4 mb-3">
             <h2
