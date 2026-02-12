@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'react-feather';
+import { ArrowLeft, ArrowRight } from 'react-feather';
 //引入swiper
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -49,73 +49,73 @@ export default function Tranding() {
     {
       id: 1,
       animal: '柯爾鴨',
-      searchNum: 5,
+      searchNum: 7,
       img: callDuckImg,
     },
     {
       id: 2,
       animal: '鸚鵡',
-      searchNum: 7,
+      searchNum: 9,
       img: parrot,
     },
     {
       id: 3,
       animal: '烏龜',
-      searchNum: 9,
+      searchNum: 18,
       img: tortoise,
     },
     {
       id: 4,
       animal: '守宮',
-      searchNum: 9,
+      searchNum: 13,
       img: gekkota,
     },
     {
       id: 5,
       animal: '倉鼠',
-      searchNum: 5,
+      searchNum: 9,
       img: hamster,
     },
     {
       id: 6,
       animal: '刺蝟',
-      searchNum: 2,
+      searchNum: 6,
       img: hedgehog,
     },
     {
       id: 7,
       animal: '柯爾鴨',
-      searchNum: 5,
+      searchNum: 7,
       img: callDuckImg,
     },
     {
       id: 8,
       animal: '鸚鵡',
-      searchNum: 7,
+      searchNum: 9,
       img: parrot,
     },
     {
       id: 9,
       animal: '烏龜',
-      searchNum: 9,
+      searchNum: 18,
       img: tortoise,
     },
     {
       id: 10,
       animal: '守宮',
-      searchNum: 9,
+      searchNum: 13,
       img: gekkota,
     },
     {
       id: 11,
       animal: '倉鼠',
-      searchNum: 5,
+      searchNum: 9,
       img: hamster,
     },
     {
       id: 12,
       animal: '刺蝟',
-      searchNum: 2,
+      searchNum: 6,
       img: hedgehog,
     },
   ];
@@ -123,8 +123,12 @@ export default function Tranding() {
   return (
     <section className="trending-section">
       <header className="scam-header">
-        <h2 className="scam-section-title-zh">熱門分類</h2>
-        <p className="scam-section-title-en">Trending</p>
+        <h2
+          className="section-title text-center pb-3 primary-yellow"
+          data-en-title="Trending"
+        >
+          熱門分類
+        </h2>
       </header>
 
       <div className="container-slider-zone">
@@ -135,7 +139,7 @@ export default function Tranding() {
           className="ui-carousel__btn ui-carousel__btn--prev"
           aria-label="Previous"
         >
-          <ChevronLeft size={20} />
+          <ArrowLeft size={40} className="feather" />
         </button>
         <button
           ref={nextRef}
@@ -143,7 +147,7 @@ export default function Tranding() {
           className="ui-carousel__btn ui-carousel__btn--next"
           aria-label="Next"
         >
-          <ChevronRight size={20} />
+          <ArrowRight size={40} className="feather" />
         </button>
 
         <Swiper
