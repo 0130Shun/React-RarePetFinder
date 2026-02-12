@@ -215,7 +215,7 @@ const FindStores = () => {
           <aside className="col-lg-3">
             <div
               className="offcanvas-lg offcanvas-top h-100"
-              tabindex="-1"
+              tabIndex="-1"
               id="searchOffcanvas"
             >
               {/*<!-- 彈跳視窗上方 / 手機板的進階篩選 --*/}
