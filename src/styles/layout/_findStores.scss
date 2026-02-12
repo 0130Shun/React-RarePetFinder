@@ -152,6 +152,7 @@
 }
 .checkbox-label {
   @include apply-font($TC-2-Body-Regular);
+  width: 93%;
 }
 .findStores-search-btn button {
   background-color: $ui-yellow-400;

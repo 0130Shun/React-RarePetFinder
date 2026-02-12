@@ -27,7 +27,7 @@ const StoreCard = ({ store }) => {
 
   return (
     <>
-      <Link to={`storeDetail/:${store.id}`} className="col-6 col-lg-4">
+      <Link to={`/storedetail/${store.id}`} className="col-6 col-lg-4">
         <div className="card card-style h-100">
           <div className="love">
             <button type="button">
