@@ -47,6 +47,10 @@ ul {
   background-color: #ffffff;
   border-radius: inherit;
   position: relative;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 }
 .store-link a {
   font-weight: bold;
@@ -54,6 +58,8 @@ ul {
   font-size: 16px;
   width: 100%;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 .store-link-icon {
   color: var(--primary-yellow);
