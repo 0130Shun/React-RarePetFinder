@@ -15,7 +15,7 @@ import hedgehog from '@/assets/img/homeTrending/trending-Hedgehog.jpg';
 import parrot from '@/assets/img/homeTrending/trending-Parrot.jpg';
 import tortoise from '@/assets/img/homeTrending/trending-Tortoise.jpg';
 
-export default function Tranding() {
+export default function Trending() {
   //swiper 功能
   const prevRef = useRef(null);
   const nextRef = useRef(null);
