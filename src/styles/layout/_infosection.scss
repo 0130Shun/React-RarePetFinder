@@ -1,3 +1,5 @@
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
 :root {
   --primary-yellow: #fec631;
   --primary-orange: #f59004;
@@ -12,9 +14,8 @@ a {
   position: relative; /* 關鍵：讓偽元素以此為定位基準 */
   /* display: inline-block; 讓寬度貼合文字，比較好置中 */
   z-index: 1; /* 確保中文在最上層 */
-  font-weight: bold;
   color: #333;
-  font-size: 24px;
+  @include apply-font($TC-1-Heading05-Bold);
 }
 /* 2. 設定背後的英文浮水印 (偽元素) */
 .section-title::before {
@@ -30,7 +31,7 @@ a {
   ); /* 3. 把自己往回拉 50% (水平和垂直都回拉)，達成完美置中 */
   /* 文字樣式設定 */
   font-size: 40px; /* 字要超大！ (你可以依設計稿調整) */
-  font-family: sans-serif; /* 英文通常用無襯線體 */
+  font-family: 'Chiron GoRound TC', sans-serif;
   color: #85bdde;
   opacity: 0.2; /* 關鍵：透明度！讓它淡淡的 */
   white-space: nowrap; /* 強制不換行 */
@@ -45,15 +46,24 @@ a {
   border-radius: 16px;
   position: relative;
   padding: 24px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-5px);
+  }
 }
 .infoContentCard::after {
   content: '';
   position: absolute;
   top: 25px;
   right: 25px;
-  background-color: #ffffff;
+  background-color: transparent;
   color: #c9e9f4;
   background-image: url('/src/assets/img/Frame87685.png');
+  background-size: contain;
   width: 24px;
   height: 17px;
 }
@@ -118,6 +128,20 @@ a {
     /* border: 1px solid red; */
     z-index: 1;
   }
+  .infoContentCard {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-5px);
+      &::after {
+        background-image: url('/src/assets/img/Frame87685md-hover.png');
+      }
+    }
+    &::after {
+      width: 48px;
+      height: 35px;
+      background-image: url('/src/assets/img/Frame87685md.png');
+    }
+  }
 
   .infoSection {
     background-color: #c9e9f4;
@@ -125,8 +149,9 @@ a {
     margin-left: 40px;
     margin-right: 40px;
   }
+
   .section-title {
-    font-size: 48px;
+    @include apply-font($TC-1-Heading01-Bold);
     margin-bottom: 40px;
   }
   .section-title::before {

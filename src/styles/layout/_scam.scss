@@ -5,7 +5,7 @@
 $desktop: 1200px;
 
 /* =====================
-   Scam Section
+    Scam Section
    ===================== */
 
 .scam-section {
@@ -32,7 +32,7 @@ $desktop: 1200px;
 }
 
 /* =====================
-   Header
+    Header
    ===================== */
 
 .scam-header {
@@ -80,7 +80,7 @@ $desktop: 1200px;
 }
 
 /* =====================
-   Panel + Duck
+    Panel + Duck
    ===================== */
 
 .scam-panel {
@@ -134,7 +134,7 @@ $desktop: 1200px;
 }
 
 /* =====================
-   Swiper / Card
+    Swiper / Card
    ===================== */
 
 .scam-swiper {
@@ -142,6 +142,16 @@ $desktop: 1200px;
   z-index: 1;
   width: 100%;
 
+// 讓 Swiper 內部的 wrapper 高度統一
+  :global(.swiper-wrapper) {
+    display: flex;
+  }
+
+  // 讓每個 slide 撐滿 wrapper 的高度
+  :global(.swiper-slide) {
+    height: auto; 
+    display: flex; 
+  }
   @media (min-width: $desktop) {
     position: relative;
     z-index: 2;
@@ -150,6 +160,10 @@ $desktop: 1200px;
 }
 
 .scam-card {
+  height: 100%; 
+  width: 100%;
+  display: flex;
+  flex-direction: column; // 讓內部元件垂直排
   position: relative;
   background: #fff;
   border-radius: 16px;
@@ -161,16 +175,34 @@ $desktop: 1200px;
     padding: 48px;
     z-index: 2;
   }
+  // 新增一個 wrapper 撐開空間
+  &__content {
+    flex: 1; // 這行最重要：它會自動撐開，把「繼續閱讀」推到底部
+    display: flex;
+    flex-direction: column;
+  }
 
   &__title {
     font-size: 20px;
     margin: 0 0 20px;
+    /* 建議標題也限制行數，視覺更整齊 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   &__text {
     font-size: 16px;
     margin: 0 0 50px;
-
+    
+    /* 限制三行關鍵設定 */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; // 顯示三行
+    /*! autoprefixer: ignore next */ // 防止編譯器刪掉下面這行
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis; // 顯示 ...
     @media (min-width: $desktop) {
       margin-bottom: 30px;
       padding-bottom: 20px;
@@ -186,7 +218,7 @@ $desktop: 1200px;
 }
 
 /* =====================
-   Pagination
+    Pagination
    ===================== */
 
 .scam-pagination {
@@ -222,7 +254,7 @@ $desktop: 1200px;
 }
 
 /* =====================
-   Extra Mark
+    Extra Mark
    ===================== */
 
 .scam-panel .markPic {

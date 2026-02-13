@@ -13,21 +13,21 @@ const routes = [
         label: '找診所',
         to: {
           pathname: '/findstores',
-          search: '?type=診所',
+          search: '?storeType=診所',
         },
       },
       {
         label: '找旅館',
         to: {
           pathname: '/findstores',
-          search: '?type=旅館',
+          search: '?storeType=旅館',
         },
       },
       {
         label: '找賣家',
         to: {
           pathname: '/findstores',
-          search: '?type=賣家',
+          search: '?storeType=賣家',
         },
       },
     ],

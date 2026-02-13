@@ -68,10 +68,7 @@ a {
 .swiper-slide-active span {
   color: var(--primary-orange);
 }
-/* 4. 分頁點點顏色修正 */
-.swiper-pagination-bullet-active {
-  background-color: #333 !important;
-}
+
 @media (min-width: 768px) {
   .hotSpot {
     background-color: var(--primary-yellow);
@@ -113,61 +110,48 @@ a {
     font-size: 16px;
   }
 
-  .hotSpot .swiper-button-prev,
-  .hotSpot .swiper-button-next {
-    /* -- 形狀與大小 -- */
+  body .hotSpot .swiper-button-prev,
+  body .hotSpot .swiper-button-next {
     position: absolute;
-    width: 56px; /* 設定固定寬度 */
-    height: 56px; /* 設定固定高度 */
-    border-radius: 50%; /* 變成正圓形 */
-    background-color: #ffffff; /* 白色背景 */
-    /* -- 讓裡面的 Feather Icon 置中 -- */
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background-color: #ffffff;
     align-items: center;
     justify-content: center;
-    /* -- 視覺美化 -- */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 加一點陰影讓它浮起來 */
-    color: #333333; /* 箭頭顏色 (深灰/黑) */
-    z-index: 10; /* 確保浮在最上層 */
-    /* -- 移除預設的邊框與背景透明 -- */
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
+    color: #525252;
+    z-index: 10;
     margin: 0;
     border: none;
-    /* -- 垂直置中 (Swiper 預設已經有 top: 50%，若沒有則加上) -- */
     top: 55%;
-    /* transform: translateY(-50%); */
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  /* 3. 定位調整：把按鈕拉到卡片外側 */
-  /* 根據你的容器寬度，用負數把它拉出去 */
-  .hotSpot .swiper-button-prev {
-    left: 10px;
-  }
-  .hotSpot .swiper-button-next {
-    right: 10px;
-  }
-  /* 4. (選用) Hover 效果：滑鼠移上去變色 */
   .hotSpot .swiper-button-prev:hover,
   .hotSpot .swiper-button-next:hover {
     border: 2px solid var(--primary-yellow);
     cursor: pointer;
+    transform: scale(1.1); /* 放大 1.1 倍 */
+  }
+  .hotSpot .swiper-button-prev:active,
+  .hotSpot .swiper-button-next:active {
+    background-color: #e5e5e5;
+    transform: scale(0.9); /* 縮小到 0.9 倍 */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* 陰影縮小，感覺貼近盤面 */
   }
   .hotSpot .swiper-button-prev .feather,
   .hotSpot .swiper-button-next .feather {
     fill: none;
     width: 36px;
     height: 36px;
-    stroke-width: 1.5;
+    stroke-width: 2;
   }
 }
 @media (min-width: 1600px) {
-  .hotSpot .swiper-button-prev,
-  .hotSpot .swiper-button-next {
-    top: 55%;
+  body .hotSpot .swiper-button-prev {
+    left: calc(50% - 648px - 34px);
   }
-  .hotSpot .swiper-button-prev {
-    /* left: 230px; */
-    left: calc(50% - 648px - 80px);
-  }
-  .hotSpot .swiper-button-next {
-    /* right: 230px; */
-    right: calc(50% - 648px - 80px);
+  body .hotSpot .swiper-button-next {
+    right: calc(50% - 648px - 34px);
   }
 }

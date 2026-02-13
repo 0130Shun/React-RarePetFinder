@@ -14,6 +14,7 @@
 
   /* Swiper */
   .trending-swiper {
+    background-color: #fff;
     padding: 20px 0 50px 0;
 
     /* 只限定在這個區塊內的 swiper-slide，避免影響其他區塊的 swiper */
@@ -123,10 +124,13 @@
       opacity: 0.7;
     }
   }
-
-  /* Arrow（預設隱藏，桌機再顯示） */
-  .trending-nav {
-    display: none; // ✅ 手機沒有箭頭
+  /* 手機沒有箭頭 */
+  .ui-carousel__btn {
+    display: none;
+  }
+  .trending-swiper .swiper-button-next,
+  .trending-swiper .swiper-button-prev {
+    display: none !important;
   }
 
   /* 桌機版：>= 700px */
@@ -183,30 +187,44 @@
     }
 
     /* 桌機才出現箭頭 */
-    .trending-nav {
-      display: block;
+    .ui-carousel__btn {
+      display: flex;
       position: absolute;
-      top: 75%;
+      z-index: 10;
+      pointer-events: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      border: 2px solid #fff;
+      color: #525252;
+
       width: 68px;
       height: 68px;
-      border: 0;
-      background: transparent;
-      padding: 0;
-      z-index: 5;
+      margin: 0;
+      border-radius: 50%;
 
-      &--prev {
-        left: clamp(100px, 3vw, 190px);
-      }
+      top: 70%;
+    }
 
-      &--next {
-        right: clamp(100px, 3vw, 190px);
-      }
+    .ui-carousel__btn:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
 
-      img {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
+    .ui-carousel__btn:active {
+      background-color: #e5e5e5;
+      transform: scale(0.9);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .ui-carousel__btn .feather {
+      stroke-width: 2;
+    }
+
+    .ui-carousel__btn--prev {
+      left: 8%;
+    }
+
+    .ui-carousel__btn--next {
+      right: 7%;
     }
   }
 }
