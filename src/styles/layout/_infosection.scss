@@ -54,6 +54,9 @@ a {
     background-color: rgba(255, 255, 255, 0.6);
     transform: translateY(-5px);
   }
+  .stretched-link {
+    @include apply-font($TC-1-Body-Regular);
+  }
 }
 .infoContentCard::after {
   content: '';
@@ -71,17 +74,17 @@ a {
   color: #2f6382;
 }
 .card-title {
-  font-weight: bold;
-  font-size: 20px;
+  @include apply-font($TC-2-Heading06-Bold);
   margin-top: 25px;
 }
 .card-text {
   color: #525252;
   margin-bottom: 8px;
+  @include apply-font($TC-2-Body-Regular);
 }
 .moreInfoBtn {
   background-color: #ffffff;
-  font-weight: bold;
+  @include apply-font($TC-1-Body-Bold);
   padding: 15px;
   width: 200px;
   margin-left: auto;
@@ -166,7 +169,7 @@ a {
     background-color: transparent;
   }
   .card-title {
-    font-size: 24px;
+    @include apply-font($TC-2-Heading05-Bold);
   }
   .card-text {
     margin-bottom: 24px;

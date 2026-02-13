@@ -1,6 +1,6 @@
 // 首頁投稿section
-
-@use '../helpers/variables' as *;
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
 
 /* breakpoints */
 $cta-lg: 1100px;
@@ -79,30 +79,23 @@ $cta-xl: 1450px;
 
   /* 文字（手機） */
   &__title {
-    font-family: 'Chiron GoRound TC', sans-serif;
-    font-size: 24px;
-    line-height: 1.2;
-    letter-spacing: 0.05rem;
-    font-weight: 700;
+    @include apply-font($TC-1-Heading05-Bold);
+    @media (min-width: $cta-lg) {
+      @include apply-font($TC-1-Heading02-Bold);
+    }
   }
 
   &__text {
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 0.02rem;
+    @include apply-font($TC-2-Body-Regular);
     max-width: 320px;
     text-align: center;
   }
 
   &__btn {
-    font-family: 'Chiron GoRound TC', sans-serif;
     min-width: 200px;
     min-height: 53px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 0.02rem;
     padding: 8px 48px;
+    @include apply-font($TC-1-Body-Bold);
   }
 
   /* =========================

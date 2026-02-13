@@ -1,6 +1,8 @@
 @use 'swiper/css';
 @use 'swiper/css/pagination';
 @use 'swiper/css/navigation';
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
 /* -- 熱門店家 -- */
 :root {
   --primary-yellow: #fec631;
@@ -21,7 +23,7 @@ a {
 }
 
 /* --- 熱門店家區塊 Swiper 設定 --- */
-.swiper {
+.hotSpot-content {
   background-color: var(--primary-yellow); /* 整個背景是黃的 */
 }
 /* 1. 卡片預設樣式 (針對旁邊沒選中的卡片) */
@@ -47,11 +49,11 @@ a {
   min-height: 104px;
 }
 .store-name {
-  font-weight: bold;
+  @include apply-font($TC-2-Body-Bold);
   color: #262626;
 }
 .store-add {
-  font-size: 14px;
+  @include apply-font($TC-2-Small-Regular);
   color: #777777;
   margin: 0;
 }
@@ -104,10 +106,10 @@ a {
     width: 274px; /* 圖片通常可以比線條 icon 大一點，看你需求調整 */
   }
   .store-name {
-    font-size: 20px;
+    @include apply-font($TC-2-Heading06-Bold);
   }
   .store-add {
-    font-size: 16px;
+    @include apply-font($TC-2-Body-Regular);
   }
 
   body .hotSpot .swiper-button-prev,
