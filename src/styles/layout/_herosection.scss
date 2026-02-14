@@ -1,3 +1,5 @@
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
 :root {
   --primary-yellow: #fec631;
   --primary-orange: #f59004;
@@ -12,8 +14,7 @@ a {
   position: relative;
 }
 .heroTitle {
-  font-size: 28px;
-  font-weight: bold;
+  @include apply-font($TC-1-Heading04-Bold);
   color: #262626;
 }
 .hero-img-sign {
@@ -32,8 +33,7 @@ a {
   right: 27px;
 }
 .heroSlogan {
-  font-size: 16px;
-  font-weight: 400;
+  @include apply-font($TC-1-Body-Regular);
   color: #262626;
 }
 .heroSection::after {
@@ -109,12 +109,12 @@ a {
 
   .heroTitle {
     padding-top: 96px;
-    font-size: 48px;
+    @include apply-font($TC-1-Heading01-Bold);
     position: relative;
     z-index: 3;
   }
   .heroSlogan {
-    font-size: 20px;
+    @include apply-font($TC-1-Heading06-Bold);
     position: relative;
     z-index: 3;
   }

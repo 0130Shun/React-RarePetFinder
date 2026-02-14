@@ -241,7 +241,11 @@ const FindStores = () => {
                             placeholder="搜尋關鍵字"
                             {...register('query')}
                           />
-                          <button type="submit">
+                          <button
+                            type="submit"
+                            data-bs-dismiss="offcanvas"
+                            data-bs-target="#searchOffcanvas"
+                          >
                             <img src={Search} alt="" />
                           </button>
                         </div>

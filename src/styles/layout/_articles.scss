@@ -1,5 +1,6 @@
 @use '../helpers/variables' as *;
-
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
 // 稀寵資訊頁的主要內容
 
 .rarepet-info-section {
@@ -150,7 +151,7 @@ $rp-lg: 992px;
 
 /* 繼續閱讀 */
 .rp-article-link {
-  font-size: 16px;
+  @include apply-font($TC-1-Body-Regular);
   text-decoration: none;
   color: $ui-blue-700;
 

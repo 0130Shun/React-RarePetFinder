@@ -2,6 +2,10 @@ import { Swiper, SwiperSlide } from 'swiper/react'; // 引入 Swiper React 元�
 import { Pagination, Autoplay, Navigation } from 'swiper/modules'; // 引入模組
 import { Heart, ArrowLeft, ArrowRight, Search } from 'react-feather';
 import { Link, NavLink } from 'react-router-dom';
+
+import hotelImg from '@/assets/img/hotel.png';
+import clinicImg from '@/assets/img/clinic.png';
+import shopImg from '@/assets/img/Shop.png';
 const HotSpot = () => {
   const hotSpotData = [
     {
@@ -9,35 +13,35 @@ const HotSpot = () => {
       storeName: '就甘心Ponpon寵物旅館',
       address: '台北市中山區新生北路二段60巷16號4樓',
       likes: 153,
-      img: '/src/assets/img/hotel.png', // 記得確認圖片路徑是否正確
+      img: hotelImg, // 記得確認圖片路徑是否正確
     },
     {
       id: 2,
       storeName: '凡賽爾賽鴿動物醫院',
       address: '台中市西屯區重慶路8號',
       likes: 87,
-      img: '/src/assets/img/clinic.png',
+      img: clinicImg,
     },
     {
       id: 3,
       storeName: '水手兩棲爬蟲.特寵-南港店',
       address: '台北市南港區南港路二段20巷5號B1',
       likes: 93,
-      img: '/src/assets/img/Shop.png',
+      img: shopImg,
     },
     {
       id: 4,
       storeName: '星羽動物醫院-三民院',
       address: '高雄市三民區信國路20號',
       likes: 115,
-      img: '/src/assets/img/clinic.png',
+      img: clinicImg,
     },
     {
       id: 5,
       storeName: '熊讚寵物精緻旅館',
       address: '新北市板橋區館前西路120號2樓',
       likes: 75,
-      img: '/src/assets/img/hotel.png',
+      img: hotelImg,
     },
   ];
 

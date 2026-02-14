@@ -214,7 +214,7 @@ export default function Trending() {
                   <article className="trending-card">
                     <Link
                       className="trending-card__link"
-                      to={`/findStores?query=${item.animal}`}
+                      to={`/findStores?petType=${item.animal}`}
                     >
                       <div className="trending-card__circle">
                         <img

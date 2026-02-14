@@ -118,7 +118,7 @@ const SearchBar = () => {
             `/findstores?${createSearchParams({ area, petType, storeType }).toString()}`
           );
         }}
-        className="btn-search border-0 fw-bold d-flex align-items-center justify-content-center "
+        className="btn-search border-0  d-flex align-items-center justify-content-center "
       >
         立即搜尋 <Search className="feather" />
       </button>

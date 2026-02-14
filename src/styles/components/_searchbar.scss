@@ -1,3 +1,5 @@
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
 :root {
   --primary-yellow: #fec631;
   --primary-orange: #f59004;
@@ -27,12 +29,11 @@ a {
   padding: 4px 16px;
 }
 .searchBarDropdown .search-pill-label {
-  font-size: 14px;
+  @include apply-font($TC-1-Small-Regular);
   color: #525252;
 }
 .searchBarDropdown .search-pill-value {
-  font-size: 16px;
-  font-weight: bold;
+  @include apply-font($TC-1-Body-Bold);
   color: #262626;
 }
 /* -------------- 選單中的分隔黃線 -------------- */
@@ -86,6 +87,7 @@ a {
   padding-top: 14.5px;
   padding-bottom: 14.5px;
   margin-top: 16px;
+  @include apply-font($TC-1-Body-Bold);
 }
 /* ---------- 搜搜按鈕的icon ---------- */
 .btn-search .feather {
