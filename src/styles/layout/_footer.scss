@@ -1,0 +1,8 @@
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
+.footer-link {
+  @include apply-font($TC-1-Body-Bold);
+}
+.footer-disclaimer {
+  @include apply-font($TC-2-Body-Regular);
+}

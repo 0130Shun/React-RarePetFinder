@@ -1,5 +1,6 @@
 //防詐宣導區section
-
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
 @use '../helpers/variables' as *;
 
 $desktop: 1200px;
@@ -142,15 +143,15 @@ $desktop: 1200px;
   z-index: 1;
   width: 100%;
 
-// 讓 Swiper 內部的 wrapper 高度統一
+  // 讓 Swiper 內部的 wrapper 高度統一
   :global(.swiper-wrapper) {
     display: flex;
   }
 
   // 讓每個 slide 撐滿 wrapper 的高度
   :global(.swiper-slide) {
-    height: auto; 
-    display: flex; 
+    height: auto;
+    display: flex;
   }
   @media (min-width: $desktop) {
     position: relative;
@@ -160,7 +161,7 @@ $desktop: 1200px;
 }
 
 .scam-card {
-  height: 100%; 
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column; // 讓內部元件垂直排
@@ -183,7 +184,7 @@ $desktop: 1200px;
   }
 
   &__title {
-    font-size: 20px;
+    @include apply-font($TC-2-Heading06-Bold);
     margin: 0 0 20px;
     /* 建議標題也限制行數，視覺更整齊 */
     display: -webkit-box;
@@ -193,9 +194,8 @@ $desktop: 1200px;
   }
 
   &__text {
-    font-size: 16px;
+    @include apply-font($TC-2-Body-Regular);
     margin: 0 0 50px;
-    
     /* 限制三行關鍵設定 */
     overflow: hidden;
     display: -webkit-box;
@@ -213,7 +213,7 @@ $desktop: 1200px;
     display: inline-block;
     color: $ui-orange-500;
     text-decoration: none;
-    font-weight: 300;
+    @include apply-font($TC-2-Body-Regular);
   }
 }
 
