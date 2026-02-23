@@ -13,7 +13,7 @@ function Footer() {
             <div className="col-12 col-md-6 text-center text-md-start">
               <div className="d-flex flex-column align-items-center align-items-md-start">
                 <img src={logo} alt="稀寵搜搜" />
-                <p className="text-secondary small mt-4 d-none d-md-block">
+                <p className="text-secondary small mt-4 d-none d-md-block footer-disclaimer">
                   此網站僅做為作品練習，無營利用途
                 </p>
               </div>
@@ -37,19 +37,28 @@ function Footer() {
                 </a>
               </div>
               <div className="d-flex justify-content-center justify-content-md-end gap-4 fw-bold">
-                <a href="#" className="text-decoration-none text-dark">
+                <a
+                  href="#"
+                  className="footer-link text-decoration-none text-dark"
+                >
                   聯絡我們
                 </a>
-                <a href="#" className="text-decoration-none text-dark">
+                <a
+                  href="#"
+                  className="footer-link text-decoration-none text-dark"
+                >
                   服務條款
                 </a>
-                <a href="#" className="text-decoration-none text-dark">
+                <a
+                  href="#"
+                  className="footer-link text-decoration-none text-dark"
+                >
                   隱私權政策
                 </a>
               </div>
             </div>
             <div className="col-12 d-md-none text-center">
-              <p className="text-secondary small mb-0">
+              <p className="text-secondary small mb-0 footer-disclaimer">
                 此網站僅做為作品練習，無營利用途
               </p>
             </div>
