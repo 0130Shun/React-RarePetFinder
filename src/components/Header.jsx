@@ -130,7 +130,7 @@ export default function Header() {
       <nav className="navbar navbar-expand-lg bg-white">
         <div className="container ui-container d-flex align-items-center">
           {/* 品牌區 */}
-          <Link className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="/">
             <img src={logo} alt="稀寵搜尋.logo" className="me-2" />
           </Link>
 
