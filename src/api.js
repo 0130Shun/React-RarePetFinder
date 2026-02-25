@@ -20,14 +20,10 @@ export const storeService = {
     const res = await apiRequest.get(`/stores/${id}`);
     return res.data;
   },
-};
 
-/**
- * 【文章模組】
- */
-// export const articleService = {
-//   async getList() {
-//     const res = await fetch(`${API_URL}/articles`);
-//     return await res.json();
-//   },
-// };
+  //專欄列表
+  async getAllArticles() {
+    const respones = await apiRequest.get('/articles');
+    return Array.isArray(respones.data) ? respones.data : [];
+  },
+};
