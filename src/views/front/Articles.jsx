@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useEffect, useState, useMemo } from 'react';
 import { storeService } from '@/api';
 import useResponsivePageSize from '@/hook/useResponsivePageSize';
+import { Link } from 'react-router-dom';
 
 //引入圖片
 import callDuckInfoA from '@/assets/img/articlesImg/articlesId01.png';
@@ -182,9 +183,9 @@ export default function Articles() {
                         <p className="rp-article-date">{item.date}</p>
                         <h3 className="rp-article-title">{item.title}</h3>
                         <p className="rp-article-desc">{item.summary}</p>
-                        <a href="#" className="rp-article-link $ui-blue-700">
+                        <Link className="rp-article-link $ui-blue-700" to="/articles">
                           繼續閱讀
-                        </a>
+                        </Link>
                       </div>
                     </article>
                   </div>
