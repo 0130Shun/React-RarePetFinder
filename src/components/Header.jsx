@@ -99,7 +99,12 @@ const routes = [
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
-
+  const togglerRef = useRef(null);
+  const closeMenu = () => {
+    if (isOpen && togglerRef.current) {
+      togglerRef.current.click();
+    }
+  };
   // 處理 Body Class 的邏輯（這段不醜了，且有清理機制）
   useEffect(() => {
     const navElement = navRef.current;
@@ -136,6 +141,7 @@ export default function Header() {
 
           {/* 漢堡按鈕 */}
           <button
+            ref={togglerRef}
             className={`navbar-toggler ${isOpen ? '' : 'collapsed'}`}
             type="button"
             data-bs-toggle="collapse"
@@ -158,7 +164,11 @@ export default function Header() {
                 if (route.type === 'link') {
                   return (
                     <li className="nav-item ui-nav-item" key={route.label}>
-                      <NavLink className="nav-link" to={route.to}>
+                      <NavLink
+                        className="nav-link"
+                        to={route.to}
+                        onClick={closeMenu}
+                      >
                         {route.label === '會員中心' ? (
                           <>
                             <User className="me-2" size={24}></User>
@@ -197,11 +207,16 @@ export default function Header() {
                                 href={item.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={closeMenu}
                               >
                                 {item.label}
                               </a>
                             ) : (
-                              <Link className="dropdown-item" to={item.to}>
+                              <Link
+                                className="dropdown-item"
+                                to={item.to}
+                                onClick={closeMenu}
+                              >
                                 {item.label}
                               </Link>
                             )}
