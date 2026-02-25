@@ -1,22 +1,24 @@
+import { Link } from 'react-router-dom';
+
 const InfoSection = () => {
   const infoData = [
     {
       id: 1,
       title: '稀有寵物照護全指南',
       text: '想知道你家稀有寵物如何照護嗎?',
-      link: '#',
+      link: '/articles',
     },
     {
       id: 2,
       title: '寵物背後的小故事',
       text: '每個寵物背後都有一個可愛的小故事?',
-      link: '#',
+      link: '/articles',
     },
     {
       id: 3,
       title: '寵物界新鮮事',
       text: '掌握寵物界最新的潮流新鮮事?',
-      link: '#',
+      link: '/articles',
     },
   ];
   return (
@@ -34,16 +36,16 @@ const InfoSection = () => {
               <div className="infoContentCard p-md-5">
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-text">{item.text}</p>
-                <a href={item.link} className="stretched-link">
+                <Link  to={item.link} className="stretched-link">
                   查看文章
-                </a>
+                </Link>
               </div>
             </div>
           ))}
 
-          <a className="moreInfoBtn btn mb-3 mt-4 mb-md-0 mt-md-5" href="#">
+          <Link className="moreInfoBtn btn mb-3 mt-4 mb-md-0 mt-md-5" to="/articles">
             更多文章
-          </a>
+          </Link>
         </div>
       </div>
     </>
