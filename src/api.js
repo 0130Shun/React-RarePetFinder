@@ -26,5 +26,4 @@ export const storeService = {
     const respones = await apiRequest.get('/articles');
     return Array.isArray(respones.data) ? respones.data : [];
   },
-
 };
