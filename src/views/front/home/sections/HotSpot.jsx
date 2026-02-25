@@ -64,7 +64,7 @@ const HotSpot = () => {
           slidesPerView={2}
           spaceBetween={24}
           loop={true}
-          autoplay={{ delay: 30000, disableOnInteraction: false }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
           // 下面的小黑點(分頁註記)
           // pagination={{ clickable: true }}
           // 導航按鈕 (綁定下方的 class)

@@ -91,6 +91,16 @@ a {
     padding-bottom: 48px;
     padding-top: 36px;
     border-radius: 16px;
+    // 設定動畫過渡，這樣浮起來才不會太生硬
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    &:hover {
+      // Hover 時往上移動 6px
+      transform: translateY(-6px);
+      // 陰影擴大並加深，創造「浮在半空中」的錯覺
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
   }
   .fav-icon {
     fill: currentColor;
