@@ -45,7 +45,7 @@ const FindStores = () => {
   const [allStores, setAllStores] = useState([]); //從 API 抓回來的「全部店家」
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
   const [totalPages, setTotalPages] = useState(1); //用篩選後的總筆數 / PAGE_SIZE 算出來
-
+  const [totalCount, setTotalCount] = useState(0); // 用來存篩選後的總筆數
   //介面狀態
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -139,7 +139,7 @@ const FindStores = () => {
         nextFilters.petType
       )
     );
-
+    setTotalCount(filtered.length);
     // 分頁
     const nextTotalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
     setTotalPages(nextTotalPages);
@@ -372,7 +372,7 @@ const FindStores = () => {
               搜尋結果
             </span>
             {/* 顯示目前筆數/總筆數 */}
-            <span className="text-muted small">共 {items.length} 筆</span>
+            <span className="text-muted small">共 {totalCount} 筆</span>
             {/* Loading / Error 狀態顯示 */}
             {isLoading && <div className="py-5 text-center">載入中...</div>}
             {error && (
