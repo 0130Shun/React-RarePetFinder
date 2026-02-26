@@ -6,6 +6,8 @@ import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
 //檢索頁的Banner
 // import FindStoresHero from '../../components/subHero/FindStoresHero';
 import SubHero from '@/components/subHero/SubHero';
+// 引入FullPageLoader
+import FullPageLoader from '@/components/shared/FullPageLoader';
 // 將 storeSearchUtils 中的工具引入
 import {
   parseFilters,
@@ -430,6 +432,21 @@ const FindStores = () => {
           </main>
         </div>
       </div>
+
+      {isLoading && (
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(255,255,255,0.3)',
+            zIndex: 999,
+          }}
+        >
+          {/* <FullPageLoader show={status === 'loading'} color="#BC895D" /> */}
+          <FullPageLoader show={'loading'} color="#BC895D" />
+        </div>
+      )}
     </>
   );
 };
