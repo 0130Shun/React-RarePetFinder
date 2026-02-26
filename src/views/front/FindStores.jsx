@@ -174,7 +174,7 @@ const FindStores = () => {
     <>
       <SubHero variant="findStores" />
       <div className="container ui-container mt-md-5">
-        <div className="row">
+        <div className="row mx-0 mx-md-auto">
           <div className="col-12 d-md-none p-3">
             <div className="findStores-search mb-36 mobile-search">
               <div className="d-flex justify-content-between">
@@ -211,7 +211,7 @@ const FindStores = () => {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row mx-0 mx-md-auto ">
           <aside className="col-lg-3">
             <div
               className="offcanvas-lg offcanvas-top h-100"
@@ -384,7 +384,7 @@ const FindStores = () => {
               </div>
             )}
             {/* 卡片列表 */}
-            <div className="row g-3 mt-16">
+            <div className="row mx-0 mx-md-auto  g-3 mt-16">
               {items.map((store) => (
                 <StoreCard key={store.id} store={store} />
               ))}
