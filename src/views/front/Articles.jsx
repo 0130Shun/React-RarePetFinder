@@ -1,6 +1,6 @@
 // 稀寵資訊 分頁
 
-import ArticlesHero from '../../components/subHero/ArticlesHero';
+// import ArticlesHero from '../../components/subHero/ArticlesHero';
 import SubHero from '../../components/subHero/SubHero';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useEffect, useState, useMemo } from 'react';
@@ -183,7 +183,10 @@ export default function Articles() {
                         <p className="rp-article-date">{item.date}</p>
                         <h3 className="rp-article-title">{item.title}</h3>
                         <p className="rp-article-desc">{item.summary}</p>
-                        <Link className="rp-article-link $ui-blue-700" to="/articles">
+                        <Link
+                          className="rp-article-link $ui-blue-700"
+                          to="/articles"
+                        >
                           繼續閱讀
                         </Link>
                       </div>

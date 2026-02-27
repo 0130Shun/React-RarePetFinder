@@ -1,10 +1,6 @@
 import React from 'react';
 
-const FullPageLoader = ({
-  show = false,
-  color = '#BC895D', // 奶茶棕 or 主色
-  zIndex = 999,
-}) => {
+const FullPageLoader = ({ show = false, color = '#fec631', zIndex = 999 }) => {
   if (!show) return null;
   return (
     <div
