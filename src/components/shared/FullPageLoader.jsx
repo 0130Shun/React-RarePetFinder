@@ -1,38 +1,29 @@
 import React from 'react';
 
-const FullPageLoader = ({ show = false, color = '#fec631', zIndex = 999 }) => {
+const FullPageLoader = ({
+  show = false,
+  color = '#fec631',
+  zIndex = 9999,
+  size = 64,
+}) => {
   if (!show) return null;
+
   return (
     <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(255,255,255,0.4)',
-        zIndex,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        pointerEvents: 'all', // 保證遮擋所有事件
-      }}
+      className="ui-fullpage-loader"
+      style={{ zIndex }}
+      role="status"
+      aria-live="polite"
       aria-busy="true"
-      aria-label="Loading"
     >
       <div
+        className="ui-spinner"
         style={{
-          width: '4rem',
-          height: '4rem',
-          border: `0.5rem solid #eee`,
-          borderTop: `0.5rem solid ${color}`,
-          borderRadius: '50%',
-          animation: 'spin 1s linear infinite',
+          width: size,
+          height: size,
+          borderTopColor: color,
         }}
       />
-      {/* inline style 的 keyframes */}
-      <style>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 };

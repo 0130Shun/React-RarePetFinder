@@ -82,6 +82,9 @@ const FindStores = () => {
       setIsLoading(true);
       setError(null);
       try {
+        // 讓 loading 至少顯示 500ms（模擬載入中狀態500秒，實際上可以拿掉)
+        await new Promise((r) => setTimeout(r, 500));
+
         const data = await storeService.getAllStores();
         setAllStores(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -102,60 +105,130 @@ const FindStores = () => {
   }, []);
 
   // URL 或資料變了，就重新算結果
+  // useEffect(() => {
+  //   const nextFilters = parseFilters(searchParams);
+
+  //   //如果重新整理或貼上連結，也會顯示打勾等等對應的選項
+  //   // 用 RHF 的 reset 取代原本的 setDraft
+  //   reset({
+  //     area: nextFilters.area,
+  //     query: nextFilters.query,
+  //     storeType: nextFilters.storeType,
+  //     petType: nextFilters.petType,
+  //   });
+
+  //   // URL → filters 套用
+  //   setFilters(nextFilters);
+
+  //   // 篩選流程
+  //   // 地區
+  //   const areaFiltered =
+  //     nextFilters.area === ''
+  //       ? allStores
+  //       : allStores.filter((s) => s.area === nextFilters.area);
+  //   // 關鍵字
+  //   const queryFiltered = areaFiltered.filter((s) =>
+  //     matchQuery(s, nextFilters.query)
+  //   );
+  //   // 店家
+  //   const storeTypeFiltered = queryFiltered.filter((s) =>
+  //     hasIntersection(
+  //       Array.isArray(s.type) ? s.type : [],
+  //       nextFilters.storeType
+  //     )
+  //   );
+  //   //寵物
+  //   const filtered = storeTypeFiltered.filter((s) =>
+  //     hasIntersection(
+  //       Array.isArray(s.petTypes) ? s.petTypes : [],
+  //       nextFilters.petType
+  //     )
+  //   );
+  //   setTotalCount(filtered.length);
+  //   // 分頁
+  //   const nextTotalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  //   setTotalPages(nextTotalPages);
+
+  //   const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
+  //   if (safePage !== nextFilters.page) {
+  //     const fixed = { ...nextFilters, page: safePage };
+  //     setSearchParams(buildSearchParams(fixed), { replace: true });
+  //     return;
+  //   }
+
+  //   const start = (safePage - 1) * PAGE_SIZE;
+  //   setItems(filtered.slice(start, start + PAGE_SIZE));
+  // }, [searchParams, allStores, setSearchParams, reset]); //記得依賴加入 reset
+
+  // URL 或資料變了，就重新算結果 => 舊版先保留
+  // 改寫成 async/await 版本，並加入 isLoading 和 error 狀態
   useEffect(() => {
-    const nextFilters = parseFilters(searchParams);
+    let active = true;
 
-    //如果重新整理或貼上連結，也會顯示打勾等等對應的選項
-    // 用 RHF 的 reset 取代原本的 setDraft
-    reset({
-      area: nextFilters.area,
-      query: nextFilters.query,
-      storeType: nextFilters.storeType,
-      petType: nextFilters.petType,
-    });
+    async function processSearch() {
+      setIsLoading(true);
 
-    // URL → filters 套用
-    setFilters(nextFilters);
+      // 讓 loading 至少顯示 500ms（模擬載入中狀態700秒，實際上可以拿掉)
+      await new Promise((r) => setTimeout(r, 500));
 
-    // 篩選流程
-    // 地區
-    const areaFiltered =
-      nextFilters.area === ''
-        ? allStores
-        : allStores.filter((s) => s.area === nextFilters.area);
-    // 關鍵字
-    const queryFiltered = areaFiltered.filter((s) =>
-      matchQuery(s, nextFilters.query)
-    );
-    // 店家
-    const storeTypeFiltered = queryFiltered.filter((s) =>
-      hasIntersection(
-        Array.isArray(s.type) ? s.type : [],
-        nextFilters.storeType
-      )
-    );
-    //寵物
-    const filtered = storeTypeFiltered.filter((s) =>
-      hasIntersection(
-        Array.isArray(s.petTypes) ? s.petTypes : [],
-        nextFilters.petType
-      )
-    );
-    setTotalCount(filtered.length);
-    // 分頁
-    const nextTotalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-    setTotalPages(nextTotalPages);
+      const nextFilters = parseFilters(searchParams);
 
-    const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
-    if (safePage !== nextFilters.page) {
-      const fixed = { ...nextFilters, page: safePage };
-      setSearchParams(buildSearchParams(fixed), { replace: true });
-      return;
+      reset({
+        area: nextFilters.area,
+        query: nextFilters.query,
+        storeType: nextFilters.storeType,
+        petType: nextFilters.petType,
+      });
+
+      setFilters(nextFilters);
+
+      const areaFiltered =
+        nextFilters.area === ''
+          ? allStores
+          : allStores.filter((s) => s.area === nextFilters.area);
+
+      const queryFiltered = areaFiltered.filter((s) =>
+        matchQuery(s, nextFilters.query)
+      );
+
+      const storeTypeFiltered = queryFiltered.filter((s) =>
+        hasIntersection(
+          Array.isArray(s.type) ? s.type : [],
+          nextFilters.storeType
+        )
+      );
+
+      const filtered = storeTypeFiltered.filter((s) =>
+        hasIntersection(
+          Array.isArray(s.petTypes) ? s.petTypes : [],
+          nextFilters.petType
+        )
+      );
+
+      if (!active) return;
+
+      setTotalCount(filtered.length);
+
+      const nextTotalPages = Math.max(
+        1,
+        Math.ceil(filtered.length / PAGE_SIZE)
+      );
+      setTotalPages(nextTotalPages);
+
+      const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
+
+      const start = (safePage - 1) * PAGE_SIZE;
+      setItems(filtered.slice(start, start + PAGE_SIZE));
+
+      setIsLoading(false);
     }
 
-    const start = (safePage - 1) * PAGE_SIZE;
-    setItems(filtered.slice(start, start + PAGE_SIZE));
-  }, [searchParams, allStores, setSearchParams, reset]); //記得依賴加入 reset
+    processSearch();
+
+    return () => {
+      active = false;
+    };
+  }, [searchParams, allStores, setSearchParams, reset]);
 
   // RHF 轉換後的寫法-> RHF 的 submit：它會自動把收集好的 data (也就是原本的 draft) 傳給你
   const onSubmitSearch = (data) => {
@@ -443,8 +516,7 @@ const FindStores = () => {
             zIndex: 999,
           }}
         >
-          {/* <FullPageLoader show={status === 'loading'} color="#BC895D" /> */}
-          <FullPageLoader show={'loading'} color="#BC895D" />
+          <FullPageLoader show={isLoading} color="#fec631" />
         </div>
       )}
     </>

@@ -1,0 +1,28 @@
+@use '../helpers/variables' as *;
+@use 'sass:color';
+
+.ui-fullpage-loader {
+  position: fixed;
+  inset: 0;
+  background: rgba($ui-neutral-400, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  backdrop-filter: blur(2px);
+}
+
+.ui-spinner {
+  border: 8px solid $ui-neutral-50;
+  border-top: 8px solid var($ui-yellow-400);
+  border-radius: 50%;
+
+  animation: ui-spin 0.8s linear infinite;
+}
+
+@keyframes ui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
