@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ChevronUp } from 'react-feather';
 
 function getShowThreshold() {
   // 可自訂各裝置下的滾動距離
@@ -34,7 +35,8 @@ export default function GoTop() {
       aria-label="回到頂部"
     >
       {/* <i className='bi bi-chevron-up'></i> */}
-      <span className="material-icons">keyboard_arrow_up</span>
+      {/* <span className="material-icons">keyboard_arrow_up</span> */}
+      <ChevronUp className="ui-breadcrumb__separator" size={20} />
     </button>
   );
 }
