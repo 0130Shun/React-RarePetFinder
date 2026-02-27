@@ -2,9 +2,8 @@ import React from 'react';
 
 const FullPageLoader = ({
   show = false,
-  color = '#fec631',
+
   zIndex = 9999,
-  size = 64,
 }) => {
   if (!show) return null;
 
@@ -16,14 +15,7 @@ const FullPageLoader = ({
       aria-live="polite"
       aria-busy="true"
     >
-      <div
-        className="ui-spinner"
-        style={{
-          width: size,
-          height: size,
-          borderTopColor: color,
-        }}
-      />
+      <div className="ui-spinner" />
     </div>
   );
 };

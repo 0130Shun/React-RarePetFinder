@@ -14,11 +14,28 @@
 }
 
 .ui-spinner {
-  border: 8px solid $ui-neutral-50;
-  border-top: 8px solid var($ui-yellow-400);
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
 
-  animation: ui-spin 0.8s linear infinite;
+  // border: 8px solid $ui-neutral-50;
+  // border-top: 8px solid $ui-yellow-400;
+  // border-right: 8px solid $ui-blue-500;
+  //ABO 兩色漸層，並且讓透明部分形成缺口，達到 spinner 的效果
+  background: conic-gradient(
+    $ui-yellow-400 0deg,
+    mix($ui-yellow-400, $ui-blue-500, 50%) 60deg,
+    $ui-blue-500 120deg,
+    transparent 120deg 360deg
+  );
+  // 用 mask 來挖掉內部，形成一個環狀的 spinner
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 8px),
+    black calc(100% - 8px)
+  );
+
+  animation: ui-spin 0.5s linear infinite;
 }
 
 @keyframes ui-spin {

@@ -516,7 +516,8 @@ const FindStores = () => {
             zIndex: 999,
           }}
         >
-          <FullPageLoader show={isLoading} color="#fec631" />
+          {/* <FullPageLoader show={isLoading} color="#fec631" /> */}
+          <FullPageLoader show={isLoading} />
         </div>
       )}
     </>
