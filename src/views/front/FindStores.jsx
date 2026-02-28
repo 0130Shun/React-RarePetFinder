@@ -83,7 +83,7 @@ const FindStores = () => {
       setError(null);
       try {
         // 讓 loading 至少顯示 500ms（模擬載入中狀態500秒，實際上可以拿掉)
-        await new Promise((r) => setTimeout(r, 500));
+        await new Promise((r) => setTimeout(r, 1000));
 
         const data = await storeService.getAllStores();
         setAllStores(Array.isArray(data) ? data : []);
