@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form'; // 引入 RHF
+import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
 import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
@@ -24,7 +24,7 @@ const PAGE_SIZE = 9;
 const FindStores = () => {
   const [searchParams, setSearchParams] = useSearchParams(); //更新網址用(query params)
   // 一行搞定初始化，defaultValues 對應原本的 initialState
-  const { register, handleSubmit, setValue, reset, watch } = useForm({
+  const { register, handleSubmit, setValue, reset, watch, control } = useForm({
     defaultValues: {
       area: '',
       query: '',
@@ -42,6 +42,7 @@ const FindStores = () => {
   });
   const watchedPetTypes = watch('petType') || [];
   const watchedStoreTypes = watch('storeType') || [];
+  const watchedQuery = watch('query') || '';
   const [allStores, setAllStores] = useState([]); //從 API 抓回來的「全部店家」
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
   const [totalPages, setTotalPages] = useState(1); //用篩選後的總筆數 / PAGE_SIZE 算出來
@@ -163,6 +164,8 @@ const FindStores = () => {
   // RHF 的清空：用 setValue 指定欄位改值
   const onResetQueryOnly = () => {
     setValue('query', '');
+    const nextFilters = { ...filters, query: '', page: 1 };
+    setSearchParams(buildSearchParams(nextFilters));
   };
 
   // 換頁
@@ -192,10 +195,22 @@ const FindStores = () => {
               <form onSubmit={handleSubmit(onSubmitSearch)}>
                 <div className="findStores-search-group mt-12">
                   <div className="findStores-search-bar text">
-                    <input
+                    {/* <input
                       type="text"
                       placeholder="搜尋關鍵字"
                       {...register('query')}
+                      value={watchedQuery}
+                    /> */}
+                    <Controller
+                      name="query"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="text"
+                          placeholder="搜尋關鍵字"
+                        />
+                      )}
                     />
                     <button type="submit">
                       <img src={Search} alt="" />
@@ -236,10 +251,22 @@ const FindStores = () => {
                       <span className="span-style">搜尋</span>
                       <div className="findStores-search-group mt-12">
                         <div className="findStores-search-bar tc-1-small-regular">
-                          <input
+                          {/* <input
                             type="text"
                             placeholder="搜尋關鍵字"
                             {...register('query')}
+                            value={watchedQuery}
+                          /> */}
+                          <Controller
+                            name="query"
+                            control={control}
+                            render={({ field }) => (
+                              <input
+                                {...field}
+                                type="text"
+                                placeholder="搜尋關鍵字"
+                              />
+                            )}
                           />
                           <button
                             type="submit"
