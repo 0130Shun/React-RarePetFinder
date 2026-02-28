@@ -1,7 +1,8 @@
 // 稀寵資訊 分頁
 
-import ArticlesHero from '../../components/subHero/ArticlesHero';
+// import ArticlesHero from '../../components/subHero/ArticlesHero';
 import SubHero from '../../components/subHero/SubHero';
+import FullPageLoader from '@/components/shared/FullPageLoader';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useEffect, useState, useMemo } from 'react';
 import { storeService } from '@/api';
@@ -80,6 +81,9 @@ export default function Articles() {
       setIsLoading(true);
       setError(null);
       try {
+        // 讓 本頁的 loading 至少顯示 500ms（模擬載入中狀態500秒，實際上可以拿掉)
+        await new Promise((r) => setTimeout(r, 1000));
+
         const data = await storeService.getAllArticles();
         if (!mounted) return;
         setAllArticles(Array.isArray(data) ? data : []);
@@ -124,11 +128,41 @@ export default function Articles() {
   const goPrev = () => setPage((p) => Math.max(1, p - 1));
   const goNext = () => setPage((p) => Math.min(totalPages, p + 1));
 
+  //保留舊版面寫法：切換頁碼時，滾動到頂部
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'auto',
+  //   });
+  // }, [page]);
+  //async await + setTimeout 模擬實際api資料載入中狀態，實際上可以拿掉
+  // useEffect(() => {
+  //   let active = true;
+  //   async function handlePageChange() {
+  //     setIsLoading(true);
+  //     window.scrollTo({ top: 0, behavior: 'auto' });
+  //     await new Promise((r) => setTimeout(r, 300));
+  //     if (active) setIsLoading(false);
+  //   }
+  //   handlePageChange();
+  //   return () => {
+  //     active = false;
+  //   };
+  // }, [page]);
+
+  //async await 拿掉寫法
   useEffect(() => {
+    setIsLoading(true);
     window.scrollTo({
       top: 0,
       behavior: 'auto',
     });
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, [page]);
 
   return (
@@ -183,7 +217,10 @@ export default function Articles() {
                         <p className="rp-article-date">{item.date}</p>
                         <h3 className="rp-article-title">{item.title}</h3>
                         <p className="rp-article-desc">{item.summary}</p>
-                        <Link className="rp-article-link $ui-blue-700" to="/articles">
+                        <Link
+                          className="rp-article-link $ui-blue-700"
+                          to="/articles"
+                        >
                           繼續閱讀
                         </Link>
                       </div>
@@ -241,6 +278,19 @@ export default function Articles() {
           )}
         </div>
       </section>
+      {isLoading && (
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(255,255,255,0.3)',
+            zIndex: 999,
+          }}
+        >
+          <FullPageLoader show={isLoading} />
+        </div>
+      )}
     </>
   );
 }
