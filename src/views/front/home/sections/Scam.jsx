@@ -1,5 +1,4 @@
 //防詐宣導區section
-import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { Link } from 'react-router-dom';
@@ -35,7 +34,6 @@ const scamData = [
   },
 ];
 export default function Scam() {
-  const paginationRef = useRef(null);
   return (
     <>
       <section className="scam-section">
@@ -55,13 +53,10 @@ export default function Scam() {
                 loop
                 slidesPerView={1}
                 centeredSlides
-                autoplay={{ delay: 20000, disableOnInteraction: false }}
+                autoplay={{ delay: 10000, disableOnInteraction: false }}
                 pagination={{
                   clickable: true,
-                  el: paginationRef.current,
-                }}
-                onBeforeInit={(swiper) => {
-                  swiper.params.pagination.el = paginationRef.current;
+                  el: '.scam-pagination',
                 }}
               >
                 {/*  Slide 1  */}
@@ -71,7 +66,7 @@ export default function Scam() {
                       <div className="scam-card__content">
                         <h3 className="scam-card__title">{item.title}</h3>
                         <p className="scam-card__text">{item.text}</p>
-                        <Link  to={item.link} className="scam-card__link">
+                        <Link to={item.link} className="scam-card__link">
                           繼續閱讀
                         </Link>
                       </div>
@@ -80,7 +75,7 @@ export default function Scam() {
                 ))}
               </Swiper>
               {/*  pagination  */}
-              <div ref={paginationRef} className="scam-pagination" />
+              <div className="scam-pagination" />
             </div>
           </div>
         </div>
