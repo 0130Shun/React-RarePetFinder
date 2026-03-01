@@ -1,7 +1,7 @@
 export default function RepostPost() {
   return (
     <>
-      <section className="section-cta">
+      <section className="section-cta mb-md-5">
         <div className="section-cta__inner">
           <div className="section-cta__list">
             {/*  卡片 1：詐騙/錯假資訊  */}
