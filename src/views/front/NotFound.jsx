@@ -1,7 +1,10 @@
+// import { Link } from 'react-router-dom';
+import SubHero from '../../components/subHero/SubHero';
+
 export default function NotFound() {
   return (
     <>
-      <h1>查無此頁</h1>
+      <SubHero variant="notFound" />
     </>
   );
 }

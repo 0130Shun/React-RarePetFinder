@@ -71,7 +71,7 @@ $rp-lg: 992px;
   margin: 4px auto 10px;
   width: 89px;
 
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   border-radius: 4px;
   text-align: center;
@@ -79,6 +79,7 @@ $rp-lg: 992px;
   display: block;
 
   @media (min-width: $rp-lg) {
+    font-size: 15px;
     /* 標籤改成疊在左上角 */
     position: absolute;
     top: 8px;

@@ -5,8 +5,8 @@ import { useNavigate, createSearchParams } from 'react-router-dom';
 const SearchBar = () => {
   const navigate = useNavigate();
   const [area, setArea] = useState('台北');
-  const [petType, setPetType] = useState('柯爾鴨');
-  const [storeType, setStoreType] = useState('旅館');
+  const [petType, setPetType] = useState('烏龜');
+  const [storeType, setStoreType] = useState('診所');
 
   const areas = [
     '台北',

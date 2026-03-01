@@ -202,10 +202,11 @@ $desktop: 1200px;
     -webkit-line-clamp: 3; // 顯示三行
     /*! autoprefixer: ignore next */ // 防止編譯器刪掉下面這行
     -webkit-box-orient: vertical;
-    text-overflow: ellipsis; // 顯示 ...
+    // text-overflow: ellipsis; // 顯示 ...
     @media (min-width: $desktop) {
-      margin-bottom: 30px;
-      padding-bottom: 20px;
+      // margin-bottom: 30px;
+      // padding-bottom: 20px;
+      // margin-bottom: 50px;
     }
   }
 
@@ -238,7 +239,10 @@ $desktop: 1200px;
     height: 12px;
     background: #fec631;
     opacity: 0.3;
-
+    transition:
+      width 0.3s ease-in-out,
+      background-color 0.3s ease-in-out,
+      border-radius 0.3s ease-in-out;
     &-active {
       width: 40px;
       border-radius: 16px;

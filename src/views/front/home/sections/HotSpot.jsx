@@ -10,17 +10,19 @@ const HotSpot = () => {
   const hotSpotData = [
     {
       id: 1,
-      storeName: '就甘心Ponpon寵物旅館',
-      address: '台北市中山區新生北路二段60巷16號4樓',
+      storeName: '玄武棲兩棲爬蟲概念館',
+      address: '新北市新莊區中正路637巷28號',
       likes: 153,
       img: hotelImg, // 記得確認圖片路徑是否正確
+      num: 15,
     },
     {
       id: 2,
-      storeName: '凡賽爾賽鴿動物醫院',
-      address: '台中市西屯區重慶路8號',
+      storeName: '凡賽爾賽鴨寵物鳥醫院(大同店)',
+      address: '台北市大同區民族西路53號',
       likes: 87,
       img: clinicImg,
+      num: 4,
     },
     {
       id: 3,
@@ -28,6 +30,7 @@ const HotSpot = () => {
       address: '台北市南港區南港路二段20巷5號B1',
       likes: 93,
       img: shopImg,
+      num: 11,
     },
     {
       id: 4,
@@ -35,6 +38,7 @@ const HotSpot = () => {
       address: '高雄市三民區信國路20號',
       likes: 115,
       img: clinicImg,
+      num: 23,
     },
     {
       id: 5,
@@ -42,6 +46,7 @@ const HotSpot = () => {
       address: '新北市板橋區館前西路120號2樓',
       likes: 75,
       img: hotelImg,
+      num: 69,
     },
   ];
 
@@ -64,7 +69,7 @@ const HotSpot = () => {
           slidesPerView={2}
           spaceBetween={24}
           loop={true}
-          autoplay={{ delay: 30000, disableOnInteraction: false }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
           // 下面的小黑點(分頁註記)
           // pagination={{ clickable: true }}
           // 導航按鈕 (綁定下方的 class)
@@ -95,7 +100,7 @@ const HotSpot = () => {
           {hotSpotData.map((store) => (
             <SwiperSlide>
               <Link
-                to={`/findStores?query=${store.storeName}`}
+                to={`/storedetail/${store.num}`}
                 className="d-block store-card text-center"
               >
                 <div className="d-flex justify-content-end align-items-center mb-3 pe-3">

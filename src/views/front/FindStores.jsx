@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form'; // 引入 RHF
+import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
 import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
 // import FindStoresHero from '../../components/subHero/FindStoresHero';
 import SubHero from '@/components/subHero/SubHero';
+// 引入FullPageLoader
+import FullPageLoader from '@/components/shared/FullPageLoader';
 // 將 storeSearchUtils 中的工具引入
 import {
   parseFilters,
@@ -24,7 +26,7 @@ const PAGE_SIZE = 9;
 const FindStores = () => {
   const [searchParams, setSearchParams] = useSearchParams(); //更新網址用(query params)
   // 一行搞定初始化，defaultValues 對應原本的 initialState
-  const { register, handleSubmit, setValue, reset, watch } = useForm({
+  const { register, handleSubmit, setValue, reset, watch, control } = useForm({
     defaultValues: {
       area: '',
       query: '',
@@ -42,10 +44,11 @@ const FindStores = () => {
   });
   const watchedPetTypes = watch('petType') || [];
   const watchedStoreTypes = watch('storeType') || [];
+  const watchedQuery = watch('query') || '';
   const [allStores, setAllStores] = useState([]); //從 API 抓回來的「全部店家」
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
   const [totalPages, setTotalPages] = useState(1); //用篩選後的總筆數 / PAGE_SIZE 算出來
-
+  const [totalCount, setTotalCount] = useState(0); // 用來存篩選後的總筆數
   //介面狀態
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -80,6 +83,9 @@ const FindStores = () => {
       setIsLoading(true);
       setError(null);
       try {
+        // 讓 loading 至少顯示 500ms（模擬載入中狀態500秒，實際上可以拿掉)
+        await new Promise((r) => setTimeout(r, 1000));
+
         const data = await storeService.getAllStores();
         setAllStores(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -100,60 +106,130 @@ const FindStores = () => {
   }, []);
 
   // URL 或資料變了，就重新算結果
+  // useEffect(() => {
+  //   const nextFilters = parseFilters(searchParams);
+
+  //   //如果重新整理或貼上連結，也會顯示打勾等等對應的選項
+  //   // 用 RHF 的 reset 取代原本的 setDraft
+  //   reset({
+  //     area: nextFilters.area,
+  //     query: nextFilters.query,
+  //     storeType: nextFilters.storeType,
+  //     petType: nextFilters.petType,
+  //   });
+
+  //   // URL → filters 套用
+  //   setFilters(nextFilters);
+
+  //   // 篩選流程
+  //   // 地區
+  //   const areaFiltered =
+  //     nextFilters.area === ''
+  //       ? allStores
+  //       : allStores.filter((s) => s.area === nextFilters.area);
+  //   // 關鍵字
+  //   const queryFiltered = areaFiltered.filter((s) =>
+  //     matchQuery(s, nextFilters.query)
+  //   );
+  //   // 店家
+  //   const storeTypeFiltered = queryFiltered.filter((s) =>
+  //     hasIntersection(
+  //       Array.isArray(s.type) ? s.type : [],
+  //       nextFilters.storeType
+  //     )
+  //   );
+  //   //寵物
+  //   const filtered = storeTypeFiltered.filter((s) =>
+  //     hasIntersection(
+  //       Array.isArray(s.petTypes) ? s.petTypes : [],
+  //       nextFilters.petType
+  //     )
+  //   );
+  //   setTotalCount(filtered.length);
+  //   // 分頁
+  //   const nextTotalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  //   setTotalPages(nextTotalPages);
+
+  //   const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
+  //   if (safePage !== nextFilters.page) {
+  //     const fixed = { ...nextFilters, page: safePage };
+  //     setSearchParams(buildSearchParams(fixed), { replace: true });
+  //     return;
+  //   }
+
+  //   const start = (safePage - 1) * PAGE_SIZE;
+  //   setItems(filtered.slice(start, start + PAGE_SIZE));
+  // }, [searchParams, allStores, setSearchParams, reset]); //記得依賴加入 reset
+
+  // URL 或資料變了，就重新算結果 => 舊版先保留
+  // 改寫成 async/await 版本，並加入 isLoading 和 error 狀態
   useEffect(() => {
-    const nextFilters = parseFilters(searchParams);
+    let active = true;
 
-    //如果重新整理或貼上連結，也會顯示打勾等等對應的選項
-    // 用 RHF 的 reset 取代原本的 setDraft
-    reset({
-      area: nextFilters.area,
-      query: nextFilters.query,
-      storeType: nextFilters.storeType,
-      petType: nextFilters.petType,
-    });
+    async function processSearch() {
+      setIsLoading(true);
 
-    // URL → filters 套用
-    setFilters(nextFilters);
+      // 讓 loading 至少顯示 500ms（模擬載入中狀態700秒，實際上可以拿掉)
+      await new Promise((r) => setTimeout(r, 500));
 
-    // 篩選流程
-    // 地區
-    const areaFiltered =
-      nextFilters.area === ''
-        ? allStores
-        : allStores.filter((s) => s.area === nextFilters.area);
-    // 關鍵字
-    const queryFiltered = areaFiltered.filter((s) =>
-      matchQuery(s, nextFilters.query)
-    );
-    // 店家
-    const storeTypeFiltered = queryFiltered.filter((s) =>
-      hasIntersection(
-        Array.isArray(s.type) ? s.type : [],
-        nextFilters.storeType
-      )
-    );
-    //寵物
-    const filtered = storeTypeFiltered.filter((s) =>
-      hasIntersection(
-        Array.isArray(s.petTypes) ? s.petTypes : [],
-        nextFilters.petType
-      )
-    );
+      const nextFilters = parseFilters(searchParams);
 
-    // 分頁
-    const nextTotalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-    setTotalPages(nextTotalPages);
+      reset({
+        area: nextFilters.area,
+        query: nextFilters.query,
+        storeType: nextFilters.storeType,
+        petType: nextFilters.petType,
+      });
 
-    const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
-    if (safePage !== nextFilters.page) {
-      const fixed = { ...nextFilters, page: safePage };
-      setSearchParams(buildSearchParams(fixed), { replace: true });
-      return;
+      setFilters(nextFilters);
+
+      const areaFiltered =
+        nextFilters.area === ''
+          ? allStores
+          : allStores.filter((s) => s.area === nextFilters.area);
+
+      const queryFiltered = areaFiltered.filter((s) =>
+        matchQuery(s, nextFilters.query)
+      );
+
+      const storeTypeFiltered = queryFiltered.filter((s) =>
+        hasIntersection(
+          Array.isArray(s.type) ? s.type : [],
+          nextFilters.storeType
+        )
+      );
+
+      const filtered = storeTypeFiltered.filter((s) =>
+        hasIntersection(
+          Array.isArray(s.petTypes) ? s.petTypes : [],
+          nextFilters.petType
+        )
+      );
+
+      if (!active) return;
+
+      setTotalCount(filtered.length);
+
+      const nextTotalPages = Math.max(
+        1,
+        Math.ceil(filtered.length / PAGE_SIZE)
+      );
+      setTotalPages(nextTotalPages);
+
+      const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
+
+      const start = (safePage - 1) * PAGE_SIZE;
+      setItems(filtered.slice(start, start + PAGE_SIZE));
+
+      setIsLoading(false);
     }
 
-    const start = (safePage - 1) * PAGE_SIZE;
-    setItems(filtered.slice(start, start + PAGE_SIZE));
-  }, [searchParams, allStores, setSearchParams, reset]); //記得依賴加入 reset
+    processSearch();
+
+    return () => {
+      active = false;
+    };
+  }, [searchParams, allStores, setSearchParams, reset]);
 
   // RHF 轉換後的寫法-> RHF 的 submit：它會自動把收集好的 data (也就是原本的 draft) 傳給你
   const onSubmitSearch = (data) => {
@@ -163,6 +239,8 @@ const FindStores = () => {
   // RHF 的清空：用 setValue 指定欄位改值
   const onResetQueryOnly = () => {
     setValue('query', '');
+    const nextFilters = { ...filters, query: '', page: 1 };
+    setSearchParams(buildSearchParams(nextFilters));
   };
 
   // 換頁
@@ -174,7 +252,7 @@ const FindStores = () => {
     <>
       <SubHero variant="findStores" />
       <div className="container ui-container mt-md-5">
-        <div className="row">
+        <div className="row mx-0 mx-md-auto">
           <div className="col-12 d-md-none p-3">
             <div className="findStores-search mb-36 mobile-search">
               <div className="d-flex justify-content-between">
@@ -192,10 +270,22 @@ const FindStores = () => {
               <form onSubmit={handleSubmit(onSubmitSearch)}>
                 <div className="findStores-search-group mt-12">
                   <div className="findStores-search-bar text">
-                    <input
+                    {/* <input
                       type="text"
                       placeholder="搜尋關鍵字"
                       {...register('query')}
+                      value={watchedQuery}
+                    /> */}
+                    <Controller
+                      name="query"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="text"
+                          placeholder="搜尋關鍵字"
+                        />
+                      )}
                     />
                     <button type="submit">
                       <img src={Search} alt="" />
@@ -211,7 +301,7 @@ const FindStores = () => {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row mx-0 mx-md-auto ">
           <aside className="col-lg-3">
             <div
               className="offcanvas-lg offcanvas-top h-100"
@@ -236,10 +326,22 @@ const FindStores = () => {
                       <span className="span-style">搜尋</span>
                       <div className="findStores-search-group mt-12">
                         <div className="findStores-search-bar tc-1-small-regular">
-                          <input
+                          {/* <input
                             type="text"
                             placeholder="搜尋關鍵字"
                             {...register('query')}
+                            value={watchedQuery}
+                          /> */}
+                          <Controller
+                            name="query"
+                            control={control}
+                            render={({ field }) => (
+                              <input
+                                {...field}
+                                type="text"
+                                placeholder="搜尋關鍵字"
+                              />
+                            )}
                           />
                           <button
                             type="submit"
@@ -372,7 +474,7 @@ const FindStores = () => {
               搜尋結果
             </span>
             {/* 顯示目前筆數/總筆數 */}
-            <span className="text-muted small">共 {items.length} 筆</span>
+            <span className="text-muted small">共 {totalCount} 筆</span>
             {/* Loading / Error 狀態顯示 */}
             {isLoading && <div className="py-5 text-center">載入中...</div>}
             {error && (
@@ -384,7 +486,7 @@ const FindStores = () => {
               </div>
             )}
             {/* 卡片列表 */}
-            <div className="row g-3 mt-16">
+            <div className="row mx-0 mx-md-auto  g-3 mt-16">
               {items.map((store) => (
                 <StoreCard key={store.id} store={store} />
               ))}
@@ -430,6 +532,21 @@ const FindStores = () => {
           </main>
         </div>
       </div>
+
+      {isLoading && (
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(255,255,255,0.3)',
+            zIndex: 999,
+          }}
+        >
+          {/* <FullPageLoader show={isLoading} color="#fec631" /> */}
+          <FullPageLoader show={isLoading} />
+        </div>
+      )}
     </>
   );
 };
