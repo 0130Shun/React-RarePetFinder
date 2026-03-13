@@ -10,6 +10,9 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
+// apiClient.js 只做 axios instance，所有 API 都共用這個 instance。
+// storeService、articleService、announcementService分開抽出去，讓功能更單純化
+
 const apiClient = axios.create({
   baseURL: API_URL,
   timeout: 5000,
@@ -25,8 +28,6 @@ apiClient.interceptors.request.use((config) => {
 
   return config;
 });
-// apiClient.js 只做 axios instance。
-// storeService、articleService、announcementService分開抽出去，讓功能更單純化
 
 // export const storeService = {
 //   // 方法 C：一次抓全量，前端自行 filter / slice
@@ -39,7 +40,6 @@ apiClient.interceptors.request.use((config) => {
 //     const res = await apiClient.get(`/stores/${id}`);
 //     return res.data;
 //   },
-
 //   //專欄列表
 //   async getAllArticles() {
 //     const respones = await apiClient.get('/articles');
@@ -50,7 +50,6 @@ apiClient.interceptors.request.use((config) => {
 //     const res = await apiClient.get(`/articles/${id}`);
 //     return res.data;
 //   },
-
 //   //詐騙資訊列表
 //   async getAllAnnouncements() {
 //     const respones = await apiClient.get('/announcements');
