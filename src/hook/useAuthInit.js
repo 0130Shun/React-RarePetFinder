@@ -3,11 +3,12 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { getToken } from '@/utils/auth';
-import { checkAuth } from '@/services/authService';
-import { setToken, logout } from '@/features/authSlice';
-
 import { handleApiError } from '@/utils/apiErrorHandler';
 import { useToast } from '@/hooks/useToast';
+
+import { setToken, logout } from '@/features/authSlice';
+import { setUser, clearUser } from '@/features/userSlice';
+import { getMe } from '@/services/authService';
 
 export const useAuthInit = () => {
   const { showError } = useToast();
@@ -27,17 +28,16 @@ export const useAuthInit = () => {
       }
 
       try {
-        const res = await checkAuth();
+        // 先恢復 token
+        dispatch(setToken({ token }));
 
-        if (res.success) {
-          dispatch(
-            setToken({
-              token,
-            })
-          );
-        }
+        // 再取得 user 資訊
+        const user = await getMe();
+
+        dispatch(setUser(user));
       } catch (error) {
         dispatch(logout());
+        dispatch(clearUser);
         const errorMessage = handleApiError(
           error,
           null,
