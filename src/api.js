@@ -1,6 +1,6 @@
 import axios from 'axios';
 // const API_URL = 'http://localhost:3001';
-// 請建立.env後，請設定"VITE_API_URL=http://localhost:3001"
+// 請建立.env後，請設定 VITE_API_URL='https://rarepetfinder-api.onrender.com'
 // 如果沒全域安裝，請加入 npx：npx json-server -w db.json -p 3001
 // 啟動指令： json-server --watch db.json --port 3001 或簡寫： json-server -w db.json -p 3001
 // auth動指令：json-server-auth db.json --port 3001 簡寫： json-server-auth -p 3001 db.json
