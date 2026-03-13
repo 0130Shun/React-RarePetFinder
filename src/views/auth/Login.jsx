@@ -1,19 +1,24 @@
 import { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
-import PageLoader from '@/components/PageLoader';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 
 // import { login } from '@/services/authService';
 // import { handleApiError } from '@/utils/apiErrorHandler';
 // import { loginSuccess } from '@/features/auth/authSlice';
 
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // import { useToast } from '@/hooks/useToast';
 
+// Service
+import { loginApi } from '@/services/authService';
+// Slice
+import { setToken } from '@/features/authSlice';
+import { setUser } from '@/features/userSlice';
+
 const LoginPage = () => {
-  // // 初始化 dispatch
-  // const dispatch = useDispatch();
+  // 初始化 dispatch
+  const dispatch = useDispatch();
   // // 初始化 navigate
   // const navigate = useNavigate();
   // // const { success, showError, warning } = useToast();
@@ -23,20 +28,16 @@ const LoginPage = () => {
     password: 'example',
   });
   // const [errorMessage, setErrorMessage] = useState('');
-  // const [isScreenLoading, setIsScreenLoading] = useState(false);
+  const [isScreenLoading, setIsScreenLoading] = useState(false);
 
   // // 登入表單 - 登入submit事件（使用 async/await）
   const handleLogin = async (e) => {
     e.preventDefault(); // 一定要最前面，避免後續程式碼執行後頁面刷新
-    return; // 在其他功能做好前都先return，僅先有btn
-
-    // setIsScreenLoading(true);
-
+    // return; // 在其他功能做好前都先return，僅先有btn
+    setIsScreenLoading(true);
     // setErrorMessage('');
-
     // if (!account.username || !account.password) {
     //   setErrorMessage('請填寫完整登入資訊');
-
     //   warning('請填寫完整登入資訊');
     //   setIsScreenLoading(false);
     //   return;
@@ -75,6 +76,32 @@ const LoginPage = () => {
     // } finally {
     //   setIsScreenLoading(false);
     // }
+
+    if (!account.username || !account.password) {
+      // setErrorMessage('請填寫完整登入資訊');
+      // warning('請填寫完整登入資訊');
+      setIsScreenLoading(false);
+      console.warn('請填寫完整登入資訊');
+      return;
+    }
+
+    try {
+      const res = await loginApi(account);
+      localStorage.setItem('token', res.accessToken);
+      const token = localStorage.getItem('token');
+      const user = res.user;
+
+      if (token) {
+        dispatch(setToken({ token }));
+        dispatch(setUser(user));
+        console.log('登入成功：token', token);
+        console.log('登入成功：user', user);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsScreenLoading(false);
+    }
   };
 
   // 登入表單 - Input變動
@@ -126,7 +153,7 @@ const LoginPage = () => {
         </form>
       </div>
       {/* ScreenLoading */}
-      {/* <FullPageLoader show={isScreenLoading} zIndex={2000} /> */}
+      <FullPageLoader show={isScreenLoading} zIndex={2000} />
     </>
   );
 };
