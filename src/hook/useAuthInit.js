@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { getToken } from '@/utils/auth';
 import { checkAuth } from '@/services/authService';
-import { loginSuccess, logoutAction } from '@/features/auth/authSlice';
+import { setToken, logout } from '@/features/authSlice';
 
 import { handleApiError } from '@/utils/apiErrorHandler';
 import { useToast } from '@/hooks/useToast';
@@ -20,10 +20,9 @@ export const useAuthInit = () => {
     const initAuth = async () => {
       const token = getToken();
 
-      // 沒有 token 直接導向登入
+      // 沒有 token 直接 logout() 並導向登入
       if (!token) {
-        dispatch(logoutAction());
-        // navigate('/login'); // 註解掉，避免前台以檢查並 navigate('/login');
+        dispatch(logout());
         return;
       }
 
@@ -32,13 +31,13 @@ export const useAuthInit = () => {
 
         if (res.success) {
           dispatch(
-            loginSuccess({
+            setToken({
               token,
             })
           );
         }
       } catch (error) {
-        dispatch(logoutAction());
+        dispatch(logout());
         const errorMessage = handleApiError(
           error,
           null,
