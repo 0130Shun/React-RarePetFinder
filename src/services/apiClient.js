@@ -5,7 +5,7 @@ import axios from 'axios';
 // 啟動指令： json-server --watch db.json --port 3001 或簡寫： json-server -w db.json -p 3001
 // auth動指令：json-server-auth db.json --port 3001 簡寫： json-server-auth -p 3001 db.json
 
-//api.js將改名稱axiosAPI並放置api裡面，但避免多人協作參照問題先暫時不刪除api.js
+//api.js將改名稱apiClient並放置api裡面，但避免多人協作參照問題先暫時不刪除api.js
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 

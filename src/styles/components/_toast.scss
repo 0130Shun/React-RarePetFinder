@@ -1,17 +1,20 @@
+@use '../helpers/variables' as *;
+@use 'sass:color';
+
 .toast-success {
   // background-color: #6B4E38 !important; /* 深焦糖棕（咖啡色調＋黑灰底感）*/
   // background-color: #7a5a44 !important; /* 淺木質棕（拿鐵感更重，但偏暗） */
   // background-color: #5C4533 !important; /* 摩卡灰棕（介於黑與拿鐵之間，低調耐看） */
-  background-color: #4da115 !important;
+  background-color: $ui-color-primary !important;
   color: #fff;
 }
 
 .toast-warning {
-  background-color: #cab815 !important; // 色
+  background-color: $ui-color-warning !important; // 色
   color: #fff;
 }
 
 .toast-danger {
-  background-color: #d32f2f !important; // 鮮紅色
+  background-color: $ui-color-danger !important; // 鮮紅色
   color: #fff;
 }
