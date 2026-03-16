@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { pushMessage } from '@/features/toast/toastSlice';
+import { pushMessage } from '@/features/toastSlice';
 
 export const useToast = () => {
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ export const useToast = () => {
       pushMessage({
         text,
         status: 'success',
-      }),
+      })
     );
   };
 
@@ -18,7 +18,7 @@ export const useToast = () => {
       pushMessage({
         text,
         status: 'error',
-      }),
+      })
     );
   };
 
@@ -27,7 +27,7 @@ export const useToast = () => {
       pushMessage({
         text,
         status: 'warning',
-      }),
+      })
     );
   };
 

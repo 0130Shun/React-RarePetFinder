@@ -1,19 +1,19 @@
 {
   "users": [
     {
+      "email": "admin@mail.com",
+      "password": "$2a$10$PyApuSkTbc7UZD6B5h4Wj.m7VyNz.jwPjrZOriqpg/jFW08H0dNgW",
       "id": 1,
-      "email": "[Admin@mail.com](mailto:Admin@mail.com)",
-      "password": "54321",
       "userName": "Admin使用者",
-      "createdAt": "2024-11-01T10:00:00Z",
+      "createdAt": "2024-11-15T09:15:50Z",
       "role": "admin"
     },
     {
+      "email": "testuser@mail.com",
+      "password": "$2a$10$ox7vxJFHL/pQocRGJfhGeORKbyUd9K1wXe/gLE1sbKSAOE78k74/C",
       "id": 2,
-      "email": "[test@mail.com](mailto:test@mail.com)",
-      "password": "123456",
       "userName": "測試使用者",
-      "createdAt": "2025-01-01T10:00:00Z",
+      "createdAt": "2025-03-01T12:35:10Z",
       "role": "user"
     }
   ],
