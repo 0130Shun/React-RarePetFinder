@@ -2,39 +2,43 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import FullPageLoader from '@/components/shared/FullPageLoader';
-
 import { handleApiError } from '@/utils/apiErrorHandler';
-
+import { useToast } from '@/hook/useToast';
 import { useDispatch } from 'react-redux';
-import { useToast } from '@/hooks/useToast';
-
 // Service
 import { loginApi } from '@/services/authService';
 // Slice
-import { setToken } from '@/features/authSlice';
-import { setUser } from '@/features/userSlice';
+import { setToken, logout } from '@/features/authSlice';
+import { setUser, clearUser } from '@/features/userSlice';
+
+import { setAuthToken, setAuthUser, clearAuth } from '@/utils/auth';
 
 const LoginPage = () => {
   // 初始化 dispatch
   const dispatch = useDispatch();
-  // // 初始化 navigate
+  // 初始化 navigate
   const navigate = useNavigate();
   const { success, showError, warning } = useToast();
 
+  // json-server-auth 只接受 email、password，所以全部調整
+  // const [account, setAccount] = useState({
+  //   email: 'example@test.com',
+  //   password: 'example',
+  // });
   const [account, setAccount] = useState({
-    username: 'example@test.com',
-    password: 'example',
+    email: 'admin@mail.com',
+    password: '654321',
   });
   const [errorMessage, setErrorMessage] = useState('');
   const [isScreenLoading, setIsScreenLoading] = useState(false);
 
-  // // 登入表單 - 登入submit事件（使用 async/await）
+  // 登入表單 - 登入submit事件（使用 async/await）
   const handleLogin = async (e) => {
     e.preventDefault(); // 一定要最前面，避免後續程式碼執行後頁面刷新
     setIsScreenLoading(true);
     setErrorMessage(''); // 清空錯誤資訊區
 
-    if (!account.username || !account.password) {
+    if (!account.email || !account.password) {
       setErrorMessage('請填寫完整登入資訊');
       warning('請填寫完整登入資訊');
       setIsScreenLoading(false);
@@ -42,20 +46,22 @@ const LoginPage = () => {
     }
 
     try {
+      // 六角API - 儲存cookie或Httpcookie
+      // const res = await loginApi(account);
+      // const { accessToken, expired, user } = res;
+      // document.cookie = `RarePetFinder=${accessToken}; path=/; expires=${new Date(
+      //   expired
+      // ).toUTCString()}`;
+      // json-server-auth 不會回 expired(Token 的過期時間（timestamp）)，且已經有 localStorage token cookie 在 SPA 通常不需要。
       const res = await loginApi(account);
-      const { accessToken, expired, user } = res;
+      const { accessToken, user } = res;
 
-      const token = accessToken;
-      document.cookie = `RarePetFinder=${token}; path=/; expires=${new Date(
-        expired
-      ).toUTCString()}`;
-
-      localStorage.setItem('token', token);
-
-      dispatch(setToken({ token }));
+      // 同時存入 localStorage 和 更新 Redux
+      setAuthToken(accessToken);
+      setAuthUser(JSON.stringify(user));
+      dispatch(setToken({ token: accessToken }));
       dispatch(setUser(user));
-
-      console.log('登入成功', { token, user }); // testconsole
+      alert(user.userName);
 
       success('登入成功，將導向後台首頁');
 
@@ -64,10 +70,14 @@ const LoginPage = () => {
         navigate('/');
       }, 500);
     } catch (err) {
+      // 登入驗證失敗就清除 localStorage、Redux
+      clearAuth();
+      dispatch(logout());
+      dispatch(clearUser());
       const errorMessage = handleApiError(
         err,
         setErrorMessage,
-        '登出失敗，請重新嘗試。'
+        '登入驗證失敗，請重新嘗試。'
       );
       showError(errorMessage);
     } finally {
@@ -94,16 +104,16 @@ const LoginPage = () => {
         <form onSubmit={handleLogin} className="d-flex flex-column gap-3">
           <div className="form-floating mb-3">
             <input
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               type="email"
-              value={account.username}
+              value={account.email}
               onChange={handleInputChange}
               className="form-control"
               placeholder="example@test.com"
               required
             />
-            <label htmlFor="username">Email address</label>
+            <label htmlFor="email">Email address</label>
           </div>
           <div className="form-floating">
             <input

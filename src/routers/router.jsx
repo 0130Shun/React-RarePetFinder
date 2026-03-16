@@ -1,16 +1,16 @@
 import { createHashRouter } from 'react-router-dom';
-import FrontendLayout from '../layout/FrontendLayout';
+import FrontendLayout from '@/layout/FrontendLayout';
 
 //前台頁面
-import Home from '../views/front/home/Home';
-import Articles from '../views/front/Articles';
-import FindStores from '../views/front/FindStores';
-import StoreDetail from '../views/front/StoreDetail';
+import Home from '@/views/front/home/Home';
+import Articles from '@/views/front/Articles';
+import FindStores from '@/views/front/FindStores';
+import StoreDetail from '@/views/front/StoreDetail';
 
 // auth
-import Login from '../views/auth/Login';
+import Login from '@/views/auth/Login';
 // misc
-import NotFound from '../views/front/NotFound';
+import NotFound from '@/views/front/NotFound';
 
 export const router = createHashRouter([
   {
@@ -44,14 +44,9 @@ export const router = createHashRouter([
       },
     ],
   },
+  // {
+  //   path: '/admin',
+  //   element: <AdminLayout />,
+  //   children: [{ index: true, element: <AdminDashboard /> }],
+  // },
 ]);
-
-// 之後確定進度來得及再放
-
-// {
-//     path: "/admin",
-//         element: <AdminLayout />,
-//             children: [
-//                 { index: true, element: <AdminDashboard /> },
-//             ],
-// }

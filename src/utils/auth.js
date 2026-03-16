@@ -25,7 +25,10 @@ export const clearAuthToken = () => {
 
 // ────────────────────────────────────────────────
 
-export const getAuthUser = () => localStorage.getItem('user');
+export const getAuthUser = () => {
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
+};
 
 export const setAuthUser = (user) => {
   if (user) {

@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { User, Menu, X } from 'react-feather';
 import logo from '@/assets/logo.png';
+import { useSelector } from 'react-redux';
+
 const routes = [
   {
     type: 'dropdown',
@@ -97,6 +99,9 @@ const routes = [
 // }
 
 export default function Header() {
+  // TODO: 除了寫法1、2，還有優化寫法 Redux user 結構，避免 state.user.user
+  // const { user } = useSelector((state) => state.user); // 寫法1
+  const user = useSelector((state) => state.user.user); // 寫法2
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
   const togglerRef = useRef(null);
@@ -158,6 +163,7 @@ export default function Header() {
 
           {/* 導覽內容 */}
           <div className="collapse navbar-collapse" id="mainNav" ref={navRef}>
+            {user && <span>歡迎 {user.userName} 回來稀寵~</span>}
             <ul className="navbar-nav ms-auto">
               {routes.map((route) => {
                 // 一般連結 || 下拉選單
