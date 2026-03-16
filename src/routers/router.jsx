@@ -1,5 +1,6 @@
 import { createHashRouter } from 'react-router-dom';
 import FrontendLayout from '@/layout/FrontendLayout';
+import AdminLayout from '@/layout/AdminLayout';
 
 //前台頁面
 import Home from '@/views/front/home/Home';
@@ -9,6 +10,7 @@ import StoreDetail from '@/views/front/StoreDetail';
 
 // auth
 import Login from '@/views/auth/Login';
+import Dashboard from '@/views/auth/Dashboard';
 // misc
 import NotFound from '@/views/front/NotFound';
 
@@ -44,9 +46,9 @@ export const router = createHashRouter([
       },
     ],
   },
-  // {
-  //   path: '/admin',
-  //   element: <AdminLayout />,
-  //   children: [{ index: true, element: <AdminDashboard /> }],
-  // },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [{ index: true, element: <Dashboard /> }],
+  },
 ]);

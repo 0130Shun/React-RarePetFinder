@@ -16,7 +16,7 @@ import { logout } from '@/features/authSlice';
 import { clearUser } from '@/features/userSlice';
 import { useDispatch } from 'react-redux';
 
-const BackendLayout = () => {
+const AdminLayout = () => {
   useAuthInit();
   // 初始化 dispatch navigate
   const dispatch = useDispatch();
@@ -27,13 +27,15 @@ const BackendLayout = () => {
   // const user = useSelector((state) => state.user.user); // 寫法2
 
   useEffect(() => {
+    // 第一次 render 時，user = undefined
+    if (user === undefined) return; // 等 Redux 初始化
+
     // 非 admin權限或沒有 user 就跳轉首頁，並清除 localStorage、Redux
     if (!user || user.role !== 'admin') {
       clearAuth();
       dispatch(logout());
       dispatch(clearUser());
-
-      warning('帳號權限不足或密碼錯誤請重新登入，將導向登入頁面');
+      warning('帳號權限不足或密碼錯誤請重新登入');
       navigate('/login');
     }
   }, [user, dispatch, warning, navigate]);
@@ -50,4 +52,4 @@ const BackendLayout = () => {
   );
 };
 
-export default BackendLayout;
+export default AdminLayout;

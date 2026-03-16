@@ -1,16 +1,25 @@
-// 請建立.env後，請設定 VITE_API_URL='https://rarepetfinder-api.onrender.com'
-// 如果沒全域安裝，請加入 npx：npx json-server -w db.json -p 3001
-// 啟動指令： json-server --watch db.json --port 3001 或簡寫： json-server -w db.json -p 3001
-// auth動指令：json-server-auth db.json --port 3001 簡寫： json-server-auth -p 3001 db.json 或 npm run backend
-// api.js將改名稱apiClient並放置api裡面，但避免多人協作參照問題先暫時不刪除api.js
-// npx json-server-auth db.json -p 3001 or json-server-auth db.json --port 3001 或 npm run backend:auth
+// API Server 說明
+// --------------------------------------------------
+// 建議先查看 package.json scripts 再啟動後端
+//
+// npm run backend        → json-server (mock API)
+// npm run backend:auth   → json-server-auth (登入驗證)
+//
+// 若未使用 scripts 也可手動啟動：
+// npx json-server db.json -p 3001
+// npx json-server-auth db.json -p 3001
+//
+// 若部署正式 API：
+// .env 設定 VITE_API_URL=https://rarepetfinder-api.onrender.com
+//
+// apiClient 為 axios instance，所有 service 共用。
+// 舊 api.js 暫保留避免多人協作路徑錯誤。
 
 import axios from 'axios';
 // const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 const API_URL = 'http://localhost:3001';
 
-// apiClient.js 只做 axios instance，所有 API 都共用這個 instance。
-// storeService、articleService、announcementService分開抽出去，讓功能更單純化
+// apiClient.js 只做 axios instance，剩餘 API 請集中於 services/*，避免直接呼叫 axios
 const apiClient = axios.create({
   baseURL: API_URL,
   timeout: 5000,

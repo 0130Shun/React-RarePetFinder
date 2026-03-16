@@ -58,16 +58,14 @@ const LoginPage = () => {
 
       // 同時存入 localStorage 和 更新 Redux
       setAuthToken(accessToken);
-      setAuthUser(JSON.stringify(user));
+      setAuthUser(user);
       dispatch(setToken({ token: accessToken }));
       dispatch(setUser(user));
-      alert(user.userName);
 
       success('登入成功，將導向後台首頁');
 
       setTimeout(() => {
-        //由於現在沒有後台，先假裝home真的跳躍了
-        navigate('/');
+        navigate('/admin');
       }, 500);
     } catch (err) {
       // 登入驗證失敗就清除 localStorage、Redux
@@ -96,7 +94,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+      <div className="d-flex flex-column justify-content-center align-items-center vh-75">
         <h1 className="mb-5">請先登入</h1>
         {errorMessage && (
           <div className="alert alert-danger w-100">{errorMessage}</div>

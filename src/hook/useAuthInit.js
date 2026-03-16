@@ -12,22 +12,21 @@ import { getAuth } from '@/utils/auth';
 
 export const useAuthInit = () => {
   const { showError } = useToast();
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // 由於沒有回傳會員名稱和權限狀態的API，userSlice先製作後暫時不使用
   useEffect(() => {
     const initAuth = async () => {
       // 不從 cookie 取出token，改從 localStorage 取得 token、user
       const { token, user } = getAuth();
-
       // 沒有 token 直接 logout() 並導向登入
       if (!token || !user) {
         dispatch(logout());
         dispatch(clearUser());
-        showError('請先登入，將導向登入頁面。');
-        navigate('/login');
+        if (window.location.pathname !== '/login') {
+          showError('請先登入，將導向登入頁面。!token');
+          navigate('/login');
+        }
         return;
       }
 
@@ -41,7 +40,7 @@ export const useAuthInit = () => {
         const errorMessage = handleApiError(
           error,
           null,
-          '請先登入，將導向登入頁面。'
+          '請先登入，將導向登入頁面。!try'
         );
         showError(errorMessage);
         navigate('/login');
