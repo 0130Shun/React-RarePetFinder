@@ -13,6 +13,8 @@ import Login from '@/views/auth/Login';
 import Dashboard from '@/views/auth/Dashboard';
 // misc
 import NotFound from '@/views/front/NotFound';
+// 入邏輯抽到router-RequireAuth去判斷
+import RequireAuth from './RequireAuth';
 
 export const router = createHashRouter([
   {
@@ -48,7 +50,17 @@ export const router = createHashRouter([
   },
   {
     path: '/admin',
-    element: <AdminLayout />,
-    children: [{ index: true, element: <Dashboard /> }],
+    element: <RequireAuth role="admin" />,
+    children: [
+      {
+        element: <AdminLayout />,
+        children: [
+          {
+            index: true,
+            element: <Dashboard />,
+          },
+        ],
+      },
+    ],
   },
 ]);
