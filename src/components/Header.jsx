@@ -2,9 +2,19 @@
 // import { NavLink, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { User, Menu, X } from 'react-feather';
+import { User, Briefcase, Menu, X } from 'react-feather';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+// assets
 import logo from '@/assets/logo.png';
-import { useSelector } from 'react-redux';
+// Slice
+import { logout } from '@/features/authSlice';
+import { clearUser } from '@/features/userSlice';
+// hook
+import { useToast } from '@/hook/useToast';
+// auth
+import { clearAuth } from '@/utils/auth';
 
 const routes = [
   {
@@ -13,24 +23,15 @@ const routes = [
     items: [
       {
         label: '找診所',
-        to: {
-          pathname: '/findstores',
-          search: '?storeType=診所',
-        },
+        to: '/findstores?storeType=診所',
       },
       {
         label: '找旅館',
-        to: {
-          pathname: '/findstores',
-          search: '?storeType=旅館',
-        },
+        to: '/findstores?storeType=旅館',
       },
       {
         label: '找賣家',
-        to: {
-          pathname: '/findstores',
-          search: '?storeType=賣家',
-        },
+        to: '/findstores?storeType=賣家',
       },
     ],
   },
@@ -98,7 +99,15 @@ const routes = [
 //   route.label;
 // }
 
-export default function Header() {
+const Header = () => {
+  // 初始化 dispatch
+  const dispatch = useDispatch();
+  // 初始化 navigate
+  const navigate = useNavigate();
+
+  // const { success, showError, warning } = useToast();
+  const { success } = useToast();
+
   // TODO: 除了寫法1、2，還有優化寫法 Redux user 結構，避免 state.user.user
   // const { user } = useSelector((state) => state.user); // 寫法1
   const user = useSelector((state) => state.user.user); // 寫法2
@@ -110,6 +119,18 @@ export default function Header() {
       togglerRef.current.click();
     }
   };
+
+  const handleLogout = () => {
+    const username = user?.userName || '使用者';
+
+    clearAuth();
+    dispatch(logout());
+    dispatch(clearUser());
+
+    success(`「${username}」已登出`);
+    navigate('/');
+  };
+
   // 處理 Body Class 的邏輯（這段不醜了，且有清理機制）
   useEffect(() => {
     const navElement = navRef.current;
@@ -163,8 +184,72 @@ export default function Header() {
 
           {/* 導覽內容 */}
           <div className="collapse navbar-collapse" id="mainNav" ref={navRef}>
-            {user && <span>歡迎 {user.userName} 回來稀寵~</span>}
             <ul className="navbar-nav ms-auto">
+              {/* Auth dropdown */}
+              {user && (
+                <li className="nav-item dropdown ui-nav-item">
+                  <a
+                    className="nav-link nav-link-isAuth dropdown-toggle d-flex align-items-center"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <Briefcase size={24} className="me-2" />
+                    {user.userName}
+                  </a>
+
+                  <ul className="dropdown-menu dropdown-menu-end">
+                    <li>
+                      {/* 獨立頁面但未實作 */}
+                      <Link className="dropdown-item" to="/login#membercenter">
+                        收藏夾
+                      </Link>
+                    </li>
+
+                    {user.role === 'admin' && (
+                      <li>
+                        <Link className="dropdown-item" to="/admin">
+                          回後台
+                        </Link>
+                      </li>
+                    )}
+
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+
+                    <li>
+                      <button className="dropdown-item" onClick={handleLogout}>
+                        登出
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+              )}
+              {/* {user && isAuth && (
+                <>
+                  <li className="nav-item ui-nav-item">
+                    <span className="nav-link nav-link-welcome">
+                      <UserCheck className="me-2" size={24}></UserCheck>歡迎
+                      {user?.userName}
+                    </span>
+                  </li>
+                  <li className="nav-item ui-nav-item ">
+                    {user?.role === 'admin' && (
+                      <Link to="/" className="nav-link nav-link-isAuth">
+                        <Briefcase className="me-2" size={24}></Briefcase>
+                        回到後台
+                      </Link>
+                    )}
+                  </li>
+                  <li className="nav-item ui-nav-item ">
+                    <Link to="/" className="nav-link nav-link-isAuth">
+                      <LogOut className="me-2" size={24}></LogOut>會員登出
+                    </Link>
+                  </li>
+                </>
+              )} */}
               {routes.map((route) => {
                 // 一般連結 || 下拉選單
                 if (route.type === 'link') {
@@ -178,7 +263,6 @@ export default function Header() {
                         {route.label === '會員中心' ? (
                           <>
                             <User className="me-2" size={24}></User>
-                            {/* <i data-feather="user" className="me-1" /> */}
                             {route.label}
                           </>
                         ) : (
@@ -197,10 +281,10 @@ export default function Header() {
                     >
                       <a
                         className="nav-link dropdown-toggle"
-                        href="#"
                         role="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
+                        onClick={(e) => e.preventDefault()}
                       >
                         {route.label}
                       </a>
@@ -242,4 +326,6 @@ export default function Header() {
       <div className="nav-backdrop" />
     </header>
   );
-}
+};
+
+export default Header;
