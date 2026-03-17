@@ -18,8 +18,4 @@ export const loginApi = async (data) => {
   return res.data;
 };
 
-// 登出(未調整成 json-server-auth寫法)
-export const logoutApi = async () => {
-  const res = await apiClient.post('/logout');
-  return res.data;
-};
+// 不需要登出Api，直接清除 Token即可

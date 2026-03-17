@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import FullPageLoader from '@/components/shared/FullPageLoader';
-import { handleApiError } from '@/utils/apiErrorHandler';
-import { useToast } from '@/hook/useToast';
 import { useDispatch } from 'react-redux';
+
 // Service
 import { loginApi } from '@/services/authService';
 // Slice
 import { setToken, logout } from '@/features/authSlice';
 import { setUser, clearUser } from '@/features/userSlice';
-
+//hook
+import { useToast } from '@/hook/useToast';
+//components
+import FullPageLoader from '@/components/shared/FullPageLoader';
+//auth
 import { setAuthToken, setAuthUser, clearAuth } from '@/utils/auth';
+import { handleApiError } from '@/utils/apiErrorHandler';
 
 const LoginPage = () => {
   // 初始化 dispatch

@@ -4,7 +4,7 @@
       "email": "admin@mail.com",
       "password": "$2a$10$PyApuSkTbc7UZD6B5h4Wj.m7VyNz.jwPjrZOriqpg/jFW08H0dNgW",
       "id": 1,
-      "userName": "Admin使用者",
+      "userName": "adminUser",
       "createdAt": "2024-11-15T09:15:50Z",
       "role": "admin"
     },
@@ -12,7 +12,7 @@
       "email": "testuser@mail.com",
       "password": "$2a$10$ox7vxJFHL/pQocRGJfhGeORKbyUd9K1wXe/gLE1sbKSAOE78k74/C",
       "id": 2,
-      "userName": "測試使用者",
+      "userName": "testUser",
       "createdAt": "2025-03-01T12:35:10Z",
       "role": "user"
     }

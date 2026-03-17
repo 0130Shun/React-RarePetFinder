@@ -172,6 +172,17 @@
       }
     }
   }
+  // Nav Link（登入後風格）
+  .nav-link-isAuth {
+    background-color: $ui-color-secondary;
+
+    @include respond(desktop) {
+      &:hover {
+        color: $ui-color-warning;
+        // background-color: $ui-color-warning;
+      }
+    }
+  }
 
   // 關掉 Bootstrap 預設箭頭（如果你要）
   .dropdown-toggle::after {
