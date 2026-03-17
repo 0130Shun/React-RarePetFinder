@@ -62,11 +62,17 @@ const LoginPage = () => {
       dispatch(setToken({ token: accessToken }));
       dispatch(setUser(user));
 
-      success('登入成功，將導向後台首頁');
-
-      setTimeout(() => {
-        navigate('/admin');
-      }, 500);
+      if (user.role !== 'admin') {
+        success(`「 ${user.userName} 」登入成功將導向首頁，歡迎回來`); // 後面改成導向會員中心memberCenter(頁面還沒做好)
+        setTimeout(() => {
+          navigate('/');
+        }, 500);
+      } else {
+        success(`「 ${user.role} - ${user.userName}」登入成功，將導向後台首頁`);
+        setTimeout(() => {
+          navigate('/admin');
+        }, 500);
+      }
     } catch (err) {
       // 登入驗證失敗就清除 localStorage、Redux
       clearAuth();

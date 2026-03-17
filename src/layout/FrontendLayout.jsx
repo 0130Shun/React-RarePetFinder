@@ -7,10 +7,10 @@ import Footer from '@/components/Footer';
 import feather from 'feather-icons'; //react-feather 等之後整合後啟用，feather-icons + feather.replace();暫時不關閉
 import GoTop from '@/components/shared/GoTop';
 
-import { useAuthInit } from '@/hook/useAuthInit';
+// import { useAuthInit } from '@/hook/useAuthInit';
 
 export default function FrontendLayout() {
-  useAuthInit();
+  // useAuthInit();
 
   useEffect(() => {
     feather.replace();

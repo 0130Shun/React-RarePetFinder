@@ -29,7 +29,6 @@ export const router = createHashRouter([
         path: 'findstores',
         element: <FindStores />,
       },
-
       {
         path: 'storedetail/:storeId',
         element: <StoreDetail />,
