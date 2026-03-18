@@ -85,16 +85,47 @@ const routes = [
   // ──────────────────
   // 登入 / 註冊 & 會員中心（先連線到login頁面，hash 切區塊，日後在拆分功能）
   // ──────────────────
+  // {
+  //   type: 'dropdown',
+  //   label: '登入 / 註冊',
+  //   items: [
+  //     {
+  //       label: '登入',
+  //       to: '/login#logindiv',
+  //     },
+  //     {
+  //       label: '註冊',
+  //       to: '/login#register',
+  //     },
+  //   ],
+  // },
   {
     type: 'dropdown',
     label: '登入 / 註冊',
     items: [
       {
+        isAuth: false,
         label: '登入',
         to: '/login#logindiv',
       },
       {
+        isAuth: false,
         label: '註冊',
+        to: '/login#register',
+      },
+      {
+        isAuth: true,
+        label: '收藏夾',
+        to: '/membercenter#logindiv',
+      },
+      {
+        isAuth: true,
+        label: '回後台',
+        to: '/admin',
+      },
+      {
+        isAuth: true,
+        label: '登出',
         to: '/login#register',
       },
     ],
@@ -119,6 +150,22 @@ const routes = [
 // {
 //   route.label;
 // }
+
+const getAuthMenu = (user) => {
+  if (!user) {
+    return [
+      { label: '登入', to: '/login#logindiv' },
+      { label: '註冊', to: '/login#register' },
+    ];
+  }
+
+  return [
+    { label: '收藏夾', to: '/membercenter#logindiv' },
+    ...(user.role === 'admin' ? [{ label: '回後台', to: '/admin' }] : []),
+    { type: 'divider' },
+    { label: '登出', action: 'logout' },
+  ];
+};
 
 const Header = () => {
   // // 初始化 dispatch
@@ -259,7 +306,7 @@ const Header = () => {
                 </li>
               )} */}
               {/* 收藏夾獨立page但未實作 */}
-              {user ? (
+              {/* {user ? (
                 <li className="nav-item dropdown ui-nav-item">
                   <a
                     className="nav-link nav-link-isAuth dropdown-toggle d-flex align-items-center"
@@ -295,7 +342,7 @@ const Header = () => {
                       </li>
                     )}
 
-                    <li>
+                    <li className={user ? '' : 'd-none'}>
                       <hr className="dropdown-divider" />
                     </li>
 
@@ -318,7 +365,7 @@ const Header = () => {
                     登入 / 註冊
                   </NavLink>
                 </li>
-              )}
+              )} */}
 
               {routes.map((route) => {
                 // 一般連結 || 下拉選單
@@ -356,20 +403,62 @@ const Header = () => {
                         aria-expanded="false"
                         onClick={(e) => e.preventDefault()}
                       >
-                        {route.label}
+                        {route.label === '登入 / 註冊' && user
+                          ? user.userName
+                          : route.label}
                       </a>
                       <ul className="dropdown-menu">
-                        {route.items.map((item) => (
-                          <li key={item.label}>
-                            <Link
-                              className="dropdown-item"
-                              to={item.to}
-                              onClick={closeMenu}
-                            >
-                              {item.label}
-                            </Link>
-                          </li>
-                        ))}
+                        {route.label === '登入 / 註冊' && user
+                          ? route.items
+                              .filter((item) => item.isAuth == true)
+                              .map((item) => (
+                                <li key={item.label}>
+                                  {item.label === '登出' ? (
+                                    <button
+                                      className="dropdown-item"
+                                      onClick={() => {
+                                        handleLogout();
+                                        closeMenu();
+                                      }}
+                                    >
+                                      登出
+                                    </button>
+                                  ) : (
+                                    <Link
+                                      className="dropdown-item"
+                                      to={item.to}
+                                      onClick={closeMenu}
+                                    >
+                                      {item.label}
+                                    </Link>
+                                  )}
+                                </li>
+                              ))
+                          : route.label === '登入 / 註冊'
+                            ? route.items
+                                .filter((item) => item.isAuth == false)
+                                .map((item) => (
+                                  <li key={item.label}>
+                                    <Link
+                                      className="dropdown-item"
+                                      to={item.to}
+                                      onClick={closeMenu}
+                                    >
+                                      {item.label}
+                                    </Link>
+                                  </li>
+                                ))
+                            : route.items.map((item) => (
+                                <li key={item.label}>
+                                  <Link
+                                    className="dropdown-item"
+                                    to={item.to}
+                                    onClick={closeMenu}
+                                  >
+                                    {item.label}
+                                  </Link>
+                                </li>
+                              ))}
                       </ul>
                     </li>
                   );
