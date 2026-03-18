@@ -226,6 +226,24 @@
     }
   }
 
+  $dropdown-width-lg: 240px;
+  $dropdown-width-sm: 120px;
+  // Dropdown Menu 給字數多一點的欄位
+  // .dropdown-menu--lg {
+  //   min-width: 250px;
+
+  //   @include respond(desktop) {
+  //     min-width: 120px;
+  //   }
+  // }
+
+  .dropdown-menu--lg {
+    min-width: $dropdown-width-lg;
+    @include respond(desktop) {
+      min-width: $dropdown-width-sm;
+    }
+  }
+
   // Dropdown Item 文字樣式
   .dropdown-item {
     @extend %ui-dropdown-item-base;

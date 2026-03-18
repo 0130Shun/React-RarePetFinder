@@ -1,11 +1,23 @@
 // src/config =>處理 規則、對照、顯示語意
-import { Home, ShoppingBag, PlusSquare } from 'react-feather';
+import {
+  Home,
+  ShoppingBag,
+  PlusSquare,
+  FastForward,
+  User,
+  Briefcase,
+} from 'react-feather';
 
 // 獨立檔案僅處理"icon對照"，非utils那種js邏輯需求
 export const STORE_TYPE_ICON_MAP = {
   旅館: Home,
   賣家: ShoppingBag,
   診所: PlusSquare,
+};
+
+export const ISAUTH_ICON_MAP = {
+  true: Briefcase,
+  false: User,
 };
 
 export const PET_ICON_MAP = {
