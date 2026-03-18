@@ -8,7 +8,7 @@ import { User, Menu, X } from 'react-feather';
 import { useSelector } from 'react-redux';
 // assets
 import logo from '@/assets/logo.png';
-// // Slice
+// Slice
 // import { logout } from '@/features/authSlice';
 // import { clearUser } from '@/features/userSlice';
 // hook
@@ -81,11 +81,11 @@ const routes = [
     type: 'authDropdown',
     label: '登入 / 註冊',
   },
-  {
-    type: 'link',
-    label: '會員中心',
-    to: '/login#membercenter',
-  },
+  // {
+  //   type: 'link',
+  //   label: '會員中心',
+  //   to: '/login#membercenter',
+  // },
 ];
 
 const getAuthMenu = (user) => {
@@ -112,6 +112,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
   const togglerRef = useRef(null);
+  const dropdownRef = useRef(null);
   const closeMenu = () => {
     if (isOpen && togglerRef.current) {
       togglerRef.current.click();
@@ -122,6 +123,13 @@ const Header = () => {
   const logout = useLogout();
   const handleLogout = () => {
     logout(user?.userName);
+    // 強制關閉 dropdown（Bootstrap），避免殘留
+    if (dropdownRef.current) {
+      const dropdown = window.bootstrap.Dropdown.getInstance(
+        dropdownRef.current.querySelector('[data-bs-toggle="dropdown"]')
+      );
+      dropdown?.hide();
+    }
   };
 
   const link = (route) => {
@@ -143,7 +151,11 @@ const Header = () => {
 
   const dropdown = (route) => {
     return (
-      <li className="nav-item dropdown ui-nav-item" key={route.label}>
+      <li
+        className="nav-item dropdown ui-nav-item"
+        key={route.label}
+        ref={dropdownRef}
+      >
         <a
           className="nav-link dropdown-toggle"
           role="button"
@@ -171,7 +183,10 @@ const Header = () => {
     const Icon = ISAUTH_ICON_MAP[!!user] || User;
 
     return (
-      <li className="nav-item dropdown ui-nav-item" key={route.label}>
+      <li
+        className="nav-item dropdown ui-nav-item"
+        key={user ? user.userName : 'guest'}
+      >
         <a
           className={`nav-link ${user ? 'nav-link-isAuth' : ''} dropdown-toggle d-flex align-items-center`}
           role="button"
@@ -249,6 +264,10 @@ const Header = () => {
       document.body.classList.remove('is-nav-open');
     };
   }, []);
+
+  // useEffect(() => {
+  //   console.log('user changed:', user);
+  // }, [user]);
 
   return (
     <header className="header ui-layout">

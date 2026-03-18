@@ -1,7 +1,7 @@
 // _hero.scss：專門負責 Hero / Page Banner 結構
 
-@use '../helpers/mixins' as *;
-@use '../helpers/variables' as *;
+@use '@/styles/helpers/mixins' as *;
+@use '@/styles/helpers/variables' as *;
 
 .ui-hero {
   position: relative;
