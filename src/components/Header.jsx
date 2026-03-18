@@ -3,18 +3,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { User, Briefcase, Menu, X } from 'react-feather';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
+// import { useSelector, useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 // assets
 import logo from '@/assets/logo.png';
-// Slice
-import { logout } from '@/features/authSlice';
-import { clearUser } from '@/features/userSlice';
-// hook
-import { useToast } from '@/hook/useToast';
-// auth
-import { clearAuth } from '@/utils/auth';
+// // Slice
+// import { logout } from '@/features/authSlice';
+// import { clearUser } from '@/features/userSlice';
+// // hook
+// import { useToast } from '@/hook/useToast';
+import { useLogout } from '@/hook/useLogout';
+// // auth
+// import { clearAuth } from '@/utils/auth';
 
 const routes = [
   {
@@ -44,6 +45,27 @@ const routes = [
     type: 'link', // 暫時用一般連結回首頁，拆分後改成 type: 'dropdown',
     label: '投稿 / 回報',
     to: '/',
+    // <li key={item.label}>
+    //   {item.external ? (
+    //     <a
+    //       className="dropdown-item"
+    //       href={item.href}
+    //       target="_blank"
+    //       rel="noopener noreferrer"
+    //       onClick={closeMenu}
+    //     >
+    //       {item.label}
+    //     </a>
+    //   ) : (
+    //     <Link
+    //       className="dropdown-item"
+    //       to={item.to}
+    //       onClick={closeMenu}
+    //     >
+    //       {item.label}
+    //     </Link>
+    //   )}
+    // </li>
     //未來拆分的寫法+google form連結
     // items: [
     //   {
@@ -69,19 +91,18 @@ const routes = [
     items: [
       {
         label: '登入',
-        to: { pathname: '/login', hash: '#logindiv' },
+        to: '/login#logindiv',
       },
       {
         label: '註冊',
-        to: { pathname: '/login', hash: '#register' },
+        to: '/login#register',
       },
     ],
   },
   {
     type: 'link',
     label: '會員中心',
-    to: '/login',
-    hash: '#membercenter',
+    to: '/login#membercenter',
   },
 ];
 // 用物件映射（當有多個特殊 icon+ route 時最好維護），使用時：
@@ -100,13 +121,13 @@ const routes = [
 // }
 
 const Header = () => {
-  // 初始化 dispatch
-  const dispatch = useDispatch();
-  // 初始化 navigate
-  const navigate = useNavigate();
+  // // 初始化 dispatch
+  // const dispatch = useDispatch();
+  // // 初始化 navigate
+  // const navigate = useNavigate();
 
-  // const { success, showError, warning } = useToast();
-  const { success } = useToast();
+  // // const { success, showError, warning } = useToast();
+  // const { success } = useToast();
 
   // TODO: 除了寫法1、2，還有優化寫法 Redux user 結構，避免 state.user.user
   // const { user } = useSelector((state) => state.user); // 寫法1
@@ -120,18 +141,23 @@ const Header = () => {
     }
   };
 
+  // const handleLogout = () => {
+  //   const username = user?.userName || '使用者';
+  //   clearAuth();
+  //   dispatch(logout());
+  //   dispatch(clearUser());
+  //   success(`「${username}」已登出將導向首頁。`);
+  //   setTimeout(() => {
+  //     navigate('/');
+  //   }, 300);
+  // };
+  // hook抽出練習
+  const logout = useLogout();
   const handleLogout = () => {
-    const username = user?.userName || '使用者';
-
-    clearAuth();
-    dispatch(logout());
-    dispatch(clearUser());
-
-    success(`「${username}」已登出`);
-    navigate('/');
+    logout(user?.userName);
   };
 
-  // 處理 Body Class 的邏輯（這段不醜了，且有清理機制）
+  // 處理 Body Class 的邏輯
   useEffect(() => {
     const navElement = navRef.current;
     if (!navElement) return;
@@ -186,7 +212,7 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="mainNav" ref={navRef}>
             <ul className="navbar-nav ms-auto">
               {/* Auth dropdown */}
-              {user && (
+              {/* {user && (
                 <li className="nav-item dropdown ui-nav-item">
                   <a
                     className="nav-link nav-link-isAuth dropdown-toggle d-flex align-items-center"
@@ -201,13 +227,12 @@ const Header = () => {
 
                   <ul className="dropdown-menu dropdown-menu-end">
                     <li>
-                      {/* 獨立頁面但未實作 */}
                       <Link className="dropdown-item" to="/login#membercenter">
                         收藏夾
                       </Link>
                     </li>
 
-                    {user.role === 'admin' && (
+                    {user?.role === 'admin' && (
                       <li>
                         <Link className="dropdown-item" to="/admin">
                           回後台
@@ -220,36 +245,81 @@ const Header = () => {
                     </li>
 
                     <li>
-                      <button className="dropdown-item" onClick={handleLogout}>
+                      <button
+                        className="dropdown-item"
+                        onClick={() => {
+                          handleLogout();
+                          closeMenu();
+                        }}
+                      >
                         登出
                       </button>
                     </li>
                   </ul>
                 </li>
-              )}
-              {/* {user && isAuth && (
-                <>
-                  <li className="nav-item ui-nav-item">
-                    <span className="nav-link nav-link-welcome">
-                      <UserCheck className="me-2" size={24}></UserCheck>歡迎
-                      {user?.userName}
-                    </span>
-                  </li>
-                  <li className="nav-item ui-nav-item ">
-                    {user?.role === 'admin' && (
-                      <Link to="/" className="nav-link nav-link-isAuth">
-                        <Briefcase className="me-2" size={24}></Briefcase>
-                        回到後台
-                      </Link>
-                    )}
-                  </li>
-                  <li className="nav-item ui-nav-item ">
-                    <Link to="/" className="nav-link nav-link-isAuth">
-                      <LogOut className="me-2" size={24}></LogOut>會員登出
-                    </Link>
-                  </li>
-                </>
               )} */}
+              {/* 收藏夾獨立page但未實作 */}
+              {user ? (
+                <li className="nav-item dropdown ui-nav-item">
+                  <a
+                    className="nav-link nav-link-isAuth dropdown-toggle d-flex align-items-center"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <Briefcase size={20} className="me-2" />
+                    {user.userName}
+                  </a>
+
+                  <ul className="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        to="/login#membercenter"
+                        onClick={closeMenu}
+                      >
+                        收藏夾
+                      </Link>
+                    </li>
+
+                    {user?.role === 'admin' && (
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          to="/admin"
+                          onClick={closeMenu}
+                        >
+                          回後台
+                        </Link>
+                      </li>
+                    )}
+
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        onClick={() => {
+                          handleLogout();
+                          closeMenu();
+                        }}
+                      >
+                        登出
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/login" onClick={closeMenu}>
+                    登入 / 註冊
+                  </NavLink>
+                </li>
+              )}
+
               {routes.map((route) => {
                 // 一般連結 || 下拉選單
                 if (route.type === 'link') {
@@ -291,25 +361,13 @@ const Header = () => {
                       <ul className="dropdown-menu">
                         {route.items.map((item) => (
                           <li key={item.label}>
-                            {item.external ? (
-                              <a
-                                className="dropdown-item"
-                                href={item.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={closeMenu}
-                              >
-                                {item.label}
-                              </a>
-                            ) : (
-                              <Link
-                                className="dropdown-item"
-                                to={item.to}
-                                onClick={closeMenu}
-                              >
-                                {item.label}
-                              </Link>
-                            )}
+                            <Link
+                              className="dropdown-item"
+                              to={item.to}
+                              onClick={closeMenu}
+                            >
+                              {item.label}
+                            </Link>
                           </li>
                         ))}
                       </ul>
