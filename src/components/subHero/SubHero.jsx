@@ -3,6 +3,7 @@ import FindStoresHero from './FindStoresHero';
 import StoreDetailHero from './StoreDetailHero';
 import ArticlesHero from './ArticlesHero';
 import NotFoundHero from './NotFoundHero';
+import LoginRegisterHero from './LoginRegisterHero';
 
 // findStores和articles實際上樣式有很大差異故不合併，
 // 如果可以合併且僅需要調整樣式的話，可以參考storeDetail的store...props，
@@ -12,6 +13,7 @@ const HERO_MAP = {
   storeDetail: StoreDetailHero,
   articles: ArticlesHero,
   notFound: NotFoundHero,
+  loginRegister: LoginRegisterHero,
 };
 
 // SubHero僅派工 / 入口，不負責頁面規劃

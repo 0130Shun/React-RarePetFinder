@@ -1,0 +1,22 @@
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
+@use '@/styles/helpers/variables' as *;
+
+// .ui-subHero__content {
+//   h1 {
+//     color: $ui-neutral-800;
+//     @include apply-font($TC-1-Heading05-Bold);
+//   }
+// }
+
+.ui-login {
+  h1 {
+    color: $ui-neutral-800;
+    @include apply-font($TC-1-Heading05-Bold);
+  }
+
+  // p {
+  //   color: $ui-neutral-800;
+  //   @include apply-font($TC-1-Body-Regular);
+  // }
+}
