@@ -1,6 +1,6 @@
 import apiClient from './apiClient';
 
-//articles + announcements整合，功能趨同和使用版面雷同
+// articles + announcements整合，功能趨同和使用版面雷同
 
 export const contentService = {
   async getAllArticles() {

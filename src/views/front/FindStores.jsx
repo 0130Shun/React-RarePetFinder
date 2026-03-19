@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
-import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
+// import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
+import { storeService } from '@/services/storeService'; // 更新api路徑
 
 //檢索頁的Banner
 // import FindStoresHero from '../../components/subHero/FindStoresHero';
