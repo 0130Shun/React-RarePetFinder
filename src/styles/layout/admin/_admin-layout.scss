@@ -1,3 +1,6 @@
+@use '@/styles/helpers/mixins' as *;
+@use '@/styles/helpers/admin/admin-variables' as *;
+
 .admin-layout {
   min-width: 1440px;
   max-width: 1920px;

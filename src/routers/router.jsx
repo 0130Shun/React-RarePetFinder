@@ -11,6 +11,7 @@ import StoreDetail from '@/views/front/StoreDetail';
 // auth
 import Login from '@/views/auth/Login';
 import Dashboard from '@/views/auth/Dashboard';
+import AdminNotFound from '@/views/auth/AdminNotFound';
 // misc
 import NotFound from '@/views/front/NotFound';
 // 入邏輯抽到router-RequireAuth去判斷
@@ -57,6 +58,10 @@ export const router = createHashRouter([
           {
             index: true,
             element: <Dashboard />,
+          },
+          {
+            path: '*',
+            element: <AdminNotFound />,
           },
         ],
       },
