@@ -7,7 +7,16 @@
 // @use './base/reset'; // 已合併到 base.scss，保留作為參考(小專案無須拆分)
 @use './base/base';
 
-// admin
+// layout
 @use './layout/admin/admin-layout';
 @use './layout/admin/admin-header';
 @use './layout/admin/admin-sidebar';
+
+// components
+@use './layout/components/card';
+@use './layout/components/stat-card';
+@use './layout/components/table';
+@use './layout/components/grid';
+
+// pages
+@use './layout/pages/admin/admin-page';

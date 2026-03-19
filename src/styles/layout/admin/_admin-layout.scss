@@ -1,3 +1,5 @@
+// _admin-layout
+
 @use '@/styles/helpers/mixins' as *;
 @use '@/styles/helpers/admin/admin-variables' as *;
 
@@ -11,4 +13,10 @@
 .admin-wrapper {
   display: flex;
   min-height: calc(100vh - 64px);
+}
+
+.admin-content {
+  padding: 24px;
+  background: #f5f6fa;
+  min-height: 100%;
 }
