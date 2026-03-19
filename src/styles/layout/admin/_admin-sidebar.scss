@@ -1,0 +1,38 @@
+.admin-sidebar {
+  width: 260px;
+  background: $admin-sidebar-bg;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-sidebar__brand {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-weight: bold;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-sidebar__menu {
+  padding: 16px 0;
+}
+
+.admin-sidebar__item {
+  display: block;
+  padding: 12px 20px;
+  color: $admin-text-light;
+  text-decoration: none;
+
+  &:hover {
+    background: $admin-sidebar-hover;
+    color: #fff;
+  }
+
+  &.active {
+    background: $admin-sidebar-active;
+    color: #fff;
+  }
+}

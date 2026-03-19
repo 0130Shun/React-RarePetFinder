@@ -98,7 +98,7 @@ const getAuthMenu = (user) => {
 
   return [
     { label: '會員中心', to: '/membercenter' },
-    { label: '收藏夾', to: '/favorite' },
+    { label: '收藏店家', to: '/favorite' },
     ...(user.role === 'admin' ? [{ label: '回後台', to: '/admin' }] : []),
     { type: 'divider' },
     { label: '登出', action: 'logout' },
@@ -301,120 +301,6 @@ const Header = () => {
               {/* 收藏夾獨立page但未實作 */}
 
               {routes.map((route) => {
-                // if (route.type === 'link') {
-                //   return (
-                //     <li className="nav-item ui-nav-item" key={route.label}>
-                //       <NavLink
-                //         className="nav-link"
-                //         to={route.to}
-                //         onClick={closeMenu}
-                //       >
-                //         {route.label === '會員中心' ? (
-                //           <>
-                //             <User className="me-2" size={24}></User>
-                //             {route.label}
-                //           </>
-                //         ) : (
-                //           route.label
-                //         )}
-                //       </NavLink>
-                //     </li>
-                //   );
-                // }
-
-                // if (route.type === 'dropdown') {
-                //   return (
-                //     <li
-                //       className="nav-item dropdown ui-nav-item"
-                //       key={route.label}
-                //     >
-                //       <a
-                //         className="nav-link dropdown-toggle"
-                //         role="button"
-                //         data-bs-toggle="dropdown"
-                //         aria-expanded="false"
-                //         onClick={(e) => e.preventDefault()}
-                //       >
-                //         {route.label}
-                //       </a>
-                //       <ul className="dropdown-menu">
-                //         {route.items.map((item) => (
-                //           <li key={item.label}>
-                //             <Link
-                //               className="dropdown-item"
-                //               to={item.to}
-                //               onClick={closeMenu}
-                //             >
-                //               {item.label}
-                //             </Link>
-                //           </li>
-                //         ))}
-                //       </ul>
-                //     </li>
-                //   );
-                // }
-
-                // if (route.type === 'authDropdown') {
-                //   const menuItems = getAuthMenu(user);
-                //   const Icon = ISAUTH_ICON_MAP[user ? true : false];
-
-                //   return (
-                //     <li
-                //       className="nav-item dropdown ui-nav-item"
-                //       key="route.label"
-                //     >
-                //       <a
-                //         className={`nav-link ${user ? 'nav-link-isAuth' : ''} dropdown-toggle d-flex align-items-center`}
-                //         role="button"
-                //         data-bs-toggle="dropdown"
-                //         onClick={(e) => e.preventDefault()}
-                //       >
-                //         <Icon size={20} className="me-2" />
-                //         {user ? user.userName : '登入 / 註冊'}
-                //       </a>
-
-                //       <ul className="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                //         {menuItems.map((item, index) => {
-                //           if (item.type === 'divider') {
-                //             return (
-                //               <hr key={index} className="dropdown-divider" />
-                //             );
-                //           }
-
-                //           if (item.action === 'logout') {
-                //             return (
-                //               <li key={item.label}>
-                //                 <button
-                //                   className="dropdown-item"
-                //                   onClick={() => {
-                //                     handleLogout();
-                //                     closeMenu();
-                //                   }}
-                //                 >
-                //                   登出
-                //                 </button>
-                //               </li>
-                //             );
-                //           }
-
-                //           return (
-                //             <li key={item.label}>
-                //               <Link
-                //                 className="dropdown-item"
-                //                 to={item.to}
-                //                 onClick={closeMenu}
-                //               >
-                //                 {item.label}
-                //               </Link>
-                //             </li>
-                //           );
-                //         })}
-                //       </ul>
-                //     </li>
-                //   );
-                // }
-                // return null;
-
                 switch (route.type) {
                   case 'link':
                     return link(route);

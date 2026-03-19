@@ -1,17 +1,26 @@
 import { Outlet } from 'react-router-dom';
-import Header from '@/components/Header'; // 可選
-// import Footer from '@/components/Footer';
+import AdminHeader from '@/components/admin/AdminHeader';
+import AdminAside from '@/components/admin/AdminAside';
+// import AdminFooter from '@/components/AdminFooter';
 import GoTop from '@/components/shared/GoTop';
 
 const AdminLayout = () => {
   return (
     <>
-      <Header />
-      <main className="container ui-layout">
-        <Outlet />
-      </main>
-      <GoTop />
-      {/* <Footer /> */}
+      <div className="admin">
+        <div className="admin-layout">
+          <AdminHeader />
+          <div className="admin-wrapper">
+            <AdminAside />
+            <main className="admin-main">
+              <div className="admin-content">
+                <Outlet />
+              </div>
+            </main>
+          </div>
+          <GoTop />
+        </div>
+      </div>
     </>
   );
 };

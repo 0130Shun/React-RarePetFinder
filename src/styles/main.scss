@@ -1,9 +1,6 @@
-// @use "bootstrap/scss/bootstrap" as *;
-
-// @use './helpers/variables';
 @use './helpers/variables' as *;
 @use './helpers/mixins';
-@use './helpers//custom-text' as *;
+@use './helpers/custom-text' as *;
 
 // 多人協作reset 由框架組維護，base 由設計組維護
 // @use './base/reset'; // 已合併到 base.scss，保留作為參考(小專案無須拆分)
