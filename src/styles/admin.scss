@@ -1,22 +1,22 @@
 // admin
-@use './helpers/admin/admin-variables' as *;
-@use './helpers/mixins';
-@use './helpers/custom-text' as *;
+@use '@/styles/helpers/admin/admin-variables' as *;
+@use '@/styles/helpers/mixins';
+@use '@/styles/helpers/custom-text' as *;
 
 // 多人協作reset 由框架組維護，base 由設計組維護
 // @use './base/reset'; // 已合併到 base.scss，保留作為參考(小專案無須拆分)
-@use './base/base';
+@use '@/styles/base/base';
 
 // layout
-@use './layout/admin/admin-layout';
-@use './layout/admin/admin-header';
-@use './layout/admin/admin-sidebar';
+@use '@/styles/layout/admin/admin-layout';
+@use '@/styles/layout/admin/admin-header';
+@use '@/styles/layout/admin/admin-sidebar';
 
 // components
-@use './layout/components/card';
-@use './layout/components/stat-card';
-@use './layout/components/table';
-@use './layout/components/grid';
+@use '@/styles/components/admin/card';
+@use '@/styles/components/admin/stat-card';
+@use '@/styles/components/admin/table';
+@use '@/styles/components/admin/grid';
 
 // pages
-@use './layout/pages/admin/admin-page';
+@use '@/styles/pages/admin/admin-page';

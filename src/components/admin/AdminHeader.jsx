@@ -8,7 +8,7 @@ const AdminHeader = ({ onToggleSidebar }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Redux 取 user（你可以自行調整）
+  // Redux 取 user
   const user = useSelector((state) => state.user?.user);
 
   const logout = useLogout();
@@ -33,7 +33,7 @@ const AdminHeader = ({ onToggleSidebar }) => {
           <Menu size={18} />
         </button>
 
-        {/* 這裡放 Breadcrumb / Title */}
+        {/* Breadcrumb / Title */}
         <div className="admin-header__title">Dashboard</div>
       </div>
 
@@ -46,7 +46,7 @@ const AdminHeader = ({ onToggleSidebar }) => {
 
         {open && (
           <div className="admin-header__dropdown">
-            {/* 可以加更多額外資訊 */}
+            {/* 日後可以加更多額外資訊 */}
             <div className="dropdown-item">
               👤 {user?.email || 'admin@email.com'}
             </div>
