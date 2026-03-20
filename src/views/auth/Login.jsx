@@ -19,17 +19,16 @@ import { setAuthToken, setAuthUser, clearAuth } from '@/utils/auth';
 import { handleApiError } from '@/utils/apiErrorHandler';
 
 const LoginPage = () => {
-  // 初始化 dispatch
+  // 初始化 dispatch、navigate、location
   const dispatch = useDispatch();
-  // 初始化 navigate
   const navigate = useNavigate();
-  const { success, showError, warning } = useToast();
-
-  const [mode, setMode] = useState('login'); // 'login' | 'register'
   const location = useLocation();
 
+  const { success, showError, warning } = useToast();
+  const [mode, setMode] = useState('login'); // 'login' | 'register'
+  const from = location.state?.from?.pathname || null;
+
   // 登入區域
-  // json-server-auth 只接受 email、password，所以全部調整
   // const [account, setAccount] = useState({
   //   email: 'example@test.com',
   //   password: 'example',
@@ -71,6 +70,8 @@ const LoginPage = () => {
   // 登入表單 - 登入submit事件（使用 async/await）
   const handleLogin = async (e) => {
     e.preventDefault(); // 一定要最前面，避免後續程式碼執行後頁面刷新
+
+    let redirectPath = '/membercenter'; // 預設路徑 membercenter
     setIsScreenLoading(true);
     setLoginError(''); // 清空錯誤資訊區
 
@@ -98,17 +99,27 @@ const LoginPage = () => {
       dispatch(setToken({ token: accessToken }));
       dispatch(setUser(user));
 
-      if (user.role !== 'admin') {
-        success(`「 ${user.userName} 」登入成功將導向首頁，歡迎回來`); // 後面改成導向會員中心memberCenter(頁面還沒做好)
-        setTimeout(() => {
-          navigate('/');
-        }, 500);
-      } else {
-        success(`「 ${user.role} - ${user.userName}」登入成功，將導向後台首頁`);
-        setTimeout(() => {
-          navigate('/admin');
-        }, 500);
+      // 有來源且不是 login 就用其來源， admin 強制走後台
+      if (from && from !== '/login') {
+        redirectPath = from;
       }
+      if (user.role === 'admin') {
+        redirectPath = '/admin';
+      }
+
+      // 整合+分流 提示訊息
+      if (user.role === 'admin') {
+        success(`「 ${user.role} - ${user.userName}」登入成功，將導向後台首頁`);
+      } else if (redirectPath === '/membercenter') {
+        success(`「 ${user.userName} 」登入成功，歡迎回來將導向會員中心`);
+      } else {
+        success(`「 ${user.userName} 」登入成功，將導回原頁`);
+      }
+
+      // 最後統一導頁
+      setTimeout(() => {
+        navigate(redirectPath, { replace: true, state: null });
+      }, 500);
     } catch (err) {
       // 登入驗證失敗就清除 localStorage、Redux
       clearAuth();
@@ -141,7 +152,6 @@ const LoginPage = () => {
 
     try {
       const registerApiData = { ...registerData, role: 'user' }; // 前台註冊的一律都是 role: 'user'
-      // const _ = await registerApi(registerApiData);
       await registerApi(registerApiData);
 
       success('註冊成功，請登入');

@@ -5,6 +5,14 @@
       "password": "$2a$10$PyApuSkTbc7UZD6B5h4Wj.m7VyNz.jwPjrZOriqpg/jFW08H0dNgW",
       "id": 1,
       "userName": "adminUser",
+      "avatar": "",
+      "bio": "喜歡柯爾鴨與鸚鵡，期待與各位交換飼養意見",
+      "favoriteStores": [2, 3, 4],
+      "favoritePetTypes": ["柯爾鴨", "鸚鵡"],
+      "recentViewedStores": [],
+      "searchHistory": [],
+      "location": "桃園市",
+      "notificationsEnabled": true,
       "createdAt": "2024-11-15T09:15:50Z",
       "role": "admin"
     },
@@ -13,6 +21,14 @@
       "password": "$2a$10$ox7vxJFHL/pQocRGJfhGeORKbyUd9K1wXe/gLE1sbKSAOE78k74/C",
       "id": 2,
       "userName": "testUser",
+      "avatar": "",
+      "bio": "喜愛鸚鵡與刺蝟、倉鼠作伴，有人有需要二手得倉鼠飼養滾輪嗎? 順手作環保",
+      "favoriteStores": [1, 3, 6, 7],
+      "favoritePetTypes": ["鸚鵡", "刺蝟", "倉鼠"],
+      "recentViewedStores": [],
+      "searchHistory": [],
+      "location": "新北市",
+      "notificationsEnabled": true,
       "createdAt": "2025-03-01T12:35:10Z",
       "role": "user"
     }
@@ -1032,7 +1048,8 @@
       "id": 1,
       "userId": 1,
       "storeId": 2,
-      "createdAt": "2025-01-01T10:00:00Z"
+      "rating": 5,
+      "createdAt": "2025-01-11T10:09:15Z"
     }
   ],
   "articles": [
@@ -1307,6 +1324,16 @@
       "content": "近期氣溫飆升，請注意兔兔、天竺鼠與刺蝟的室內溫度。請勿將飼養籠放置於陽光直射處，並確保飲水充足，以免發生熱衰竭。",
       "date": "2024-06-01",
       "isSticky": false
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "userId": 2,
+      "storeId": 1,
+      "rating": 5,
+      "comment": "很棒",
+      "createdAt": "2025-03-20T08:00:00Z"
     }
   ]
 }

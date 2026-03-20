@@ -8,6 +8,11 @@ const RequireAuth = ({ role }) => {
   const location = useLocation();
   const user = reduxUser || localUser;
 
+  // 之後補一個 store - loading 狀態（避免閃跳）
+  // if (reduxUser === undefined) {
+  //   return <FullPageLoader />;
+  // }
+
   // // 未登入
   // if (!token || !user) {
   //   return <Navigate to="/login" replace />;
