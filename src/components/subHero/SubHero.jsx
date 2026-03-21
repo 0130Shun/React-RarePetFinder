@@ -1,10 +1,10 @@
 // import { ChevronRight } from 'react-feather';
 import FindStoresHero from './FindStoresHero';
+import LoginRegisterHero from './LoginRegisterHero';
+import NotFoundHero from './NotFoundHero';
+
 import StoreDetailHero from './StoreDetailHero';
 import ArticlesHero from './ArticlesHero';
-import NotFoundHero from './NotFoundHero';
-import LoginRegisterHero from './LoginRegisterHero';
-
 // findStores和articles實際上樣式有很大差異故不合併，
 // 如果可以合併且僅需要調整樣式的話，可以參考storeDetail的store...props，
 // 透過樣式字串的塞入在實際的版面選擇樣板，ex: findStores => .bg--primary，articles => .bg--warning

@@ -7,14 +7,14 @@ import { loginApi, registerApi } from '@/services/authService';
 // Slice
 import { setToken, logout } from '@/features/authSlice';
 import { setUser, clearUser } from '@/features/userSlice';
-//hook
+// hook
 import { useToast } from '@/hook/useToast';
-//components
+// components
 import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 // import LoginForm from '@/components/LoginPage/LoginForm';
 // import RegisterForm from '@/components/LoginPage/RegisterForm';
-//auth
+// auth
 import { setAuthToken, setAuthUser, clearAuth } from '@/utils/auth';
 import { handleApiError } from '@/utils/apiErrorHandler';
 
