@@ -534,7 +534,7 @@ const FindStores = () => {
         </div>
       </div>
 
-      {isLoading && (
+      {/* {isLoading && (
         <div
           className="d-flex justify-content-center align-items-center"
           style={{
@@ -544,10 +544,10 @@ const FindStores = () => {
             zIndex: 999,
           }}
         >
-          {/* <FullPageLoader show={isLoading} color="#fec631" /> */}
           <FullPageLoader show={isLoading} />
         </div>
-      )}
+      )} */}
+      <FullPageLoader show={isLoading} zIndex={2000} />
     </>
   );
 };

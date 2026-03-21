@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // services
-import { updateUserApi } from '@/services/authService';
+import { updateUserApi } from '@/services/userService';
 // features
 import { setUser } from '@/features/userSlice';
 // hook
@@ -20,6 +20,7 @@ const MemberCenter = () => {
   const dispatch = useDispatch();
   const { success, showError, warning } = useToast();
   const [isScreenLoading, setIsScreenLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const user = useSelector((state) => state.user.user);
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ const MemberCenter = () => {
     favoritePetTypes: user?.favoritePetTypes || [],
   });
 
-  // 🟡 一般 input
+  // 一般 input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -38,7 +39,7 @@ const MemberCenter = () => {
     }));
   };
 
-  // 🟢 checkbox 多選
+  //  checkbox 多選
   const handlePetTypeChange = (type) => {
     setFormData((prev) => {
       const exists = prev.favoritePetTypes.includes(type);
@@ -52,7 +53,7 @@ const MemberCenter = () => {
     });
   };
 
-  // 🟣 submit
+  //  submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsScreenLoading(true);
@@ -75,7 +76,6 @@ const MemberCenter = () => {
       dispatch(setUser(updatedUser));
 
       success('會員資料更新成功');
-      setIsScreenLoading(false);
     } catch (err) {
       const errorMessage = handleApiError(
         err,
@@ -84,16 +84,23 @@ const MemberCenter = () => {
       );
       showError(errorMessage);
     } finally {
-      setIsScreenLoading(false);
+      setTimeout(() => {
+        setIsScreenLoading(false);
+      }, 300);
     }
+  };
+
+  // handleClickOpen
+  const handleClickOpen = () => {
+    setOpen(!open);
   };
 
   if (!user) return <div>請重新登入</div>;
 
   return (
     <>
-      <SubHero variant="loginRegister" />
-      <div className="container">
+      <SubHero variant="memberCenter" />
+      <section className="container ui-container my-5">
         <h2>會員中心</h2>
 
         {/* 基本資訊 */}
@@ -101,59 +108,90 @@ const MemberCenter = () => {
           <p>Email：{user.email}</p>
           <p>角色：{user.role}</p>
           <p>註冊時間：{user.createdAt}</p>
+          {open ? (
+            <button
+              type="button"
+              className="btn ui-btn ui-btn-primary ui-btn-sm"
+              onClick={handleClickOpen}
+            >
+              關閉更新介面
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="btn ui-btn ui-btn-warning ui-btn-sm"
+              onClick={handleClickOpen}
+            >
+              更新個人資料
+            </button>
+          )}
         </div>
 
         <hr />
+        {open ? (
+          <div className="updateDiv">
+            <form onSubmit={handleSubmit}>
+              {/* userName */}
+              <div>
+                <label>使用者名稱</label>
+                <input
+                  type="text"
+                  name="userName"
+                  value={formData.userName}
+                  onChange={handleChange}
+                />
+              </div>
 
-        <form onSubmit={handleSubmit}>
-          {/* userName */}
-          <div>
-            <label>使用者名稱</label>
-            <input
-              type="text"
-              name="userName"
-              value={formData.userName}
-              onChange={handleChange}
-            />
+              {/* bio */}
+              <div>
+                <label>個人簡介</label>
+                <textarea
+                  name="bio"
+                  value={formData.bio}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* location */}
+              <div>
+                <label>所在地</label>
+                <input
+                  type="text"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* 🐾 favoritePetTypes */}
+              <div>
+                <label>喜好寵物類型</label>
+                <div>
+                  {PET_OPTIONS.map((type) => (
+                    <label key={type} style={{ marginRight: '10px' }}>
+                      <input
+                        type="checkbox"
+                        checked={formData.favoritePetTypes.includes(type)}
+                        onChange={() => handlePetTypeChange(type)}
+                      />
+                      {type}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="btn ui-btn ui-btn-warning ui-btn-sm"
+              >
+                更新資料
+              </button>
+            </form>
           </div>
-
-          {/* bio */}
-          <div>
-            <label>個人簡介</label>
-            <textarea name="bio" value={formData.bio} onChange={handleChange} />
-          </div>
-
-          {/* location */}
-          <div>
-            <label>所在地</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-            />
-          </div>
-
-          {/* 🐾 favoritePetTypes */}
-          <div>
-            <label>喜好寵物類型</label>
-            <div>
-              {PET_OPTIONS.map((type) => (
-                <label key={type} style={{ marginRight: '10px' }}>
-                  <input
-                    type="checkbox"
-                    checked={formData.favoritePetTypes.includes(type)}
-                    onChange={() => handlePetTypeChange(type)}
-                  />
-                  {type}
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <button type="submit">更新資料</button>
-        </form>
-      </div>
+        ) : (
+          <div className="closeDiv"></div>
+        )}
+      </section>
       {/* ScreenLoading */}
       <FullPageLoader show={isScreenLoading} zIndex={2000} />
     </>

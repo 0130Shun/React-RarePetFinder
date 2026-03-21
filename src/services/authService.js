@@ -18,10 +18,4 @@ export const loginApi = async (data) => {
   return res.data;
 };
 
-// 帳號資料update
-export const updateUserApi = async (userId, data) => {
-  const res = await apiClient.patch(`/users/${userId}`, data);
-  return res.data;
-};
-
 // 不需要登出Api，直接清除 Token即可
