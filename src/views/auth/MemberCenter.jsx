@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // services
@@ -16,6 +16,9 @@ import { handleApiError } from '@/utils/apiErrorHandler';
 
 const PET_OPTIONS = ['柯爾鴨', '鸚鵡', '刺蝟', '倉鼠', '守宮', '烏龜', '爬蟲'];
 
+// Avatar（頭像）代處理
+// 社群連結（IG / FB）代處理
+// 我的收藏（🔥推薦）代處理
 const MemberCenter = () => {
   const dispatch = useDispatch();
   const { success, showError, warning } = useToast();
@@ -42,6 +45,14 @@ const MemberCenter = () => {
     '新竹',
     '屏東',
   ];
+  const isDirty =
+    JSON.stringify(formData) !==
+    JSON.stringify({
+      userName: user?.userName || '',
+      bio: user?.bio || '',
+      location: user?.location || '',
+      favoritePetTypes: user?.favoritePetTypes || [],
+    });
 
   // 日期調整
   // const formatDate = (isoString) => {
@@ -50,7 +61,10 @@ const MemberCenter = () => {
   //   });
   // };
   const formatDate = (isoString) => {
+    if (!isoString) return '-';
+
     const date = new Date(isoString);
+    if (isNaN(date)) return '-';
 
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -108,6 +122,7 @@ const MemberCenter = () => {
       dispatch(setUser(updatedUser));
 
       success('會員資料更新成功');
+      setIsEditing(false);
     } catch (err) {
       const errorMessage = handleApiError(
         err,
@@ -133,15 +148,26 @@ const MemberCenter = () => {
       location: user?.location || '',
       favoritePetTypes: user?.favoritePetTypes || [],
     });
+    setIsEditing(false);
   };
   const handleToggleEdit = () => {
     if (isEditing) {
       handleCancel();
-      setIsEditing(false);
     } else {
       setIsEditing(true);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        userName: user.userName || '',
+        bio: user.bio || '',
+        location: user.location || '',
+        favoritePetTypes: user.favoritePetTypes || [],
+      });
+    }
+  }, [user]);
 
   if (!user) return <div>請重新登入</div>;
 
@@ -165,32 +191,16 @@ const MemberCenter = () => {
               >
                 {isEditing ? '關閉編輯' : '編輯資料'}
               </button> */}
-              {/* {isEditing ? (
-                <button
-                  className="btn ui-btn ui-btn-warning w-100 mt-3"
-                  onClick={() => {
-                    setIsEditing(!isEditing);
-                    handleCancel();
-                  }}
-                >
-                  取消編輯
-                </button>
-              ) : (
-                <button
-                  className="btn ui-btn ui-btn-warning w-100 mt-3"
-                  onClick={() => setIsEditing(!isEditing)}
-                >
-                  編輯資料
-                </button>
-              )} */}
+
               <button
                 className="btn ui-btn ui-btn-warning w-100 mt-3"
                 onClick={() => {
-                  if (isEditing) {
-                    handleToggleEdit(); // 取消才 reset
-                  } else {
-                    setIsEditing(true);
-                  }
+                  // if (isEditing) {
+                  //   handleCancel(); // 取消才 reset
+                  // } else {
+                  //   setIsEditing(true);
+                  // }
+                  handleToggleEdit();
                 }}
               >
                 {isEditing ? '取消編輯' : '編輯資料'}
@@ -277,12 +287,18 @@ const MemberCenter = () => {
                 </div>
 
                 {isEditing && (
-                  <button
-                    type="submit"
-                    className="btn ui-btn ui-btn-primary w-100"
-                  >
-                    儲存變更
-                  </button>
+                  <>
+                    <span className="text-danger">
+                      * 帳號資料有異動才可以點選送出
+                    </span>
+                    <button
+                      type="submit"
+                      className="btn ui-btn ui-btn-primary w-100"
+                      disabled={isScreenLoading || !isDirty}
+                    >
+                      儲存變更
+                    </button>
+                  </>
                 )}
               </form>
             </div>
