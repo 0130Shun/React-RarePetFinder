@@ -1,10 +1,18 @@
+@use '../helpers/custom-text' as *;
+@use '../helpers/variables' as *;
+@use '../layout/layout' as *;
+
 .member-card,
 .member-form {
   border-radius: 12px;
   background: #fff;
+
+  h2 {
+    @include apply-font($TC-1-Heading05-Bold);
+  }
 }
 
-.pet-type-checkbox {
+.petType-checkbox {
   display: flex;
   align-items: center;
   gap: 6px;

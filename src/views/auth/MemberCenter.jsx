@@ -175,46 +175,38 @@ const MemberCenter = () => {
     <>
       <SubHero variant="memberCenter" />
       <section className="container ui-container mt-5">
-        <div className="row g-4">
+        <div className="row g-0">
           {/* 左側：會員資訊 */}
-          <aside className="col-lg-4">
-            <div className="member-card p-4 shadow-sm">
-              <h5 className="mb-3">會員資訊</h5>
-
-              <p>Email：{user.email}</p>
-              <p>角色：{user.role}</p>
-              <p>註冊時間：{formatDate(user.createdAt)}</p>
-
-              {/* <button
-                className="btn ui-btn ui-btn-warning w-100 mt-3"
-                onClick={() => setIsEditing(!isEditing)}
-              >
-                {isEditing ? '關閉編輯' : '編輯資料'}
-              </button> */}
-
-              <button
-                className="btn ui-btn ui-btn-warning w-100 mt-3"
-                onClick={() => {
-                  // if (isEditing) {
-                  //   handleCancel(); // 取消才 reset
-                  // } else {
-                  //   setIsEditing(true);
-                  // }
-                  handleToggleEdit();
-                }}
-              >
-                {isEditing ? '取消編輯' : '編輯資料'}
-              </button>
+          <aside className="col-lg-4 col-12">
+            <div className="member-card p-3 shadow-sm">
+              <h2 className="mb-3 text-center">會員資訊</h2>
+              <div className="w-75 mx-auto mb-3">
+                <p className="text-start">Email：{user.email}</p>
+                <p className="text-start">角色：{user.role}</p>
+                <p className="text-start">
+                  註冊時間：{formatDate(user.createdAt)}
+                </p>
+              </div>
+              <div className="text-center mb-3">
+                <button
+                  className="btn ui-btn ui-btn-warning w-50"
+                  onClick={() => {
+                    handleToggleEdit();
+                  }}
+                >
+                  {isEditing ? '取消編輯' : '編輯資料'}
+                </button>
+              </div>
             </div>
           </aside>
 
           {/* 右側：表單 */}
-          <main className="col-lg-8">
-            <div className="member-form p-4 shadow-sm">
-              <h5 className="mb-4">編輯個人資料</h5>
+
+          <main className="col-lg-8 col-12">
+            <div className="member-form shadow-sm p-3">
+              <h2 className="mb-4 text-lg-start  text-center">編輯個人資料</h2>
 
               <form onSubmit={handleSubmit}>
-                {/* userName */}
                 <div className="mb-3">
                   <label className="form-label">使用者名稱</label>
                   <input
@@ -227,7 +219,6 @@ const MemberCenter = () => {
                   />
                 </div>
 
-                {/* bio */}
                 <div className="mb-3">
                   <label className="form-label">個人簡介</label>
                   <textarea
@@ -239,7 +230,6 @@ const MemberCenter = () => {
                   />
                 </div>
 
-                {/* location（重點） */}
                 <div className="mb-3">
                   <label className="form-label">所在地</label>
 
@@ -259,19 +249,16 @@ const MemberCenter = () => {
                   </select>
                 </div>
 
-                {/* favoritePetTypes */}
                 <div className="mb-4">
                   <label className="form-label">喜好寵物</label>
-
                   <div className="d-flex flex-wrap gap-2 mt-2">
                     {PET_OPTIONS.map((type) => {
                       const isChecked =
                         formData.favoritePetTypes.includes(type);
-
                       return (
                         <div
                           key={type}
-                          className={`pet-type-checkbox ${isChecked ? 'checked' : ''}`}
+                          className={`petType-checkbox ${isChecked ? 'checked' : ''}`}
                         >
                           <input
                             type="checkbox"
