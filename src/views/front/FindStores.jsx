@@ -533,20 +533,7 @@ const FindStores = () => {
           </main>
         </div>
       </div>
-
-      {/* {isLoading && (
-        <div
-          className="d-flex justify-content-center align-items-center"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(255,255,255,0.3)',
-            zIndex: 999,
-          }}
-        >
-          <FullPageLoader show={isLoading} />
-        </div>
-      )} */}
+      {/* ScreenLoading */}
       <FullPageLoader show={isLoading} zIndex={2000} />
     </>
   );

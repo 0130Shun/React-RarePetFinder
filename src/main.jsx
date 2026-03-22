@@ -27,3 +27,13 @@ createRoot(document.getElementById('root')).render(
     <App />
   </Provider>
 );
+
+// 「重新打開 StrictMode」
+// createRoot(document.getElementById('root')).render(
+//   <StrictMode>
+//     <Provider store={store}>
+//       <Toast />
+//       <App />
+//     </Provider>
+//   </StrictMode>
+// );

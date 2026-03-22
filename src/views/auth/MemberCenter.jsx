@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useNavigate, useLocation } from 'react-router-dom';
 // services
 import { updateUserApi } from '@/services/userService';
 // features
@@ -21,12 +21,12 @@ const PET_OPTIONS = ['柯爾鴨', '鸚鵡', '刺蝟', '倉鼠', '守宮', '烏�
 // 我的收藏（🔥推薦）代處理
 const MemberCenter = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const user = useSelector((state) => state.user.user); // 從state取出會員資料
   const { success, showError, warning } = useToast();
   const [isScreenLoading, setIsScreenLoading] = useState(false);
-  // const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
-  const user = useSelector((state) => state.user.user);
   const [formData, setFormData] = useState({
     userName: user?.userName || '',
     bio: user?.bio || '',
@@ -158,18 +158,47 @@ const MemberCenter = () => {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        userName: user.userName || '',
-        bio: user.bio || '',
-        location: user.location || '',
-        favoritePetTypes: user.favoritePetTypes || [],
-      });
-    }
-  }, [user]);
+  // 日後可以改寫成ProtectedRoute，從 Route 處就先判斷是否可以進入和紀錄路徑 from
+  // src/routes/ProtectedRoute.jsx，以下為範例：
+  // import { useSelector } from 'react-redux';
+  // import { Navigate, useLocation } from 'react-router-dom';
 
-  if (!user) return <div>請重新登入</div>;
+  // const ProtectedRoute = ({ children }) => {
+  //   const user = useSelector((state) => state.user.user);
+  //   const location = useLocation();
+
+  //   if (!user) {
+  //     return (
+  //       <Navigate
+  //         to="/login"
+  //         state={{ from: location }}
+  //         replace
+  //       />
+  //     );
+  //   }
+  //   return children;
+  // };
+  // export default ProtectedRoute;
+
+  useEffect(() => {
+    if (!user) {
+      warning('請先登入帳號後再使用會員中心，即將跳轉到登入頁面。');
+      navigate('/login', {
+        state: { from: location },
+        replace: true,
+      });
+      return;
+    }
+
+    setFormData({
+      userName: user.userName || '',
+      bio: user.bio || '',
+      location: user.location || '',
+      favoritePetTypes: user.favoritePetTypes || [],
+    });
+  }, [user, warning, navigate, location]);
+
+  // if (!user) return <div>請重新登入</div>;
 
   return (
     <>

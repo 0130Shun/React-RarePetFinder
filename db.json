@@ -1046,14 +1046,12 @@
       "id": 1,
       "userId": 1,
       "storeId": 2,
-      "rating": 5,
       "createdAt": "2025-01-11T10:09:15Z"
     },
     {
       "id": 1,
       "userId": 1,
       "storeId": 3,
-      "rating": 5,
       "createdAt": "2025-01-11T10:19:15Z"
     },
     {
@@ -1067,28 +1065,24 @@
       "id": 1,
       "userId": 2,
       "storeId": 1,
-      "rating": 5,
       "createdAt": "2025-01-11T10:09:15Z"
     },
     {
       "id": 1,
       "userId": 2,
       "storeId": 3,
-      "rating": 5,
       "createdAt": "2025-01-11T10:19:15Z"
     },
     {
       "id": 1,
       "userId": 2,
       "storeId": 6,
-      "rating": 5,
       "createdAt": "2025-01-11T13:09:15Z"
     },
     {
       "id": 1,
       "userId": 2,
       "storeId": 7,
-      "rating": 5,
       "createdAt": "2025-01-11T13:09:15Z"
     }
   ],
