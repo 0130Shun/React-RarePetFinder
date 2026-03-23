@@ -6,9 +6,13 @@
 .footer-disclaimer {
   @include apply-font($TC-2-Body-Regular);
 }
-@media (max-width: 575.98px) {
-  footer .row {
-    margin-right: 0px;
-    margin-left: 0px;
-  }
+// @media (max-width: 575.98px) {
+//   footer .row {
+//     margin-right: 0px;
+//     margin-left: 0px;
+//   }
+// }
+footer .row {
+  margin-right: 0px;
+  margin-left: 0px;
 }
