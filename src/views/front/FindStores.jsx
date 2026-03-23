@@ -44,7 +44,7 @@ const FindStores = () => {
   });
   const watchedPetTypes = watch('petType') || [];
   const watchedStoreTypes = watch('storeType') || [];
-  const watchedQuery = watch('query') || '';
+  // const watchedQuery = watch('query') || '';
   const [allStores, setAllStores] = useState([]); //從 API 抓回來的「全部店家」
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
   const [totalPages, setTotalPages] = useState(1); //用篩選後的總筆數 / PAGE_SIZE 算出來
