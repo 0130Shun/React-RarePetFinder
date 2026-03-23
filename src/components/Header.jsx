@@ -99,7 +99,7 @@ const getAuthMenu = (user) => {
   return [
     { label: '會員中心', to: '/membercenter' },
     // { label: '收藏店家', to: '/favorite' },
-    { label: '收藏店家', to: '/login#logindiv' },
+    { label: '收藏店家', to: '/favorite' },
     ...(user.role === 'admin' ? [{ label: '回後台', to: '/admin' }] : []),
     { type: 'divider' },
     { label: '登出', action: 'logout' },

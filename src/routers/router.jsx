@@ -11,7 +11,7 @@ import NotFound from '@/views/front/NotFound';
 // auth - 前台頁面
 import Login from '@/views/auth/Login';
 import MemberCenter from '@/views/auth/MemberCenter';
-// import Favorite from '@/views/auth/Favorite';
+import Favorite from '@/views/auth/Favorite';
 // auth - 後台頁面
 import Dashboard from '@/views/auth/Dashboard';
 import AdminNotFound from '@/views/auth/AdminNotFound';
@@ -52,10 +52,10 @@ export const router = createHashRouter([
             path: 'membercenter',
             element: <MemberCenter />,
           },
-          // {
-          //   path: 'favorite',
-          //   element: <Favorite />,
-          // },
+          {
+            path: 'favorite',
+            element: <Favorite />,
+          },
         ],
       },
       // 前台 404 頁面
