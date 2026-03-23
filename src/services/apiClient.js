@@ -16,8 +16,7 @@
 // 舊 api.js 暫保留避免多人協作路徑錯誤。
 
 import axios from 'axios';
-// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-const API_URL = 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 // apiClient.js 只做 axios instance，剩餘 API 請集中於 services/*，避免直接呼叫 axios
 const apiClient = axios.create({
