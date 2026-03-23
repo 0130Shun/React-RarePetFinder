@@ -26,7 +26,7 @@ const LoginPage = () => {
 
   const { success, showError, warning } = useToast();
   const [mode, setMode] = useState('login'); // 'login' | 'register'
-  const from = location.state?.from?.pathname || null;
+  const from = location.state?.from?.pathname || '/membercenter'; // navigate 調整路徑，先預設導向membercenter
 
   // 登入區域
   // const [account, setAccount] = useState({

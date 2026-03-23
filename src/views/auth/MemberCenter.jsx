@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+// import { useNavigate, useLocation } from 'react-router-dom';
 // services
 import { updateUserApi } from '@/services/userService';
 // features
@@ -17,13 +17,14 @@ import { formatDate } from '@/utils/format';
 
 const PET_OPTIONS = ['柯爾鴨', '鸚鵡', '刺蝟', '倉鼠', '守宮', '烏龜', '爬蟲'];
 
+// 以後
 // Avatar（頭像）代處理
 // 社群連結（IG / FB）代處理
-// 我的收藏（🔥推薦）代處理
+// 我的收藏（推薦）代處理
 const MemberCenter = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
   const user = useSelector((state) => state.user.user); // 從state取出會員資料
   const { success, showError, warning } = useToast();
   const [isScreenLoading, setIsScreenLoading] = useState(false);
@@ -54,29 +55,6 @@ const MemberCenter = () => {
       location: user?.location || '',
       favoritePetTypes: user?.favoritePetTypes || [],
     });
-
-  // 日期調整(簡化版)
-  // const formatDate = (isoString) => {
-  //   return new Date(isoString).toLocaleString('zh-TW', {
-  //     timeZone: 'Asia/Taipei',
-  //   });
-  // };
-  // 日期調整(常見年月版)
-  // const formatDate = (isoString) => {
-  //   if (!isoString) return '-';
-
-  //   const date = new Date(isoString);
-  //   if (isNaN(date)) return '-';
-
-  //   const year = date.getFullYear();
-  //   const month = String(date.getMonth() + 1).padStart(2, '0');
-  //   const day = String(date.getDate()).padStart(2, '0');
-
-  //   const hours = String(date.getHours()).padStart(2, '0');
-  //   const minutes = String(date.getMinutes()).padStart(2, '0');
-
-  //   return `${year}-${month}-${day} ${hours}:${minutes}`;
-  // };
 
   // 一般 input
   const handleChange = (e) => {
@@ -155,48 +133,50 @@ const MemberCenter = () => {
     }
   };
 
-  // 日後可以抽出並改寫成ProtectedRoute，從 Route 處就先判斷是否可以進入和紀錄路徑 from
-  // 但是現在先求完整上限即可
-  // src/routes/ProtectedRoute.jsx，以下為範例：
-  // import { useSelector } from 'react-redux';
-  // import { Navigate, useLocation } from 'react-router-dom';
-  // const ProtectedRoute = ({ children }) => {
-  //   const user = useSelector((state) => state.user.user);
-  //   const location = useLocation();
+  // useEffect(() => {
   //   if (!user) {
-  //     return (
-  //       <Navigate
-  //         to="/login"
-  //         state={{ from: location }}
-  //         replace
-  //       />
-  //     );
+  //     warning('請先登入帳號後再使用會員中心，即將跳轉到登入頁面。');
+  //     navigate('/login', {
+  //       state: { from: location },
+  //       replace: true,
+  //     });
+  //     return;
   //   }
-  //   return children;
-  // };
-  // export default ProtectedRoute;
-
+  //   // setFormData({
+  //   //   userName: user.userName || '',
+  //   //   bio: user.bio || '',
+  //   //   location: user.location || '',
+  //   //   favoritePetTypes: user.favoritePetTypes || [],
+  //   // });
+  //   // 這裡是「user 變動自動同步 setState」，所以要避免相同資料+淺拷貝造成無窮reference
+  //   // 避免原本 setFormData(...)，導致useEffect → setState → render → dependency 變 → useEffect → ...
+  //   setFormData((prev) => {
+  //     const newData = {
+  //       userName: user.userName || '',
+  //       bio: user.bio || '',
+  //       location: user.location || '',
+  //       favoritePetTypes: user.favoritePetTypes || [],
+  //     };
+  //     return JSON.stringify(prev) === JSON.stringify(newData) ? prev : newData;
+  //   });
+  //   // [user, navigate, location, warning]
+  // }, [user]);
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    // console.log('useEffect triggered');
-    if (!user) {
-      warning('請先登入帳號後再使用會員中心，即將跳轉到登入頁面。');
-      navigate('/login', {
-        state: { from: location },
-        replace: true,
-      });
-      return;
-    }
+    // 這裡是「變動自動同步 setState」，所以要避免相同資料+淺拷貝造成無窮reference
+    // 避免原本 setFormData(...)，導致useEffect → setState → render → dependency 變 → useEffect → ...
+    setFormData((prev) => {
+      const newData = {
+        userName: user.userName || '',
+        bio: user.bio || '',
+        location: user.location || '',
+        favoritePetTypes: user.favoritePetTypes || [],
+      };
 
-    setFormData({
-      userName: user.userName || '',
-      bio: user.bio || '',
-      location: user.location || '',
-      favoritePetTypes: user.favoritePetTypes || [],
+      return JSON.stringify(prev) === JSON.stringify(newData) ? prev : newData;
     });
-  }, [user]);
-
-  // if (!user) return <div>請重新登入</div>;
+    // [user, navigate, location, warning]
+  }, []);
 
   return (
     <>

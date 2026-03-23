@@ -13,28 +13,9 @@ const RequireAuth = ({ role }) => {
   //   return <FullPageLoader />;
   // }
 
-  // // 未登入
-  // if (!token || !user) {
-  //   return <Navigate to="/login" replace />;
-  // }
-  // // 防止 user 不是 object
-  // if (typeof user !== 'object') {
-  //   return <Navigate to="/login" replace />;
-  // }
-  // // 權限不足
-  // if (role && user.role !== role) {
-  //   return <Navigate to="/" replace />;
-  // }
-
-  // 檢查 Token 是否存在
-  if (!token) {
-    // 將當前企圖前往的頁面記錄在 state 中，登入後可跳回
+  // 未登入 → 導去 login + 記錄來源
+  if (!token || !user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  // 檢查使用者資訊是否完整
-  if (!user || typeof user !== 'object') {
-    return <Navigate to="/login" replace />;
   }
 
   // 角色權限檢查
