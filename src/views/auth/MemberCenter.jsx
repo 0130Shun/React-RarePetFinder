@@ -158,8 +158,10 @@ const MemberCenter = () => {
   //   });
   //   // [user, navigate, location, warning]
   // }, [user]);
-  /* eslint-disable react-hooks/exhaustive-deps */
+
   useEffect(() => {
+    if (!user) return;
+
     // 這裡是「變動自動同步 setState」，所以要避免相同資料+淺拷貝造成無窮reference
     // 避免原本 setFormData(...)，導致useEffect → setState → render → dependency 變 → useEffect → ...
     setFormData((prev) => {
@@ -173,7 +175,7 @@ const MemberCenter = () => {
       return JSON.stringify(prev) === JSON.stringify(newData) ? prev : newData;
     });
     // [user, navigate, location, warning]
-  }, []);
+  }, [user]);
 
   return (
     <>

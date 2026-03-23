@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+// import { useNavigate, useLocation } from 'react-router-dom';
 // import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
 
 // services
@@ -15,28 +15,21 @@ import StoreCard from '@/components/StoreCard.jsx';
 // utils
 import { extractErrorMessage } from '@/utils/errorHandler';
 
-//每頁顯示 9 筆店家
-const PAGE_SIZE = 9;
+// 之後處理分頁每頁顯示 9 筆店家和側邊搜尋
+// const PAGE_SIZE = 9;
 
 const Favorite = () => {
   // const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
   const user = useSelector((state) => state.user.user); // 從state取出會員資料
-  const { showError, warning } = useToast();
+  const { showError } = useToast();
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [allFavorites, setAllFavorites] = useState([]); //從 API 抓回來的「全部店家」
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (!user) {
-      warning('請先登入帳號後再使用收藏店家，即將跳轉到登入頁面。');
-      navigate('/login', {
-        state: { from: location },
-        replace: true,
-      });
-      return;
-    }
+    if (!user) return;
 
     const loadFavorites = async () => {
       setIsScreenLoading(true);
@@ -50,7 +43,7 @@ const Favorite = () => {
         const errorMessage = extractErrorMessage(
           error,
           null,
-          '載入藏店家失敗，請重新刷新頁面。'
+          '載入收藏店家資料失敗，請重新刷新頁面。'
         );
         showError(errorMessage);
       } finally {
@@ -59,9 +52,9 @@ const Favorite = () => {
     };
 
     loadFavorites();
-  }, [user]); ///// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
-  if (!user) return <div>請重新登入</div>;
+  // if (!user) return <div>請重新登入</div>;
 
   return (
     <>

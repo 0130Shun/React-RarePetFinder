@@ -6,8 +6,11 @@ import { User, Menu, X } from 'react-feather';
 // import { useSelector, useDispatch } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Dropdown } from 'bootstrap';
+
 // assets
 import logo from '@/assets/logo.png';
+
 // Slice
 // import { logout } from '@/features/authSlice';
 // import { clearUser } from '@/features/userSlice';
@@ -16,20 +19,7 @@ import logo from '@/assets/logo.png';
 import { useLogout } from '@/hook/useLogout';
 // config
 import { ISAUTH_ICON_MAP } from '@/config/iconMap';
-// 用物件映射（當有多個特殊 icon+ route 時最好維護），使用時：
-// const iconMap = {
-//   會員中心: <i data-feather='user' className='me-1' />,
-//   首頁: <i data-feather='home' className='me-1' />,
-//   設定: <i data-feather='settings' className='me-1' />,
-//   // ...
-// };
-// jsx內部使用時：
-// {
-//   iconMap[route.label] || null;
-// }
-// {
-//   route.label;
-// }
+// 用物件映射（當有多個特殊 icon+ route 時最好維護)
 const routes = [
   {
     type: 'dropdown',
@@ -93,23 +83,32 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
   const togglerRef = useRef(null);
-  const dropdownRef = useRef(null);
+  // const dropdownRef = useRef(null);
+  const authDropdownRef = useRef(null);
   const closeMenu = () => {
     if (isOpen && togglerRef.current) {
       togglerRef.current.click();
     }
   };
 
-  // hook抽出練習
+  // hook抽出
   const logout = useLogout();
+
+  // 使用 import { Dropdown } from 'bootstrap';
+  // 改成authDropdownRef才使用 React ref，避免多個 DOM 共用同一個 ref
+  // 多if (!el) return;，避免讀取不到DOM
   const handleLogout = () => {
     logout(user?.userName);
-    // 強制關閉 dropdown（Bootstrap），避免殘留
-    if (dropdownRef.current) {
-      const dropdown = window.bootstrap.Dropdown.getInstance(
-        dropdownRef.current.querySelector('[data-bs-toggle="dropdown"]')
+
+    if (authDropdownRef.current) {
+      const el = authDropdownRef.current.querySelector(
+        '[data-bs-toggle="dropdown"]'
       );
-      dropdown?.hide();
+
+      if (!el) return;
+
+      const instance = Dropdown.getInstance(el) || new Dropdown(el);
+      instance.hide();
     }
   };
 
@@ -130,19 +129,19 @@ const Header = () => {
     );
   };
 
+  // 普通 dropdown 移除 ref，避免多個 DOM 共用同一個 ref
+  // 未來要把e.preventDefault()改成 e.stopPropagation();
   const dropdown = (route) => {
     return (
-      <li
-        className="nav-item dropdown ui-nav-item"
-        key={route.label}
-        ref={dropdownRef}
-      >
+      <li className="nav-item dropdown ui-nav-item" key={route.label}>
         <a
           className="nav-link dropdown-toggle"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => {
+            e.preventDefault();
+          }}
         >
           {route.label}
         </a>
@@ -159,6 +158,7 @@ const Header = () => {
     );
   };
 
+  // 普通 authDropdownRef 才用 ref，避免多個 DOM 共用同一個 ref
   const renderAuthDropdown = (route) => {
     const menuItems = getAuthMenu(user);
     const Icon = ISAUTH_ICON_MAP[!!user] || User;
@@ -166,7 +166,8 @@ const Header = () => {
     return (
       <li
         className="nav-item dropdown ui-nav-item"
-        key={user ? user.userName : 'guest'}
+        ref={authDropdownRef}
+        key={user?.id || 'guest'}
       >
         <a
           className={`nav-link ${user ? 'nav-link-isAuth' : ''} dropdown-toggle d-flex align-items-center`}
