@@ -1,13 +1,19 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
+import { useSelector } from 'react-redux';
 // import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
-import { storeService } from '@/services/storeService'; // 更新api路徑
+import { storeService } from '@/services/storeService'; // 更新抽出後的api路徑
+import {
+  getFavoritesApi,
+  addFavoriteApi,
+  removeFavoriteApi,
+} from '@/services/favoriteService'; // 取得user的favorite的api路徑
 
 //檢索頁的Banner
 // import FindStoresHero from '../../components/subHero/FindStoresHero';
 import SubHero from '@/components/subHero/SubHero';
-// 引入FullPageLoader
+// 引入 FullPageLoader
 import FullPageLoader from '@/components/shared/FullPageLoader';
 // 將 storeSearchUtils 中的工具引入
 import {
@@ -18,6 +24,12 @@ import {
 } from '@/utils/storeSearchUtils';
 
 import StoreCard from '@/components/StoreCard.jsx';
+
+// hook
+import { useToast } from '@/hook/useToast';
+// utils
+import { extractErrorMessage } from '@/utils/errorHandler';
+
 import Sliders from '@/assets/img/sliders.png';
 import Search from '@/assets/img/search.svg';
 import { ChevronLeft, ChevronRight } from 'react-feather';
@@ -50,9 +62,19 @@ const FindStores = () => {
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
   const [totalPages, setTotalPages] = useState(1); //用篩選後的總筆數 / PAGE_SIZE 算出來
   const [totalCount, setTotalCount] = useState(0); // 用來存篩選後的總筆數
+
+  const [favoritesMap, setFavoritesMap] = useState({}); // 用來存篩以登入的user的favoritesMap狀態，運作起來會類似這樣變成清單比對  => favoritesMap = {
+  //   storeId: favoriteId,
+  //   3: 12,
+  //   8: 15,
+  //   21: 30,
+  // };
+
   //介面狀態
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { warning, showError } = useToast(); // Toast
+  const user = useSelector((state) => state.user.user); // 從state取出會員資料
 
   //select/checkbox 會用到的選項
   const AREA_OPTIONS = useMemo(
@@ -105,6 +127,32 @@ const FindStores = () => {
       mounted = false;
     };
   }, []);
+
+  // 抓 favorites（只在登入時）
+  useEffect(() => {
+    if (!user) {
+      // user logout時，清掉 favorite
+      setFavoritesMap({});
+      return;
+    }
+
+    // const loadFavorites = async () => {
+    //   const favs = await getFavoritesApi(user.id);
+    //   setFavoriteIds(favs.map((f) => f.storeId));
+    // };
+    const loadFavorites = async () => {
+      const favs = await getFavoritesApi(user.id);
+
+      const map = {};
+      favs.forEach((f) => {
+        map[f.storeId] = f.id;
+      });
+
+      setFavoritesMap(map);
+    };
+
+    loadFavorites();
+  }, [user]);
 
   // URL 或資料變了，就重新算結果
   // useEffect(() => {
@@ -249,6 +297,50 @@ const FindStores = () => {
     const next = { ...filters, page };
     setSearchParams(buildSearchParams(next));
   };
+
+  // handleToggleFavorite => 愛心收藏 <=> 退出收藏
+  const handleToggleFavorite = async (storeId) => {
+    if (!user) {
+      warning('登入後就可以收藏店家。');
+      return;
+    }
+
+    // const isFav = favoriteIds.includes(storeId);
+    const isFav = !!favoritesMap[storeId];
+
+    try {
+      if (isFav) {
+        await removeFavoriteApi(favoritesMap[storeId]);
+
+        setFavoritesMap((prev) => {
+          const newMap = { ...prev };
+          delete newMap[storeId];
+          return newMap;
+        });
+      } else {
+        const now = new Date();
+        const res = await addFavoriteApi({
+          userId: user.id,
+          storeId,
+          createdAt: now,
+        });
+
+        setFavoritesMap((prev) => ({
+          ...prev,
+          [storeId]: res.id,
+        }));
+      }
+    } catch (err) {
+      console.error(err);
+      const errorMessage = extractErrorMessage(
+        err,
+        null,
+        '載入收藏店家資料失敗，請重新刷新頁面。'
+      );
+      showError(errorMessage);
+    }
+  };
+
   return (
     <>
       <SubHero variant="findStores" />
@@ -489,7 +581,12 @@ const FindStores = () => {
             {/* 卡片列表 */}
             <div className="row mx-0 mx-md-auto  g-3 mt-16">
               {items.map((store) => (
-                <StoreCard key={store.id} store={store} />
+                <StoreCard
+                  key={store.id}
+                  store={store}
+                  isFavorite={!!favoritesMap[store.id]}
+                  onToggleFavorite={handleToggleFavorite}
+                />
               ))}
             </div>
             {/* 分頁 (Pagination) */}

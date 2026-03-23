@@ -5,7 +5,12 @@ import { useSelector } from 'react-redux';
 // import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
 
 // services
-import { getFavoriteStores } from '@/services/favoriteService';
+import {
+  // getFavoritesApi,
+  getFavoriteStores,
+  addFavoriteApi,
+  removeFavoriteApi,
+} from '@/services/favoriteService';
 // hook
 import { useToast } from '@/hook/useToast';
 // components
@@ -23,33 +28,100 @@ const Favorite = () => {
   // const navigate = useNavigate();
   // const location = useLocation();
   const user = useSelector((state) => state.user.user); // 從state取出會員資料
-  const { showError } = useToast();
+  const [favoritesMap, setFavoritesMap] = useState({}); // 用來存篩以登入的user的favoritesMap狀態，運作起來會類似這樣變成清單比對  => favoritesMap = {
+  //   storeId: favoriteId,
+  //   3: 12,
+  //   8: 15,
+  //   21: 30,
+  // };
+  const { showError, warning } = useToast();
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [allFavorites, setAllFavorites] = useState([]); //從 API 抓回來的「全部店家」
 
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
+  // handleToggleFavorite => 愛心收藏 <=> 退出收藏
+  const handleToggleFavorite = async (storeId) => {
+    if (!user) {
+      warning('登入後就可以收藏店家。');
+      return;
+    }
+
+    const isFav = !!favoritesMap[storeId];
+
+    try {
+      if (isFav) {
+        await removeFavoriteApi(favoritesMap[storeId]);
+
+        setFavoritesMap((prev) => {
+          const newMap = { ...prev };
+          delete newMap[storeId];
+          return newMap;
+        });
+      } else {
+        const now = new Date();
+        const res = await addFavoriteApi({
+          userId: user.id,
+          storeId,
+          createdAt: now,
+        });
+
+        setFavoritesMap((prev) => ({
+          ...prev,
+          [storeId]: res.id,
+        }));
+      }
+    } catch (err) {
+      const errorMessage = extractErrorMessage(
+        err,
+        null,
+        '載入收藏店家資料失敗，請重新刷新頁面。'
+      );
+      showError(errorMessage);
+    } finally {
+      loadFavorites();
+    }
+  };
+
+  const loadFavorites = async () => {
     if (!user) return;
 
-    const loadFavorites = async () => {
-      setIsScreenLoading(true);
-      try {
-        // json-server沒辦法處理太過複雜的撈取，
-        // 所以抓回資料(favorites+ stores )自己前端做 join（聽說是標準做法）
-        // 取得收藏 + 店家完整資料(已經join favorites + stores 的 API)
-        const favorites = await getFavoriteStores(user.id);
-        setAllFavorites(favorites);
-      } catch (error) {
-        const errorMessage = extractErrorMessage(
-          error,
-          null,
-          '載入收藏店家資料失敗，請重新刷新頁面。'
-        );
-        showError(errorMessage);
-      } finally {
-        setIsScreenLoading(false);
-      }
-    };
+    setIsScreenLoading(true);
+
+    try {
+      const favorites = await getFavoriteStores(user.id);
+
+      const map = {};
+      // f.id = 店家 id 、f.favoriteId = 收藏資料 id
+      // 這樣 favoritesMap 才會變成：
+      // {
+      //   3: 12,
+      //   8: 15
+      // }
+      favorites.forEach((f) => {
+        map[f.id] = f.favoriteId;
+      });
+
+      setFavoritesMap(map);
+      setAllFavorites(favorites);
+    } catch (error) {
+      const errorMessage = extractErrorMessage(
+        error,
+        null,
+        '載入收藏店家資料失敗，請重新刷新頁面。'
+      );
+      showError(errorMessage);
+    } finally {
+      setIsScreenLoading(false);
+    }
+  };
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    if (!user) {
+      // user logout時，清掉 favorite
+      setFavoritesMap({});
+      setAllFavorites([]);
+      return;
+    }
 
     loadFavorites();
   }, [user]);
@@ -67,7 +139,11 @@ const Favorite = () => {
 
           {allFavorites.map((store) => (
             <div key={store.id} className="col-lg-4 col-md-6 col-12">
-              <StoreCard store={store} />
+              <StoreCard
+                store={store}
+                isFavorite={!!favoritesMap[store.id]}
+                onToggleFavorite={handleToggleFavorite}
+              />
             </div>
           ))}
         </div>

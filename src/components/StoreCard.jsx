@@ -14,7 +14,7 @@ const getStoreImage = (types) => {
   return ShopImg; // 預設為商店
 };
 
-const StoreCard = ({ store }) => {
+const StoreCard = ({ store, isFavorite, onToggleFavorite }) => {
   //接收 API 資料
   if (!store) return null;
   // 整理資料：處理 API 欄位與 UI 顯示的對應
@@ -30,8 +30,19 @@ const StoreCard = ({ store }) => {
       <Link to={`/storedetail/${store.id}`} className="col-6 col-lg-4">
         <div className="card card-style h-100">
           <div className="love">
-            <button type="button">
+            {/* <button type="button">
               <Heart className="feather" />
+            </button> */}
+            {/* e.preventDefault(); 避免 Link 跳轉） */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onToggleFavorite?.(store.id);
+              }}
+            >
+              <Heart className={`feather ${isFavorite ? 'is-fav' : ''}`} />
             </button>
             <span>{displayLikes}</span>
           </div>

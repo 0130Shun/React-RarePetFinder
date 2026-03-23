@@ -215,7 +215,19 @@
 .love .feather {
   width: 16px;
   height: 16px;
+
+  :hover {
+    fill: $ui-color-danger;
+    stroke: $ui-color-danger;
+    transform: scale(1.1);
+  }
 }
+.feather.is-fav {
+  fill: $ui-color-danger;
+  stroke: $ui-color-danger;
+  transform: scale(1.1);
+}
+
 //卡片圖片CSS
 .card-img img {
   max-width: 100%;
