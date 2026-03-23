@@ -12,7 +12,8 @@ import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 // utils
 import { setAuthUser } from '@/utils/auth';
-import { handleApiError } from '@/utils/apiErrorHandler';
+import { extractErrorMessage } from '@/utils/errorHandler';
+import { formatDate } from '@/utils/format';
 
 const PET_OPTIONS = ['柯爾鴨', '鸚鵡', '刺蝟', '倉鼠', '守宮', '烏龜', '爬蟲'];
 
@@ -54,27 +55,28 @@ const MemberCenter = () => {
       favoritePetTypes: user?.favoritePetTypes || [],
     });
 
-  // 日期調整
+  // 日期調整(簡化版)
   // const formatDate = (isoString) => {
   //   return new Date(isoString).toLocaleString('zh-TW', {
   //     timeZone: 'Asia/Taipei',
   //   });
   // };
-  const formatDate = (isoString) => {
-    if (!isoString) return '-';
+  // 日期調整(常見年月版)
+  // const formatDate = (isoString) => {
+  //   if (!isoString) return '-';
 
-    const date = new Date(isoString);
-    if (isNaN(date)) return '-';
+  //   const date = new Date(isoString);
+  //   if (isNaN(date)) return '-';
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+  //   const year = date.getFullYear();
+  //   const month = String(date.getMonth() + 1).padStart(2, '0');
+  //   const day = String(date.getDate()).padStart(2, '0');
 
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
+  //   const hours = String(date.getHours()).padStart(2, '0');
+  //   const minutes = String(date.getMinutes()).padStart(2, '0');
 
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
-  };
+  //   return `${year}-${month}-${day} ${hours}:${minutes}`;
+  // };
 
   // 一般 input
   const handleChange = (e) => {
@@ -111,11 +113,6 @@ const MemberCenter = () => {
     }
 
     try {
-      // const updatedUser = {
-      //   ...user,
-      //   ...formData,
-      // };
-
       const updatedUser = await updateUserApi(user.id, formData);
 
       setAuthUser(updatedUser);
@@ -124,7 +121,7 @@ const MemberCenter = () => {
       success('會員資料更新成功');
       setIsEditing(false);
     } catch (err) {
-      const errorMessage = handleApiError(
+      const errorMessage = extractErrorMessage(
         err,
         null,
         '會員資料更新失敗，請重新嘗試。'
@@ -158,15 +155,14 @@ const MemberCenter = () => {
     }
   };
 
-  // 日後可以改寫成ProtectedRoute，從 Route 處就先判斷是否可以進入和紀錄路徑 from
+  // 日後可以抽出並改寫成ProtectedRoute，從 Route 處就先判斷是否可以進入和紀錄路徑 from
+  // 但是現在先求完整上限即可
   // src/routes/ProtectedRoute.jsx，以下為範例：
   // import { useSelector } from 'react-redux';
   // import { Navigate, useLocation } from 'react-router-dom';
-
   // const ProtectedRoute = ({ children }) => {
   //   const user = useSelector((state) => state.user.user);
   //   const location = useLocation();
-
   //   if (!user) {
   //     return (
   //       <Navigate
@@ -180,9 +176,9 @@ const MemberCenter = () => {
   // };
   // export default ProtectedRoute;
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     // console.log('useEffect triggered');
-
     if (!user) {
       warning('請先登入帳號後再使用會員中心，即將跳轉到登入頁面。');
       navigate('/login', {
@@ -198,7 +194,7 @@ const MemberCenter = () => {
       location: user.location || '',
       favoritePetTypes: user.favoritePetTypes || [],
     });
-  }, [user]); ///// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   // if (!user) return <div>請重新登入</div>;
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 // import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
 
@@ -12,7 +13,7 @@ import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 import StoreCard from '@/components/StoreCard.jsx';
 // utils
-import { handleApiError } from '@/utils/apiErrorHandler';
+import { extractErrorMessage } from '@/utils/errorHandler';
 
 //每頁顯示 9 筆店家
 const PAGE_SIZE = 9;
@@ -26,8 +27,7 @@ const Favorite = () => {
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [allFavorites, setAllFavorites] = useState([]); //從 API 抓回來的「全部店家」
 
-  console.log('Favorite Testting render');
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (!user) {
       warning('請先登入帳號後再使用收藏店家，即將跳轉到登入頁面。');
@@ -48,7 +48,7 @@ const Favorite = () => {
         // console.log('API回傳:', favorites);
         setAllFavorites(favorites);
       } catch (error) {
-        const errorMessage = handleApiError(
+        const errorMessage = extractErrorMessage(
           error,
           null,
           '載入藏店家失敗，請重新刷新頁面。'

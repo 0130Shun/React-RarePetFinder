@@ -16,7 +16,7 @@ import FullPageLoader from '@/components/shared/FullPageLoader';
 // import RegisterForm from '@/components/LoginPage/RegisterForm';
 // auth
 import { setAuthToken, setAuthUser, clearAuth } from '@/utils/auth';
-import { handleApiError } from '@/utils/apiErrorHandler';
+import { extractErrorMessage } from '@/utils/errorHandler';
 
 const LoginPage = () => {
   // 初始化 dispatch、navigate、location
@@ -125,7 +125,7 @@ const LoginPage = () => {
       clearAuth();
       dispatch(logout());
       dispatch(clearUser());
-      const errorMessage = handleApiError(
+      const errorMessage = extractErrorMessage(
         err,
         setLoginError,
         '登入驗證失敗，請重新嘗試。'
@@ -166,7 +166,7 @@ const LoginPage = () => {
       // 可選：自動跳登入錨點
       window.location.hash = '#logindiv';
     } catch (err) {
-      const errorMsg = handleApiError(
+      const errorMsg = extractErrorMessage(
         err,
         setRegisterError,
         '註冊失敗，請稍後再試'

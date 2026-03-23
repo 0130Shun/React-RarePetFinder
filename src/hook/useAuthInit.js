@@ -9,7 +9,7 @@ import { setUser, clearUser } from '@/features/userSlice';
 import { useToast } from '@/hook/useToast';
 // utils
 import { getAuth } from '@/utils/auth';
-import { handleApiError } from '@/utils/apiErrorHandler';
+import { extractErrorMessage } from '@/utils/errorHandler';
 
 export const useAuthInit = () => {
   const { showError } = useToast();
@@ -38,7 +38,7 @@ export const useAuthInit = () => {
       } catch (error) {
         dispatch(logout());
         dispatch(clearUser());
-        const errorMessage = handleApiError(
+        const errorMessage = extractErrorMessage(
           error,
           null,
           '請先登入，將導向登入頁面。!try'
