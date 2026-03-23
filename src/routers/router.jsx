@@ -44,8 +44,8 @@ export const router = createHashRouter([
         path: 'login',
         element: <Login />,
       },
-      // 登入後前台用戶才可以看到的頁面
       {
+        // 登入後前台用戶才可以看到的頁面
         element: <RequireAuth />, // 改成不用 role，代表只要登入即可
         children: [
           {
@@ -58,8 +58,8 @@ export const router = createHashRouter([
           },
         ],
       },
-      // 前台 404 頁面
       {
+        // 前台 404 頁面
         path: '*',
         element: <NotFound />,
       },
@@ -77,6 +77,7 @@ export const router = createHashRouter([
             element: <Dashboard />,
           },
           {
+            // 後台 404 頁面
             path: '*',
             element: <AdminNotFound />,
           },

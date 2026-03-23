@@ -17,10 +17,7 @@ import { formatDate } from '@/utils/format';
 
 const PET_OPTIONS = ['柯爾鴨', '鸚鵡', '刺蝟', '倉鼠', '守宮', '烏龜', '爬蟲'];
 
-// 以後
-// Avatar（頭像）代處理
-// 社群連結（IG / FB）代處理
-// 我的收藏（推薦）代處理
+// 以後 Avatar（頭像）代處理、社群連結（IG / FB）代處理、我的收藏（推薦）代處理
 const MemberCenter = () => {
   const dispatch = useDispatch();
   // const navigate = useNavigate();

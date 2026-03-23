@@ -29,13 +29,9 @@ const LoginPage = () => {
   const from = location.state?.from?.pathname || '/membercenter'; // navigate 調整路徑，先預設導向membercenter
 
   // 登入區域
-  // const [account, setAccount] = useState({
-  //   email: 'example@test.com',
-  //   password: 'example',
-  // });
   const [account, setAccount] = useState({
-    email: 'admin@mail.com',
-    password: '654321',
+    email: 'example@test.com',
+    password: 'example',
   });
 
   // 註冊 state
@@ -83,12 +79,6 @@ const LoginPage = () => {
     }
 
     try {
-      // 六角API - 儲存cookie或Httpcookie
-      // const res = await loginApi(account);
-      // const { accessToken, expired, user } = res;
-      // document.cookie = `RarePetFinder=${accessToken}; path=/; expires=${new Date(
-      //   expired
-      // ).toUTCString()}`;
       // json-server-auth 不會回 expired(Token 的過期時間（timestamp）)，且已經有 localStorage token cookie 在 SPA 通常不需要。
       const res = await loginApi(account);
       const { accessToken, user } = res;
@@ -104,14 +94,18 @@ const LoginPage = () => {
         redirectPath = from;
       }
       if (user.role === 'admin') {
-        redirectPath = '/admin';
+        // redirectPath = '/admin';
+        // 先關閉登入後，後台介面先轉去前台 membercenter
+        redirectPath = '/membercenter';
       }
 
       // 整合+分流 提示訊息
       if (user.role === 'admin') {
-        success(`「 ${user.role} - ${user.userName}」登入成功，將導向後台首頁`);
+        // 先關閉登入後，後台介面先轉去前台membercenter
+        // success(`「 ${user.role} - ${user.userName}」登入成功，將導向後台首頁`);
+        success(`「 ${user.role} - ${user.userName}」登入成功，將導向會員中心`);
       } else if (redirectPath === '/membercenter') {
-        success(`「 ${user.userName} 」登入成功，歡迎回來將導向會員中心`);
+        success(`「 ${user.userName} 」登入成功，將導向會員中心`);
       } else {
         success(`「 ${user.userName} 」登入成功，將導回原頁`);
       }
@@ -151,20 +145,23 @@ const LoginPage = () => {
     }
 
     try {
-      const registerApiData = { ...registerData, role: 'user' }; // 前台註冊的一律都是 role: 'user'
+      const now = new Date();
+      const registerApiData = { ...registerData, role: 'user', createdAt: now }; // 前台註冊的一律都是 role: 'user'
       await registerApi(registerApiData);
 
       success('註冊成功，請登入');
 
-      // 👉 自動切回登入
+      // 自動切回登入
       setRegisterData({
         userName: '',
         email: '',
         password: '',
       });
 
-      // 可選：自動跳登入錨點
-      window.location.hash = '#logindiv';
+      // // 可選：自動跳登入錨點
+      // window.location.hash = '#logindiv';
+      // 切換模式讓剛註冊完畢的使用者登入
+      setMode('login');
     } catch (err) {
       const errorMsg = extractErrorMessage(
         err,
@@ -189,7 +186,6 @@ const LoginPage = () => {
     <>
       <SubHero variant="loginRegister" />
       <section className="container ui-container my-5">
-        {/* {mode === 'login' ? <LoginForm /> : <RegisterForm />} */}
         {mode === 'login' && (
           <div
             id="logindiv"

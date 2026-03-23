@@ -54,26 +54,11 @@ const routes = [
     label: '稀寵資訊',
     to: '/articles',
   },
-  {
-    type: 'link', // 暫時用一般連結回首頁，拆分後改成 type: 'dropdown',
-    label: '投稿 / 回報',
-    to: '/',
-    //未來拆分的寫法 + google-form連結
-    // items: [
-    //   {
-    //     label: '投稿稀寵資訊',
-    //     external: true,
-    //     // href: 'https://forms.gle/XXXXXXX',
-    //     href: '/', // 暫時用首頁代替
-    //   },
-    //   {
-    //     label: '檢舉 / 回報問題',
-    //     external: true,
-    //     // href: 'https://forms.gle/YYYYYYY',
-    //     href: '/', // 暫時用首頁代替
-    //   },
-    // ],
-  },
+  // {
+  //   type: 'link',
+  //   label: '投稿 / 回報',
+  //   to: '/',
+  // },
   // ──────────────────
   // 登入 / 註冊 & 會員中心（拆分到authDropdown）
   // ──────────────────
@@ -81,11 +66,6 @@ const routes = [
     type: 'authDropdown',
     label: '登入 / 註冊',
   },
-  // {
-  //   type: 'link',
-  //   label: '會員中心',
-  //   to: '/login#membercenter',
-  // },
 ];
 
 const getAuthMenu = (user) => {
@@ -265,10 +245,6 @@ const Header = () => {
       document.body.classList.remove('is-nav-open');
     };
   }, []);
-
-  // useEffect(() => {
-  //   console.log('user changed:', user);
-  // }, [user]);
 
   return (
     <header className="header ui-layout">

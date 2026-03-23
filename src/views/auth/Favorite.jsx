@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { getFavoriteStores } from '@/services/favoriteService';
 // hook
 import { useToast } from '@/hook/useToast';
-//components
+// components
 import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 import StoreCard from '@/components/StoreCard.jsx';
@@ -45,7 +45,6 @@ const Favorite = () => {
         // 所以抓回資料(favorites+ stores )自己前端做 join（聽說是標準做法）
         // 取得收藏 + 店家完整資料(已經join favorites + stores 的 API)
         const favorites = await getFavoriteStores(user.id);
-        // console.log('API回傳:', favorites);
         setAllFavorites(favorites);
       } catch (error) {
         const errorMessage = extractErrorMessage(
