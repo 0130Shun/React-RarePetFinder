@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import * as bootstrap from 'bootstrap';
+
 //import "./scss/main.scss";
 import '@/styles/main.scss'; // 入口 Sass
 import '@/styles/admin.scss'; // 後台入口 Sass
@@ -18,7 +19,6 @@ createRoot(document.getElementById('root')).render(
   // 嚴謹模式<StrictMode>
   // <App />
   // </StrictMode>,
-
   // Router / Provider / RequireAuth...，「Bootstrap JS 事件沒有正常觸發」
   // 或「React Router 攔截了 <a href="#">」導致 dropdown 沒有被 bootstrap 啟動，
   // 使用時要注意

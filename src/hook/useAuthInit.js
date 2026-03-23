@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { handleApiError } from '@/utils/apiErrorHandler';
-import { useToast } from '@/hook/useToast';
-
+// features
 import { setToken, logout } from '@/features/authSlice';
 import { setUser, clearUser } from '@/features/userSlice';
-
+// hook
+import { useToast } from '@/hook/useToast';
+// utils
 import { getAuth } from '@/utils/auth';
+import { handleApiError } from '@/utils/apiErrorHandler';
 
 export const useAuthInit = () => {
   const { showError } = useToast();

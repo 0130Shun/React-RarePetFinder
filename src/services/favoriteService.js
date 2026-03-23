@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import apiClient from './apiClient';
-import { getAllStores } from './storeService';
+import { storeService } from './storeService';
 
 // 取得某使用者所有收藏
 export const getFavoritesApi = async (userId) => {
@@ -12,8 +12,7 @@ export const getFavoritesApi = async (userId) => {
 export const getFavoriteStores = async (userId) => {
   const [favorites, stores] = await Promise.all([
     getFavoritesApi(userId),
-    // storeService.getAllStores(),
-    getAllStores(),
+    storeService.getAllStores(),
   ]);
 
   const storeMap = new Map(stores.map((s) => [s.id, s]));

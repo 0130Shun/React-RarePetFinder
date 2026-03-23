@@ -1,7 +1,7 @@
 import apiClient from './apiClient';
 
 export const storeService = {
-  // 方法 C：一次抓全量，前端自行 filter / slice
+  // 一次抓全量，前端自行 filter / slice
   async getAllStores() {
     const res = await apiClient.get('/stores');
     return Array.isArray(res.data) ? res.data : [];

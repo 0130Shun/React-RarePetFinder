@@ -24,7 +24,6 @@ const Favorite = () => {
   const user = useSelector((state) => state.user.user); // 從state取出會員資料
   const { showError, warning } = useToast();
   const [isScreenLoading, setIsScreenLoading] = useState(false);
-
   const [allFavorites, setAllFavorites] = useState([]); //從 API 抓回來的「全部店家」
 
   console.log('Favorite Testting render');
@@ -42,22 +41,11 @@ const Favorite = () => {
     const loadFavorites = async () => {
       setIsScreenLoading(true);
       try {
-        // // json-server沒辦法處理太過複雜的撈取，
-        // // 所以抓回資料(favorites+ stores )自己前端做 join（聽說是標準做法）
-        // const favorites = await getFavoritesApi(user.id);
-        // const stores = await storeService.getAllStores();
-        // // const favoriteStores = favorites.map((fav) => {
-        // //   return stores.find((store) => store.id === fav.storeId);
-        // // });
-        // const storeMap = new Map(stores.map((s) => [s.id, s]));
-        // const favoriteStores = favorites
-        //   .map((fav) => storeMap.get(fav.storeId))
-        //   .filter(Boolean);
-        // setAllFavorites(favoriteStores);
-
+        // json-server沒辦法處理太過複雜的撈取，
+        // 所以抓回資料(favorites+ stores )自己前端做 join（聽說是標準做法）
         // 取得收藏 + 店家完整資料(已經join favorites + stores 的 API)
         const favorites = await getFavoriteStores(user.id);
-        console.log('API回傳:', favorites);
+        // console.log('API回傳:', favorites);
         setAllFavorites(favorites);
       } catch (error) {
         const errorMessage = handleApiError(
@@ -72,7 +60,7 @@ const Favorite = () => {
     };
 
     loadFavorites();
-  }, [user, location, navigate, showError, warning]);
+  }, [user]); ///// eslint-disable-next-line react-hooks/exhaustive-deps
 
   if (!user) return <div>請重新登入</div>;
 

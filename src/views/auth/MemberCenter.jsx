@@ -181,6 +181,8 @@ const MemberCenter = () => {
   // export default ProtectedRoute;
 
   useEffect(() => {
+    // console.log('useEffect triggered');
+
     if (!user) {
       warning('請先登入帳號後再使用會員中心，即將跳轉到登入頁面。');
       navigate('/login', {
@@ -196,7 +198,7 @@ const MemberCenter = () => {
       location: user.location || '',
       favoritePetTypes: user.favoritePetTypes || [],
     });
-  }, [user, warning, navigate, location]);
+  }, [user]); ///// eslint-disable-next-line react-hooks/exhaustive-deps
 
   // if (!user) return <div>請重新登入</div>;
 
