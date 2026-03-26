@@ -1,4 +1,4 @@
-import SubHero from '../../components/subHero/SubHero';
+import SubHero from '@/components/subHero/SubHero';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { storeService } from '@/api';
