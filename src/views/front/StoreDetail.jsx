@@ -61,8 +61,8 @@ export default function StoreDetail() {
       <SubHero variant="storeDetail" store={store} />
 
       {/* <h1>檢索頁面</h1> */}
-      <section className="container">
-        <div className="row store-info-section gap-md-3">
+      <section className="container ui-container">
+        <div className="row store-info-section align-items-start">
           <div className="col-md-3 store-profile-box mb-4">
             <div className="store-detail-img">
               <img
