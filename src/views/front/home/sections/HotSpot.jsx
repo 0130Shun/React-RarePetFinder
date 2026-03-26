@@ -100,6 +100,7 @@ const HotSpot = () => {
           {hotSpotData.map((store) => (
             <SwiperSlide>
               <Link
+                key={store.storeName}
                 to={`/storedetail/${store.num}`}
                 className="d-block store-card text-center"
               >

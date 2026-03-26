@@ -1,4 +1,3 @@
-// import StoreDetailHero from '../../components/subHero/StoreDetailHero';
 import SubHero from '../../components/subHero/SubHero';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';

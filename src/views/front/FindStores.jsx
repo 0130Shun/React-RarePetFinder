@@ -4,7 +4,6 @@ import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
 import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
 
 //檢索頁的Banner
-// import FindStoresHero from '../../components/subHero/FindStoresHero';
 import SubHero from '@/components/subHero/SubHero';
 // 引入FullPageLoader
 import FullPageLoader from '@/components/shared/FullPageLoader';

@@ -1,4 +1,3 @@
-// import { ChevronRight } from 'react-feather';
 import FindStoresHero from './FindStoresHero';
 import StoreDetailHero from './StoreDetailHero';
 import ArticlesHero from './ArticlesHero';

@@ -1,7 +1,6 @@
 // variants/StoreDetailHero.jsx
 import SubHeroLayout from './SubHeroLayout';
 import SubHeroBreadcrumb from './SubHeroBreadcrumb';
-// import { Heart, Home, ShoppingBag, PlusSquare } from 'react-feather';
 import { Heart } from 'react-feather';
 import { STORE_TYPE_ICON_MAP, PET_ICON_MAP } from '@/config/iconMap';
 

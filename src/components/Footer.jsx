@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import logo from '../assets/logo.png';
 import line from '../assets/img/line.png';
 import facebook from '../assets/img/facebook.png';
