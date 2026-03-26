@@ -127,7 +127,7 @@ export default function StoreDetail() {
       </section>
       {/* <!-- --- 相關評價 ---  --> */}
       <section className="container-fluid p-0 review-bg ">
-        <div className="infoSection black-100 container-md-fluid">
+        <div className="infoSection--black container-md-fluid">
           {/* <!-- 相關評價title --> */}
           <div className="d-flex justify-content-center section-title-outside pb-md-4 mb-3">
             <h2
@@ -140,7 +140,7 @@ export default function StoreDetail() {
 
           {/* <!-- 相關評價卡片區 --> */}
           <div className="infoContent reviewsContent py-3 px-1 mx-0 mx-md-auto px-md-0 row g-3 g-md-4 py-md-5">
-            <div className="col-12 col-md-4">
+            <div className="col-md-4">
               <div className="reviewsContentCard p-md-4">
                 <h3 className="card-title d-flex align-items-center m-0 mb-3">
                   {/* <i className="userIcon me-4" data-feather="user"></i> 匿名先生 */}
@@ -153,7 +153,7 @@ export default function StoreDetail() {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-md-4">
+            <div className="col-md-4">
               <div className="reviewsContentCard p-md-4">
                 <h3 className="card-title d-flex align-items-center m-0 mb-3">
                   {/* <i className="userIcon me-4" data-feather="user"></i> 匿名小姐 */}
@@ -165,7 +165,7 @@ export default function StoreDetail() {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-md-4">
+            <div className="col-md-4">
               <div className="reviewsContentCard p-md-4">
                 <h3 className="card-title d-flex align-items-center m-0 mb-3">
                   {/* <i className="userIcon me-4" data-feather="user"></i>台北K先生 */}

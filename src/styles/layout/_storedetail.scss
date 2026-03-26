@@ -283,11 +283,21 @@ ul {
     background-color: #525252;
   }
 }
+// @media (min-width: 768px) {
+//   .infoSection.black-100 {
+//     background-color: #f0f0f0;
+//   }
+//   .reviewsContentCard {
+//     height: 200px;
+//   }
+// }
 @media (min-width: 768px) {
-  .infoSection.black-100 {
+  //.infoSection.black-100 調整成 infoSection的變體 infoSection--black
+  .infoSection--black {
     background-color: #f0f0f0;
   }
   .reviewsContentCard {
-    height: 200px;
+    min-height: 200px;
+    height: auto;
   }
 }
