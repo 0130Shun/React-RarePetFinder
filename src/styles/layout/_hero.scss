@@ -29,11 +29,19 @@
 .ui-subHero {
   position: relative;
   // background-color: $ui-color-secondary;
-  padding: 64px 12px 108px 12px;
+  padding: 64px 12px 64px 12px;
   min-height: 297px;
 
   @include respond(desktop) {
-    padding: 72px 272px 0 272px;
+    // padding: 60px 0 0 0;
+    padding-top: 60px;
+    overflow: hidden; /* 逼免止浮水印超勒邊界 */
+    border-radius: 24px;
+  }
+
+  @include respond(desktop-xl) {
+    // padding: 72px 0 0 0;
+    padding-top: 72px;
     overflow: hidden; /* 逼免止浮水印超勒邊界 */
     border-radius: 24px;
   }
@@ -44,6 +52,28 @@
   content: none; // mobile：根本不產生 pseudo-element
 
   @include respond(desktop) {
+    content: attr(
+      data-watermark
+    ); /* 關鍵：讓內容直接讀取 HTML 上的 data-watermark */
+    position: absolute;
+    right: calc((60% - 576px) / 2);
+    bottom: -15px;
+
+    font-size: 90px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 2%;
+
+    color: rgba($ui-color-primary, 0.2);
+    white-space: nowrap;
+
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    filter: blur(0.5px);
+  }
+
+  @include respond(desktop-xl) {
     content: attr(
       data-watermark
     ); /* 關鍵：讓內容直接讀取 HTML 上的 data-watermark */
@@ -149,6 +179,10 @@
   text-align: center;
 
   @include respond(desktop) {
+    display: block;
+    // text-align: center;
+  }
+  @include respond(desktop-xl) {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -230,6 +264,22 @@
   }
 
   @include respond(desktop) {
+    min-height: 80px;
+    margin-bottom: 16px;
+
+    h1 {
+      font-size: 40px;
+      letter-spacing: 2%;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 120%;
+      letter-spacing: 0.025em;
+    }
+  }
+
+  @include respond(desktop-xl) {
     min-height: 96px;
 
     h1 {
@@ -251,8 +301,9 @@
   padding: 16px 8px;
   gap: 10px;
   border-radius: 12px;
-  // min-width: 303px;
-  // min-height: 40px;
+
+  max-width: 40%;
+  min-height: 4rem;
 
   // display: flex;
   // align-items: center;
@@ -289,6 +340,19 @@
   }
 
   @include respond(desktop) {
+    padding: 20px 48px;
+    border-radius: 12px;
+    min-width: 480px;
+    min-height: 80px;
+    margin: auto;
+
+    p {
+      font-size: 20px;
+      line-height: 120%;
+      letter-spacing: 0.05em;
+    }
+  }
+  @include respond(desktop-xl) {
     padding: 20px 48px;
     border-radius: 12px;
     min-width: 512px;
@@ -439,6 +503,14 @@
   }
 
   @include respond(desktop) {
+    position: absolute;
+    left: 30px;
+    // right: 0;
+    bottom: -1px; // 半貼出來
+    transform: none;
+  }
+
+  @include respond(desktop-xl) {
     position: absolute;
     left: 0;
     right: 0;

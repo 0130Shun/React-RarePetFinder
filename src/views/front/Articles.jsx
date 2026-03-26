@@ -1,7 +1,6 @@
 // 稀寵資訊 分頁
 
-// import ArticlesHero from '../../components/subHero/ArticlesHero';
-import SubHero from '../../components/subHero/SubHero';
+import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useEffect, useState, useMemo } from 'react';

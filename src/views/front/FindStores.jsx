@@ -11,7 +11,6 @@ import {
 } from '@/services/favoriteService'; // 取得user的favorite的api路徑
 
 //檢索頁的Banner
-// import FindStoresHero from '../../components/subHero/FindStoresHero';
 import SubHero from '@/components/subHero/SubHero';
 // 引入 FullPageLoader
 import FullPageLoader from '@/components/shared/FullPageLoader';

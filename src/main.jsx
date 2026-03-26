@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 // 載入 bootstrap 的 css 與 js
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-// import * as bootstrap from 'bootstrap';
+import './styles/main.scss'; // 入口 Sass
 
 //import "./scss/main.scss";
 import '@/styles/main.scss'; // 入口 Sass

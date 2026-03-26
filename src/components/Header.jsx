@@ -1,6 +1,5 @@
 // Header.jsx
-// import { NavLink, useNavigate } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { User, Menu, X } from 'react-feather';
 // import { useSelector, useDispatch } from 'react-redux';

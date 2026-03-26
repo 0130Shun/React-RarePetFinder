@@ -1,6 +1,7 @@
 // _layout.scss：所有共用版面骨架 像 ui-container, ui-section
 
-@use '../helpers/variables' as *;
+@use '@/styles/helpers/variables' as *;
+@use '@/styles/helpers/mixins' as *;
 
 // ui-container 系列 依照畫面切割看來，主要有三種寬度：1296px / 1840px / 1920px
 // 大致上為main/header/footer(.ui-layout 1920px) => section(.ui-section 1840px) => content( .ui-container 1296px)
