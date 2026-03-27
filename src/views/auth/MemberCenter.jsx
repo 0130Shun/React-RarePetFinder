@@ -108,10 +108,6 @@ const MemberCenter = () => {
     }
   };
 
-  // handleClickOpen
-  // const handleClickOpen = () => {
-  //   setOpen(!open);
-  // };
   const handleCancel = () => {
     setFormData({
       userName: user?.userName || '',
@@ -173,7 +169,6 @@ const MemberCenter = () => {
 
       return JSON.stringify(prev) === JSON.stringify(newData) ? prev : newData;
     });
-    // [user, navigate, location, warning]
   }, [user]);
 
   return (

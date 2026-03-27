@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Eye, EyeOff } from 'react-feather';
 
 // Service
 import { loginApi, registerApi } from '@/services/authService';
@@ -13,8 +12,8 @@ import { useToast } from '@/hook/useToast';
 // components
 import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
-// import LoginForm from '@/components/LoginPage/LoginForm';
-// import RegisterForm from '@/components/LoginPage/RegisterForm';
+import LoginForm from '@/components/LoginPage/LoginForm';
+import RegisterForm from '@/components/LoginPage/RegisterForm';
 // auth
 import { setAuthToken, setAuthUser, clearAuth } from '@/utils/auth';
 import { extractErrorMessage } from '@/utils/errorHandler';
@@ -30,7 +29,7 @@ const LoginPage = () => {
   const from = location.state?.from?.pathname || '/membercenter'; // navigate 調整路徑，先預設導向membercenter
 
   // 登入區域
-  const [account, setAccount] = useState({
+  const [accountData, setAccountData] = useState({
     email: 'example@test.com',
     password: 'example',
   });
@@ -51,7 +50,7 @@ const LoginPage = () => {
   // 登入表單 - Input變動
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAccount((prev) => ({
+    setAccountData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -74,7 +73,7 @@ const LoginPage = () => {
     setIsScreenLoading(true);
     setLoginError(''); // 清空錯誤資訊區
 
-    if (!account.email || !account.password) {
+    if (!accountData.email || !accountData.password) {
       setLoginError('請填寫完整登入資訊');
       warning('請填寫完整登入資訊');
       setIsScreenLoading(false);
@@ -83,7 +82,7 @@ const LoginPage = () => {
 
     try {
       // json-server-auth 不會回 expired(Token 的過期時間（timestamp）)，且已經有 localStorage token cookie 在 SPA 通常不需要。
-      const res = await loginApi(account);
+      const res = await loginApi(accountData);
       const { accessToken, user } = res;
 
       // 同時存入 localStorage 和 更新 Redux
@@ -97,16 +96,13 @@ const LoginPage = () => {
         redirectPath = from;
       }
       if (user.role === 'admin') {
-        // redirectPath = '/admin';
-        // 先關閉登入後，後台介面先轉去前台 membercenter
-        redirectPath = '/membercenter';
+        redirectPath = '/admin';
       }
 
       // 整合+分流 提示訊息
       if (user.role === 'admin') {
-        // 先關閉登入後，後台介面先轉去前台membercenter
-        // success(`「 ${user.role} - ${user.userName}」登入成功，將導向後台首頁`);
-        success(`「 ${user.role} - ${user.userName}」登入成功，將導向會員中心`);
+        // success(`「 ${user.role} - ${user.userName}」登入成功，將導向會員中心`);
+        success(`「 ${user.role}： ${user.userName}」登入成功，將導向後台首頁`);
       } else if (redirectPath === '/membercenter') {
         success(`「 ${user.userName} 」登入成功，將導向會員中心`);
       } else {
@@ -133,13 +129,18 @@ const LoginPage = () => {
     }
   };
 
-  // 切換 註冊表單
-  const onSwitchToRegister = () => {
+  // 登入表單 切換 註冊表單
+  const handleSwitchToRegister = () => {
     setMode('register');
     setLoginError('');
   };
 
-  // 註冊 submit
+  // toggle Login password
+  const toggleLoginPassword = () => {
+    setShowLoginPassword((prev) => !prev);
+  };
+
+  // 註冊表單 submit
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsScreenLoading(true);
@@ -181,8 +182,13 @@ const LoginPage = () => {
     }
   };
 
-  // 切換 登入表單
-  const onSwitchToLogin = () => {
+  // toggle Register password
+  const toggleRegisterPassword = () => {
+    setShowRegisterPassword((prev) => !prev);
+  };
+
+  // 註冊表單 切換 登入表單
+  const handleSwitchToLogin = () => {
     setMode('login');
     setRegisterError('');
   };
@@ -200,161 +206,29 @@ const LoginPage = () => {
       <SubHero variant="loginRegister" />
       <section className="container ui-container my-5">
         {mode === 'login' && (
-          <div
-            id="logindiv"
-            className="ui-login d-flex flex-column justify-content-center align-items-center vh-50"
-          >
-            <h2 className="mb-4">會員登入</h2>
-            {loginError && (
-              <div className="ui-error-message alert alert-danger text-center mb-4">
-                {loginError}
-              </div>
-            )}
-            <form
-              onSubmit={handleLogin}
-              className={`d-flex flex-column gap-3 ${isScreenLoading ? 'opacity-50' : ''}`}
-            >
-              <div className="form-floating mb-3">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={account.email}
-                  onChange={handleInputChange}
-                  className="form-control"
-                  placeholder="example@test.com"
-                  required
-                />
-                <label htmlFor="email">Email address</label>
-              </div>
-              <div className="form-floating ui-input-password ui-input-password--login">
-                <input
-                  id="password"
-                  name="password"
-                  type={showLoginPassword ? 'text' : 'password'}
-                  value={account.password || ''}
-                  onChange={handleInputChange}
-                  className="form-control"
-                  placeholder="example"
-                  required
-                />
-                <label htmlFor="password">Password</label>
-                <button
-                  type="button"
-                  className="ui-input-password__toggle"
-                  onClick={() => setShowLoginPassword(!showLoginPassword)}
-                >
-                  {showLoginPassword ? <EyeOff /> : <Eye />}
-                </button>
-              </div>
-
-              <button
-                type="submit"
-                className="btn ui-btn-primary"
-                disabled={isScreenLoading}
-              >
-                {isScreenLoading ? '登入中...' : '登入'}
-              </button>
-            </form>
-            <p className="mt-3 text-center">
-              還沒有帳號？
-              <button
-                type="button"
-                className="btn ui-btn-warning"
-                onClick={() => {
-                  setMode('register');
-                  setLoginError('');
-                }}
-              >
-                註冊
-              </button>
-            </p>
-          </div>
+          <LoginForm
+            handleLogin={handleLogin}
+            handleInputChange={handleInputChange}
+            accountData={accountData}
+            showLoginPassword={showLoginPassword}
+            toggleLoginPassword={toggleLoginPassword}
+            loginError={loginError}
+            isScreenLoading={isScreenLoading}
+            handleSwitchToRegister={handleSwitchToRegister}
+          />
         )}
 
         {mode === 'register' && (
-          <div
-            id="register"
-            className="ui-login d-flex flex-column justify-content-center align-items-center vh-50"
-          >
-            <h2 className="mb-4">註冊帳號</h2>
-            {registerError && (
-              <div className="ui-error-message alert alert-danger text-center mb-4">
-                {registerError}
-              </div>
-            )}
-            <form
-              onSubmit={handleRegister}
-              className={`d-flex flex-column gap-3 ${isScreenLoading ? 'opacity-50' : ''}`}
-            >
-              {/* userName */}
-              <div className="form-floating">
-                <input
-                  type="text"
-                  name="userName"
-                  value={registerData.userName}
-                  onChange={handleRegisterChange}
-                  className="form-control"
-                  placeholder="Your Name"
-                  required
-                />
-                <label>使用者名稱</label>
-              </div>
-
-              {/* email */}
-              <div className="form-floating">
-                <input
-                  type="email"
-                  name="email"
-                  value={registerData.email}
-                  onChange={handleRegisterChange}
-                  className="form-control"
-                  placeholder="example@mail.com"
-                  required
-                />
-                <label>Email</label>
-              </div>
-
-              {/* password */}
-              <div className="form-floating ui-input-password ui-input-password--register">
-                <input
-                  type={showRegisterPassword ? 'text' : 'password'}
-                  name="password"
-                  value={registerData.password}
-                  onChange={handleRegisterChange}
-                  className="form-control"
-                  placeholder="password"
-                  required
-                />
-                <label>Password</label>
-                <button
-                  type="button"
-                  className="ui-input-password__toggle"
-                  onClick={() => setShowRegisterPassword(!showRegisterPassword)}
-                >
-                  {showRegisterPassword ? <EyeOff /> : <Eye />}
-                </button>
-              </div>
-
-              <button
-                type="submit"
-                className="btn ui-btn-warning"
-                disabled={isScreenLoading}
-              >
-                {isScreenLoading ? '註冊中...' : '註冊'}
-              </button>
-            </form>
-            <p className="mt-3 text-center">
-              已經有帳號？
-              <button
-                type="button"
-                className="btn ui-btn-primary"
-                onClick={() => onSwitchToLogin()}
-              >
-                登入
-              </button>
-            </p>
-          </div>
+          <RegisterForm
+            handleRegister={handleRegister}
+            handleRegisterChange={handleRegisterChange}
+            registerData={registerData}
+            showRegisterPassword={showRegisterPassword}
+            toggleRegisterPassword={toggleRegisterPassword}
+            registerError={registerError}
+            isScreenLoading={isScreenLoading}
+            handleSwitchToLogin={handleSwitchToLogin}
+          />
         )}
       </section>
 
