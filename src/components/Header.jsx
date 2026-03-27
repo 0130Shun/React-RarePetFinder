@@ -9,12 +9,12 @@ import { Dropdown } from 'bootstrap';
 
 // assets
 import logo from '@/assets/logo.png';
-
 // Slice
 // import { logout } from '@/features/authSlice';
 // import { clearUser } from '@/features/userSlice';
 // hook
 // import { useToast } from '@/hook/useToast';
+import { useConfirm } from '@/hook/useConfirm';
 import { useLogout } from '@/hook/useLogout';
 // config
 import { ISAUTH_ICON_MAP } from '@/config/iconMap';
@@ -83,6 +83,7 @@ const Header = () => {
   const togglerRef = useRef(null);
   // const dropdownRef = useRef(null);
   const authDropdownRef = useRef(null);
+  const { confirm, ConfirmComponent } = useConfirm();
   const closeMenu = () => {
     if (isOpen && togglerRef.current) {
       togglerRef.current.click();
@@ -224,7 +225,7 @@ const Header = () => {
   const externalLink = (route) => {
     return (
       <li className="nav-item ui-nav-item" key={route.label}>
-        <a
+        {/* <a
           title="將開啟 Google 表單（新分頁）"
           href={route.href}
           target="_blank"
@@ -235,6 +236,25 @@ const Header = () => {
             if (confirmGo) {
               window.open(route.href, '_blank');
             }
+            closeMenu();
+          }}
+        >
+          {route.label}
+        </a> */}
+        <a
+          className="nav-link"
+          href={route.href}
+          onClick={(e) => {
+            e.preventDefault();
+
+            confirm({
+              title: '即將前往外部網站',
+              message: '你將前往 Google 表單，是否繼續？',
+              onConfirm: () => {
+                window.open(route.href, '_blank');
+              },
+            });
+
             closeMenu();
           }}
         >
@@ -270,54 +290,58 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="header ui-layout">
-      <nav className="navbar navbar-expand-lg bg-white">
-        <div className="container ui-container d-flex align-items-center">
-          {/* 品牌區 */}
-          <Link className="navbar-brand" to="/">
-            <img src={logo} alt="稀寵搜尋.logo" className="me-2" />
-          </Link>
+    <>
+      <header className="header ui-layout">
+        <nav className="navbar navbar-expand-lg bg-white">
+          <div className="container ui-container d-flex align-items-center">
+            {/* 品牌區 */}
+            <Link className="navbar-brand" to="/">
+              <img src={logo} alt="稀寵搜尋.logo" className="me-2" />
+            </Link>
 
-          {/* 漢堡按鈕 */}
-          <button
-            ref={togglerRef}
-            className={`navbar-toggler ${isOpen ? '' : 'collapsed'}`}
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNav"
-            aria-controls="mainNav"
-            aria-expanded={isOpen}
-          >
-            {isOpen ? (
-              <X className="close-icon" size={24} />
-            ) : (
-              <Menu className="hamburger" size={24} />
-            )}
-          </button>
+            {/* 漢堡按鈕 */}
+            <button
+              ref={togglerRef}
+              className={`navbar-toggler ${isOpen ? '' : 'collapsed'}`}
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mainNav"
+              aria-controls="mainNav"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? (
+                <X className="close-icon" size={24} />
+              ) : (
+                <Menu className="hamburger" size={24} />
+              )}
+            </button>
 
-          {/* 導覽內容 */}
-          <div className="collapse navbar-collapse" id="mainNav" ref={navRef}>
-            <ul className="navbar-nav ms-auto">
-              {routes.map((route) => {
-                switch (route.type) {
-                  case 'link':
-                    return link(route);
-                  case 'external':
-                    return externalLink(route);
-                  case 'dropdown':
-                    return dropdown(route);
-                  case 'authDropdown':
-                    return renderAuthDropdown(route);
-                  default:
-                    return null;
-                }
-              })}
-            </ul>
+            {/* 導覽內容 */}
+            <div className="collapse navbar-collapse" id="mainNav" ref={navRef}>
+              <ul className="navbar-nav ms-auto">
+                {routes.map((route) => {
+                  switch (route.type) {
+                    case 'link':
+                      return link(route);
+                    case 'external':
+                      return externalLink(route);
+                    case 'dropdown':
+                      return dropdown(route);
+                    case 'authDropdown':
+                      return renderAuthDropdown(route);
+                    default:
+                      return null;
+                  }
+                })}
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
-      <div className="nav-backdrop" />
-    </header>
+        </nav>
+        <div className="nav-backdrop" />
+      </header>
+      {/* 只放一次 */}
+      <ConfirmComponent />
+    </>
   );
 };
 
