@@ -1,12 +1,12 @@
 import { Eye, EyeOff } from 'react-feather';
 
 // utils
-import { getPasswordStrength } from '@/utils/auth';
+// import { getPasswordStrength } from '@/utils/auth';
 
 const LoginForm = ({
   register,
   errors,
-  watch,
+  // watch,
   handleLogin,
   showLoginPassword,
   toggleLoginPassword,
@@ -14,8 +14,8 @@ const LoginForm = ({
   isScreenLoading,
   handleSwitchToRegister,
 }) => {
-  const passwordValue = watch('password');
-  const strength = getPasswordStrength(passwordValue);
+  // const passwordValue = watch('password');
+  // const strength = getPasswordStrength(passwordValue);
 
   return (
     <>
@@ -85,7 +85,7 @@ const LoginForm = ({
               {showLoginPassword ? <EyeOff /> : <Eye />}
             </button>
           </div>
-          {passwordValue && (
+          {/* {passwordValue && (
             <div className="ui-password-strength">
               <div className={`bar ${strength}`}></div>
               <span className="label">
@@ -94,7 +94,7 @@ const LoginForm = ({
                 {strength === 'strong' && '強'}
               </span>
             </div>
-          )}
+          )} */}
 
           <button
             type="submit"

@@ -25,7 +25,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { success, showError, warning } = useToast();
+  const { success, showError } = useToast();
   const [mode, setMode] = useState('login'); // 'login' | 'register'
   const from = location.state?.from?.pathname || '/membercenter'; // navigate 調整路徑，先預設導向membercenter
 
@@ -39,7 +39,6 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm({
     defaultValues: {
       email: 'example@test.com',
@@ -245,7 +244,6 @@ const LoginPage = () => {
           <LoginForm
             register={register}
             errors={errors}
-            watch={watch}
             handleLogin={handleSubmit(handleLogin)}
             showLoginPassword={showLoginPassword}
             toggleLoginPassword={toggleLoginPassword}

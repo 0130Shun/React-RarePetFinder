@@ -225,11 +225,18 @@ const Header = () => {
     return (
       <li className="nav-item ui-nav-item" key={route.label}>
         <a
-          className="nav-link"
+          title="將開啟 Google 表單（新分頁）"
           href={route.href}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={closeMenu}
+          onClick={(e) => {
+            e.preventDefault();
+            const confirmGo = window.confirm('將前往外部問卷，是否繼續？');
+            if (confirmGo) {
+              window.open(route.href, '_blank');
+            }
+            closeMenu();
+          }}
         >
           {route.label}
         </a>
