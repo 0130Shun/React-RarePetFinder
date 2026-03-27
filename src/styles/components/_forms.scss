@@ -1,0 +1,22 @@
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
+
+.ui-error-message {
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 12px;
+  // 微動畫
+  animation: fadeIn 0.25s ease;
+
+  @include respond(mobile) {
+    width: 75%;
+  }
+
+  @include respond(pad) {
+    width: 50%;
+  }
+
+  @include respond(desktop) {
+    width: 35%;
+  }
+}

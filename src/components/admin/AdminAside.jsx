@@ -17,13 +17,28 @@ const menu = [
     end: true,
   },
   {
-    name: 'Products',
-    path: '/admin/products',
+    name: '會員設定',
+    path: '/admin/users',
     icon: <Box size={18} />,
   },
   {
-    name: 'Orders',
-    path: '/admin/orders',
+    name: '店家設定',
+    path: '/admin/stores',
+    icon: <Box size={18} />,
+  },
+  {
+    name: '投稿文章',
+    path: '/admin/articles',
+    icon: <ShoppingCart size={18} />,
+  },
+  {
+    name: '詐騙資訊',
+    path: '/admin/announcements',
+    icon: <ShoppingCart size={18} />,
+  },
+  {
+    name: '回到前台',
+    path: '/',
     icon: <ShoppingCart size={18} />,
   },
 ];

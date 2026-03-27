@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { useNavigate, useLocation } from 'react-router-dom';
 // services
 import { updateUserApi } from '@/services/userService';
 // features
@@ -186,12 +185,13 @@ const MemberCenter = () => {
           <aside className="col-lg-4 col-12">
             <div className="member-card p-3 shadow-sm">
               <h2 className="mb-3 text-center">會員資訊</h2>
-              <div className="w-75 mx-auto mb-3">
-                <p className="text-start">Email：{user.email}</p>
-                <p className="text-start">角色：{user.role}</p>
-                <p className="text-start">
-                  註冊時間：{formatDate(user.createdAt)}
-                </p>
+              <div className="member-card-info mb-3">
+                <p className="info-title">Email：</p>
+                <p className="text-start">{user.email}</p>
+                <p className="info-title">角色：</p>
+                <p className="text-start">{user.role}</p>
+                <p className="info-title">註冊時間：</p>
+                <p className="text-start">{formatDate(user.createdAt)}</p>
               </div>
               <div className="text-center mb-3">
                 <button
@@ -214,7 +214,7 @@ const MemberCenter = () => {
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label className="form-label">使用者名稱</label>
+                  <label className="form-label info-title">使用者名稱：</label>
                   <input
                     className="form-control"
                     type="text"
@@ -226,7 +226,7 @@ const MemberCenter = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">個人簡介</label>
+                  <label className="form-label info-title">個人簡介：</label>
                   <textarea
                     className="form-control"
                     name="bio"
@@ -237,7 +237,7 @@ const MemberCenter = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">所在地</label>
+                  <label className="form-label info-title">所在地：</label>
 
                   <select
                     className="form-select"
@@ -256,7 +256,7 @@ const MemberCenter = () => {
                 </div>
 
                 <div className="mb-4">
-                  <label className="form-label">喜好寵物</label>
+                  <label className="form-label info-title">喜好寵物：</label>
                   <div className="d-flex flex-wrap gap-2 mt-2">
                     {PET_OPTIONS.map((type) => {
                       const isChecked =

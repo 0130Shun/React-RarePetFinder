@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Eye, EyeOff } from 'react-feather';
 
 // Service
 import { loginApi, registerApi } from '@/services/authService';
@@ -40,6 +41,8 @@ const LoginPage = () => {
     email: '',
     password: '',
   });
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
 
   const [loginError, setLoginError] = useState('');
   const [registerError, setRegisterError] = useState('');
@@ -130,6 +133,12 @@ const LoginPage = () => {
     }
   };
 
+  // 切換 註冊表單
+  const onSwitchToRegister = () => {
+    setMode('register');
+    setLoginError('');
+  };
+
   // 註冊 submit
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -149,19 +158,17 @@ const LoginPage = () => {
       const registerApiData = { ...registerData, role: 'user', createdAt: now }; // 前台註冊的一律都是 role: 'user'
       await registerApi(registerApiData);
 
-      success('註冊成功，請登入');
-
-      // 自動切回登入
       setRegisterData({
         userName: '',
         email: '',
         password: '',
       });
 
-      // // 可選：自動跳登入錨點
-      // window.location.hash = '#logindiv';
-      // 切換模式讓剛註冊完畢的使用者登入
-      setMode('login');
+      // 切換模式讓剛註冊完畢的使用者登入 // 可選： window.location.hash = '#logindiv';
+      setTimeout(() => {
+        success('註冊成功，請使用剛剛的帳號登入');
+        setMode('login');
+      }, 500);
     } catch (err) {
       const errorMsg = extractErrorMessage(
         err,
@@ -172,6 +179,12 @@ const LoginPage = () => {
     } finally {
       setIsScreenLoading(false);
     }
+  };
+
+  // 切換 登入表單
+  const onSwitchToLogin = () => {
+    setMode('login');
+    setRegisterError('');
   };
 
   useEffect(() => {
@@ -193,11 +206,14 @@ const LoginPage = () => {
           >
             <h2 className="mb-4">會員登入</h2>
             {loginError && (
-              <div className="alert alert-danger w-25 text-center">
+              <div className="ui-error-message alert alert-danger text-center mb-4">
                 {loginError}
               </div>
             )}
-            <form onSubmit={handleLogin} className="d-flex flex-column gap-3">
+            <form
+              onSubmit={handleLogin}
+              className={`d-flex flex-column gap-3 ${isScreenLoading ? 'opacity-50' : ''}`}
+            >
               <div className="form-floating mb-3">
                 <input
                   id="email"
@@ -211,11 +227,11 @@ const LoginPage = () => {
                 />
                 <label htmlFor="email">Email address</label>
               </div>
-              <div className="form-floating">
+              <div className="form-floating ui-input-password ui-input-password--login">
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showLoginPassword ? 'text' : 'password'}
                   value={account.password || ''}
                   onChange={handleInputChange}
                   className="form-control"
@@ -223,11 +239,36 @@ const LoginPage = () => {
                   required
                 />
                 <label htmlFor="password">Password</label>
+                <button
+                  type="button"
+                  className="ui-input-password__toggle"
+                  onClick={() => setShowLoginPassword(!showLoginPassword)}
+                >
+                  {showLoginPassword ? <EyeOff /> : <Eye />}
+                </button>
               </div>
-              <button type="submit" className="btn btn-primary">
-                登入
+
+              <button
+                type="submit"
+                className="btn ui-btn-primary"
+                disabled={isScreenLoading}
+              >
+                {isScreenLoading ? '登入中...' : '登入'}
               </button>
             </form>
+            <p className="mt-3 text-center">
+              還沒有帳號？
+              <button
+                type="button"
+                className="btn ui-btn-warning"
+                onClick={() => {
+                  setMode('register');
+                  setLoginError('');
+                }}
+              >
+                註冊
+              </button>
+            </p>
           </div>
         )}
 
@@ -238,13 +279,13 @@ const LoginPage = () => {
           >
             <h2 className="mb-4">註冊帳號</h2>
             {registerError && (
-              <div className="alert alert-danger w-25 text-center">
+              <div className="ui-error-message alert alert-danger text-center mb-4">
                 {registerError}
               </div>
             )}
             <form
               onSubmit={handleRegister}
-              className="d-flex flex-column gap-3"
+              className={`d-flex flex-column gap-3 ${isScreenLoading ? 'opacity-50' : ''}`}
             >
               {/* userName */}
               <div className="form-floating">
@@ -275,9 +316,9 @@ const LoginPage = () => {
               </div>
 
               {/* password */}
-              <div className="form-floating">
+              <div className="form-floating ui-input-password ui-input-password--register">
                 <input
-                  type="password"
+                  type={showRegisterPassword ? 'text' : 'password'}
                   name="password"
                   value={registerData.password}
                   onChange={handleRegisterChange}
@@ -286,12 +327,33 @@ const LoginPage = () => {
                   required
                 />
                 <label>Password</label>
+                <button
+                  type="button"
+                  className="ui-input-password__toggle"
+                  onClick={() => setShowRegisterPassword(!showRegisterPassword)}
+                >
+                  {showRegisterPassword ? <EyeOff /> : <Eye />}
+                </button>
               </div>
 
-              <button type="submit" className="btn btn-success">
-                註冊
+              <button
+                type="submit"
+                className="btn ui-btn-warning"
+                disabled={isScreenLoading}
+              >
+                {isScreenLoading ? '註冊中...' : '註冊'}
               </button>
             </form>
+            <p className="mt-3 text-center">
+              已經有帳號？
+              <button
+                type="button"
+                className="btn ui-btn-primary"
+                onClick={() => onSwitchToLogin()}
+              >
+                登入
+              </button>
+            </p>
           </div>
         )}
       </section>

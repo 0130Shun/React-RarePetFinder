@@ -1,5 +1,5 @@
 // Header.jsx
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { User, Menu, X } from 'react-feather';
 // import { useSelector, useDispatch } from 'react-redux';
@@ -43,11 +43,11 @@ const routes = [
     label: '稀寵資訊',
     to: '/articles',
   },
-  // {
-  //   type: 'link',
-  //   label: '投稿 / 回報',
-  //   to: '/',
-  // },
+  {
+    type: 'external',
+    label: '投稿 / 回報',
+    href: 'https://forms.gle/66ZvtSHbzTps9F2P8',
+  },
   // ──────────────────
   // 登入 / 註冊 & 會員中心（拆分到authDropdown）
   // ──────────────────
@@ -68,8 +68,7 @@ const getAuthMenu = (user) => {
   return [
     { label: '會員中心', to: '/membercenter' },
     { label: '收藏店家', to: '/favorite' },
-    // 暫時關閉回到後台
-    // ...(user.role === 'admin' ? [{ label: '回後台', to: '/admin' }] : []),
+    ...(user.role === 'admin' ? [{ label: '回後台', to: '/admin' }] : []),
     { type: 'divider' },
     { label: '登出', action: 'logout' },
   ];
@@ -221,6 +220,23 @@ const Header = () => {
     );
   };
 
+  // externalLink
+  const externalLink = (route) => {
+    return (
+      <li className="nav-item ui-nav-item" key={route.label}>
+        <a
+          className="nav-link"
+          href={route.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={closeMenu}
+        >
+          {route.label}
+        </a>
+      </li>
+    );
+  };
+
   // 處理 Body Class 的邏輯
   useEffect(() => {
     const navElement = navRef.current;
@@ -275,19 +291,16 @@ const Header = () => {
           {/* 導覽內容 */}
           <div className="collapse navbar-collapse" id="mainNav" ref={navRef}>
             <ul className="navbar-nav ms-auto">
-              {/* 收藏夾獨立page但未實作 */}
-
               {routes.map((route) => {
                 switch (route.type) {
                   case 'link':
                     return link(route);
-
+                  case 'external':
+                    return externalLink(route);
                   case 'dropdown':
                     return dropdown(route);
-
                   case 'authDropdown':
                     return renderAuthDropdown(route);
-
                   default:
                     return null;
                 }

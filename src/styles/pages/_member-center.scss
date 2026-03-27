@@ -10,6 +10,15 @@
   h2 {
     @include apply-font($TC-1-Heading05-Bold);
   }
+
+  .info-title {
+    @include apply-font($TC-1-Heading06-Bold);
+  }
+}
+
+.member-card-info {
+  width: 60%;
+  margin: 0 auto;
 }
 
 .petType-checkbox {
