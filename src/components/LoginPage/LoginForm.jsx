@@ -1,16 +1,22 @@
 import { Eye, EyeOff } from 'react-feather';
-// import { useForm } from 'react-hook-form';
+
+// utils
+import { getPasswordStrength } from '@/utils/auth';
 
 const LoginForm = ({
+  register,
+  errors,
+  watch,
   handleLogin,
-  handleInputChange,
-  accountData,
   showLoginPassword,
   toggleLoginPassword,
   loginError,
   isScreenLoading,
   handleSwitchToRegister,
 }) => {
+  const passwordValue = watch('password');
+  const strength = getPasswordStrength(passwordValue);
+
   return (
     <>
       <div
@@ -32,12 +38,22 @@ const LoginForm = ({
               id="email"
               name="email"
               type="email"
-              value={accountData.email}
-              onChange={handleInputChange}
+              // value={accountData.email}
+              // onChange={handleInputChange}
+              {...register('email', {
+                required: '請輸入 email',
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: 'Email 格式錯誤',
+                },
+              })}
               className="form-control"
               placeholder="example@test.com"
               required
             />
+            {errors.email && (
+              <p className="ui-error-message mt-1">{errors.email.message}</p>
+            )}
             <label htmlFor="email">Email address</label>
           </div>
           <div className="form-floating ui-input-password ui-input-password--login">
@@ -45,12 +61,21 @@ const LoginForm = ({
               id="password"
               name="password"
               type={showLoginPassword ? 'text' : 'password'}
-              value={accountData.password || ''}
-              onChange={handleInputChange}
+              {...register('password', {
+                required: '請輸入密碼',
+                minLength: {
+                  value: 6,
+                  message: '密碼至少 6 碼',
+                },
+              })}
               className="form-control"
               placeholder="example"
               required
             />
+
+            {errors.password && (
+              <p className="ui-error-message mt-1">{errors.password.message}</p>
+            )}
             <label htmlFor="password">Password</label>
             <button
               type="button"
@@ -60,6 +85,16 @@ const LoginForm = ({
               {showLoginPassword ? <EyeOff /> : <Eye />}
             </button>
           </div>
+          {passwordValue && (
+            <div className="ui-password-strength">
+              <div className={`bar ${strength}`}></div>
+              <span className="label">
+                {strength === 'weak' && '弱'}
+                {strength === 'medium' && '中'}
+                {strength === 'strong' && '強'}
+              </span>
+            </div>
+          )}
 
           <button
             type="submit"

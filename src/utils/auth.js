@@ -23,6 +23,14 @@ export const clearAuthToken = () => {
   localStorage.removeItem('token');
 };
 
+export const getPasswordStrength = (password) => {
+  if (!password) return '';
+
+  if (password.length < 6) return 'weak';
+  if (password.length < 10) return 'medium';
+  return 'strong';
+};
+
 // ────────────────────────────────────────────────
 
 export const getAuthUser = () => {

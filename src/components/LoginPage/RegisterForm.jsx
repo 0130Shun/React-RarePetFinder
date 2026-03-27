@@ -1,15 +1,22 @@
 import { Eye, EyeOff } from 'react-feather';
 
+// utils
+import { getPasswordStrength } from '@/utils/auth';
+
 const RegisterForm = ({
+  registerRegister,
+  registerErrors,
+  registerWatch,
   handleRegister,
-  handleRegisterChange,
-  registerData,
   showRegisterPassword,
   toggleRegisterPassword,
   registerError,
   isScreenLoading,
   handleSwitchToLogin,
 }) => {
+  const passwordValue = registerWatch('password');
+  const strength = getPasswordStrength(passwordValue);
+
   return (
     <>
       <div
@@ -31,13 +38,16 @@ const RegisterForm = ({
             <input
               type="text"
               name="userName"
-              value={registerData.userName}
-              onChange={handleRegisterChange}
+              // value={registerData.userName}
+              // onChange={handleRegisterChange}
+              {...registerRegister('userName', {
+                required: '請輸入 userName',
+              })}
               className="form-control"
               placeholder="Your Name"
               required
             />
-            <label>使用者名稱</label>
+            <label htmlFor="userName">使用者名稱</label>
           </div>
 
           {/* email */}
@@ -45,13 +55,25 @@ const RegisterForm = ({
             <input
               type="email"
               name="email"
-              value={registerData.email}
-              onChange={handleRegisterChange}
+              // value={registerData.email}
+              // onChange={handleRegisterChange}
+              {...registerRegister('email', {
+                required: '請輸入 email',
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: 'Email 格式錯誤',
+                },
+              })}
               className="form-control"
               placeholder="example@mail.com"
               required
             />
-            <label>Email</label>
+            {registerErrors.email && (
+              <p className="ui-error-message mt-1">
+                {registerErrors.email.message}
+              </p>
+            )}
+            <label htmlFor="email">Email address</label>
           </div>
 
           {/* password */}
@@ -59,13 +81,66 @@ const RegisterForm = ({
             <input
               type={showRegisterPassword ? 'text' : 'password'}
               name="password"
-              value={registerData.password}
-              onChange={handleRegisterChange}
+              // value={registerData.password}
+              // onChange={handleRegisterChange}
+              {...registerRegister('password', {
+                required: '請輸入密碼',
+                minLength: {
+                  value: 6,
+                  message: '密碼至少 6 碼',
+                  // 英文大小寫+數字+長度(測試版先用6碼)
+                  // value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/,
+                  // message: '密碼至少 8碼 + 英文大小寫 + 數字',
+                },
+              })}
               className="form-control"
               placeholder="password"
               required
             />
-            <label>Password</label>
+            {registerErrors.password && (
+              <p className="ui-error-message mt-1">
+                {registerErrors.password.message}
+              </p>
+            )}
+            <label htmlFor="password">password</label>
+            <button
+              type="button"
+              className="ui-input-password__toggle"
+              onClick={toggleRegisterPassword}
+            >
+              {showRegisterPassword ? <EyeOff /> : <Eye />}
+            </button>
+          </div>
+          {passwordValue && (
+            <div className="ui-password-strength">
+              <div className={`bar ${strength}`}></div>
+              <span className="label">
+                {strength === 'weak' && '弱'}
+                {strength === 'medium' && '中'}
+                {strength === 'strong' && '強'}
+              </span>
+            </div>
+          )}
+          {/* keyin password again*/}
+          <div className="form-floating ui-input-password ui-input-password--register">
+            <input
+              type={showRegisterPassword ? 'text' : 'password'}
+              name="againPassword"
+              {...registerRegister('passwordAgain', {
+                required: '請再次輸入密碼',
+                validate: (value) =>
+                  value === registerWatch('password') || '兩次密碼不一致',
+              })}
+              className="form-control"
+              placeholder="password"
+              required
+            />
+            {registerErrors.passwordAgain && (
+              <p className="ui-error-message mt-1">
+                {registerErrors.passwordAgain.message}
+              </p>
+            )}
+            <label htmlFor="againPassword">password again</label>
             <button
               type="button"
               className="ui-input-password__toggle"

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
 // Service
 import { loginApi, registerApi } from '@/services/authService';
@@ -29,17 +30,44 @@ const LoginPage = () => {
   const from = location.state?.from?.pathname || '/membercenter'; // navigate 調整路徑，先預設導向membercenter
 
   // 登入區域
-  const [accountData, setAccountData] = useState({
-    email: 'example@test.com',
-    password: 'example',
+  // const [accountData, setAccountData] = useState({
+  //   email: 'example@test.com',
+  //   password: 'example',
+  // });
+  // 登入區域 - RHF 接管資料流
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({
+    defaultValues: {
+      email: 'example@test.com',
+      password: 'example',
+    },
   });
 
-  // 註冊 state
-  const [registerData, setRegisterData] = useState({
-    userName: '',
-    email: '',
-    password: '',
+  // // 註冊 state
+  // const [registerData, setRegisterData] = useState({
+  //   userName: '',
+  //   email: '',
+  //   password: '',
+  // });
+  // 註冊區域 - RHF 接管資料流
+  const {
+    register: registerRegister, // 避免跟 login register 撞名,
+    handleSubmit: handleRegisterSubmit,
+    formState: { errors: registerErrors },
+    watch: registerWatch,
+  } = useForm({
+    defaultValues: {
+      userName: '',
+      email: '',
+      password: '',
+      passwordAgain: '',
+    },
   });
+
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showRegisterPassword, setShowRegisterPassword] = useState(false);
 
@@ -48,41 +76,43 @@ const LoginPage = () => {
   const [isScreenLoading, setIsScreenLoading] = useState(false);
 
   // 登入表單 - Input變動
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setAccountData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setAccountData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
 
-  // 註冊表單 -  Input變動
-  const handleRegisterChange = (e) => {
-    const { name, value } = e.target;
-    setRegisterData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // // 註冊表單 -  Input變動
+  // const handleRegisterChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setRegisterData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
 
   // 登入表單 - 登入submit事件（使用 async/await）
-  const handleLogin = async (e) => {
-    e.preventDefault(); // 一定要最前面，避免後續程式碼執行後頁面刷新
-
+  const handleLogin = async (data) => {
     let redirectPath = '/membercenter'; // 預設路徑 membercenter
     setIsScreenLoading(true);
     setLoginError(''); // 清空錯誤資訊區
 
-    if (!accountData.email || !accountData.password) {
-      setLoginError('請填寫完整登入資訊');
-      warning('請填寫完整登入資訊');
-      setIsScreenLoading(false);
-      return;
-    }
+    // 刪除手動檢查 data部分，已經交由 RHF validation，避免「重複邏輯」
+    // if (!data.email || !data.password) {
+    //   setLoginError('請填寫完整登入資訊');
+    //   warning('請填寫完整登入資訊');
+    //   setIsScreenLoading(false);
+    //   return;
+    // }
 
     try {
-      // json-server-auth 不會回 expired(Token 的過期時間（timestamp）)，且已經有 localStorage token cookie 在 SPA 通常不需要。
-      const res = await loginApi(accountData);
+      // json-server-auth 不會回 expired(Token 的過期時間（timestamp）)，
+      // 且已經有 localStorage token cookie 在 SPA 通常不需要。
+
+      // const res = await loginApi(accountData);
+      const res = await loginApi(data); // 「 RHF 接管資料流」並把 accountData替換成 data
       const { accessToken, user } = res;
 
       // 同時存入 localStorage 和 更新 Redux
@@ -141,29 +171,35 @@ const LoginPage = () => {
   };
 
   // 註冊表單 submit
-  const handleRegister = async (e) => {
-    e.preventDefault();
+  const handleRegister = async (data) => {
+    // e.preventDefault();
     setIsScreenLoading(true);
     setRegisterError('');
 
-    const { userName, email, password } = registerData;
-
-    if (!userName || !email || !password) {
-      warning('請填寫完整註冊資訊');
-      setIsScreenLoading(false);
-      return;
-    }
+    // 刪除手動檢查 data部分，已經交由 RHF validation，避免「重複邏輯」
+    // if (
+    //   !data.userName ||
+    //   !data.email ||
+    //   !data.password ||
+    //   !data.passwordAgain
+    // ) {
+    //   warning('請填寫完整註冊資訊');
+    //   setIsScreenLoading(false);
+    //   return;
+    // }
 
     try {
       const now = new Date();
-      const registerApiData = { ...registerData, role: 'user', createdAt: now }; // 前台註冊的一律都是 role: 'user'
+      // 前台註冊的一律都是 role: 'user'
+      // const registerApiData = { ...registerData, role: 'user', createdAt: now };
+      const registerApiData = { ...data, role: 'user', createdAt: now };
       await registerApi(registerApiData);
 
-      setRegisterData({
-        userName: '',
-        email: '',
-        password: '',
-      });
+      // setRegisterData({
+      //   userName: '',
+      //   email: '',
+      //   password: '',
+      // });
 
       // 切換模式讓剛註冊完畢的使用者登入 // 可選： window.location.hash = '#logindiv';
       setTimeout(() => {
@@ -207,9 +243,10 @@ const LoginPage = () => {
       <section className="container ui-container my-5">
         {mode === 'login' && (
           <LoginForm
-            handleLogin={handleLogin}
-            handleInputChange={handleInputChange}
-            accountData={accountData}
+            register={register}
+            errors={errors}
+            watch={watch}
+            handleLogin={handleSubmit(handleLogin)}
             showLoginPassword={showLoginPassword}
             toggleLoginPassword={toggleLoginPassword}
             loginError={loginError}
@@ -220,9 +257,10 @@ const LoginPage = () => {
 
         {mode === 'register' && (
           <RegisterForm
-            handleRegister={handleRegister}
-            handleRegisterChange={handleRegisterChange}
-            registerData={registerData}
+            registerRegister={registerRegister}
+            registerErrors={registerErrors}
+            registerWatch={registerWatch}
+            handleRegister={handleRegisterSubmit(handleRegister)}
             showRegisterPassword={showRegisterPassword}
             toggleRegisterPassword={toggleRegisterPassword}
             registerError={registerError}
