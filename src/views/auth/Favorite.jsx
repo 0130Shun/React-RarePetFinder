@@ -128,20 +128,234 @@ const Favorite = () => {
     <>
       <SubHero variant="favorite" />
       <section className="container ui-container mt-md-5">
-        <div className="row g-4">
-          {allFavorites.length === 0 && !isScreenLoading && (
-            <div className="text-center text-muted py-5">尚未收藏任何店家</div>
-          )}
-
-          {allFavorites.map((store) => (
-            <div key={store.id} className="col-lg-4 col-md-6 col-12">
-              <StoreCard
-                store={store}
-                isFavorite={!!favoritesMap[store.id]}
-                onToggleFavorite={handleToggleFavorite}
-              />
+        <div className="row mx-0 mx-md-auto">
+          <div className="col-12 d-md-none p-3">
+            {/* <div className="findStores-search mb-36 mobile-search">
+              <div className="d-flex justify-content-between">
+                <span className="span-style">搜尋</span>
+                <button
+                  type="button"
+                  className="fw-bold shadow-sm btn-style"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#searchOffcanvas"
+                >
+                  進階篩選
+                  <img className="sliders" src={Sliders} alt="imgSliders" />
+                </button>
+              </div>
+              <form onSubmit={handleSubmit(onSubmitSearch)}>
+                <div className="findStores-search-group mt-12">
+                  <div className="findStores-search-bar text">
+                    <Controller
+                      name="query"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="text"
+                          placeholder="搜尋關鍵字"
+                        />
+                      )}
+                    />
+                    <button type="submit">
+                      <img src={Search} alt="imgSearch" />
+                    </button>
+                  </div>
+                  <div className="findStores-search-button">
+                    <button type="button" onClick={onResetQueryOnly}>
+                      重置
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div> */}
+          </div>
+        </div>
+        <div className="row mx-0 mx-md-auto ">
+          <aside className="col-lg-3">
+            <div
+              className="offcanvas-lg offcanvas-top h-100"
+              tabIndex="-1"
+              id="searchOffcanvas"
+            >
+              {/*<!-- 彈跳視窗上方 / 手機板的進階篩選 --*/}
+              <div className="offcanvas-header d-lg-none">
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="offcanvas"
+                  data-bs-target="#searchOffcanvas"
+                ></button>
+              </div>
+              {/*<!-- 彈跳視窗內容 -->*/}
+              <div className="offcanvas-body sidebar-sticky">
+                <div className="p-3 w-100">
+                  <form onSubmit={handleSubmit(onSubmitSearch)}>
+                    {/*<!-- 搜尋關鍵字 -->*/}
+                    <div className="findStores-search mb-36">
+                      <span className="span-style">搜尋</span>
+                      <div className="findStores-search-group mt-12">
+                        <div className="findStores-search-bar tc-1-small-regular">
+                          {/* <input
+                            type="text"
+                            placeholder="搜尋關鍵字"
+                            {...register('query')}
+                            value={watchedQuery}
+                          /> */}
+                          <Controller
+                            name="query"
+                            control={control}
+                            render={({ field }) => (
+                              <input
+                                {...field}
+                                type="text"
+                                placeholder="搜尋關鍵字"
+                              />
+                            )}
+                          />
+                          <button
+                            type="submit"
+                            data-bs-dismiss="offcanvas"
+                            data-bs-target="#searchOffcanvas"
+                          >
+                            <img src={Search} alt="imgAsideSearch" />
+                          </button>
+                        </div>
+                        <div className="findStores-search-button">
+                          <button type="button" onClick={onResetQueryOnly}>
+                            重置
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    {/* <!-- 縣市 --> */}
+                    <div className="city mb-36">
+                      <span className="span-style">縣市</span>
+                      <div className="mt-12 city-select">
+                        <select
+                          className="form-select form-select-lg select-arrow tc-1-small-regular"
+                          aria-label=".form-select-lg example"
+                          {...register('area')}
+                        >
+                          <option value="">全部縣市</option>
+                          {AREA_OPTIONS.filter((a) => a !== '').map((a) => (
+                            <option key={a} value={a}>
+                              {a}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    {/* <!-- 鄉鎮市區 --> */}
+                    {/* 暫時隱藏 因邏輯還沒有這一塊 */}
+                    {/* <div className="township mb-36">
+                    <span className="span-style">鄉鎮地區</span>
+                    <div className="mt-12 township-select">
+                      <select
+                        className="form-select form-select-lg select-arrow"
+                        aria-label=".form-select-lg example"
+                      >
+                        <option selected>請選擇鄉鎮地區</option>
+                        <option value="1">大同區</option>
+                        <option value="2">神岡區</option>
+                        <option value="3">三民區</option>
+                      </select>
+                    </div>
+                  </div> */}
+                    {/* <!-- 店家種類 --> */}
+                    <div className="storeTypes mb-36">
+                      <span className="span-style">店家種類</span>
+                      <div className="mt-12">
+                        {STORE_TYPE_OPTIONS.map((type, index) => {
+                          const isChecked = watchedStoreTypes.includes(type);
+                          return (
+                            <div
+                              className={`mt-${index === 0 ? '0' : '12'} store-type-checkbox ${isChecked ? 'checked' : ''} `}
+                              key={type}
+                            >
+                              <div className="form-check">
+                                <input
+                                  className="form-check-input checkbox-input"
+                                  type="checkbox"
+                                  value={type}
+                                  id={`storeType-${type}`}
+                                  {...register('storeType')}
+                                />
+                                <label
+                                  className="form-check-label checkbox-label"
+                                  htmlFor={`storeType-${type}`}
+                                >
+                                  {type}
+                                </label>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    {/* <!-- 寵物種類 --> */}
+                    <div className="petTypes mb-36">
+                      <span className="span-style">寵物種類</span>
+                      <div className="mt-12">
+                        {PET_TYPE_OPTIONS.map((type, index) => {
+                          const isChecked = watchedPetTypes.includes(type);
+                          return (
+                            <div
+                              className={`mt-${index === 0 ? '0' : '12'} pet-type-checkbox ${isChecked ? 'checked' : ''}`}
+                              key={type}
+                            >
+                              <div className="form-check ">
+                                <input
+                                  className="form-check-input checkbox-input"
+                                  type="checkbox"
+                                  value={type}
+                                  id={`petType-${type}`}
+                                  {...register('petType')}
+                                />
+                                <label
+                                  className="form-check-label checkbox-label"
+                                  htmlFor={`petType-${type}`}
+                                >
+                                  {type}
+                                </label>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    {/* <!-- 搜尋按鈕 --> */}
+                    <div className="findStores-search-btn">
+                      <button
+                        type="submit"
+                        data-bs-dismiss="offcanvas"
+                        data-bs-target="#searchOffcanvas"
+                      >
+                        搜尋
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-          ))}
+          </aside>
+          <main className="col-lg-9 text-center text-lg-start">
+            {allFavorites.length === 0 && !isScreenLoading && (
+              <div className="text-center text-muted py-5">
+                尚未收藏任何店家
+              </div>
+            )}
+
+            {allFavorites.map((store) => (
+              <div key={store.id} className="col-lg-4 col-md-6 col-12">
+                <StoreCard
+                  store={store}
+                  isFavorite={!!favoritesMap[store.id]}
+                  onToggleFavorite={handleToggleFavorite}
+                />
+              </div>
+            ))}
+          </main>
         </div>
       </section>
       {/* ScreenLoading */}

@@ -6,6 +6,7 @@ import AdminLayout from '@/layout/AdminLayout';
 import Home from '@/views/front/home/Home';
 import Articles from '@/views/front/Articles';
 import FindStores from '@/views/front/FindStores';
+import FindStores2 from '@/views/front/FindStores2';
 import StoreDetail from '@/views/front/StoreDetail';
 import NotFound from '@/views/front/NotFound';
 // auth - 前台頁面
@@ -31,6 +32,11 @@ export const router = createHashRouter([
       {
         path: 'findstores',
         element: <FindStores />,
+      },
+      {
+        // findstores拆分元件
+        path: 'findstores2',
+        element: <FindStores2 />,
       },
       {
         path: 'storedetail/:storeId',

@@ -2,18 +2,23 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
 import { useSelector } from 'react-redux';
-import { storeService } from '@/services/storeService'; // 更新抽出後的api路徑
-import {
-  getFavoritesApi,
-  addFavoriteApi,
-  removeFavoriteApi,
-} from '@/services/favoriteService'; // 取得user的favorite的api路徑
+import { ChevronLeft, ChevronRight } from 'react-feather';
 
-//檢索頁的Banner
+// assets
+import Sliders from '@/assets/img/sliders.png';
+import Search from '@/assets/img/search.svg';
+// services
+import { storeService } from '@/services/storeService'; // 更新抽出後的api路徑
+import { getFavoritesApi } from '@/services/favoriteService'; // 取得user的favorite的api路徑
+//components
 import SubHero from '@/components/subHero/SubHero';
-// 引入 FullPageLoader
 import FullPageLoader from '@/components/shared/FullPageLoader';
-// 將 storeSearchUtils 中的工具引入
+import StoreCard from '@/components/StoreCard.jsx';
+// hook
+// import { useToast } from '@/hook/useToast';
+import { useFavorite } from '@/hook/useFavorite';
+// // utils
+// import { extractErrorMessage } from '@/utils/errorHandler';
 import {
   parseFilters,
   buildSearchParams,
@@ -21,20 +26,11 @@ import {
   matchQuery,
 } from '@/utils/storeSearchUtils';
 
-import StoreCard from '@/components/StoreCard.jsx';
-
-// hook
-import { useToast } from '@/hook/useToast';
-// utils
-import { extractErrorMessage } from '@/utils/errorHandler';
-
-import Sliders from '@/assets/img/sliders.png';
-import Search from '@/assets/img/search.svg';
-import { ChevronLeft, ChevronRight } from 'react-feather';
-//每頁顯示 9 筆店家
+// 每頁顯示 9 筆店家
 const PAGE_SIZE = 9;
 
 const FindStores = () => {
+  const { toggleFavorite } = useFavorite(user, favoritesMap, setFavoritesMap);
   const [searchParams, setSearchParams] = useSearchParams(); //更新網址用(query params)
   // 一行搞定初始化，defaultValues 對應原本的 initialState
   const { register, handleSubmit, setValue, reset, watch, control } = useForm({
@@ -62,16 +58,11 @@ const FindStores = () => {
   const [totalCount, setTotalCount] = useState(0); // 用來存篩選後的總筆數
 
   const [favoritesMap, setFavoritesMap] = useState({}); // 用來存篩以登入的user的favoritesMap狀態，運作起來會類似這樣變成清單比對  => favoritesMap = {
-  //   storeId: favoriteId,
-  //   3: 12,
-  //   8: 15,
-  //   21: 30,
-  // };
 
   //介面狀態
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { warning, showError } = useToast(); // Toast
+  // const { warning, showError } = useToast(); // Toast
   const user = useSelector((state) => state.user.user); // 從state取出會員資料
 
   //select/checkbox 會用到的選項
@@ -134,10 +125,6 @@ const FindStores = () => {
       return;
     }
 
-    // const loadFavorites = async () => {
-    //   const favs = await getFavoritesApi(user.id);
-    //   setFavoriteIds(favs.map((f) => f.storeId));
-    // };
     const loadFavorites = async () => {
       const favs = await getFavoritesApi(user.id);
 
@@ -152,72 +139,58 @@ const FindStores = () => {
     loadFavorites();
   }, [user]);
 
-  // URL 或資料變了，就重新算結果
-  // useEffect(() => {
-  //   const nextFilters = parseFilters(searchParams);
+  // useEffect 中 抽出 applyFilters，處理 nextFilters 純 filter
+  function applyFilters(allStores, nextFilters) {
+    const areaFiltered =
+      nextFilters.area === ''
+        ? allStores
+        : allStores.filter((s) => s.area === nextFilters.area);
+    const queryFiltered = areaFiltered.filter((s) =>
+      matchQuery(s, nextFilters.query)
+    );
 
-  //   //如果重新整理或貼上連結，也會顯示打勾等等對應的選項
-  //   // 用 RHF 的 reset 取代原本的 setDraft
-  //   reset({
-  //     area: nextFilters.area,
-  //     query: nextFilters.query,
-  //     storeType: nextFilters.storeType,
-  //     petType: nextFilters.petType,
-  //   });
+    const storeTypeFiltered = queryFiltered.filter((s) =>
+      hasIntersection(
+        Array.isArray(s.type) ? s.type : [],
+        nextFilters.storeType
+      )
+    );
 
-  //   // URL → filters 套用
-  //   setFilters(nextFilters);
+    const final = storeTypeFiltered.filter((s) =>
+      hasIntersection(
+        Array.isArray(s.petTypes) ? s.petTypes : [],
+        nextFilters.petType
+      )
+    );
 
-  //   // 篩選流程
-  //   // 地區
-  //   const areaFiltered =
-  //     nextFilters.area === ''
-  //       ? allStores
-  //       : allStores.filter((s) => s.area === nextFilters.area);
-  //   // 關鍵字
-  //   const queryFiltered = areaFiltered.filter((s) =>
-  //     matchQuery(s, nextFilters.query)
-  //   );
-  //   // 店家
-  //   const storeTypeFiltered = queryFiltered.filter((s) =>
-  //     hasIntersection(
-  //       Array.isArray(s.type) ? s.type : [],
-  //       nextFilters.storeType
-  //     )
-  //   );
-  //   //寵物
-  //   const filtered = storeTypeFiltered.filter((s) =>
-  //     hasIntersection(
-  //       Array.isArray(s.petTypes) ? s.petTypes : [],
-  //       nextFilters.petType
-  //     )
-  //   );
-  //   setTotalCount(filtered.length);
-  //   // 分頁
-  //   const nextTotalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  //   setTotalPages(nextTotalPages);
+    return final;
+  }
 
-  //   const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
-  //   if (safePage !== nextFilters.page) {
-  //     const fixed = { ...nextFilters, page: safePage };
-  //     setSearchParams(buildSearchParams(fixed), { replace: true });
-  //     return;
-  //   }
+  // useEffect 中 抽出 paginate，處理分頁細項
+  function paginate(list, page, pageSize) {
+    const total = list.length;
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    const safePage = Math.min(Math.max(1, page), totalPages);
+    const start = (safePage - 1) * pageSize;
+    const items = list.slice(start, start + pageSize);
 
-  //   const start = (safePage - 1) * PAGE_SIZE;
-  //   setItems(filtered.slice(start, start + PAGE_SIZE));
-  // }, [searchParams, allStores, setSearchParams, reset]); //記得依賴加入 reset
+    return {
+      items,
+      total,
+      totalPages,
+      safePage,
+    };
+  }
 
-  // URL 或資料變了，就重新算結果 => 舊版先保留
-  // 改寫成 async/await 版本，並加入 isLoading 和 error 狀態
+  // URL 或資料變了，就重新算結果 => 改寫成 async/await 版本，並加入 isLoading 和 error 狀態
   useEffect(() => {
     let active = true;
 
     async function processSearch() {
       setIsLoading(true);
 
-      // 讓 loading 至少顯示 500ms（模擬載入中狀態700秒，實際上可以拿掉)
-      await new Promise((r) => setTimeout(r, 500));
+      // 讓 loading 至少顯示 500ms（模擬載入中狀態400秒，實際上可以拿掉)
+      await new Promise((r) => setTimeout(r, 400));
 
       const nextFilters = parseFilters(searchParams);
 
@@ -230,43 +203,20 @@ const FindStores = () => {
 
       setFilters(nextFilters);
 
-      const areaFiltered =
-        nextFilters.area === ''
-          ? allStores
-          : allStores.filter((s) => s.area === nextFilters.area);
-
-      const queryFiltered = areaFiltered.filter((s) =>
-        matchQuery(s, nextFilters.query)
-      );
-
-      const storeTypeFiltered = queryFiltered.filter((s) =>
-        hasIntersection(
-          Array.isArray(s.type) ? s.type : [],
-          nextFilters.storeType
-        )
-      );
-
-      const filtered = storeTypeFiltered.filter((s) =>
-        hasIntersection(
-          Array.isArray(s.petTypes) ? s.petTypes : [],
-          nextFilters.petType
-        )
-      );
-
       if (!active) return;
 
-      setTotalCount(filtered.length);
-
-      const nextTotalPages = Math.max(
-        1,
-        Math.ceil(filtered.length / PAGE_SIZE)
+      // 1. 分組filter抽出
+      const filtered = applyFilters(allStores, nextFilters);
+      // 2. paginate計算抽出
+      const { items, total, totalPages } = paginate(
+        filtered,
+        nextFilters.page,
+        PAGE_SIZE
       );
-      setTotalPages(nextTotalPages);
-
-      const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
-
-      const start = (safePage - 1) * PAGE_SIZE;
-      setItems(filtered.slice(start, start + PAGE_SIZE));
+      // 3. setState集中
+      setItems(items);
+      setTotalCount(total);
+      setTotalPages(totalPages);
 
       setIsLoading(false);
     }
@@ -296,49 +246,6 @@ const FindStores = () => {
     setSearchParams(buildSearchParams(next));
   };
 
-  // handleToggleFavorite => 愛心收藏 <=> 退出收藏
-  const handleToggleFavorite = async (storeId) => {
-    if (!user) {
-      warning('登入後就可以收藏店家。');
-      return;
-    }
-
-    // const isFav = favoriteIds.includes(storeId);
-    const isFav = !!favoritesMap[storeId];
-
-    try {
-      if (isFav) {
-        await removeFavoriteApi(favoritesMap[storeId]);
-
-        setFavoritesMap((prev) => {
-          const newMap = { ...prev };
-          delete newMap[storeId];
-          return newMap;
-        });
-      } else {
-        const now = new Date();
-        const res = await addFavoriteApi({
-          userId: user.id,
-          storeId,
-          createdAt: now,
-        });
-
-        setFavoritesMap((prev) => ({
-          ...prev,
-          [storeId]: res.id,
-        }));
-      }
-    } catch (err) {
-      console.error(err);
-      const errorMessage = extractErrorMessage(
-        err,
-        null,
-        '載入收藏店家資料失敗，請重新刷新頁面。'
-      );
-      showError(errorMessage);
-    }
-  };
-
   return (
     <>
       <SubHero variant="findStores" />
@@ -361,12 +268,6 @@ const FindStores = () => {
               <form onSubmit={handleSubmit(onSubmitSearch)}>
                 <div className="findStores-search-group mt-12">
                   <div className="findStores-search-bar text">
-                    {/* <input
-                      type="text"
-                      placeholder="搜尋關鍵字"
-                      {...register('query')}
-                      value={watchedQuery}
-                    /> */}
                     <Controller
                       name="query"
                       control={control}
@@ -417,12 +318,6 @@ const FindStores = () => {
                       <span className="span-style">搜尋</span>
                       <div className="findStores-search-group mt-12">
                         <div className="findStores-search-bar tc-1-small-regular">
-                          {/* <input
-                            type="text"
-                            placeholder="搜尋關鍵字"
-                            {...register('query')}
-                            value={watchedQuery}
-                          /> */}
                           <Controller
                             name="query"
                             control={control}
@@ -583,7 +478,7 @@ const FindStores = () => {
                   key={store.id}
                   store={store}
                   isFavorite={!!favoritesMap[store.id]}
-                  onToggleFavorite={handleToggleFavorite}
+                  onToggleFavorite={() => toggleFavorite(store.id)}
                 />
               ))}
             </div>
