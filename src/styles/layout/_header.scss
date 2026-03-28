@@ -1,8 +1,9 @@
 // _header.scss
-@use '../helpers/mixins' as *;
-@use '../helpers/custom-text' as *;
-@use '../helpers/variables' as *;
-@use '../components/dropdown-skin' as *;
+@use '@/styles/helpers/mixins' as *;
+@use '@/styles/helpers/breakpoints' as *;
+@use '@/styles/helpers/custom-text' as *;
+@use '@/styles/helpers/variables' as *;
+@use '@/styles/components/dropdown-skin' as *;
 
 .header {
   position: relative;
@@ -11,7 +12,7 @@
     min-height: 72px;
     padding: 0;
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       border-radius: 0px;
       min-height: 156px;
     }
@@ -22,7 +23,7 @@
     gap: 8px;
     padding-bottom: 24px;
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       min-height: 32px;
       padding-bottom: 0px;
     }
@@ -39,7 +40,7 @@
       max-height: 35px;
     }
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       margin-top: 64px;
       margin-bottom: 40px;
       margin-left: 0px;
@@ -63,7 +64,7 @@
 
     // 這裡不需要再寫 .hamburger 或 .close-icon 的 display 控制了
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       display: none;
       margin-right: 0px;
     }
@@ -80,7 +81,7 @@
     border-radius: 0px 0px 16px 16px;
     // background-color: rgba($ui-color-danger, 0.3);
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       position: static;
       top: auto;
       left: auto;
@@ -126,7 +127,7 @@
   }
 
   // desktop 強制不顯示（保險）
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     .nav-backdrop {
       display: none !important;
     }
@@ -142,7 +143,7 @@
   margin-bottom: 24px;
   gap: 8px;
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     //ms-auto align-items-lg-center gap-lg-2
     margin-left: auto; // 等同 ms-auto
     display: flex;
@@ -159,7 +160,7 @@
   padding: 0px;
   gap: 8px;
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     margin-left: 0px;
   }
 
@@ -179,7 +180,7 @@
     text-align: left;
     color: $ui-neutral-800;
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       justify-content: center;
       border-radius: 40px;
       min-width: 81px;
@@ -194,7 +195,7 @@
   .nav-link-isAuth {
     background-color: $ui-color-secondary;
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       &:hover {
         color: $ui-color-warning;
         // background-color: $ui-color-warning;
@@ -218,7 +219,7 @@
     padding: 8px;
     min-width: 224px;
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       left: 50%;
       transform: translateX(-50%);
       border-radius: 8px;
@@ -233,14 +234,14 @@
   // .dropdown-menu--lg {
   //   min-width: 250px;
 
-  //   @include respond(desktop) {
+  //   @include respond($breakpoints, desktop) {
   //     min-width: 120px;
   //   }
   // }
 
   .dropdown-menu--lg {
     min-width: $dropdown-width-lg;
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       min-width: $dropdown-width-sm;
     }
   }

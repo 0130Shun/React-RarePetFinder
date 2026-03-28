@@ -44,7 +44,7 @@ const AdminAside = () => {
     <aside className={`admin-sidebar ${collapsed ? 'collapsed' : ''}`}>
       {/* Header */}
       <div className="admin-sidebar__brand">
-        <span>My Admin</span>
+        <span>稀寵後台</span>
         <button onClick={() => setCollapsed(!collapsed)}>
           <Menu size={18} />
         </button>

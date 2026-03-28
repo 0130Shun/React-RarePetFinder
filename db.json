@@ -1472,6 +1472,12 @@
       "storeId": 5,
       "createdAt": "2026-03-23T18:22:12.634Z",
       "id": 3
+    },
+    {
+      "userId": 3,
+      "storeId": 5,
+      "createdAt": "2026-03-28T09:57:24.940Z",
+      "id": 4
     }
   ],
   "articles": [

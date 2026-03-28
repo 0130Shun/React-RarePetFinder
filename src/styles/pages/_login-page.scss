@@ -1,5 +1,6 @@
 @use '@/styles/helpers/_custom-text' as *;
 @use '@/styles/helpers/_mixins' as *;
+@use '@/styles/helpers/breakpoints' as *;
 @use '@/styles/helpers/variables' as *;
 
 // 關閉 Edge / Chrome 的內建功能眼睛 icon
@@ -64,7 +65,7 @@ input[type='password']::-ms-clear {
       color: $ui-text-muted; // 或 neutral-500
       transition: all 0.2s ease;
 
-      @include respond(desktop) {
+      @include respond($breakpoints, desktop) {
         width: 18px;
         height: 18px;
       }

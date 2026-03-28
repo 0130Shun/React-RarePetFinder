@@ -4,7 +4,7 @@
 @use '@/styles/helpers/admin/admin-variables' as *;
 
 .admin-layout {
-  min-width: 1440px;
+  width: 100%;
   max-width: 1920px;
   margin: 0 auto;
   background: $admin-bg;
@@ -15,8 +15,17 @@
   min-height: calc(100vh - 64px);
 }
 
-.admin-content {
-  padding: 24px;
-  background: #f5f6fa;
-  min-height: 100%;
+.admin-main {
+  flex: 1;
+  min-width: 0; // 必加（解 overflow 核心），不搞auto會變成：「內容多寬，我就多寬」
+  display: flex;
+  flex-direction: column;
 }
+
+.admin-content {
+  flex: 1;
+  padding: 24px;
+  overflow-x: hidden; //  可接受（只限 content）
+}
+
+// admin-content內部設定，未來抽出到其他components

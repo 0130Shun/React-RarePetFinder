@@ -1,6 +1,11 @@
 @use '../helpers/variables' as *;
 @use 'sass:color';
 
+// .toast-container {
+//   max-width: 100%;
+//   overflow-x: hidden;
+// }
+
 .toast-success {
   // background-color: #6B4E38 !important; /* 深焦糖棕（咖啡色調＋黑灰底感）*/
   // background-color: #7a5a44 !important; /* 淺木質棕（拿鐵感更重，但偏暗） */

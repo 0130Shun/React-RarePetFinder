@@ -1,17 +1,23 @@
 @use '@/styles/helpers/mixins' as *;
+@use '@/styles/helpers/breakpoints' as *;
 @use '@/styles/helpers/admin/admin-variables' as *;
 
 .admin {
   .admin-sidebar {
-    width: 260px;
     background: $admin-sidebar-bg;
     color: #fff;
     transition: all 0.3s;
     display: flex;
     flex-direction: column;
 
+    width: 150px; // 預設（mobile / tablet）
+
+    @include respond($admin-breakpoints, laptop) {
+      width: 200px; // Sidebar 固定寬
+    }
+
     &.collapsed {
-      width: 80px;
+      width: 60px;
 
       .text {
         display: none;
@@ -19,6 +25,10 @@
 
       .admin-sidebar__brand span {
         display: none;
+      }
+
+      @include respond($admin-breakpoints, laptop) {
+        width: 60px;
       }
     }
   }
@@ -56,6 +66,10 @@
     .icon {
       font-size: 18px;
       min-width: 20px;
+
+      @include respond($admin-breakpoints, laptop) {
+        margin-right: 16px; // Sidebar 固定寬
+      }
     }
 
     &:hover {
