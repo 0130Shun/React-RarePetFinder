@@ -1,6 +1,6 @@
-@use '../helpers/custom-text' as *;
-@use '../helpers/variables' as *;
-@use '../layout/layout' as *;
+@use '@/styles/helpers/custom-text' as *;
+@use '@/styles/helpers/variables' as *;
+@use '@/styles/layout/layout' as *;
 
 //共用CSS
 .mt-12 {

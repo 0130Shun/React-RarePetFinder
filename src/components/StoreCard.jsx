@@ -52,7 +52,7 @@ const StoreCard = React.memo(
               <span>{displayLikes}</span>
             </div>
             <div className="card-img mb-24">
-              <img src={displayImage} alt="" />
+              <img src={displayImage} alt={`${store.storeName}照片`} />
             </div>
             <div className="cardName mb-12 text-center text-lg-start">
               <span>{store.storeName}</span>
