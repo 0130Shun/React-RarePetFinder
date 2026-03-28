@@ -13,6 +13,8 @@ export const AREA_OPTIONS = [
   '屏東',
 ];
 
+export const AREA_OPTIONS_NO_EMPTY = AREA_OPTIONS.filter((a) => a !== '');
+
 export const STORE_TYPE_OPTIONS = ['診所', '旅館', '賣家'];
 
 export const PET_TYPE_OPTIONS = [
@@ -33,6 +35,7 @@ export const DEFAULT_FILTERS = {
   petType: [],
 };
 
+// DEFAULT_FILTERS和getDefaultFilters使用上邏輯一致，2選1
 // export const getDefaultFilters = () => ({
 //   area: '',
 //   query: '',
