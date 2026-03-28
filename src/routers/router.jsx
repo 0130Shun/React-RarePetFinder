@@ -6,13 +6,17 @@ import AdminLayout from '@/layout/AdminLayout';
 import Home from '@/views/front/home/Home';
 import Articles from '@/views/front/Articles';
 import FindStores from '@/views/front/FindStores';
-import FindStores2 from '@/views/front/FindStores2';
+// 為避免重構錯誤和方便後續追蹤，將「原版FindStores」保留到新版運作正常後刪除
+// import FindStoresBackup from '@/views/front/FindStoresBackup';
 import StoreDetail from '@/views/front/StoreDetail';
 import NotFound from '@/views/front/NotFound';
 // auth - 前台頁面
 import Login from '@/views/auth/Login';
 import MemberCenter from '@/views/auth/MemberCenter';
 import Favorite from '@/views/auth/Favorite';
+// 為避免重構錯誤和方便後續追蹤，將「原版FavoriteBackup」保留到新版運作正常後刪除
+// import FavoriteBackup from '@/views/auth/FavoriteBackup ';
+
 // auth - 後台頁面
 import Dashboard from '@/views/auth/Dashboard';
 import AdminNotFound from '@/views/auth/AdminNotFound';
@@ -29,14 +33,14 @@ export const router = createHashRouter([
         index: true,
         element: <Home />,
       },
+      // {
+      // 為避免重構錯誤和方便後續追蹤，將「原版FindStores」保留到新版運作正常後刪除
+      //   path: 'findstoresbackup',
+      //   element: <FindStoresBackup />,
+      // },
       {
         path: 'findstores',
         element: <FindStores />,
-      },
-      {
-        // findstores拆分元件
-        path: 'findstores2',
-        element: <FindStores2 />,
       },
       {
         path: 'storedetail/:storeId',
@@ -62,6 +66,11 @@ export const router = createHashRouter([
             path: 'favorite',
             element: <Favorite />,
           },
+          // {
+          //   // 為避免重構錯誤和方便後續追蹤，將「原版FavoriteBackup」保留到新版運作正常後刪除
+          //   path: 'favoritebackup',
+          //   element: <FavoriteBackup />,
+          // },
         ],
       },
       {
