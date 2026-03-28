@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './styles/main.scss'; // 入口 Sass
 
-//import "./scss/main.scss";
 import '@/styles/main.scss'; // 入口 Sass
 import '@/styles/admin.scss'; // 後台入口 Sass
 import App from './App';

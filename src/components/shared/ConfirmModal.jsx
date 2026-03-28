@@ -8,7 +8,7 @@ const ConfirmModal = ({ show, title, message, onConfirm, onCancel }) => {
 
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
+  }, [show, onCancel]);
 
   if (!show) return null;
 

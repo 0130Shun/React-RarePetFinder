@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
 import { useSelector } from 'react-redux';
-// import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
 import { storeService } from '@/services/storeService'; // 更新抽出後的api路徑
 import {
   getFavoritesApi,

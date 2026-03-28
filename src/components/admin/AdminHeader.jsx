@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-// import { FaBars, FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import { Menu, User, LogOut } from 'react-feather';
 import { useSelector } from 'react-redux';
 import { useLogout } from '@/hook/useLogout';

@@ -1,12 +1,8 @@
 import { Eye, EyeOff } from 'react-feather';
 
-// utils
-// import { getPasswordStrength } from '@/utils/auth';
-
 const LoginForm = ({
   register,
   errors,
-  // watch,
   handleLogin,
   showLoginPassword,
   toggleLoginPassword,

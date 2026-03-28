@@ -2,18 +2,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { User, Menu, X } from 'react-feather';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Dropdown } from 'bootstrap';
 
 // assets
 import logo from '@/assets/logo.png';
-// Slice
-// import { logout } from '@/features/authSlice';
-// import { clearUser } from '@/features/userSlice';
 // hook
-// import { useToast } from '@/hook/useToast';
 import { useConfirm } from '@/hook/useConfirm';
 import { useLogout } from '@/hook/useLogout';
 // config

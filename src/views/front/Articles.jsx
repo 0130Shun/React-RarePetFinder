@@ -4,7 +4,6 @@ import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useEffect, useState, useMemo } from 'react';
-// import { storeService } from '@/api';
 import { contentService } from '@/services/contentService';
 import useResponsivePageSize from '@/hook/useResponsivePageSize';
 import { Link } from 'react-router-dom';

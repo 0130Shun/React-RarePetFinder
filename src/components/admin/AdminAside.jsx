@@ -1,11 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-// import {
-//   FaTachometerAlt,
-//   FaBoxOpen,
-//   FaShoppingCart,
-//   FaBars,
-// } from 'react-icons/fa';
 
 import { Activity, Box, ShoppingCart, Menu } from 'react-feather';
 

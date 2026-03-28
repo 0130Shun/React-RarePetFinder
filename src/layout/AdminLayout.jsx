@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import AdminHeader from '@/components/admin/AdminHeader';
 import AdminAside from '@/components/admin/AdminAside';
-// import AdminFooter from '@/components/AdminFooter';
 import GoTop from '@/components/shared/GoTop';
 
 const AdminLayout = () => {

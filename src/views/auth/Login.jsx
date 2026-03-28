@@ -29,11 +29,6 @@ const LoginPage = () => {
   const [mode, setMode] = useState('login'); // 'login' | 'register'
   const from = location.state?.from?.pathname || '/membercenter'; // navigate 調整路徑，先預設導向membercenter
 
-  // 登入區域
-  // const [accountData, setAccountData] = useState({
-  //   email: 'example@test.com',
-  //   password: 'example',
-  // });
   // 登入區域 - RHF 接管資料流
   const {
     register,
@@ -46,12 +41,6 @@ const LoginPage = () => {
     },
   });
 
-  // // 註冊 state
-  // const [registerData, setRegisterData] = useState({
-  //   userName: '',
-  //   email: '',
-  //   password: '',
-  // });
   // 註冊區域 - RHF 接管資料流
   const {
     register: registerRegister, // 避免跟 login register 撞名,
@@ -73,24 +62,6 @@ const LoginPage = () => {
   const [loginError, setLoginError] = useState('');
   const [registerError, setRegisterError] = useState('');
   const [isScreenLoading, setIsScreenLoading] = useState(false);
-
-  // 登入表單 - Input變動
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setAccountData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
-
-  // // 註冊表單 -  Input變動
-  // const handleRegisterChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setRegisterData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
 
   // 登入表單 - 登入submit事件（使用 async/await）
   const handleLogin = async (data) => {
@@ -190,15 +161,8 @@ const LoginPage = () => {
     try {
       const now = new Date();
       // 前台註冊的一律都是 role: 'user'
-      // const registerApiData = { ...registerData, role: 'user', createdAt: now };
       const registerApiData = { ...data, role: 'user', createdAt: now };
       await registerApi(registerApiData);
-
-      // setRegisterData({
-      //   userName: '',
-      //   email: '',
-      //   password: '',
-      // });
 
       // 切換模式讓剛註冊完畢的使用者登入 // 可選： window.location.hash = '#logindiv';
       setTimeout(() => {
