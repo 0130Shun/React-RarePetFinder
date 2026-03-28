@@ -1,3 +1,5 @@
+// src/utils  function
+
 export const getCookieToken = () => {
   return document.cookie.replace(
     /(?:(?:^|.*;\s*)RarePetFinder\s*=\s*([^;]*).*$)|^.*$/,
