@@ -7,7 +7,12 @@ import { useToast } from '@/hook/useToast';
 // utils
 import { extractErrorMessage } from '@/utils/errorHandler';
 
-export const useFavorite = (user, favoritesMap, setFavoritesMap) => {
+export const useFavorite = (
+  user,
+  favoritesMap,
+  setFavoritesMap,
+  options = {}
+) => {
   const { warning, showError } = useToast(); //引用外部hook或component給toggleFavorite使用
 
   // useFavorite 邏輯層，補上useCallback避免「無關的 re-render」
@@ -30,6 +35,8 @@ export const useFavorite = (user, favoritesMap, setFavoritesMap) => {
             delete newMap[storeId];
             return newMap;
           });
+          // 通知外部（重點）
+          options.onRemove?.(storeId);
         } else {
           const now = new Date();
           const res = await addFavoriteApi({
@@ -52,7 +59,7 @@ export const useFavorite = (user, favoritesMap, setFavoritesMap) => {
         showError(errorMessage);
       }
     },
-    [user, favoritesMap, setFavoritesMap, warning, showError]
+    [user, favoritesMap, options, setFavoritesMap, warning, showError]
   );
 
   return { toggleFavorite };

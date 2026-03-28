@@ -36,17 +36,14 @@ const StoreCard = React.memo(
               <Heart className="feather" />
             </button> */}
               {/* e.preventDefault(); 避免 Link 跳轉） */}
-              {/* <button
+              <button
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  onToggleFavorite?.(store.id);
+                  onToggleFavorite(store.id);
                 }}
               >
-                <Heart className={`feather ${isFavorite ? 'is-fav' : ''}`} />
-              </button> */}
-              <button type="button" onClick={() => onToggleFavorite(store.id)}>
                 <Heart className={`feather ${isFavorite ? 'is-fav' : ''}`} />
               </button>
               <span>{displayLikes}</span>
