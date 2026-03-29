@@ -1,0 +1,46 @@
+@use '@/styles/helpers/custom-text' as *;
+@use '@/styles/helpers/mixins' as *;
+@use '@/styles/helpers/breakpoints' as *;
+@use '@/styles/helpers/variables' as *;
+@use '@/styles/helpers/variables' as *;
+@use '@/styles/layout/layout' as *;
+
+.member-card,
+.member-form {
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 12px;
+  background: #fff;
+
+  @include respond($breakpoints, desktop) {
+    width: 100%;
+  }
+
+  h2 {
+    @include apply-font($TC-1-Heading05-Bold);
+  }
+
+  .info-title {
+    @include apply-font($TC-1-Heading06-Bold);
+  }
+}
+
+.member-card-info {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.petType-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+
+  &.checked {
+    background-color: #f3e5d8;
+    border-color: #c69c6d;
+  }
+}

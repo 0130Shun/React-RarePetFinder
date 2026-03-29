@@ -1,6 +1,7 @@
 // _hero.scss：專門負責 Hero / Page Banner 結構
 
 @use '@/styles/helpers/mixins' as *;
+@use '@/styles/helpers/breakpoints' as *;
 @use '@/styles/helpers/variables' as *;
 
 .ui-hero {
@@ -32,14 +33,14 @@
   padding: 64px 12px 64px 12px;
   min-height: 297px;
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     // padding: 60px 0 0 0;
     padding-top: 60px;
     overflow: hidden; /* 逼免止浮水印超勒邊界 */
     border-radius: 24px;
   }
 
-  @include respond(desktop-xl) {
+  @include respond($breakpoints, desktop-xl) {
     // padding: 72px 0 0 0;
     padding-top: 72px;
     overflow: hidden; /* 逼免止浮水印超勒邊界 */
@@ -51,7 +52,7 @@
 .ui-subHero::after {
   content: none; // mobile：根本不產生 pseudo-element
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     content: attr(
       data-watermark
     ); /* 關鍵：讓內容直接讀取 HTML 上的 data-watermark */
@@ -73,7 +74,7 @@
     filter: blur(0.5px);
   }
 
-  @include respond(desktop-xl) {
+  @include respond($breakpoints, desktop-xl) {
     content: attr(
       data-watermark
     ); /* 關鍵：讓內容直接讀取 HTML 上的 data-watermark */
@@ -111,7 +112,7 @@
 
   /* 2. 改變浮水印文字色 (::after) */
   &::after {
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       // 這裡改為偏黃或偏橘的透明色，使其與背景協調
       color: rgba($ui-color-warning, 0.2);
     }
@@ -135,7 +136,7 @@
       left: 50%;
       transform: translateX(-50%); // 水平置中
 
-      @include respond(desktop) {
+      @include respond($breakpoints, desktop) {
         /* Desktop 樣式：鴨子變大且移到左側 */
         width: 400px;
         height: 328px;
@@ -149,7 +150,7 @@
     &::after {
       content: none; // Mobile 隱藏
 
-      @include respond(desktop) {
+      @include respond($breakpoints, desktop) {
         content: '';
         position: absolute;
         background-image: url('/src/assets/img/Vector.png'); // 驚嘆號圖片
@@ -165,7 +166,7 @@
       }
     }
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       // 向右移動一點讓浮水印蓋到
       margin-left: 25%;
     }
@@ -178,11 +179,11 @@
   display: block;
   text-align: center;
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     display: block;
     // text-align: center;
   }
-  @include respond(desktop-xl) {
+  @include respond($breakpoints, desktop-xl) {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -250,7 +251,7 @@
       user-select: none;
     }
 
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       flex-direction: row; // 桌面版變回橫向
       gap: 16px;
       align-items: flex-start; // 桌面版對齊左側
@@ -263,7 +264,7 @@
     }
   }
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     min-height: 80px;
     margin-bottom: 16px;
 
@@ -279,7 +280,7 @@
     }
   }
 
-  @include respond(desktop-xl) {
+  @include respond($breakpoints, desktop-xl) {
     min-height: 96px;
 
     h1 {
@@ -339,7 +340,7 @@
     }
   }
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     padding: 20px 48px;
     border-radius: 12px;
     min-width: 480px;
@@ -352,7 +353,7 @@
       letter-spacing: 0.05em;
     }
   }
-  @include respond(desktop-xl) {
+  @include respond($breakpoints, desktop-xl) {
     padding: 20px 48px;
     border-radius: 12px;
     min-width: 512px;
@@ -404,7 +405,7 @@
     letter-spacing: 2%;
   }
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     margin-top: 0;
     padding: 36px 80px;
     border-radius: 12px;
@@ -493,7 +494,7 @@
     }
 
     /* 5️ Responsive（desktop） */
-    @include respond(desktop) {
+    @include respond($breakpoints, desktop) {
       align-items: flex-start;
 
       width: 306px;
@@ -502,7 +503,7 @@
     }
   }
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     position: absolute;
     left: 30px;
     // right: 0;
@@ -510,7 +511,7 @@
     transform: none;
   }
 
-  @include respond(desktop-xl) {
+  @include respond($breakpoints, desktop-xl) {
     position: absolute;
     left: 0;
     right: 0;

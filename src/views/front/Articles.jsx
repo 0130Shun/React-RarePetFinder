@@ -4,7 +4,7 @@ import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useEffect, useState, useMemo } from 'react';
-import { storeService } from '@/api';
+import { contentService } from '@/services/contentService';
 import useResponsivePageSize from '@/hook/useResponsivePageSize';
 import { Link } from 'react-router-dom';
 
@@ -83,7 +83,9 @@ export default function Articles() {
         // 讓 本頁的 loading 至少顯示 500ms（模擬載入中狀態500秒，實際上可以拿掉)
         await new Promise((r) => setTimeout(r, 1000));
 
-        const data = await storeService.getAllArticles();
+        // const data = await storeService.getAllArticles();
+        const data = await contentService.getAllArticles(); // 更新api路徑
+
         if (!mounted) return;
         setAllArticles(Array.isArray(data) ? data : []);
       } catch (err) {

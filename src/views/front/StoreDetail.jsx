@@ -1,7 +1,7 @@
 import SubHero from '@/components/subHero/SubHero';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { storeService } from '@/api';
+import { storeService } from '@/services/storeService'; // 更新api路徑
 import { User, MapPin, Phone, Link as LinkIcon } from 'react-feather';
 
 // 圖片引入

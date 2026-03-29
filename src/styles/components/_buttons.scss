@@ -84,6 +84,25 @@
   }
 }
 
+.ui-btn-outline-primary {
+  background-color: $ui-neutral-50;
+  color: $ui-color-primary;
+  border: 1px solid $ui-color-primary;
+
+  &:hover {
+    background-color: $ui-color-primary;
+    color: $ui-neutral-800;
+  }
+
+  &:active,
+  &:focus {
+    background-color: color.scale($ui-color-primary, $lightness: 15%);
+    color: $ui-text-primary;
+    border-color: color.scale($ui-color-primary, $lightness: 15%);
+    outline: none; // 如果你有全局 focus 樣式，可視情況調整
+  }
+}
+
 //因為設計稿沒有提供 secondary 按鈕(但是在select有類似的設計)，所以這個參考樣式先留著以備未來使用
 // .ui-btn-secondary {
 //   background-color: $ui-bg-default;
@@ -99,7 +118,27 @@
   color: $ui-text-primary;
 
   &:hover {
-    background-color: color.scale($ui-color-warning, $lightness: -8%);
+    background-color: color.scale($ui-color-warning, $lightness: -25%);
+    color: $ui-neutral-200;
+  }
+}
+
+.ui-btn-outline-warning {
+  background-color: transparent;
+  color: $ui-color-warning;
+  border: 1px solid $ui-color-warning;
+
+  &:hover {
+    background-color: $ui-color-warning;
+    color: $ui-text-primary;
+  }
+
+  &:active,
+  &:focus {
+    background-color: color.scale($ui-color-warning, $lightness: -15%);
+    color: $ui-text-primary;
+    border-color: color.scale($ui-color-warning, $lightness: -15%);
+    outline: none; // 如果你有全局 focus 樣式，可視情況調整
   }
 }
 

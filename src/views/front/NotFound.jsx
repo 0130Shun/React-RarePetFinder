@@ -1,9 +1,11 @@
-import SubHero from '../../components/subHero/SubHero';
+import SubHero from '@/components/subHero/SubHero';
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <>
       <SubHero variant="notFound" />
     </>
   );
-}
+};
+
+export default NotFound;

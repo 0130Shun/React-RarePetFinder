@@ -1,44 +1,43 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form'; // 引入 RHF
-import { storeService } from '@/api'; // 稀寵搜搜專題的api入口
+import { useSelector } from 'react-redux';
+import { ChevronLeft, ChevronRight } from 'react-feather';
 
-//檢索頁的Banner
-import SubHero from '@/components/subHero/SubHero';
-// 引入FullPageLoader
-import FullPageLoader from '@/components/shared/FullPageLoader';
-// 將 storeSearchUtils 中的工具引入
-import {
-  parseFilters,
-  buildSearchParams,
-  hasIntersection,
-  matchQuery,
-} from '@/utils/storeSearchUtils';
-
-import StoreCard from '@/components/StoreCard.jsx';
+// assets
 import Sliders from '@/assets/img/sliders.png';
 import Search from '@/assets/img/search.svg';
-import { ChevronLeft, ChevronRight } from 'react-feather';
-//每頁顯示 9 筆店家
-const PAGE_SIZE = 9;
+// constants
+import {
+  AREA_OPTIONS_NO_EMPTY,
+  STORE_TYPE_OPTIONS,
+  PET_TYPE_OPTIONS,
+  DEFAULT_FILTERS,
+} from '@/constants/storeOptions';
 
+// services
+import { storeService } from '@/services/storeService'; // 更新抽出後的api路徑
+import { getFavoritesApi } from '@/services/favoriteService'; // 取得user的favorite的api路徑
+//components
+import SubHero from '@/components/subHero/SubHero';
+import FullPageLoader from '@/components/shared/FullPageLoader';
+import StoreCard from '@/components/StoreCard.jsx';
+// hook
+import { useFavorite } from '@/hook/useFavorite';
+// utils
+import { buildSearchParams } from '@/utils/storeSearchUtils';
+import { processSearch } from '@/utils/storeFilterUtils';
+
+// 暫時不抽出元件，因為對這部分的scss和設計不熟悉
 const FindStores = () => {
   const [searchParams, setSearchParams] = useSearchParams(); //更新網址用(query params)
   // 一行搞定初始化，defaultValues 對應原本的 initialState
   const { register, handleSubmit, setValue, reset, watch, control } = useForm({
-    defaultValues: {
-      area: '',
-      query: '',
-      storeType: [], // RHF 會自動把多選 checkbox 處理成陣列
-      petType: [],
-    },
+    defaultValues: { ...DEFAULT_FILTERS },
   });
   // 已套用到結果的條件
   const [filters, setFilters] = useState({
-    area: '',
-    query: '',
-    storeType: [],
-    petType: [],
+    ...DEFAULT_FILTERS,
     page: 1,
   });
   const watchedPetTypes = watch('petType') || [];
@@ -48,31 +47,14 @@ const FindStores = () => {
   const [items, setItems] = useState([]); //目前頁面要顯示的那 9 筆
   const [totalPages, setTotalPages] = useState(1); //用篩選後的總筆數 / PAGE_SIZE 算出來
   const [totalCount, setTotalCount] = useState(0); // 用來存篩選後的總筆數
-  //介面狀態
+
+  const [favoritesMap, setFavoritesMap] = useState({}); // 用來存篩以登入的user的favoritesMap狀態，運作起來會類似這樣變成清單比對  => favoritesMap = {
+
+  // 介面狀態
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  //select/checkbox 會用到的選項
-  const AREA_OPTIONS = useMemo(
-    () => [
-      '',
-      '新北',
-      '台北',
-      '桃園',
-      '高雄',
-      '台中',
-      '台南',
-      '嘉義',
-      '新竹',
-      '屏東',
-    ],
-    []
-  );
-  const STORE_TYPE_OPTIONS = useMemo(() => ['診所', '旅館', '賣家'], []);
-  const PET_TYPE_OPTIONS = useMemo(
-    () => ['柯爾鴨', '鸚鵡', '倉鼠', '烏龜', '守宮', '刺蝟'],
-    []
-  );
+  const user = useSelector((state) => state.user.user); // 從state取出會員資料
+  const { toggleFavorite } = useFavorite(user, favoritesMap, setFavoritesMap);
 
   // 從storeService載入api工具getAllStores()：第一次載入抓資料「全部店家」
   useEffect(() => {
@@ -90,9 +72,7 @@ const FindStores = () => {
       } catch (err) {
         console.error(err);
         if (!mounted) return;
-        setError(
-          '載入店家資料失敗，請確認 json-server 是否已啟動 (localhost:3001)'
-        );
+        setError('載入店家資料失敗，請確認 json-server-api網站 是否已啟動');
         setAllStores([]);
       } finally {
         if (mounted) setIsLoading(false);
@@ -104,131 +84,58 @@ const FindStores = () => {
     };
   }, []);
 
-  // URL 或資料變了，就重新算結果
-  // useEffect(() => {
-  //   const nextFilters = parseFilters(searchParams);
+  // 抓 favorites（只在登入時）
+  useEffect(() => {
+    if (!user) {
+      // user logout時，清掉 favorite
+      setFavoritesMap({});
+      return;
+    }
 
-  //   //如果重新整理或貼上連結，也會顯示打勾等等對應的選項
-  //   // 用 RHF 的 reset 取代原本的 setDraft
-  //   reset({
-  //     area: nextFilters.area,
-  //     query: nextFilters.query,
-  //     storeType: nextFilters.storeType,
-  //     petType: nextFilters.petType,
-  //   });
+    const loadFavorites = async () => {
+      const favs = await getFavoritesApi(user.id);
 
-  //   // URL → filters 套用
-  //   setFilters(nextFilters);
+      const map = {};
+      favs.forEach((f) => {
+        map[f.storeId] = f.id;
+      });
 
-  //   // 篩選流程
-  //   // 地區
-  //   const areaFiltered =
-  //     nextFilters.area === ''
-  //       ? allStores
-  //       : allStores.filter((s) => s.area === nextFilters.area);
-  //   // 關鍵字
-  //   const queryFiltered = areaFiltered.filter((s) =>
-  //     matchQuery(s, nextFilters.query)
-  //   );
-  //   // 店家
-  //   const storeTypeFiltered = queryFiltered.filter((s) =>
-  //     hasIntersection(
-  //       Array.isArray(s.type) ? s.type : [],
-  //       nextFilters.storeType
-  //     )
-  //   );
-  //   //寵物
-  //   const filtered = storeTypeFiltered.filter((s) =>
-  //     hasIntersection(
-  //       Array.isArray(s.petTypes) ? s.petTypes : [],
-  //       nextFilters.petType
-  //     )
-  //   );
-  //   setTotalCount(filtered.length);
-  //   // 分頁
-  //   const nextTotalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  //   setTotalPages(nextTotalPages);
+      setFavoritesMap(map);
+    };
 
-  //   const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
-  //   if (safePage !== nextFilters.page) {
-  //     const fixed = { ...nextFilters, page: safePage };
-  //     setSearchParams(buildSearchParams(fixed), { replace: true });
-  //     return;
-  //   }
+    loadFavorites();
+  }, [user]);
 
-  //   const start = (safePage - 1) * PAGE_SIZE;
-  //   setItems(filtered.slice(start, start + PAGE_SIZE));
-  // }, [searchParams, allStores, setSearchParams, reset]); //記得依賴加入 reset
-
-  // URL 或資料變了，就重新算結果 => 舊版先保留
-  // 改寫成 async/await 版本，並加入 isLoading 和 error 狀態
+  // useEffect 抽出 applyFilters、 paginate、 processSearch()
+  // URL 或資料變了，就重新算結果 => 改寫成 async/await 版本，並加入 isLoading 和 error 狀態
   useEffect(() => {
     let active = true;
 
-    async function processSearch() {
+    const runSearch = () => {
       setIsLoading(true);
 
-      // 讓 loading 至少顯示 500ms（模擬載入中狀態700秒，實際上可以拿掉)
-      await new Promise((r) => setTimeout(r, 500));
-
-      const nextFilters = parseFilters(searchParams);
-
-      reset({
-        area: nextFilters.area,
-        query: nextFilters.query,
-        storeType: nextFilters.storeType,
-        petType: nextFilters.petType,
-      });
-
-      setFilters(nextFilters);
-
-      const areaFiltered =
-        nextFilters.area === ''
-          ? allStores
-          : allStores.filter((s) => s.area === nextFilters.area);
-
-      const queryFiltered = areaFiltered.filter((s) =>
-        matchQuery(s, nextFilters.query)
-      );
-
-      const storeTypeFiltered = queryFiltered.filter((s) =>
-        hasIntersection(
-          Array.isArray(s.type) ? s.type : [],
-          nextFilters.storeType
-        )
-      );
-
-      const filtered = storeTypeFiltered.filter((s) =>
-        hasIntersection(
-          Array.isArray(s.petTypes) ? s.petTypes : [],
-          nextFilters.petType
-        )
-      );
+      const result = processSearch(searchParams, allStores);
 
       if (!active) return;
+      // state狀態集中處理
+      setItems(result.items);
+      setTotalCount(result.total);
+      setTotalPages(result.totalPages);
+      reset(result.nextFilters);
+      setFilters(result.nextFilters);
+    };
 
-      setTotalCount(filtered.length);
+    runSearch();
 
-      const nextTotalPages = Math.max(
-        1,
-        Math.ceil(filtered.length / PAGE_SIZE)
-      );
-      setTotalPages(nextTotalPages);
-
-      const safePage = Math.min(Math.max(1, nextFilters.page), nextTotalPages);
-
-      const start = (safePage - 1) * PAGE_SIZE;
-      setItems(filtered.slice(start, start + PAGE_SIZE));
-
-      setIsLoading(false);
-    }
-
-    processSearch();
+    const timer = setTimeout(() => {
+      if (active) setIsLoading(false);
+    }, 400);
 
     return () => {
       active = false;
+      clearTimeout(timer);
     };
-  }, [searchParams, allStores, setSearchParams, reset]);
+  }, [searchParams, allStores, reset]);
 
   // RHF 轉換後的寫法-> RHF 的 submit：它會自動把收集好的 data (也就是原本的 draft) 傳給你
   const onSubmitSearch = (data) => {
@@ -247,6 +154,7 @@ const FindStores = () => {
     const next = { ...filters, page };
     setSearchParams(buildSearchParams(next));
   };
+
   return (
     <>
       <SubHero variant="findStores" />
@@ -263,18 +171,12 @@ const FindStores = () => {
                   data-bs-target="#searchOffcanvas"
                 >
                   進階篩選
-                  <img className="sliders" src={Sliders} alt="" />
+                  <img className="sliders" src={Sliders} alt="imgSliders" />
                 </button>
               </div>
               <form onSubmit={handleSubmit(onSubmitSearch)}>
                 <div className="findStores-search-group mt-12">
                   <div className="findStores-search-bar text">
-                    {/* <input
-                      type="text"
-                      placeholder="搜尋關鍵字"
-                      {...register('query')}
-                      value={watchedQuery}
-                    /> */}
                     <Controller
                       name="query"
                       control={control}
@@ -287,7 +189,7 @@ const FindStores = () => {
                       )}
                     />
                     <button type="submit">
-                      <img src={Search} alt="" />
+                      <img src={Search} alt="imgSearch" />
                     </button>
                   </div>
                   <div className="findStores-search-button">
@@ -325,12 +227,6 @@ const FindStores = () => {
                       <span className="span-style">搜尋</span>
                       <div className="findStores-search-group mt-12">
                         <div className="findStores-search-bar tc-1-small-regular">
-                          {/* <input
-                            type="text"
-                            placeholder="搜尋關鍵字"
-                            {...register('query')}
-                            value={watchedQuery}
-                          /> */}
                           <Controller
                             name="query"
                             control={control}
@@ -347,7 +243,7 @@ const FindStores = () => {
                             data-bs-dismiss="offcanvas"
                             data-bs-target="#searchOffcanvas"
                           >
-                            <img src={Search} alt="" />
+                            <img src={Search} alt="imgAsideSearch" />
                           </button>
                         </div>
                         <div className="findStores-search-button">
@@ -367,7 +263,12 @@ const FindStores = () => {
                           {...register('area')}
                         >
                           <option value="">全部縣市</option>
-                          {AREA_OPTIONS.filter((a) => a !== '').map((a) => (
+                          {/* {AREA_OPTIONS.filter((a) => a !== '').map((a) => (
+                            <option key={a} value={a}>
+                              {a}
+                            </option>
+                          ))} */}
+                          {AREA_OPTIONS_NO_EMPTY.map((a) => (
                             <option key={a} value={a}>
                               {a}
                             </option>
@@ -486,9 +387,19 @@ const FindStores = () => {
             )}
             {/* 卡片列表 */}
             <div className="row mx-0 mx-md-auto  g-3 mt-16">
-              {items.map((store) => (
-                <StoreCard key={store.id} store={store} />
-              ))}
+              {items.map((store) => {
+                // const isFavorite = favoritesMap[store.id];
+                const isFavorite = !!favoritesMap[store.id]; // 避免 undefined bug
+                return (
+                  <StoreCard
+                    key={store.id}
+                    store={store}
+                    // isFavorite={!!favoritesMap[store.id]}
+                    isFavorite={isFavorite}
+                    onToggleFavorite={toggleFavorite}
+                  />
+                );
+              })}
             </div>
             {/* 分頁 (Pagination) */}
             {totalPages > 1 && (
@@ -531,21 +442,8 @@ const FindStores = () => {
           </main>
         </div>
       </div>
-
-      {isLoading && (
-        <div
-          className="d-flex justify-content-center align-items-center"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(255,255,255,0.3)',
-            zIndex: 999,
-          }}
-        >
-          {/* <FullPageLoader show={isLoading} color="#fec631" /> */}
-          <FullPageLoader show={isLoading} />
-        </div>
-      )}
+      {/* ScreenLoading */}
+      <FullPageLoader show={isLoading} zIndex={2000} />
     </>
   );
 };

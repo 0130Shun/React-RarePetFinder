@@ -1,6 +1,7 @@
 // components/_dropdown-skin.scss
-@use '../helpers/mixins' as *;
-@use '../helpers/variables' as *;
+@use '@/styles/helpers/mixins' as *;
+@use '@/styles/helpers/breakpoints' as *;
+@use '@/styles/helpers/variables' as *;
 
 %ui-dropdown-item-base {
   font-family: 'Chiron GoRound TC', sans-serif;
@@ -20,7 +21,7 @@
     // color: $ui-neutral-800;
   }
 
-  @include respond(desktop) {
+  @include respond($breakpoints, desktop) {
     text-align: center;
   }
 }
