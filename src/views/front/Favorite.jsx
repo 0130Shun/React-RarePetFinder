@@ -16,7 +16,6 @@ import {
 } from '@/constants/storeOptions';
 
 // services
-// import { storeService } from '@/services/storeService'; // 更新抽出後的api路徑，已抽換成getFavoriteStores但是暫時保留
 import { getFavoritesApi, getFavoriteStores } from '@/services/favoriteService'; // 取得user的favorite的api路徑
 
 // components

@@ -3,10 +3,9 @@ import { useDispatch } from 'react-redux';
 
 // features
 import { setToken } from '@/features/authSlice';
-// import { setUser, clearUser } from '@/features/userSlice';
 import { setUser } from '@/features/userSlice';
 // utils
-// import { getAuth, clearAuth } from '@/utils/auth';
+
 import { getAuth } from '@/utils/auth';
 
 export const useAuthInit = () => {

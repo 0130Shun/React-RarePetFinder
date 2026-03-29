@@ -6,8 +6,6 @@ import AdminLayout from '@/layout/AdminLayout';
 import Home from '@/views/front/home/Home';
 import Articles from '@/views/front/Articles';
 import FindStores from '@/views/front/FindStores';
-// 為避免重構錯誤和方便後續追蹤，將「原版FindStores」保留到新版運作正常後刪除
-// import FindStoresBackup from '@/views/front/FindStoresBackup';
 import StoreDetail from '@/views/front/StoreDetail';
 import NotFound from '@/views/front/NotFound';
 
@@ -15,13 +13,10 @@ import NotFound from '@/views/front/NotFound';
 import Login from '@/views/front/Login';
 import MemberCenter from '@/views/front/MemberCenter';
 import Favorite from '@/views/front/Favorite';
-// 為避免重構錯誤和方便後續追蹤，將「原版FavoriteBackup」保留到新版運作正常後刪除
-// import FavoriteBackup from '@/views/front/FavoriteBackup ';
 
 // auth - 後台頁面
 import Dashboard from '@/views/auth/Dashboard';
 import Members from '@/views/auth/Members';
-// import Stores from '@/views/auth/Stores';
 import AdminNotFound from '@/views/auth/AdminNotFound';
 
 // 入邏輯抽到router-RequireAuth去判斷

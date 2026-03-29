@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// utils
-// import { getPasswordStrength } from '@/utils/auth';
-
 import { AREA_OPTIONS, PET_TYPE_OPTIONS } from '@/constants/storeOptions';
 
 const MemberModal = ({
