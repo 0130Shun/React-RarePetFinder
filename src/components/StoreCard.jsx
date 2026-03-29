@@ -24,8 +24,8 @@ const StoreCard = React.memo(
     const displayTypes = Array.isArray(store.type)
       ? store.type.join(' / ')
       : store.type;
-    // 假設 API 有 likes 欄位，沒有則預設 0
-    const displayLikes = store.likes || 0;
+    // 假設 API 有 likes 欄位，沒有則預設 0 => 先註解未來再擴充
+    // const displayLikes = store.likes || 0;
 
     return (
       <>
@@ -46,7 +46,7 @@ const StoreCard = React.memo(
               >
                 <Heart className={`feather ${isFavorite ? 'is-fav' : ''}`} />
               </button>
-              <span>{displayLikes}</span>
+              {/* <span>{displayLikes}</span> */}
             </div>
             <div className="card-img mb-24">
               <img src={displayImage} alt={`${store.storeName}照片`} />

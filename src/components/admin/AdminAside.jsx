@@ -12,7 +12,7 @@ const menu = [
   },
   {
     name: '會員設定',
-    path: '/admin/users',
+    path: '/admin/members',
     icon: <Box size={18} />,
   },
   {
