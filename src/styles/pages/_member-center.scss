@@ -1,11 +1,20 @@
 @use '@/styles/helpers/custom-text' as *;
+@use '@/styles/helpers/mixins' as *;
+@use '@/styles/helpers/breakpoints' as *;
+@use '@/styles/helpers/variables' as *;
 @use '@/styles/helpers/variables' as *;
 @use '@/styles/layout/layout' as *;
 
 .member-card,
 .member-form {
+  width: 90%;
+  margin: 0 auto;
   border-radius: 12px;
   background: #fff;
+
+  @include respond($breakpoints, desktop) {
+    width: 100%;
+  }
 
   h2 {
     @include apply-font($TC-1-Heading05-Bold);

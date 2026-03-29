@@ -175,7 +175,7 @@ const MemberCenter = () => {
     <>
       <SubHero variant="memberCenter" />
       <section className="container ui-container mt-5">
-        <div className="row g-0">
+        <div className="row g-3">
           {/* 左側：會員資訊 */}
           <aside className="col-lg-4 col-12">
             <div className="member-card p-3 shadow-sm">
@@ -205,7 +205,7 @@ const MemberCenter = () => {
 
           <main className="col-lg-8 col-12">
             <div className="member-form shadow-sm p-3">
-              <h2 className="mb-4 text-lg-start  text-center">編輯個人資料</h2>
+              <h2 className="mb-4 text-lg-start text-center">編輯個人資料</h2>
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
