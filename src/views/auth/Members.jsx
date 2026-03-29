@@ -21,7 +21,7 @@ const DEFAULT_MEMBER = {
 };
 
 const Members = () => {
-  const { showError } = useToast();
+  const { showError, success } = useToast();
   const { getMembers, registerMembers, updateMember } = adminService;
 
   // 狀態管理 (State)
@@ -72,7 +72,6 @@ const Members = () => {
     if (mode === 'create') {
       setTempMember({ ...DEFAULT_MEMBER });
     } else {
-      console.log('open modal with member data:', member);
       const normalized = normalizeMember(member);
 
       setTempMember({
@@ -112,6 +111,7 @@ const Members = () => {
         // create 一定要 password
         if (!tempMember.password) {
           setModalError('請輸入密碼');
+          showError('請輸入密碼');
           return;
         }
         const now = new Date();
@@ -123,24 +123,36 @@ const Members = () => {
         // edit：安全處理 password
         // await updateMember(tempMember.id, tempMember);
         const updateData = { ...tempMember };
-
         // edit：沒輸入就不要送
         if (!updateData.password) {
           delete updateData.password;
         }
+        // edit：favoritePetTypes 前端驗證 - 確保是陣列
+        if (!Array.isArray(updateData.favoritePetTypes)) {
+          updateData.favoritePetTypes = [];
+        }
 
         await updateMember(tempMember.id, updateData);
       }
+
+      success(`會員資料${modalMode === 'create' ? '新增' : '編輯'}成功`);
+      // 成功後重新載入會員列表
       const members = await getMembers();
       setMembers(members);
       setIsMemberModalOpen(false); // 成功才關閉 Modal
     } catch (error) {
-      extractErrorMessage(error, setModalError, '操作失敗');
+      const errorMessage = extractErrorMessage(
+        error,
+        null,
+        '會員資料操作失敗。'
+      );
+      showError(errorMessage);
     } finally {
       setIsScreenLoading(false);
     }
   };
 
+  // 初次會員列表載入
   useEffect(() => {
     const loadMembers = async () => {
       setIsScreenLoading(true);
