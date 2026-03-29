@@ -11,12 +11,12 @@ const menu = [
     end: true,
   },
   {
-    name: '會員設定',
+    name: '會員管理',
     path: '/admin/members',
     icon: <Box size={18} />,
   },
   // {
-  //   name: '店家設定',
+  //   name: '店家管理',
   //   path: '/admin/stores',
   //   icon: <Box size={18} />,
   // },
@@ -26,7 +26,7 @@ const menu = [
   //   icon: <ShoppingCart size={18} />,
   // },
   // {
-  //   name: '詐騙資訊',
+  //   name: '公告資訊',
   //   path: '/admin/announcements',
   //   icon: <ShoppingCart size={18} />,
   // },
