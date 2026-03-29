@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // services
 import { adminService } from '@/services/adminService';
@@ -13,11 +13,11 @@ import { STORE_TYPE_ICON_MAP, PET_ICON_MAP } from '@/config/iconMap';
 
 const Dashboard = () => {
   const { showError } = useToast();
-  const { getUsers, getStores, getArticles, getAnnouncements, getEvents } =
+  const { getMembers, getStores, getArticles, getAnnouncements, getEvents } =
     adminService;
 
   const [isScreenLoading, setIsScreenLoading] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [members, setMembers] = useState([]);
   const [stores, setStores] = useState([]);
   const [mockFavorites, setMockFavorites] = useState([]);
   const [articles, setArticles] = useState([]);
@@ -25,7 +25,7 @@ const Dashboard = () => {
   const [events, setEvents] = useState([]);
 
   // const recentUsers = users.slice(-3).reverse();
-  const totalUsers = users.length;
+  const totalMembers = members.length;
   const totalStores = stores.length;
   const recentStores = stores.slice(-3).reverse();
   const totalArticles = articles.length;
@@ -68,7 +68,7 @@ const Dashboard = () => {
       setIsScreenLoading(true);
 
       try {
-        const users = await getUsers();
+        const members = await getMembers();
         const stores = await getStores();
         const articles = await getArticles();
         const announcements = await getAnnouncements();
@@ -78,7 +78,7 @@ const Dashboard = () => {
           storeId: Math.floor(Math.random() * stores.length),
         }));
 
-        setUsers(users);
+        setMembers(members);
         setStores(stores);
         setMockFavorites(favorites);
         setArticles(articles);
@@ -108,7 +108,7 @@ const Dashboard = () => {
           <div className="admin-stat">
             <div>
               <div className="admin-stat__title">會員數</div>
-              <div className="admin-stat__value">{totalUsers}</div>
+              <div className="admin-stat__value">{totalMembers}</div>
             </div>
           </div>
 

@@ -1,8 +1,18 @@
 import apiClient from './apiClient';
 
 export const adminService = {
-  async getUsers() {
+  // 會員相關 API
+  async getMembers() {
     const res = await apiClient.get('/users');
+    return res.data;
+  },
+  async registerMembers(id, data) {
+    const res = await apiClient.post('/register', data); // 改成 register 跑一次
+    return res.data;
+  },
+
+  async updateMember(id, data) {
+    const res = await apiClient.patch(`/users/${id}`, data);
     return res.data;
   },
 
