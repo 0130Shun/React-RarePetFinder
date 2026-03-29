@@ -38,8 +38,6 @@ const RegisterForm = ({
             <input
               type="text"
               name="userName"
-              // value={registerData.userName}
-              // onChange={handleRegisterChange}
               {...registerRegister('userName', {
                 required: '請輸入 userName',
               })}
@@ -55,8 +53,6 @@ const RegisterForm = ({
             <input
               type="email"
               name="email"
-              // value={registerData.email}
-              // onChange={handleRegisterChange}
               {...registerRegister('email', {
                 required: '請輸入 email',
                 pattern: {
@@ -81,8 +77,6 @@ const RegisterForm = ({
             <input
               type={showRegisterPassword ? 'text' : 'password'}
               name="password"
-              // value={registerData.password}
-              // onChange={handleRegisterChange}
               {...registerRegister('password', {
                 required: '請輸入密碼',
                 minLength: {

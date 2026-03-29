@@ -56,7 +56,6 @@ export default function StoreDetailHero({ store }) {
         {/* ui-subHero__aside 根據 store 去map顯示樣式 + 資訊 */}
         <div className="ui-subHero__aside shadow-sm">
           <p>可接待的寵物：</p>
-          {/* <p> 🐁 倉鼠、🦆 柯爾鴨、🐢 烏龜、🦔 刺蝟</p> */}
           <p>
             {store.petTypes.map((pet, i) => (
               <span key={pet} className="me-2">

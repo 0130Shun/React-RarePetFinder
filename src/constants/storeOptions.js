@@ -20,10 +20,11 @@ export const STORE_TYPE_OPTIONS = ['診所', '旅館', '賣家'];
 export const PET_TYPE_OPTIONS = [
   '柯爾鴨',
   '鸚鵡',
-  '倉鼠',
-  '烏龜',
-  '守宮',
   '刺蝟',
+  '倉鼠',
+  '守宮',
+  '烏龜',
+  '爬蟲',
 ];
 
 export const PAGE_SIZE = 9;

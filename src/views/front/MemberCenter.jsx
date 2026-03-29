@@ -14,7 +14,7 @@ import { setAuthUser } from '@/utils/auth';
 import { extractErrorMessage } from '@/utils/errorHandler';
 import { formatDate } from '@/utils/format';
 
-const PET_OPTIONS = ['柯爾鴨', '鸚鵡', '刺蝟', '倉鼠', '守宮', '烏龜', '爬蟲'];
+import { AREA_OPTIONS, PET_TYPE_OPTIONS } from '@/constants/storeOptions';
 
 // 以後 Avatar（頭像）代處理、社群連結（IG / FB）代處理、我的收藏（推薦）代處理
 const MemberCenter = () => {
@@ -31,18 +31,6 @@ const MemberCenter = () => {
     location: user?.location || '',
     favoritePetTypes: user?.favoritePetTypes || [],
   });
-  const AREA_OPTIONS = [
-    '',
-    '新北',
-    '台北',
-    '桃園',
-    '高雄',
-    '台中',
-    '台南',
-    '嘉義',
-    '新竹',
-    '屏東',
-  ];
   const isDirty =
     JSON.stringify(formData) !==
     JSON.stringify({
@@ -209,7 +197,9 @@ const MemberCenter = () => {
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label className="form-label info-title">使用者名稱：</label>
+                  <label htmlFor="userName" className="form-label info-title">
+                    使用者名稱：
+                  </label>
                   <input
                     className="form-control"
                     type="text"
@@ -221,7 +211,9 @@ const MemberCenter = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label info-title">個人簡介：</label>
+                  <label htmlFor="bio" className="form-label info-title">
+                    個人簡介：
+                  </label>
                   <textarea
                     className="form-control"
                     name="bio"
@@ -232,7 +224,9 @@ const MemberCenter = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label info-title">所在地：</label>
+                  <label htmlFor="location" className="form-label info-title">
+                    所在地：
+                  </label>
 
                   <select
                     className="form-select"
@@ -251,14 +245,19 @@ const MemberCenter = () => {
                 </div>
 
                 <div className="mb-4">
-                  <label className="form-label info-title">喜好寵物：</label>
+                  <label
+                    htmlFor="favoritePetTypes"
+                    className="form-label info-title"
+                  >
+                    喜好寵物：
+                  </label>
                   <div className="d-flex flex-wrap gap-2 mt-2">
-                    {PET_OPTIONS.map((type) => {
+                    {PET_TYPE_OPTIONS.map((type, index) => {
                       const isChecked =
                         formData.favoritePetTypes.includes(type);
                       return (
                         <div
-                          key={type}
+                          key={`${type}-${index}`}
                           className={`petType-checkbox ${isChecked ? 'checked' : ''}`}
                         >
                           <input

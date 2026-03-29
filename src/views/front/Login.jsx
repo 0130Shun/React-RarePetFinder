@@ -138,10 +138,15 @@ const LoginPage = () => {
     try {
       const now = new Date();
       const { confirmPassword: _confirmPassword, ...rest } = data;
-      //  role: 'admin';
-      // const registerApiData = { ...rest, role: 'admin', createdAt: now };
+      // role: 'admin';
+      // const registerApiData = { ...rest, role: 'admin', createdAt: now, isActive: true, };
       // 前台註冊的一律都是 role: 'user'
-      const registerApiData = { ...rest, role: 'user', createdAt: now };
+      const registerApiData = {
+        ...rest,
+        role: 'user',
+        createdAt: now,
+        isActive: true,
+      };
       await registerApi(registerApiData);
 
       // 切換模式讓剛註冊完畢的使用者登入 // 可選： window.location.hash = '#logindiv';
