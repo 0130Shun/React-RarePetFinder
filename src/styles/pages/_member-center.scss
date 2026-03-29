@@ -5,6 +5,15 @@
 @use '@/styles/helpers/variables' as *;
 @use '@/styles/layout/layout' as *;
 
+.member-group {
+  gap: 16px;
+  margin-right: 0px;
+  margin-left: 0px;
+
+  @include respond($breakpoints, desktop) {
+    gap: 0px;
+  }
+}
 .member-card,
 .member-form {
   width: 90%;

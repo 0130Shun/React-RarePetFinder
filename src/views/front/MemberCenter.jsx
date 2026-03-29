@@ -163,7 +163,7 @@ const MemberCenter = () => {
     <>
       <SubHero variant="memberCenter" />
       <section className="container ui-container mt-5">
-        <div className="row g-3">
+        <div className="row member-group">
           {/* 左側：會員資訊 */}
           <aside className="col-lg-4 col-12">
             <div className="member-card p-3 shadow-sm">
