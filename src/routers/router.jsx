@@ -20,7 +20,8 @@ import Favorite from '@/views/front/Favorite';
 
 // auth - 後台頁面
 import Dashboard from '@/views/auth/Dashboard';
-// import AdminNotFound from '@/views/auth/AdminNotFound';
+import Members from '@/views/auth/Members';
+// import Stores from '@/views/auth/Stores';
 import AdminNotFound from '@/views/auth/AdminNotFound';
 
 // 入邏輯抽到router-RequireAuth去判斷
@@ -94,9 +95,13 @@ export const router = createHashRouter([
             element: <Dashboard />,
           },
           {
-            index: true,
-            element: <Dashboard />,
+            path: 'members',
+            element: <Members />,
           },
+          // {
+          //   path: 'stores',
+          //   element: <Stores />,
+          // },
           {
             // 後台 404 頁面
             path: '*',

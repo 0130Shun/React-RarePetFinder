@@ -15,21 +15,21 @@ const menu = [
     path: '/admin/members',
     icon: <Box size={18} />,
   },
-  {
-    name: '店家設定',
-    path: '/admin/stores',
-    icon: <Box size={18} />,
-  },
-  {
-    name: '投稿文章',
-    path: '/admin/articles',
-    icon: <ShoppingCart size={18} />,
-  },
-  {
-    name: '詐騙資訊',
-    path: '/admin/announcements',
-    icon: <ShoppingCart size={18} />,
-  },
+  // {
+  //   name: '店家設定',
+  //   path: '/admin/stores',
+  //   icon: <Box size={18} />,
+  // },
+  // {
+  //   name: '投稿文章',
+  //   path: '/admin/articles',
+  //   icon: <ShoppingCart size={18} />,
+  // },
+  // {
+  //   name: '詐騙資訊',
+  //   path: '/admin/announcements',
+  //   icon: <ShoppingCart size={18} />,
+  // },
   {
     name: '回到前台',
     path: '/',
