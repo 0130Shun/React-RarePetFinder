@@ -11,18 +11,18 @@ export const clearCookieToken = () => {
     'RarePetFinder=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
 };
 
-export const getAuthToken = () => localStorage.getItem('token');
+export const getAuthToken = () => localStorage.getItem('accessToken');
 
 export const setAuthToken = (token) => {
   if (token) {
-    localStorage.setItem('token', token);
+    localStorage.setItem('accessToken', token); // 改成 accessToken
   } else {
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
   }
 };
 
 export const clearAuthToken = () => {
-  localStorage.removeItem('token');
+  localStorage.removeItem('accessToken');
 };
 
 export const getPasswordStrength = (password) => {

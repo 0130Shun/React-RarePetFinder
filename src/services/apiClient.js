@@ -11,9 +11,7 @@
 //
 // 若部署正式 API：
 // .env 設定 VITE_API_URL=https://rarepetfinder-api.onrender.com
-//
-// apiClient 為 axios instance，所有 service 共用。
-// 舊 api.js 暫保留避免多人協作路徑錯誤。
+// .env 設定 VITE_API_URL=https://rarepetfinder-backend.onrender.com/
 
 import axios from 'axios';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -24,9 +22,9 @@ const apiClient = axios.create({
   timeout: 5000,
 });
 
-// 自動帶 token（未來登入可用）
+// 自動帶 token（測試自動處理）
 apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken'); // ← 改成 accessToken
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

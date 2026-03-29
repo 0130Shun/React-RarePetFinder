@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 // Service
-import apiClient from '@/services/apiClient';
-import { loginApi, registerApi } from '@/services/authService';
+import { registerApi, loginApi, getCurrentUser } from '@/services/authService';
 // Slice
 import { setToken, logout } from '@/features/authSlice';
 import { setUser, clearUser } from '@/features/userSlice';
@@ -70,32 +69,14 @@ const LoginPage = () => {
     setIsScreenLoading(true);
     setLoginError(''); // 清空錯誤資訊區
 
-    // 刪除手動檢查 data部分，已經交由 RHF validation，避免「重複邏輯」
-    // if (!data.email || !data.password) {
-    //   setLoginError('請填寫完整登入資訊');
-    //   warning('請填寫完整登入資訊');
-    //   setIsScreenLoading(false);
-    //   return;
-    // }
-
     try {
-      // json-server-auth 不會回 expired(Token 的過期時間（timestamp）)，
-      // 且已經有 localStorage token cookie 在 SPA 通常不需要。
-
-      // const res = await loginApi(accountData);
-      const res = await loginApi(data); // 「 RHF 接管資料流」並把 accountData替換成 data
-      const { accessToken, user } = res;
-      // const { accessToken } = res;
-
-      // // 一定要先存 token
-      // localStorage.setItem('token', accessToken);
-
-      // //  自己去拿 user
-      // const userRes = await apiClient.get('/me');
-      // const user = userRes.data;
-
-      // 同時存入 localStorage 和 更新 Redux
+      // 1. 先執行登入 API，取得 accessToken
+      const loginRes = await loginApi(data); // 「 RHF 接管資料流」並把 accountData替換成 data
+      const { accessToken } = loginRes;
       setAuthToken(accessToken);
+      // 透過之前的accessToken，自己去拿 user
+      const userRes = await getCurrentUser();
+      const user = userRes.data || userRes; // 根據後端回傳格式調整，確保 user 是物件
       setAuthUser(user);
       dispatch(setToken({ token: accessToken }));
       dispatch(setUser(user));
@@ -110,7 +91,6 @@ const LoginPage = () => {
 
       // 整合+分流 提示訊息
       if (user.role === 'admin') {
-        // success(`「 ${user.role} - ${user.userName}」登入成功，將導向會員中心`);
         success(`「 ${user.role}： ${user.userName}」登入成功，將導向後台首頁`);
       } else if (redirectPath === '/membercenter') {
         success(`「 ${user.userName} 」登入成功，將導向會員中心`);
@@ -155,25 +135,13 @@ const LoginPage = () => {
     setIsScreenLoading(true);
     setRegisterError('');
 
-    // 刪除手動檢查 data部分，已經交由 RHF validation，避免「重複邏輯」
-    // if (
-    //   !data.userName ||
-    //   !data.email ||
-    //   !data.password ||
-    //   !data.confirmPassword
-    // ) {
-    //   warning('請填寫完整註冊資訊');
-    //   setIsScreenLoading(false);
-    //   return;
-    // }
-
     try {
       const now = new Date();
       const { confirmPassword: _confirmPassword, ...rest } = data;
       //  role: 'admin';
-      const registerApiData = { ...rest, role: 'admin', createdAt: now };
+      // const registerApiData = { ...rest, role: 'admin', createdAt: now };
       // 前台註冊的一律都是 role: 'user'
-      // const registerApiData = { ...data, role: 'user', createdAt: now };
+      const registerApiData = { ...rest, role: 'user', createdAt: now };
       await registerApi(registerApiData);
 
       // 切換模式讓剛註冊完畢的使用者登入 // 可選： window.location.hash = '#logindiv';

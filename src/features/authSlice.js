@@ -6,8 +6,8 @@ import { createSlice } from '@reduxjs/toolkit';
 // };
 // 解決 Redux 初始狀態「空值」問題，避免第一次渲染時可能因為 Redux 還沒同步而踢出去
 const initialState = {
-  isAuth: !!localStorage.getItem('token'),
-  token: localStorage.getItem('token') || null,
+  isAuth: !!localStorage.getItem('accessToken'),
+  token: localStorage.getItem('accessToken') || null,
 };
 
 const authSlice = createSlice({
