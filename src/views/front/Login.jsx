@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 // Service
+import apiClient from '@/services/apiClient';
 import { loginApi, registerApi } from '@/services/authService';
 // Slice
 import { setToken, logout } from '@/features/authSlice';
@@ -36,8 +37,8 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: 'example@test.com',
-      password: 'example',
+      email: 'example@mail.com',
+      password: 'examplePassword',
     },
   });
 
@@ -52,7 +53,7 @@ const LoginPage = () => {
       userName: '',
       email: '',
       password: '',
-      passwordAgain: '',
+      confirmPassword: '',
     },
   });
 
@@ -84,6 +85,14 @@ const LoginPage = () => {
       // const res = await loginApi(accountData);
       const res = await loginApi(data); // 「 RHF 接管資料流」並把 accountData替換成 data
       const { accessToken, user } = res;
+      // const { accessToken } = res;
+
+      // // 一定要先存 token
+      // localStorage.setItem('token', accessToken);
+
+      // //  自己去拿 user
+      // const userRes = await apiClient.get('/me');
+      // const user = userRes.data;
 
       // 同時存入 localStorage 和 更新 Redux
       setAuthToken(accessToken);
@@ -151,7 +160,7 @@ const LoginPage = () => {
     //   !data.userName ||
     //   !data.email ||
     //   !data.password ||
-    //   !data.passwordAgain
+    //   !data.confirmPassword
     // ) {
     //   warning('請填寫完整註冊資訊');
     //   setIsScreenLoading(false);
@@ -160,8 +169,11 @@ const LoginPage = () => {
 
     try {
       const now = new Date();
+      const { confirmPassword: _confirmPassword, ...rest } = data;
+      //  role: 'admin';
+      const registerApiData = { ...rest, role: 'admin', createdAt: now };
       // 前台註冊的一律都是 role: 'user'
-      const registerApiData = { ...data, role: 'user', createdAt: now };
+      // const registerApiData = { ...data, role: 'user', createdAt: now };
       await registerApi(registerApiData);
 
       // 切換模式讓剛註冊完畢的使用者登入 // 可選： window.location.hash = '#logindiv';

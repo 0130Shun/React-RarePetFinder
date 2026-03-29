@@ -10,9 +10,6 @@ const LoginForm = ({
   isScreenLoading,
   handleSwitchToRegister,
 }) => {
-  // const passwordValue = watch('password');
-  // const strength = getPasswordStrength(passwordValue);
-
   return (
     <>
       <div
@@ -44,7 +41,7 @@ const LoginForm = ({
                 },
               })}
               className="form-control"
-              placeholder="example@test.com"
+              placeholder="example@mail.com"
               required
             />
             {errors.email && (

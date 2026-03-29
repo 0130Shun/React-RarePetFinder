@@ -126,7 +126,7 @@ const RegisterForm = ({
             <input
               type={showRegisterPassword ? 'text' : 'password'}
               name="againPassword"
-              {...registerRegister('passwordAgain', {
+              {...registerRegister('confirmPassword', {
                 required: '請再次輸入密碼',
                 validate: (value) =>
                   value === registerWatch('password') || '兩次密碼不一致',
@@ -135,9 +135,9 @@ const RegisterForm = ({
               placeholder="password"
               required
             />
-            {registerErrors.passwordAgain && (
+            {registerErrors.confirmPassword && (
               <p className="ui-error-message mt-1">
-                {registerErrors.passwordAgain.message}
+                {registerErrors.confirmPassword.message}
               </p>
             )}
             <label htmlFor="againPassword">password again</label>
