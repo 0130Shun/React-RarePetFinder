@@ -13,7 +13,7 @@ export const loginApi = async (data) => {
   return res.data;
 };
 
-// 取得當前使用者資料 (/me)
+// 取得 帳號登入 當前使用者資料 (/me)
 export const getCurrentUser = async () => {
   try {
     const res = await apiClient.get('/me');
