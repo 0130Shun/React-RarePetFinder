@@ -1,0 +1,139 @@
+@use '@/styles/helpers/_custom-text' as *;
+@use '@/styles/helpers/_mixins' as *;
+@use '@/styles/helpers/breakpoints' as *;
+@use '@/styles/helpers/variables' as *;
+
+// 關閉 Edge / Chrome 的內建功能眼睛 icon
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}
+
+.ui-login {
+  animation: fadeIn 0.4s ease;
+
+  h1 {
+    color: $ui-neutral-800;
+    @include apply-font($TC-1-Heading05-Bold);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ui-input-password {
+  position: relative;
+
+  // 調整一下避免會發生：label hover / focus 動畫時、icon 跟 label 重疊
+  // icon 是「插隊進來的元素」 padding 是「幫原本元素讓位給 icon 空間」
+  label {
+    //「幫 input 和 label 預留 icon 空間」
+    padding-right: 44px;
+  }
+
+  input {
+    //「幫 input 和 label 預留 icon 空間」
+    padding-right: 44px; // 留空間給 icon（重要）
+  }
+
+  &__toggle {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // 🔥 關鍵：控制 icon
+    svg {
+      width: 28px;
+      height: 28px;
+      stroke-width: 1.8;
+      color: $ui-text-muted; // 或 neutral-500
+      transition: all 0.2s ease;
+
+      @include respond($breakpoints, desktop) {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    &:hover svg {
+      color: $ui-neutral-500;
+      transform: scale(1.1);
+    }
+  }
+}
+
+.ui-input-password--login {
+  .ui-input-password__toggle {
+    svg {
+      color: $ui-neutral-500;
+    }
+
+    &:hover svg {
+      color: darken($ui-color-primary, 8%);
+    }
+  }
+}
+
+.ui-input-password--register {
+  .ui-input-password__toggle {
+    svg {
+      color: $ui-neutral-500;
+    }
+
+    &:hover svg {
+      color: $ui-color-warning;
+      opacity: 0.8;
+    }
+  }
+}
+
+.ui-password-strength {
+  margin-top: 8px;
+
+  .bar {
+    height: 4px;
+    border-radius: 4px;
+    background: #eee;
+    margin-bottom: 4px;
+
+    &.weak {
+      background: #dc3545;
+      width: 33%;
+    }
+
+    &.medium {
+      background: #ffc107;
+      width: 66%;
+    }
+
+    &.strong {
+      background: #198754;
+      width: 100%;
+    }
+  }
+
+  .label {
+    font-size: 12px;
+  }
+}
+
+.ui-error-message {
+  font-size: 12px;
+  color: $ui-color-danger;
+}

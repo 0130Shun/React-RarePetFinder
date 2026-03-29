@@ -1,35 +1,38 @@
-// @use "bootstrap/scss/bootstrap" as *;
-
-// @use './helpers/variables';
-@use './helpers/variables' as *;
-@use './helpers/mixins';
-@use './helpers//custom-text' as *;
+@use '@/styles/helpers/variables' as *;
+@use '@/styles/helpers/mixins';
+@use '@/styles/helpers/breakpoints';
+@use '@/styles/helpers/custom-text' as *;
 
 // 多人協作reset 由框架組維護，base 由設計組維護
 // @use './base/reset'; // 已合併到 base.scss，保留作為參考(小專案無須拆分)
-@use './base/base';
+@use '@/styles/base/base';
 
-@use './layout/layout';
-@use './layout/hero';
-@use './layout/header';
-@use './layout/articles';
-@use './layout/herosection';
-@use './layout/infosection';
-@use './layout/hotspot';
-@use './layout/storedetail';
-@use './layout/trending';
-@use './layout/scam';
-@use './layout/repostpost';
-@use './layout/findStores';
-@use './layout/footer';
+@use '@/styles/layout/layout';
+@use '@/styles/layout/hero';
+@use '@/styles/layout/header';
+@use '@/styles/layout/articles';
+@use '@/styles/layout/herosection';
+@use '@/styles/layout/infosection';
+@use '@/styles/layout/hotspot';
+@use '@/styles/layout/storedetail';
+@use '@/styles/layout/trending';
+@use '@/styles/layout/scam';
+@use '@/styles/layout/repostpost';
+@use '@/styles/layout/findStores';
+@use '@/styles/layout/footer';
 
-@use './components/buttons';
-@use './components/loader';
-@use './components/carousel';
-@use './components/pagination';
-@use './components/checkbox';
-@use './components/dropdown-skin';
-@use './components/searchbar';
+@use '@/styles/components/buttons';
+@use '@/styles/components/loader';
+@use '@/styles/components/carousel';
+@use '@/styles/components/pagination';
+@use '@/styles/components/checkbox';
+@use '@/styles/components/dropdown-skin';
+@use '@/styles/components/searchbar';
+@use '@/styles/components/toast';
+@use '@/styles/components/forms';
+@use '@/styles/components/confirmmodal';
 // @use './components/cards';
 
 // @use './pages/index';
+@use '@/styles/pages/login-page';
+@use '@/styles/pages/member-center';

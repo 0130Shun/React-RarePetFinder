@@ -1,9 +1,18 @@
 // Header.jsx
-// import { NavLink, useNavigate } from 'react-router-dom';
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { User, Menu, X } from 'react-feather';
+import { useSelector } from 'react-redux';
+import { Dropdown } from 'bootstrap';
+
+// assets
 import logo from '@/assets/logo.png';
+// hook
+import { useConfirm } from '@/hook/useConfirm';
+import { useLogout } from '@/hook/useLogout';
+// config
+import { ISAUTH_ICON_MAP } from '@/config/iconMap';
+// 用物件映射（當有多個特殊 icon+ route 時最好維護)
 const routes = [
   {
     type: 'dropdown',
@@ -11,24 +20,15 @@ const routes = [
     items: [
       {
         label: '找診所',
-        to: {
-          pathname: '/findstores',
-          search: '?storeType=診所',
-        },
+        to: '/findstores?storeType=診所',
       },
       {
         label: '找旅館',
-        to: {
-          pathname: '/findstores',
-          search: '?storeType=旅館',
-        },
+        to: '/findstores?storeType=旅館',
       },
       {
         label: '找賣家',
-        to: {
-          pathname: '/findstores',
-          search: '?storeType=賣家',
-        },
+        to: '/findstores?storeType=賣家',
       },
     ],
   },
@@ -38,74 +38,229 @@ const routes = [
     to: '/articles',
   },
   {
-    type: 'link', // 暫時用一般連結回首頁，拆分後改成 type: 'dropdown',
+    type: 'external',
     label: '投稿 / 回報',
-    to: '/',
-    //未來拆分的寫法+google form連結
-    // items: [
-    //   {
-    //     label: '投稿稀寵資訊',
-    //     external: true,
-    //     // href: 'https://forms.gle/XXXXXXX',
-    //     href: '/', // 暫時用首頁代替
-    //   },
-    //   {
-    //     label: '檢舉 / 回報問題',
-    //     external: true,
-    //     // href: 'https://forms.gle/YYYYYYY',
-    //     href: '/', // 暫時用首頁代替
-    //   },
-    // ],
+    href: 'https://forms.gle/66ZvtSHbzTps9F2P8',
   },
   // ──────────────────
-  // 登入 / 註冊 & 會員中心（先連線到login頁面，hash 切區塊，日後在拆分功能）
+  // 登入 / 註冊 & 會員中心（拆分到authDropdown）
   // ──────────────────
   {
-    type: 'dropdown',
+    type: 'authDropdown',
     label: '登入 / 註冊',
-    items: [
-      {
-        label: '登入',
-        to: { pathname: '/login', hash: '#logindiv' },
-      },
-      {
-        label: '註冊',
-        to: { pathname: '/login', hash: '#register' },
-      },
-    ],
-  },
-  {
-    type: 'link',
-    label: '會員中心',
-    to: '/login',
-    hash: '#membercenter',
   },
 ];
-// 用物件映射（當有多個特殊 icon+ route 時最好維護），使用時：
-// const iconMap = {
-//   會員中心: <i data-feather='user' className='me-1' />,
-//   首頁: <i data-feather='home' className='me-1' />,
-//   設定: <i data-feather='settings' className='me-1' />,
-//   // ...
-// };
-// jsx內部使用時：
-// {
-//   iconMap[route.label] || null;
-// }
-// {
-//   route.label;
-// }
 
-export default function Header() {
+const getAuthMenu = (user) => {
+  if (!user) {
+    return [
+      { label: '登入', to: '/login#logindiv' },
+      { label: '註冊', to: '/login#register' },
+    ];
+  }
+
+  return [
+    { label: '會員中心', to: '/membercenter' },
+    { label: '收藏店家', to: '/favorite' },
+    ...(user.role === 'admin'
+      ? [{ type: 'divider' }, { label: '回後台', to: '/admin' }]
+      : []),
+    { type: 'divider' },
+    { label: '登出', action: 'logout' },
+  ];
+};
+
+const Header = () => {
+  // TODO: 除了寫法1、2，還有優化寫法 Redux user 結構，避免 state.user.user
+  // const { user } = useSelector((state) => state.user); // 寫法1
+  const user = useSelector((state) => state.user.user); // 寫法2
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
   const togglerRef = useRef(null);
+  // const dropdownRef = useRef(null);
+  const authDropdownRef = useRef(null);
+  const { confirm, ConfirmComponent } = useConfirm();
   const closeMenu = () => {
     if (isOpen && togglerRef.current) {
       togglerRef.current.click();
     }
   };
-  // 處理 Body Class 的邏輯（這段不醜了，且有清理機制）
+
+  // hook抽出
+  const logout = useLogout();
+
+  // 使用 import { Dropdown } from 'bootstrap';
+  // 改成authDropdownRef才使用 React ref，避免多個 DOM 共用同一個 ref
+  // 多if (!el) return;，避免讀取不到DOM
+  const handleLogout = () => {
+    logout(user?.userName);
+
+    if (authDropdownRef.current) {
+      const el = authDropdownRef.current.querySelector(
+        '[data-bs-toggle="dropdown"]'
+      );
+
+      if (!el) return;
+
+      const instance = Dropdown.getInstance(el) || new Dropdown(el);
+      instance.hide();
+    }
+  };
+
+  const link = (route) => {
+    return (
+      <li className="nav-item ui-nav-item" key={route.label}>
+        <NavLink className="nav-link" to={route.to} onClick={closeMenu}>
+          {route.label === '會員中心' ? (
+            <>
+              <User className="me-2" size={24}></User>
+              {route.label}
+            </>
+          ) : (
+            route.label
+          )}
+        </NavLink>
+      </li>
+    );
+  };
+
+  // 普通 dropdown 移除 ref，避免多個 DOM 共用同一個 ref
+  // 未來要把e.preventDefault()改成 e.stopPropagation();
+  const dropdown = (route) => {
+    return (
+      <li className="nav-item dropdown ui-nav-item" key={route.label}>
+        <a
+          className="nav-link dropdown-toggle"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+        >
+          {route.label}
+        </a>
+        <ul className="dropdown-menu">
+          {route.items.map((item) => (
+            <li key={item.label}>
+              <Link className="dropdown-item" to={item.to} onClick={closeMenu}>
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </li>
+    );
+  };
+
+  // 普通 authDropdownRef 才用 ref，避免多個 DOM 共用同一個 ref
+  const renderAuthDropdown = (route) => {
+    const menuItems = getAuthMenu(user);
+    const Icon = ISAUTH_ICON_MAP[!!user] || User;
+
+    return (
+      <li
+        className="nav-item dropdown ui-nav-item"
+        ref={authDropdownRef}
+        key={user?.id || 'guest'}
+      >
+        <a
+          className={`nav-link ${user ? 'nav-link-isAuth' : ''} dropdown-toggle d-flex align-items-center`}
+          role="button"
+          data-bs-toggle="dropdown"
+          onClick={(e) => e.preventDefault()}
+        >
+          <Icon size={20} className="me-2" />
+          {user ? user.userName : route.label}
+        </a>
+
+        <ul className="dropdown-menu dropdown-menu--lg dropdown-menu-end">
+          {menuItems.map((item, index) => {
+            if (item.type === 'divider') {
+              return (
+                <li key={`divider-${index}`}>
+                  <hr className="dropdown-divider" />
+                </li>
+              );
+            }
+
+            if (item.action === 'logout') {
+              return (
+                <li key="logout">
+                  <button
+                    className="dropdown-item"
+                    onClick={() => {
+                      handleLogout();
+                      closeMenu();
+                    }}
+                  >
+                    登出
+                  </button>
+                </li>
+              );
+            }
+
+            return (
+              <li key={item.label}>
+                <Link
+                  className="dropdown-item"
+                  to={item.to}
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </li>
+    );
+  };
+
+  // externalLink
+  const externalLink = (route) => {
+    return (
+      <li className="nav-item ui-nav-item" key={route.label}>
+        {/* <a
+          title="將開啟 Google 表單（新分頁）"
+          href={route.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => {
+            e.preventDefault();
+            const confirmGo = window.confirm('將前往外部問卷，是否繼續？');
+            if (confirmGo) {
+              window.open(route.href, '_blank');
+            }
+            closeMenu();
+          }}
+        >
+          {route.label}
+        </a> */}
+        <a
+          className="nav-link"
+          href={route.href}
+          onClick={(e) => {
+            e.preventDefault();
+
+            confirm({
+              title: '即將前往外部網站',
+              message: '你將前往 Google 表單，是否繼續？',
+              onConfirm: () => {
+                window.open(route.href, '_blank');
+              },
+            });
+
+            closeMenu();
+          }}
+        >
+          {route.label}
+        </a>
+      </li>
+    );
+  };
+
+  // 處理 Body Class 的邏輯
   useEffect(() => {
     const navElement = navRef.current;
     if (!navElement) return;
@@ -131,109 +286,59 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="header ui-layout">
-      <nav className="navbar navbar-expand-lg bg-white">
-        <div className="container ui-container d-flex align-items-center">
-          {/* 品牌區 */}
-          <Link className="navbar-brand" to="/">
-            <img src={logo} alt="稀寵搜尋.logo" className="me-2" />
-          </Link>
+    <>
+      <header className="header ui-layout">
+        <nav className="navbar navbar-expand-lg bg-white">
+          <div className="container ui-container d-flex align-items-center">
+            {/* 品牌區 */}
+            <Link className="navbar-brand" to="/">
+              <img src={logo} alt="稀寵搜尋.logo" className="me-2" />
+            </Link>
 
-          {/* 漢堡按鈕 */}
-          <button
-            ref={togglerRef}
-            className={`navbar-toggler ${isOpen ? '' : 'collapsed'}`}
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNav"
-            aria-controls="mainNav"
-            aria-expanded={isOpen}
-          >
-            {isOpen ? (
-              <X className="close-icon" size={24} />
-            ) : (
-              <Menu className="hamburger" size={24} />
-            )}
-          </button>
+            {/* 漢堡按鈕 */}
+            <button
+              ref={togglerRef}
+              className={`navbar-toggler ${isOpen ? '' : 'collapsed'}`}
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mainNav"
+              aria-controls="mainNav"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? (
+                <X className="close-icon" size={24} />
+              ) : (
+                <Menu className="hamburger" size={24} />
+              )}
+            </button>
 
-          {/* 導覽內容 */}
-          <div className="collapse navbar-collapse" id="mainNav" ref={navRef}>
-            <ul className="navbar-nav ms-auto">
-              {routes.map((route) => {
-                // 一般連結 || 下拉選單
-                if (route.type === 'link') {
-                  return (
-                    <li className="nav-item ui-nav-item" key={route.label}>
-                      <NavLink
-                        className="nav-link"
-                        to={route.to}
-                        onClick={closeMenu}
-                      >
-                        {route.label === '會員中心' ? (
-                          <>
-                            <User className="me-2" size={24}></User>
-                            {/* <i data-feather="user" className="me-1" /> */}
-                            {route.label}
-                          </>
-                        ) : (
-                          route.label
-                        )}
-                      </NavLink>
-                    </li>
-                  );
-                }
-
-                if (route.type === 'dropdown') {
-                  return (
-                    <li
-                      className="nav-item dropdown ui-nav-item"
-                      key={route.label}
-                    >
-                      <a
-                        className="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        {route.label}
-                      </a>
-                      <ul className="dropdown-menu">
-                        {route.items.map((item) => (
-                          <li key={item.label}>
-                            {item.external ? (
-                              <a
-                                className="dropdown-item"
-                                href={item.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={closeMenu}
-                              >
-                                {item.label}
-                              </a>
-                            ) : (
-                              <Link
-                                className="dropdown-item"
-                                to={item.to}
-                                onClick={closeMenu}
-                              >
-                                {item.label}
-                              </Link>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-                  );
-                }
-
-                return null;
-              })}
-            </ul>
+            {/* 導覽內容 */}
+            <div className="collapse navbar-collapse" id="mainNav" ref={navRef}>
+              <ul className="navbar-nav ms-auto">
+                {routes.map((route) => {
+                  switch (route.type) {
+                    case 'link':
+                      return link(route);
+                    case 'external':
+                      return externalLink(route);
+                    case 'dropdown':
+                      return dropdown(route);
+                    case 'authDropdown':
+                      return renderAuthDropdown(route);
+                    default:
+                      return null;
+                  }
+                })}
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
-      <div className="nav-backdrop" />
-    </header>
+        </nav>
+        <div className="nav-backdrop" />
+      </header>
+      {/* 只放一次 */}
+      <ConfirmComponent />
+    </>
   );
-}
+};
+
+export default Header;

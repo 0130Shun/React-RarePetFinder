@@ -1,4 +1,4 @@
-@use '../helpers/variables' as *;
+@use '@/styles/helpers/variables' as *;
 
 /* =====================================
   Pagination
@@ -69,6 +69,7 @@
     background-color: $ui-color-warning;
   }
 
+  &:disabled,
   &.is-disabled {
     opacity: 0.4;
     cursor: not-allowed;

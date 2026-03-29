@@ -1,12 +1,88 @@
 {
   "users": [
     {
+      "email": "123w4asdf@mail.com",
+      "password": "$2a$10$lVgrSCExxRzrB5SG/ndEL..Vb3ysJKKd/YwqYC0awgfpy3.Nm5va6",
+      "userName": "123w4asdf",
+      "role": "admin",
+      "createdAt": "2026-03-29T01:02:13.220Z",
       "id": 1,
-      "email": "[test@mail.com](mailto:test@mail.com)",
-      "password": "123456",
-      "userName": "測試使用者",
-      "createdAt": "2025-01-01T10:00:00Z",
-      "role": "user"
+      "isActive": true
+    },
+    {
+      "email": "testadmin@example.com",
+      "password": "$2a$10$GQRvffqDeg/51NA9ZsDAueHlGPem2U2XoDl1X4zlfs3d2w147HoNS",
+      "username": "testadmin",
+      "role": "admin",
+      "id": 2,
+      "isActive": true
+    },
+    {
+      "email": "te33stadmin@example.com",
+      "password": "$2a$10$HGUJEyDnVAnGqQXP9C5C5O/mgUwRDsqxShNK2ktvFuz0H1moLn47G",
+      "username": "te33stadmin",
+      "role": "admin",
+      "id": 3,
+      "isActive": true
+    },
+    {
+      "email": "3669admin@example.com",
+      "password": "$2a$10$0d/YX7aD4Kdp628xJIYKVufSJR5TwWZJQBacK6QqrYAZAMX9I8AnK",
+      "username": "3669admin",
+      "role": "admin",
+      "id": 4,
+      "isActive": true
+    },
+    {
+      "email": "admin@mail.com",
+      "password": "$2a$10$RsCfGRjb6IibMpmc5sZMUOaBsorDbmQngrsnjR5CVAnWmRXCPQkee",
+      "username": "654321",
+      "role": "admin",
+      "id": 5,
+      "userName": "admin",
+      "bio": "123",
+      "location": "",
+      "favoritePetTypes": ["鸚鵡", "柯爾鴨"],
+      "isActive": true
+    },
+    {
+      "email": "admin02@mail.com",
+      "password": "$2a$10$m4C.GtJUoFsJuBdMCUgk6OtK9GaovLtuNvgfb1G24x2.CFs3ifjGa",
+      "userName": "admin02",
+      "role": "admin",
+      "createdAt": "2026-03-29T10:40:56.435Z",
+      "id": 6,
+      "isActive": true
+    },
+    {
+      "email": "admin03@mail.com",
+      "password": "$2a$10$TgI42RchnaBGqrrsvj850e8J0fyPv06BV/R44Q5eyEDctRSRfjutS",
+      "userName": "admin03",
+      "role": "admin",
+      "createdAt": "2026-03-29T10:42:26.899Z",
+      "id": 7,
+      "isActive": true
+    },
+    {
+      "email": "admin01@mail.com",
+      "password": "$2a$10$mcLf/gNivGf2Cv.ZB.f2ceT1NlCnv09utfwdygp3kAETC3eIYqHT6",
+      "userName": "admin01",
+      "role": "admin",
+      "createdAt": "2026-03-29T12:29:28.729Z",
+      "id": 8,
+      "isActive": true
+    },
+    {
+      "email": "nnnnss1234@mail.com",
+      "password": "$2a$10$9y.Ibf1Gzemk23s8eLJXiOU2KLT8eODB3bMOGRZPOF5cWsKAWjK76",
+      "userName": "nnnnss1234",
+      "role": "user",
+      "createdAt": "2026-03-29T12:36:49.468Z",
+      "id": 9,
+      "bio": "喜愛鸚鵡與刺蝟、倉鼠作伴，有人有需要二手得倉鼠飼養滾輪嗎? 順手作環保~",
+      "location": "嘉義",
+      "favoritePetTypes": ["鸚鵡", "倉鼠"],
+      "isActive": true
     }
   ],
   "stores": [
@@ -1021,10 +1097,46 @@
   ],
   "favorites": [
     {
-      "id": 1,
       "userId": 1,
       "storeId": 2,
-      "createdAt": "2025-01-01T10:00:00Z"
+      "createdAt": "2025-01-11T10:09:15Z",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "storeId": 1,
+      "createdAt": "2025-01-15T11:09:15Z",
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "storeId": 5,
+      "createdAt": "2026-03-23T18:22:12.634Z",
+      "id": 3
+    },
+    {
+      "userId": 3,
+      "storeId": 5,
+      "createdAt": "2026-03-28T09:57:24.940Z",
+      "id": 4
+    },
+    {
+      "userId": 6,
+      "storeId": 2,
+      "createdAt": "2026-03-29T10:41:12.374Z",
+      "id": 5
+    },
+    {
+      "userId": 9,
+      "storeId": 5,
+      "createdAt": "2026-03-29T12:37:16.613Z",
+      "id": 6
+    },
+    {
+      "userId": 9,
+      "storeId": 46,
+      "createdAt": "2026-03-29T12:37:27.715Z",
+      "id": 8
     }
   ],
   "articles": [
@@ -1299,6 +1411,136 @@
       "content": "近期氣溫飆升，請注意兔兔、天竺鼠與刺蝟的室內溫度。請勿將飼養籠放置於陽光直射處，並確保飲水充足，以免發生熱衰竭。",
       "date": "2024-06-01",
       "isSticky": false
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "userId": 9,
+      "storeId": 2,
+      "rating": 5,
+      "comment": "第一次帶柯爾鴨來寄宿有點緊張，但店家照顧得很細心，還會回報狀況，真的很安心。",
+      "createdAt": "2026-03-20T10:15:00Z"
+    },
+    {
+      "id": 2,
+      "userId": 9,
+      "storeId": 4,
+      "rating": 4,
+      "comment": "醫生講解很仔細，對新手也很有耐心，環境也很乾淨，之後有問題還會再來。",
+      "createdAt": "2026-03-21T14:30:00Z"
+    },
+    {
+      "id": 3,
+      "userId": 9,
+      "storeId": 1,
+      "rating": 5,
+      "comment": "倉鼠用品種類很多，幾乎一次就能買齊，店員也會給一些飼養建議，很不錯。",
+      "createdAt": "2026-03-22T09:10:00Z"
+    },
+    {
+      "id": 4,
+      "userId": 9,
+      "storeId": 6,
+      "rating": 4,
+      "comment": "帶鸚鵡來看診，醫生處理得很專業，雖然需要等一下但整體體驗很好。",
+      "createdAt": "2026-03-23T16:45:00Z"
+    },
+    {
+      "id": 5,
+      "userId": 9,
+      "storeId": 8,
+      "rating": 5,
+      "comment": "這裡真的很適合異寵，新手也不會有壓力，醫療跟環境都讓人放心。",
+      "createdAt": "2026-03-24T11:20:00Z"
+    },
+    {
+      "id": 6,
+      "userId": 9,
+      "storeId": 3,
+      "rating": 4,
+      "comment": "寄宿環境比想像中好很多，空間也夠，服務人員態度很好。",
+      "createdAt": "2026-03-25T18:05:00Z"
+    },
+    {
+      "id": 7,
+      "userId": 9,
+      "storeId": 14,
+      "rating": 5,
+      "comment": "鸚鵡住宿環境很用心，還有互動時間，感覺孩子玩得很開心。",
+      "createdAt": "2026-03-26T13:40:00Z"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "稀有寵物回娘家年度聚會",
+      "description": "邀請當初領養的孩子們與飼主一同回來相聚，一起看看大家長大的模樣，留下珍貴回憶。",
+      "location": "台北",
+      "date": "2026-06-15",
+      "petTypes": ["柯爾鴨", "鸚鵡", "倉鼠"],
+      "coverImage": "event01.jpg",
+      "organizer": "稀寵平台"
+    },
+    {
+      "id": 2,
+      "title": "柯爾鴨同樂日",
+      "description": "柯爾鴨小聚登場 🦆 開放歷屆飼主與孩子回館聚會，現場提供拍照區與簡單互動活動。",
+      "location": "新北",
+      "date": "2026-07-03",
+      "petTypes": ["柯爾鴨"],
+      "coverImage": "event02.jpg",
+      "organizer": "柯爾鴨精品館"
+    },
+    {
+      "id": 3,
+      "title": "異寵家庭日",
+      "description": "屬於各種小生命的家庭日，鼓勵帶著你的特寵一起來交流與分享飼養經驗，現場有小型講座。",
+      "location": "台中",
+      "date": "2026-07-20",
+      "petTypes": ["守宮", "刺蝟", "烏龜"],
+      "coverImage": "event03.jpg",
+      "organizer": "特寵交流協會"
+    },
+    {
+      "id": 4,
+      "title": "鸚鵡互動交流會",
+      "description": "喜歡鸚鵡的你一定不能錯過，現場安排簡單飛行展示與互動分享，一起交流飼養心得。",
+      "location": "台北",
+      "date": "2026-08-05",
+      "petTypes": ["鸚鵡"],
+      "coverImage": "event04.jpg",
+      "organizer": "鳥類專科醫院"
+    },
+    {
+      "id": 5,
+      "title": "倉鼠飼主小聚",
+      "description": "小小倉鼠也有大大的世界 🐹 邀請飼主們一起分享飼養環境與心得，現場提供交流區。",
+      "location": "桃園",
+      "date": "2026-08-18",
+      "petTypes": ["倉鼠"],
+      "coverImage": "event05.jpg",
+      "organizer": "鼠來寶社群"
+    },
+    {
+      "id": 6,
+      "title": "爬蟲寵物交流日",
+      "description": "守宮、烏龜等爬蟲寵物交流活動，提供新手交流與飼養經驗分享，歡迎帶寶貝來參加。",
+      "location": "高雄",
+      "date": "2026-09-02",
+      "petTypes": ["守宮", "烏龜"],
+      "coverImage": "event06.jpg",
+      "organizer": "爬蟲玩家社群"
+    },
+    {
+      "id": 7,
+      "title": "稀寵周年慶活動",
+      "description": "稀寵平台周年慶 🎉 邀請所有飼主與寵物回來共襄盛舉，現場安排小禮物與紀念拍照區。",
+      "location": "台北",
+      "date": "2026-09-20",
+      "petTypes": ["柯爾鴨", "鸚鵡", "倉鼠", "守宮"],
+      "coverImage": "event07.jpg",
+      "organizer": "Rare Pet Finder"
     }
   ]
 }

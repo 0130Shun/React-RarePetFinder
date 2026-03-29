@@ -19,6 +19,7 @@ ul {
 }
 
 .store-info-section {
+  margin: 0; // 移除格線系統的-8~-16margin。
   padding: 40px 12px 40px 12px;
   border-radius: 8px;
 }
@@ -76,8 +77,131 @@ ul {
   opacity: 0.3; /* 關鍵：透明度，讓它變淡 */
   z-index: 0; /* 放在最底層 */
 }
-@media (min-width: 768px) {
+// 保存舊版
+// @media (min-width: 768px) {
+//   .store-info-section {
+//     max-width: 1296px;
+//     align-items: flex-start;
+//     border-radius: 16px;
+//     flex-wrap: nowrap;
+//   }
+//   .store-profile-box {
+//     max-width: 307px;
+//     padding: 16px;
+//     width: auto;
+//     height: auto;
+//     gap: 16px;
+//   }
+//   .store-detail-img {
+//     height: 275px;
+//   }
+//   .store-link {
+//     padding: 0;
+//     text-align: center;
+//   }
+//   .store-link a {
+//     padding: 36px 0;
+//   }
+// }
+@media (min-width: 768px) and (max-width: 1295px) {
   .store-info-section {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center; // 讓剩餘空間均分
+    gap: 16px; // 現在可以放心地加間距了
+    padding: 24px 12px; // 左右留一點緩衝
+    margin: 0 auto; // 確保置中
+    width: 100%; // 強制不超過父層
+  }
+
+  .store-profile-box {
+    flex: 0 1 20%; // 稍微縮小比例，從 25% 降到 20%
+    min-width: 160px; // 確保你的正方形不會縮到太小
+    max-width: 240px; // 讓它比桌面版瘦一點
+    padding: 12px; // 縮小內距釋放空間
+
+    .store-detail-img {
+      width: 100%; // 寬度隨父層縮放
+      height: auto; // 重設高度
+      aspect-ratio: 1 / 1; // 🔥 核心：強制寬高比為 1:1
+      background-color: #ffffff;
+      border-radius: inherit;
+      overflow: hidden; // 確保內容不溢出
+      display: flex; // 讓內部圖片置中
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; // 確保插圖比例正確且完整顯示
+        padding: 10%; // 給插圖一點留白，縮小時比較好看
+      }
+    }
+
+    .store-link {
+      padding: 0;
+      a {
+        text-align: center;
+        padding: 20px 0; // 縮小按鈕高度
+        font-size: 14px; // 稍微縮小字體避免換行
+      }
+    }
+  }
+
+  .store-info-box {
+    flex: 1 1 auto; // 這是瘦身的關鍵，它會自動吃掉剩下的空間
+    min-width: 280px;
+    padding: 0; // 移除外層 padding
+    .store-info-content {
+      padding: 24px; // 縮小內距，原檔 48px 太佔空間
+      h4 {
+        margin-bottom: 12px;
+      }
+    }
+  }
+
+  .store-contact-box {
+    flex: 0 1 30%; // 從 33% 降到 30%
+    min-width: 240px;
+    max-width: 300px;
+    padding: 12px; // 縮小內距
+
+    .store-detail-add,
+    .store-tel {
+      padding: 12px;
+      gap: 8px; // 縮小 Icon 與文字間距
+
+      .add-icon,
+      .tel-icon {
+        width: 32px; // 縮小 Icon
+        height: 32px;
+      }
+
+      h4 {
+        font-size: 18px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+
+    .share-btn {
+      width: 100%; // 按鈕滿版
+      padding: 10px 0;
+    }
+
+    .info-disclaimer {
+      font-size: 12px; // 縮小免責聲明
+    }
+  }
+}
+@media (min-width: 1296px) {
+  .store-info-section {
+    // gap: 12px;
+    gap: 6px;
+    padding-left: 0;
+    padding-right: 0;
     max-width: 1296px;
     align-items: flex-start;
     border-radius: 16px;
@@ -101,6 +225,7 @@ ul {
     padding: 36px 0;
   }
 }
+
 /* 店家公開資訊 */
 .store-info-box {
   background-color: var(--Primary-blue-500);
@@ -214,7 +339,7 @@ ul {
 }
 @media (min-width: 768px) {
   .store-contact-box {
-    padding: 24px;
+    padding: 16px;
     gap: 24px;
   }
   .store-add {
@@ -283,11 +408,22 @@ ul {
     background-color: #525252;
   }
 }
+// 保存舊版
+// @media (min-width: 768px) {
+//   .infoSection.black-100 {
+//     background-color: #f0f0f0;
+//   }
+//   .reviewsContentCard {
+//     height: 200px;
+//   }
+// }
 @media (min-width: 768px) {
-  .infoSection.black-100 {
+  //.infoSection.black-100 調整成 infoSection的變體 infoSection--black
+  .infoSection--black {
     background-color: #f0f0f0;
   }
   .reviewsContentCard {
-    height: 200px;
+    min-height: 200px;
+    height: auto;
   }
 }

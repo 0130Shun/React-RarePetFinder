@@ -1,18 +1,24 @@
 //主控layout 放header、footer、main
 
-import { Outlet, NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
-import Header from '../components/Header'; // 可選
-import Footer from '../components/Footer';
+import { Outlet } from 'react-router-dom';
 import feather from 'feather-icons'; //react-feather 等之後整合後啟用，feather-icons + feather.replace();暫時不關閉
+
+//components
+import Header from '@/components/Header'; // 可選
+import Footer from '@/components/Footer';
 import GoTop from '@/components/shared/GoTop';
+// hook
+import { useAuthInit } from '@/hook/useAuthInit';
 
 export default function FrontendLayout() {
+  // Hook 必須在「component 最外層」呼叫
+  useAuthInit();
+
   useEffect(() => {
     feather.replace();
-    //畫面渲染後初步載入_XXX
-    // get_XXX();
   }, []);
+
   return (
     <>
       <Header />
@@ -20,10 +26,6 @@ export default function FrontendLayout() {
         <Outlet />
       </main>
       <GoTop />
-      {/* <hr /> */}
-      {/* <footer className="mt-4 text-center">
-        <p>footer</p>
-      </footer> */}
       <Footer />
     </>
   );

@@ -32,18 +32,21 @@ const InfoSection = () => {
         {/* <!-- ---  稀寵資訊卡片區 --- --> */}
         <div className="infoContent py-3 px-1 mx-0 mx-md-auto px-md-0 row g-3 g-md-4 py-md-5">
           {infoData.map((item) => (
-            <div className="col-12 col-md-4" key={item.id}>
+            <div className="col-md-4" key={item.id}>
               <div className="infoContentCard p-md-5">
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-text">{item.text}</p>
-                <Link  to={item.link} className="stretched-link">
+                <Link to={item.link} className="stretched-link">
                   查看文章
                 </Link>
               </div>
             </div>
           ))}
 
-          <Link className="moreInfoBtn btn mb-3 mt-4 mb-md-0 mt-md-5" to="/articles">
+          <Link
+            className="moreInfoBtn btn mb-3 mt-4 mb-md-0 mt-md-5"
+            to="/articles"
+          >
             更多文章
           </Link>
         </div>

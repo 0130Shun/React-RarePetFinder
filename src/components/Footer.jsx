@@ -1,8 +1,7 @@
-// import { useState } from 'react'
-import logo from '../assets/logo.png';
-import line from '../assets/img/line.png';
-import facebook from '../assets/img/facebook.png';
-import instagram from '../assets/img/instagram.png';
+import logo from '@/assets/logo.png';
+import line from '@/assets/img/line.png';
+import facebook from '@/assets/img/facebook.png';
+import instagram from '@/assets/img/instagram.png';
 
 function Footer() {
   return (
@@ -10,7 +9,7 @@ function Footer() {
       <footer className="py-5">
         <div className="container ui-container">
           <div className="row align-items-center gy-4">
-            <div className="col-12 col-md-6 text-center text-md-start">
+            <div className="col-md-6 text-center text-md-start">
               <div className="d-flex flex-column align-items-center align-items-md-start">
                 <img src={logo} alt="稀寵搜搜" />
                 <p className="text-secondary small mt-4 d-none d-md-block footer-disclaimer">
@@ -18,22 +17,22 @@ function Footer() {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-md-6 text-center text-md-end">
+            <div className="col-md-6 text-center text-md-end">
               <div className="d-flex justify-content-center justify-content-md-end gap-3 mb-3">
                 <a href="https://www.line.me/tw/" className="text-dark fs-3 ">
-                  <img src={line} alt="" />
+                  <img src={line} alt="line.png" />
                 </a>
                 <a
                   href="https://www.facebook.com/"
                   className="text-dark fs-3 ms-3"
                 >
-                  <img src={facebook} alt="" />
+                  <img src={facebook} alt="facebook.png" />
                 </a>
                 <a
                   href="https://www.instagram.com/"
                   className="text-dark fs-3 ms-3"
                 >
-                  <img src={instagram} alt="" />
+                  <img src={instagram} alt="instagram.png" />
                 </a>
               </div>
               <div className="d-flex justify-content-center justify-content-md-end gap-4 fw-bold">

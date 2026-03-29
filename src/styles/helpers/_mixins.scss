@@ -1,14 +1,45 @@
-@use '../helpers/variables' as *;
+@use '@/styles/helpers/variables' as *;
+@use '@/styles/helpers/breakpoints' as *;
 @use 'sass:map';
 
-@mixin respond($point) {
-  $size: map.get($breakpoints, $point);
+// 前台台視角斷點(注意該視角是從../helpers/variables引用，
+// 盤整完全部前台scss後要改成../helpers/breakpoints引用)
+// @mixin respond($point) {
+//   $size: map.get($breakpoints, $point);
+//   @if $size != null {
+//     @media (min-width: $size) {
+//       @content;
+//     }
+//   } @else {
+//     @warn "No breakpoint found for `#{$point}`.";
+//   }
+// }
 
-  @if $size != null {
-    @media (min-width: $size) {
-      @content;
-    }
-  } @else {
-    @warn "No breakpoint found for `#{$point}`.";
+// 新增後台視角斷點
+// @mixin admin-respond($breakpoint) {
+//   $value: map-get($admin-breakpoints, $breakpoint);
+//   @media (min-width: $value) {
+//     @content;
+//   }
+// }
+
+// 等盤整完全部scss後，前透台統一使用，避免重複維護成本， 通用 respond mixin（唯一一個）
+// 使用方法：
+// 前台： @include respond($breakpoints, desktop) {
+//   ...
+// }
+// 後台： @include respond($admin-breakpoints, laptop) {
+//   ...
+// }
+
+@mixin respond($map, $point) {
+  @if not map.has-key($map, $point) {
+    @error "breakpoint `#{$point}` not found.";
+  }
+
+  $size: map.get($map, $point);
+
+  @media (min-width: $size) {
+    @content;
   }
 }
