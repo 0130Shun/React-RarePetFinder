@@ -19,7 +19,7 @@ import Dashboard from '@/views/auth/Dashboard';
 import Members from '@/views/auth/Members';
 import AdminNotFound from '@/views/auth/AdminNotFound';
 
-// 入邏輯抽到router-RequireAuth去判斷
+// Auth登入邏輯 抽到router-RequireAuth去判斷
 import RequireAuth from './RequireAuth';
 
 export const router = createHashRouter([
@@ -31,11 +31,6 @@ export const router = createHashRouter([
         index: true,
         element: <Home />,
       },
-      // {
-      // 為避免重構錯誤和方便後續追蹤，將「原版FindStores」保留到新版運作正常後刪除
-      //   path: 'findstoresbackup',
-      //   element: <FindStoresBackup />,
-      // },
       {
         path: 'findstores',
         element: <FindStores />,
@@ -64,11 +59,6 @@ export const router = createHashRouter([
             path: 'favorite',
             element: <Favorite />,
           },
-          // {
-          //   // 為避免重構錯誤和方便後續追蹤，將「原版FavoriteBackup」保留到新版運作正常後刪除
-          //   path: 'favoritebackup',
-          //   element: <FavoriteBackup />,
-          // },
         ],
       },
       {

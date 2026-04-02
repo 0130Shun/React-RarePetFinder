@@ -19,7 +19,7 @@ import { extractErrorMessage } from '@/utils/errorHandler';
 // 之後處理分頁每頁顯示 9 筆店家和側邊搜尋
 // const PAGE_SIZE = 9;
 
-const FavoriteBackup = () => {
+const Favorite_Legacy = () => {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
   // const location = useLocation();
@@ -198,4 +198,4 @@ const FavoriteBackup = () => {
   );
 };
 
-export default FavoriteBackup;
+export default Favorite_Legacy;
