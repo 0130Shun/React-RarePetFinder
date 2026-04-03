@@ -72,7 +72,9 @@ const FindStores = () => {
       } catch (err) {
         console.error(err);
         if (!mounted) return;
-        setError('載入店家資料失敗，請確認 json-server-api網站 是否已啟動');
+        setError(
+          '載入搜尋店家資料失敗，請確認 json-server-api網站 是否已啟動或重新整理頁面等待 json-server-api網站 喚醒回應。'
+        );
         setAllStores([]);
       } finally {
         if (mounted) setIsLoading(false);
