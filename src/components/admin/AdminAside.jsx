@@ -4,6 +4,7 @@ import { useState } from 'react';
 import {
   Activity,
   Box,
+  Users,
   ShoppingBag,
   BookOpen,
   AlertCircle,
@@ -22,7 +23,7 @@ const menu = [
   {
     name: '會員管理',
     path: '/admin/members',
-    icon: <Box size={18} />,
+    icon: <Users size={18} />,
   },
   {
     name: '店家管理',
@@ -60,32 +61,41 @@ const AdminAside = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <aside className={`admin-sidebar ${collapsed ? 'collapsed' : ''}`}>
-      {/* Header */}
-      <div className="admin-sidebar__brand">
-        <span>稀寵後台</span>
-        <button onClick={() => setCollapsed(!collapsed)}>
-          <Menu size={18} />
-        </button>
-      </div>
+    <>
+      (<Box size={18} />
+      ), (<BookOpen size={18} />
+      ), (<AlertCircle size={18} />
+      ), (<ThumbsUp size={18} />
+      ), (<Calendar size={18} />
+      )(
+      <aside className={`admin-sidebar ${collapsed ? 'collapsed' : ''}`}>
+        {/* Header */}
+        <div className="admin-sidebar__brand">
+          <span>稀寵後台</span>
+          <button onClick={() => setCollapsed(!collapsed)}>
+            <Menu size={18} />
+          </button>
+        </div>
 
-      {/* Menu */}
-      <nav className="admin-sidebar__menu">
-        {menu.map((item) => (
-          <NavLink
-            key={item.name}
-            to={item.path}
-            end={item.end}
-            className={({ isActive }) =>
-              `admin-sidebar__item ${isActive ? 'active' : ''}`
-            }
-          >
-            <span className="icon">{item.icon}</span>
-            <span className="text">{item.name}</span>
-          </NavLink>
-        ))}
-      </nav>
-    </aside>
+        {/* Menu */}
+        <nav className="admin-sidebar__menu">
+          {menu.map((item) => (
+            <NavLink
+              key={item.name}
+              to={item.path}
+              end={item.end}
+              className={({ isActive }) =>
+                `admin-sidebar__item ${isActive ? 'active' : ''}`
+              }
+            >
+              <span className="icon">{item.icon}</span>
+              <span className="text">{item.name}</span>
+            </NavLink>
+          ))}
+        </nav>
+      </aside>
+      )
+    </>
   );
 };
 

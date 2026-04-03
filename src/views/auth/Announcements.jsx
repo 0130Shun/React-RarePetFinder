@@ -81,7 +81,7 @@ const Announcements = () => {
                       {announcement.type === 'alert' ? (
                         <span className="badge bg-danger">警示公告</span>
                       ) : (
-                        <span className="badge bg-info">一般公告</span>
+                        <span className="badge bg-info">資訊公告</span>
                       )}
                     </td>
                     <td>{announcement.publishAt}</td>

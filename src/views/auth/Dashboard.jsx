@@ -191,10 +191,20 @@ const Dashboard = () => {
                       <div>{announcement.title}</div>
                       <div>{truncateText(announcement.content, 40)}</div>
                       <div>
-                        {announcement.type == 'alert' ? '[警示]' : '[資訊]'}
+                        {announcement.type == 'alert' ? (
+                          <span className="badge bg-danger">警示公告</span>
+                        ) : (
+                          <span className="badge bg-info">資訊公告</span>
+                        )}
                       </div>
-                      <div>{announcement.date || '未知上架日期'}</div>
-                      <div>{announcement.isSticky ? '置頂' : '未置頂狀態'}</div>
+                      <div>{announcement.publishAt || '未知上架日期'}</div>
+                      <div>
+                        {announcement.isSticky ? (
+                          <span className="badge bg-success">公告置頂</span>
+                        ) : (
+                          <span className="badge bg-secondary">非置頂</span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -216,8 +226,8 @@ const Dashboard = () => {
                       <div>{truncateText(event.description, 40)}</div>
                       <div>{event.petTypes.join(', ')}</div>
                       <div>
-                        {event.location || '未知地點'} |{' '}
-                        {event.date || '未知日期'}
+                        {event.location || '未知舉辦地點'} |{' '}
+                        {event.publishAt || '未知上架日期'}
                       </div>
                     </div>
                   </div>
