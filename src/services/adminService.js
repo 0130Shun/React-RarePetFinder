@@ -6,7 +6,7 @@ export const adminService = {
     const res = await apiClient.get('/users');
     return res.data;
   },
-  async registerMembers(id, data) {
+  async registerMembers(data) {
     const res = await apiClient.post('/register', data); // 改成 register 跑一次
     return res.data;
   },

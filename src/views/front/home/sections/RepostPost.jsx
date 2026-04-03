@@ -19,6 +19,26 @@ export default function RepostPost() {
                 >
                   回報詐騙 / 錯誤
                 </button>
+                <a
+                  className="nav-link btn btn-warning section-cta__btn"
+                  href="https://forms.gle/66ZvtSHbzTps9F2P8"
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    confirm({
+                      title: '即將前往外部網站',
+                      message: '你將前往 Google 表單，是否繼續？',
+                      onConfirm: () => {
+                        window.open(
+                          'https://forms.gle/66ZvtSHbzTps9F2P8',
+                          '_blank'
+                        );
+                      },
+                    });
+                  }}
+                >
+                  回報詐騙 / 錯誤
+                </a>
               </div>
             </div>
 
@@ -29,9 +49,29 @@ export default function RepostPost() {
                 <p className="section-cta__text">
                   無論是新店開幕、活動舉辦或寵物友善空間，歡迎你的情報！
                 </p>
-                <button type="button" className="btn btn-info section-cta__btn">
+                {/* <button type="button" className="btn btn-info section-cta__btn">
                   投稿稀寵情報
-                </button>
+                </button> */}
+                <a
+                  className="nav-link btn btn-info section-cta__btn"
+                  href="https://forms.gle/66ZvtSHbzTps9F2P8"
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    confirm({
+                      title: '即將前往外部網站',
+                      message: '你將前往 Google 表單，是否繼續？',
+                      onConfirm: () => {
+                        window.open(
+                          'https://forms.gle/66ZvtSHbzTps9F2P8',
+                          '_blank'
+                        );
+                      },
+                    });
+                  }}
+                >
+                  投稿稀寵情報
+                </a>
               </div>
             </div>
           </div>
