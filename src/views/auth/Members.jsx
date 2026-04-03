@@ -9,15 +9,8 @@ import MemberModal from '@/components/admin/MemberModal';
 import { useToast } from '@/hook/useToast';
 // utils
 import { extractErrorMessage } from '@/utils/errorHandler';
-
-const DEFAULT_MEMBER = {
-  email: '',
-  password: '',
-  userName: '',
-  role: '',
-  createdAt: '',
-  favoritePetTypes: [],
-};
+// constants
+import { DEFAULT_MEMBER } from '@/constants/storeOptions';
 
 const Members = () => {
   const { showError, success } = useToast();
@@ -117,6 +110,7 @@ const Members = () => {
         await registerMembers({
           ...tempMember,
           createdAt: now,
+          isActive: true, // 新增的會員預設為啟用狀態
         });
       } else {
         // edit：安全處理 password
@@ -158,23 +152,22 @@ const Members = () => {
 
       try {
         const members = await getMembers();
-
         setMembers(members);
       } catch (error) {
         const errorMessage = extractErrorMessage(
           error,
           null,
-          '會員資料載入失敗，請稍後重新刷新。'
+          '會員 資料載入失敗，請稍後重新刷新。'
         );
         showError(errorMessage);
       } finally {
         setIsScreenLoading(false);
       }
-
       setIsScreenLoading(false);
     };
 
     loadMembers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -205,7 +198,7 @@ const Members = () => {
 
         <div className="admin-card mb-4">
           <div className="admin-card__header">
-            <h2>會員管理</h2>
+            <h2>會員 管理</h2>
             <button
               className="btn btn-primary"
               onClick={() => {
@@ -223,8 +216,8 @@ const Members = () => {
                   <th>會員名稱</th>
                   <th>會員email</th>
                   <th>會員角色</th>
-                  <th>狀態</th>
-                  <th>操作</th>
+                  <th>啟用狀態</th>
+                  <th>功能操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -235,7 +228,13 @@ const Members = () => {
                       <td>{member.userName}</td>
                       <td>{member.email}</td>
                       <td>{member.role}</td>
-                      <td>{member.isActive ? '啟用' : '未啟用'}</td>
+                      <td>
+                        {member.isActive ? (
+                          <span className="badge bg-success">啟用</span>
+                        ) : (
+                          <span className="badge bg-secondary">未啟用</span>
+                        )}
+                      </td>
                       <td>
                         <div className="btn-group">
                           <button

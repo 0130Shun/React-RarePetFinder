@@ -1,7 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
-import { Activity, Box, ShoppingCart, Menu } from 'react-feather';
+import {
+  Activity,
+  Box,
+  ShoppingBag,
+  BookOpen,
+  AlertCircle,
+  ThumbsUp,
+  Menu,
+  Calendar,
+} from 'react-feather';
 
 const menu = [
   {
@@ -15,20 +24,30 @@ const menu = [
     path: '/admin/members',
     icon: <Box size={18} />,
   },
+  {
+    name: '店家管理',
+    path: '/admin/stores',
+    icon: <ShoppingBag size={18} />,
+  },
   // {
-  //   name: '店家管理',
-  //   path: '/admin/stores',
-  //   icon: <Box size={18} />,
-  // },
-  // {
-  //   name: '投稿文章',
+  //   name: '專文管理',
   //   path: '/admin/articles',
-  //   icon: <ShoppingCart size={18} />,
+  //   icon: <BookOpen size={18} />,
   // },
   // {
   //   name: '公告資訊',
   //   path: '/admin/announcements',
-  //   icon: <ShoppingCart size={18} />,
+  //   icon: <AlertCircle size={18} />,
+  // },
+  // {
+  //   name: '舉辦活動(events)', // 後續再補上，提供給前台user或後台管理員舉辦活動，或是提供給店家舉辦活動的功能
+  //   path: '/admin/events',
+  //   icon: <Calendar size={18} />,
+  // },
+  // {
+  //   name: '店家評論(reviews)', // 後續再補上，僅觀看評論內容大多不編輯，除非有違規評論需要處理
+  //   path: '/admin/reviews',
+  //   icon: <ThumbsUp size={18} />,
   // },
   {
     name: '回到前台',
