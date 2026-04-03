@@ -160,7 +160,7 @@ const FindStores = () => {
       <SubHero variant="findStores" />
       <div className="container ui-container mt-md-5">
         <div className="row mx-0 mx-md-auto">
-          <div className="col-12 d-md-none p-3">
+          <div className="d-lg-none p-3">
             <div className="findStores-search mb-36 mobile-search">
               <div className="d-flex justify-content-between">
                 <span className="span-style">搜尋</span>

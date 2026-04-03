@@ -129,7 +129,7 @@ const Favorite_Legacy = () => {
       <SubHero variant="favorite" />
       <section className="container ui-container mt-md-5">
         <div className="row mx-0 mx-md-auto">
-          <div className="col-12 d-md-none p-3">
+          <div className="d-md-none p-3">
             {/* <div className="findStores-search mb-36 mobile-search">
               <div className="d-flex justify-content-between">
                 <span className="span-style">搜尋</span>
@@ -181,7 +181,7 @@ const Favorite_Legacy = () => {
             )}
 
             {allFavorites.map((store) => (
-              <div key={store.id} className="col-lg-4 col-md-6 col-12">
+              <div key={store.id} className="col-lg-4 col-md-6">
                 <StoreCard
                   store={store}
                   isFavorite={!!favoritesMap[store.id]}

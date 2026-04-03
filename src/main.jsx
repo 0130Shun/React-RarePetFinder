@@ -3,8 +3,6 @@ import { createRoot } from 'react-dom/client';
 
 // 載入 bootstrap 的 css 與 js
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/main.scss'; // 入口 Sass
-
 import '@/styles/main.scss'; // 入口 Sass
 import '@/styles/admin.scss'; // 後台入口 Sass
 import App from './App';

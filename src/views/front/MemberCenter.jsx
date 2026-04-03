@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 // services
 import { updateUserApi } from '@/services/userService';
 // features
@@ -19,8 +20,6 @@ import { AREA_OPTIONS, PET_TYPE_OPTIONS } from '@/constants/storeOptions';
 // 以後 Avatar（頭像）代處理、社群連結（IG / FB）代處理、我的收藏（推薦）代處理
 const MemberCenter = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const location = useLocation();
   const user = useSelector((state) => state.user.user); // 從state取出會員資料
   const { success, showError, warning } = useToast();
   const [isScreenLoading, setIsScreenLoading] = useState(false);
@@ -113,35 +112,6 @@ const MemberCenter = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     warning('請先登入帳號後再使用會員中心，即將跳轉到登入頁面。');
-  //     navigate('/login', {
-  //       state: { from: location },
-  //       replace: true,
-  //     });
-  //     return;
-  //   }
-  //   // setFormData({
-  //   //   userName: user.userName || '',
-  //   //   bio: user.bio || '',
-  //   //   location: user.location || '',
-  //   //   favoritePetTypes: user.favoritePetTypes || [],
-  //   // });
-  //   // 這裡是「user 變動自動同步 setState」，所以要避免相同資料+淺拷貝造成無窮reference
-  //   // 避免原本 setFormData(...)，導致useEffect → setState → render → dependency 變 → useEffect → ...
-  //   setFormData((prev) => {
-  //     const newData = {
-  //       userName: user.userName || '',
-  //       bio: user.bio || '',
-  //       location: user.location || '',
-  //       favoritePetTypes: user.favoritePetTypes || [],
-  //     };
-  //     return JSON.stringify(prev) === JSON.stringify(newData) ? prev : newData;
-  //   });
-  //   // [user, navigate, location, warning]
-  // }, [user]);
-
   useEffect(() => {
     if (!user) return;
 
@@ -165,7 +135,7 @@ const MemberCenter = () => {
       <section className="container ui-container mt-5">
         <div className="row member-group">
           {/* 左側：會員資訊 */}
-          <aside className="col-lg-4 col-12">
+          <aside className="col-lg-4">
             <div className="member-card p-3 shadow-sm">
               <h2 className="mb-3 text-center">會員資訊</h2>
               <div className="member-card-info mb-3">
@@ -191,7 +161,7 @@ const MemberCenter = () => {
 
           {/* 右側：表單 */}
 
-          <main className="col-lg-8 col-12">
+          <main className="col-lg-8">
             <div className="member-form shadow-sm p-3">
               <h2 className="mb-4 text-lg-start text-center">編輯個人資料</h2>
 
