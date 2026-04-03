@@ -221,23 +221,26 @@ const MemberCenter = () => {
                   >
                     喜好寵物：
                   </label>
-                  <div className="d-flex flex-wrap gap-2 mt-2">
+                  <div className="d-flex flex-wrap gap-2 mt-2 ">
                     {PET_TYPE_OPTIONS.map((type, index) => {
                       const isChecked =
                         formData.favoritePetTypes.includes(type);
                       return (
-                        <div
+                        <label
                           key={`${type}-${index}`}
-                          className={`petType-checkbox ${isChecked ? 'checked' : ''}`}
+                          className={`petType-checkbox 
+    ${isChecked ? 'checked' : ''} 
+    ${!isEditing ? 'disabled' : ''}
+  `}
                         >
                           <input
                             type="checkbox"
                             checked={isChecked}
-                            disabled={!isEditing}
                             onChange={() => handlePetTypeChange(type)}
+                            disabled={!isEditing}
                           />
                           <span>{type}</span>
-                        </div>
+                        </label>
                       );
                     })}
                   </div>

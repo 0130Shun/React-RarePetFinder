@@ -2,7 +2,6 @@
 @use '@/styles/helpers/mixins' as *;
 @use '@/styles/helpers/breakpoints' as *;
 @use '@/styles/helpers/variables' as *;
-@use '@/styles/helpers/variables' as *;
 @use '@/styles/layout/layout' as *;
 
 .member-group {
@@ -40,16 +39,26 @@
 }
 
 .petType-checkbox {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border: 1px solid $ui-neutral-50;
   border-radius: 20px;
   cursor: pointer;
+  transition: 0.2s;
 
   &.checked {
-    background-color: #f3e5d8;
-    border-color: #c69c6d;
+    background: $ui-blue-700;
+    color: $ui-neutral-50;
+    border-color: $ui-blue-700;
   }
+
+  input {
+    display: none;
+  }
+}
+
+.petType-checkbox.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }

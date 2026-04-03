@@ -1,8 +1,13 @@
-.petType-checkbox {
+@use '@/styles/helpers/variables' as *;
+
+// 這裡的樣式是為了配合前台會員中心的寵物類型選擇框，
+// 並且在 admin 頁面也使用了相同的前台樣式，為了日後做區隔多了一層 .admin 的選擇器，
+// 方便未來如果 admin 需要不同的樣式可以直接修改這裡， adminLayout需要多一層<div class="admin"> </div>。
+.admin .petType-checkbox {
   display: inline-flex;
   align-items: center;
   padding: 6px 12px;
-  border: 1px solid #ccc;
+  border: 1px solid $ui-neutral-50;
   border-radius: 20px;
   cursor: pointer;
   transition: 0.2s;
@@ -13,7 +18,12 @@
     border-color: #2f6382;
   }
 
-  input {
-    display: none;
-  }
+  // input {
+  //   display: none;
+  // }
+}
+
+.admin .petType-checkbox.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
