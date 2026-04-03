@@ -19,7 +19,7 @@ import { extractErrorMessage } from '@/utils/errorHandler';
 // 之後處理分頁每頁顯示 9 筆店家和側邊搜尋
 // const PAGE_SIZE = 9;
 
-const FavoriteBackup = () => {
+const Favorite_Legacy = () => {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
   // const location = useLocation();
@@ -129,7 +129,7 @@ const FavoriteBackup = () => {
       <SubHero variant="favorite" />
       <section className="container ui-container mt-md-5">
         <div className="row mx-0 mx-md-auto">
-          <div className="col-12 d-md-none p-3">
+          <div className="d-md-none p-3">
             {/* <div className="findStores-search mb-36 mobile-search">
               <div className="d-flex justify-content-between">
                 <span className="span-style">搜尋</span>
@@ -181,7 +181,7 @@ const FavoriteBackup = () => {
             )}
 
             {allFavorites.map((store) => (
-              <div key={store.id} className="col-lg-4 col-md-6 col-12">
+              <div key={store.id} className="col-lg-4 col-md-6">
                 <StoreCard
                   store={store}
                   isFavorite={!!favoritesMap[store.id]}
@@ -198,4 +198,4 @@ const FavoriteBackup = () => {
   );
 };
 
-export default FavoriteBackup;
+export default Favorite_Legacy;

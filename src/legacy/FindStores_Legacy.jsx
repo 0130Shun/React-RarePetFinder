@@ -35,7 +35,7 @@ import { ChevronLeft, ChevronRight } from 'react-feather';
 const PAGE_SIZE = 9;
 
 // 為避免重構錯誤和方便後續追蹤，將「原版FindStores」保留到新版運作正常後刪除
-const FindStoresBackup = () => {
+const FindStores_Legacy = () => {
   const [searchParams, setSearchParams] = useSearchParams(); //更新網址用(query params)
   // 一行搞定初始化，defaultValues 對應原本的 initialState
   const { register, handleSubmit, setValue, reset, watch, control } = useForm({
@@ -345,7 +345,7 @@ const FindStoresBackup = () => {
       <SubHero variant="findStores" />
       <div className="container ui-container mt-md-5">
         <div className="row mx-0 mx-md-auto">
-          <div className="col-12 d-md-none p-3">
+          <div className="d-md-none p-3">
             <div className="findStores-search mb-36 mobile-search">
               <div className="d-flex justify-content-between">
                 <span className="span-style">搜尋</span>
@@ -635,4 +635,4 @@ const FindStoresBackup = () => {
   );
 };
 
-export default FindStoresBackup;
+export default FindStores_Legacy;

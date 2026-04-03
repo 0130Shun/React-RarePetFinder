@@ -81,7 +81,9 @@ const Favorite = () => {
       } catch (err) {
         console.error(err);
         if (!mounted) return;
-        setError('載入店家資料失敗，請確認 json-server-api網站 是否已啟動');
+        setError(
+          '載入收藏店家資料失敗，請確認 json-server-api網站 是否已啟動或重新整理頁面等待 json-server-api網站 喚醒回應。'
+        );
         setAllStores([]);
       } finally {
         if (mounted) setIsLoading(false);
@@ -166,10 +168,10 @@ const Favorite = () => {
 
   return (
     <>
-      <SubHero variant="findStores" />
+      <SubHero variant="favorite" />
       <div className="container ui-container mt-md-5">
         <div className="row mx-0 mx-md-auto">
-          <div className="col-12 d-md-none p-3">
+          <div className="d-lg-none p-3">
             <div className="findStores-search mb-36 mobile-search">
               <div className="d-flex justify-content-between">
                 <span className="span-style">搜尋</span>

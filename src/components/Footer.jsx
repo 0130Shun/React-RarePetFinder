@@ -56,7 +56,7 @@ function Footer() {
                 </a>
               </div>
             </div>
-            <div className="col-12 d-md-none text-center">
+            <div className="d-md-none text-center">
               <p className="text-secondary small mb-0 footer-disclaimer">
                 此網站僅做為作品練習，無營利用途
               </p>
