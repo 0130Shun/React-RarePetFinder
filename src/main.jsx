@@ -8,7 +8,7 @@ import '@/styles/admin.scss'; // 後台入口 Sass
 import App from './App';
 
 import { Provider } from 'react-redux';
-import { store } from '@/store/store';
+import { store } from '@/store/index';
 import Toast from '@/components/shared/ToastList.jsx';
 
 createRoot(document.getElementById('root')).render(

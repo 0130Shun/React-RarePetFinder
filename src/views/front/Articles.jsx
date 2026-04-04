@@ -5,7 +5,7 @@ import FullPageLoader from '@/components/shared/FullPageLoader';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useEffect, useState, useMemo } from 'react';
 import { contentService } from '@/services/contentService';
-import useResponsivePageSize from '@/hook/useResponsivePageSize';
+import useResponsivePageSize from '@/hooks/useResponsivePageSize';
 import { Link } from 'react-router-dom';
 
 //引入圖片

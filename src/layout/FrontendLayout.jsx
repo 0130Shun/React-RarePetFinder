@@ -9,7 +9,7 @@ import Header from '@/components/Header'; // 可選
 import Footer from '@/components/Footer';
 import GoTop from '@/components/shared/GoTop';
 // hook
-import { useAuthInit } from '@/hook/useAuthInit';
+import { useAuthInit } from '@/hooks/useAuthInit';
 
 export default function FrontendLayout() {
   // Hook 必須在「component 最外層」呼叫

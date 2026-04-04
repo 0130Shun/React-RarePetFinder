@@ -23,7 +23,7 @@ import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 import StoreCard from '@/components/StoreCard.jsx';
 // hook
-import { useFavorite } from '@/hook/useFavorite';
+import { useFavorite } from '@/hooks/useFavorite';
 // utils
 import { buildSearchParams } from '@/utils/storeSearchUtils';
 import { processSearch } from '@/utils/storeFilterUtils';

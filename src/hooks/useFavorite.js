@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 // services
 import { addFavoriteApi, removeFavoriteApi } from '@/services/favoriteService';
 // hook;
-import { useToast } from '@/hook/useToast';
+import { useToast } from '@/hooks/useToast';
 // utils
 import { extractErrorMessage } from '@/utils/errorHandler';
 

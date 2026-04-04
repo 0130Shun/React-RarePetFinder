@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { logout } from '@/features/authSlice';
 import { clearUser } from '@/features/userSlice';
 // hook
-import { useToast } from '@/hook/useToast';
+import { useToast } from '@/hooks/useToast';
 // utils
 import { clearAuth } from '@/utils/auth';
 

@@ -8,7 +8,7 @@ import {
   removeFavoriteApi,
 } from '@/services/favoriteService';
 // hook
-import { useToast } from '@/hook/useToast';
+import { useToast } from '@/hooks/useToast';
 // components
 import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';

@@ -6,7 +6,7 @@ import { adminService } from '@/services/adminService';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 import Article from '@/components/admin/ArticleModal';
 // hook;
-import { useToast } from '@/hook/useToast';
+import { useToast } from '@/hooks/useToast';
 // utils
 import { extractErrorMessage } from '@/utils/errorHandler';
 // constants
