@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/useToast';
 // utils
 import { extractErrorMessage } from '@/utils/errorHandler';
 // constants
-import { DEFAULT_MEMBER } from '@/constants/storeOptions';
+import { DEFAULT_MEMBER } from '@/constants/adminDefaultData';
 
 const Members = () => {
   const { showError, success } = useToast();

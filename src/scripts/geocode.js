@@ -1,4 +1,4 @@
-// node src/scripts/geocode.js或 npm run geocode 執行指令說明：
+// 腳本 geocode.js執行指令說明： node src/scripts/geocode.js或 npm run geocode
 // node src/scripts/geocode.js = 用 Node.js 執行這支 JS 腳本（script），
 // 此腳本的目的是為了將 db.json 中的店家地址轉換成經緯度（latitude 和 longitude），
 // 以便在地圖上顯示店家位置，目前採用兩個地理編碼服務：LocationIQ（需要 API Key）和 Nominatim（免費但有使用限制），
@@ -39,7 +39,8 @@ const LOCATIONIQ_KEY =
   process.env.LocationIQ_API_KEY || process.env.LOCATIONIQ_API_KEY || '';
 
 const USE_LOCATIONIQ = !!LOCATIONIQ_KEY;
-// 如果暫時不想用 LocationIQ，可以直接把這兩行改成空字串和 false，或是直接註解掉這兩行，腳本會自動跳過 LocationIQ 的查詢。
+// 如果暫時不想用 LocationIQ，可以直接把這兩行改成空字串和 false，
+// 或是直接註解掉這兩行，腳本會自動跳過 LocationIQ 的查詢。
 // const LOCATIONIQ_KEY = '';
 // const USE_LOCATIONIQ = false;
 // ===============================================

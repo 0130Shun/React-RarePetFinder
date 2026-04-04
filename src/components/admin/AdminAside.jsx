@@ -53,7 +53,7 @@ const menu = [
   {
     name: '回到前台',
     path: '/',
-    icon: <ShoppingCart size={18} />,
+    icon: <Box size={18} />,
   },
 ];
 
@@ -62,12 +62,6 @@ const AdminAside = () => {
 
   return (
     <>
-      (<Box size={18} />
-      ), (<BookOpen size={18} />
-      ), (<AlertCircle size={18} />
-      ), (<ThumbsUp size={18} />
-      ), (<Calendar size={18} />
-      )(
       <aside className={`admin-sidebar ${collapsed ? 'collapsed' : ''}`}>
         {/* Header */}
         <div className="admin-sidebar__brand">
@@ -94,7 +88,6 @@ const AdminAside = () => {
           ))}
         </nav>
       </aside>
-      )
     </>
   );
 };

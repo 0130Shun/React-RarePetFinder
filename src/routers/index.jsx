@@ -17,7 +17,7 @@ import Favorite from '@/views/front/Favorite';
 // auth - 後台頁面
 import Dashboard from '@/views/auth/Dashboard';
 import Members from '@/views/auth/Members';
-import Stores from '@/views/auth/Members';
+import Stores from '@/views/auth/Stores';
 // import StArticlesores from '@/views/auth/Articles';
 // import Announcements from '@/views/auth/Announcements';
 import AdminNotFound from '@/views/auth/AdminNotFound';
