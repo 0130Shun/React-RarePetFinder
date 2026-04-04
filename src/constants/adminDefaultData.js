@@ -10,19 +10,23 @@ export const DEFAULT_MEMBER = {
 };
 
 export const DEFAULT_STORE = {
-  name: '',
-  address: '',
-  phone: '',
-  email: '',
-  website: '',
-  description: '',
-  storeType: '',
+  storeName: '',
+  type: [],
   area: '',
   petTypes: [],
+  description: '',
+  phone: '',
+  website: '',
+  address: '',
   createdAt: '',
-  publishAt: '',
-  unpublishAt: '',
   isActive: false,
+  lat: 0,
+  lng: 0,
+
+  // 可選欄位（目前後台沒開放輸入）
+  openTime: '',
+  coverImage: '',
+  googleMapUrl: '',
 };
 
 export const DEFAULT_ARTICLE = {
