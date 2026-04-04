@@ -7,6 +7,9 @@
       "role": "admin",
       "createdAt": "2026-03-29T01:02:13.220Z",
       "id": 1,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -15,6 +18,9 @@
       "userName": "testadmin",
       "role": "admin",
       "id": 2,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -23,6 +29,9 @@
       "userName": "te33stadmin",
       "role": "admin",
       "id": 3,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -31,6 +40,9 @@
       "userName": "3669admin",
       "role": "admin",
       "id": 4,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -38,11 +50,11 @@
       "password": "$2a$10$RsCfGRjb6IibMpmc5sZMUOaBsorDbmQngrsnjR5CVAnWmRXCPQkee",
       "role": "admin",
       "id": 5,
-      "isActive": true,
       "userName": "admin",
       "bio": "123",
       "location": "",
-      "favoritePetTypes": ["鸚鵡", "柯爾鴨"]
+      "favoritePetTypes": ["鸚鵡", "柯爾鴨"],
+      "isActive": true
     },
     {
       "email": "admin02@mail.com",
@@ -51,6 +63,9 @@
       "role": "admin",
       "createdAt": "2026-03-29T10:40:56.435Z",
       "id": 6,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -60,6 +75,9 @@
       "role": "admin",
       "createdAt": "2026-03-29T10:42:26.899Z",
       "id": 7,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -69,6 +87,9 @@
       "role": "admin",
       "createdAt": "2026-03-29T12:29:28.729Z",
       "id": 8,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -78,10 +99,10 @@
       "role": "user",
       "createdAt": "2026-03-29T12:36:49.468Z",
       "id": 9,
-      "isActive": true,
       "bio": "喜愛鸚鵡與刺蝟、倉鼠作伴，有人有需要二手得倉鼠飼養滾輪嗎? 順手作環保~",
       "location": "嘉義",
-      "favoritePetTypes": ["鸚鵡", "倉鼠"]
+      "favoritePetTypes": ["鸚鵡", "倉鼠"],
+      "isActive": true
     }
   ],
   "stores": [

@@ -9,7 +9,8 @@ import App from './App';
 
 import { Provider } from 'react-redux';
 import { store } from '@/store/index';
-import Toast from '@/components/shared/ToastList.jsx';
+import Toast from '@/components/shared/ToastList';
+// import FullPageLoader from '@/components/shared/FullPageLoader';
 
 createRoot(document.getElementById('root')).render(
   // 嚴謹模式<StrictMode>
@@ -21,5 +22,7 @@ createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <Toast /> {/* 確保 Toast 能全局監聽 Redux 狀態 */}
     <App />
+    {/* ScreenLoading redux-store-loading 準備 */}
+    {/* <FullPageLoader zIndex={2000} /> */}
   </Provider>
 );
