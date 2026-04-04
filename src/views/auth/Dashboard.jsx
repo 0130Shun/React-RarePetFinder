@@ -153,6 +153,7 @@ const Dashboard = () => {
                           return (
                             <span
                               key={typeItem}
+                              title={`類型：${typeItem}`}
                               className="ui-subHero__meta-item d-flex align-items-center"
                             >
                               <Icon size={20} className="me-1" />
@@ -165,8 +166,12 @@ const Dashboard = () => {
 
                       <td>
                         {store.petTypes.map((pet, i) => (
-                          <span key={pet} className="me-2">
-                            {PET_ICON_MAP[pet]} {pet}
+                          <span
+                            key={pet}
+                            title={`類型：${pet}`}
+                            className="me-2"
+                          >
+                            {PET_ICON_MAP[pet]}
                             {i < store.petTypes.length - 1 && '、'}
                           </span>
                         ))}

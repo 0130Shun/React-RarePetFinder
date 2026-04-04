@@ -11,6 +11,8 @@ import { useToast } from '@/hook/useToast';
 import { extractErrorMessage } from '@/utils/errorHandler';
 // constants
 import { DEFAULT_STORE } from '@/constants/adminDefaultData';
+// config
+import { STORE_TYPE_ICON_MAP, PET_ICON_MAP } from '@/config/iconMap';
 
 const Stores = () => {
   // const { showError, success } = useToast();
@@ -88,8 +90,31 @@ const Stores = () => {
                     <td>{store.id}</td>
                     <td>{store.name}</td>
                     <td>{store.area}</td>
-                    <td>{store.storeType}</td>
-                    <td>{store.petTypes}</td>
+                    <td>
+                      {store.type.map((typeItem, i) => {
+                        const Icon = STORE_TYPE_ICON_MAP[typeItem];
+                        if (!Icon) return null;
+                        return (
+                          <span
+                            key={typeItem}
+                            title={`類型：${typeItem}`}
+                            className="ui-subHero__meta-item d-flex align-items-center"
+                          >
+                            <Icon size={20} className="me-1" />
+                            {typeItem}
+                            {i < store.type.length - 1 && '、'}
+                          </span>
+                        );
+                      })}
+                    </td>
+                    <td>
+                      {store.petTypes.map((pet, i) => (
+                        <span key={pet} title={`類型：${pet}`} className="me-2">
+                          {PET_ICON_MAP[pet]}
+                          {i < store.petTypes.length - 1 && '、'}
+                        </span>
+                      ))}
+                    </td>
                     <td>
                       {store.isActive ? (
                         <span className="badge bg-success">啟用</span>
