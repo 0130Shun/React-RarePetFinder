@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import { adminService } from '@/services/adminService';
 // components
 import FullPageLoader from '@/components/shared/FullPageLoader';
+import Pagination from '@/components/shared/Pagination';
 import MemberModal from '@/components/admin/MemberModal';
 // hook;
 import { useToast } from '@/hooks/useToast';
+import { usePagination } from '@/hooks/usePagination';
 // utils
 import { extractErrorMessage } from '@/utils/errorHandler';
 // constants
@@ -18,6 +20,7 @@ const Members = () => {
 
   // 狀態管理 (State)
   const [members, setMembers] = useState([]);
+  const [currentMembers, setCurrentMembers] = useState([]);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   // 管理 Modal元件開關
   const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
@@ -26,6 +29,15 @@ const Members = () => {
   // 資料狀態
   const [tempMember, setTempMember] = useState(DEFAULT_MEMBER);
   const [modalMode, setModalMode] = useState(null);
+  // 分頁相關狀態和函式
+  const {
+    currentPage,
+    totalPages,
+    pageSize,
+    setPageSize, // 使用這個
+    getCurrentData,
+    goToPage,
+  } = usePagination(members.length, 10);
 
   // Modal表單
   const handleModalInputChange = (e) => {
@@ -129,9 +141,12 @@ const Members = () => {
       }
 
       success(`會員資料${modalMode === 'create' ? '新增' : '編輯'}成功`);
-      // 成功後重新載入會員列表
+      // 成功後重新載入會員列表、分頁重置到第一頁
       const members = await getMembers();
       setMembers(members);
+      goToPage(1); // 重置到第一頁
+      const currentData = getCurrentData(members);
+      setCurrentMembers(currentData);
       setIsMemberModalOpen(false); // 成功才關閉 Modal
     } catch (error) {
       const errorMessage = extractErrorMessage(
@@ -145,6 +160,11 @@ const Members = () => {
     }
   };
 
+  // 初次載入 + 每次 stores 改變時更新目前顯示的資料
+  useEffect(() => {
+    const currentData = getCurrentData(members);
+    setCurrentMembers(currentData);
+  }, [members, currentPage, pageSize, getCurrentData]);
   // 初次會員列表載入
   useEffect(() => {
     const loadMembers = async () => {
@@ -173,29 +193,6 @@ const Members = () => {
   return (
     <>
       <div className="admin-page">
-        {/* <div className="admin-grid mb-4">
-          <div className="admin-stat">
-            <div>
-              <div className="admin-stat__title">會員數</div>
-              <div className="admin-stat__value">{totalUsers}</div>
-            </div>
-          </div>
-
-          <div className="admin-stat">
-            <div>
-              <div className="admin-stat__title">店家數</div>
-              <div className="admin-stat__value">{totalStores}</div>
-            </div>
-          </div>
-
-          <div className="admin-stat">
-            <div>
-              <div className="admin-stat__title">投稿數</div>
-              <div className="admin-stat__value">{totalArticles}</div>
-            </div>
-          </div>
-        </div> */}
-
         <div className="admin-card mb-4">
           <div className="admin-card__header">
             <h2>會員 管理</h2>
@@ -221,7 +218,7 @@ const Members = () => {
                 </tr>
               </thead>
               <tbody>
-                {members.map((member) => {
+                {currentMembers.map((member) => {
                   return (
                     <tr key={member.id}>
                       <td>{member.id}</td>
@@ -262,6 +259,14 @@ const Members = () => {
                 })}
               </tbody>
             </table>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={goToPage}
+              showPageSize={true}
+              pageSize={pageSize}
+              onPageSizeChange={setPageSize} // ← 直接傳 setPageSize 即
+            />
           </div>
         </div>
       </div>

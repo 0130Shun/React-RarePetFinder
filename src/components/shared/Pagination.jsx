@@ -1,5 +1,7 @@
 import React from 'react';
 
+// 分頁元件先弄基礎元件，之後再根據需要調整樣式或功能，
+// 之後盡可能前後台樣式整合
 const Pagination = ({
   currentPage,
   totalPages,

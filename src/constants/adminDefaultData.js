@@ -5,6 +5,8 @@ export const DEFAULT_MEMBER = {
   userName: '',
   role: '',
   createdAt: '',
+  bio: '',
+  location: '',
   favoritePetTypes: [],
   isActive: false,
 };

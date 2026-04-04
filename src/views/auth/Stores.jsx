@@ -33,7 +33,7 @@ const Stores = () => {
   // 資料狀態
   const [tempStore, setTempStore] = useState(DEFAULT_STORE);
   const [modalMode, setModalMode] = useState(null);
-
+  // 分頁相關狀態和函式
   const {
     currentPage,
     totalPages,
@@ -129,11 +129,6 @@ const Stores = () => {
 
     try {
       if (modalMode === 'create') {
-        // if (!tempStore.password) {
-        //   setModalError('請輸入密碼');
-        //   showError('請輸入密碼');
-        //   return;
-        // }
         const now = new Date();
         await createStore({
           ...tempStore,
@@ -157,9 +152,12 @@ const Stores = () => {
       }
 
       success(`店家資料${modalMode === 'create' ? '新增' : '編輯'}成功`);
-      // 成功後重新載入店家列表
+      // 成功後重新載入店家列表、分頁重置到第一頁
       const stores = await getStores();
       setStores(stores);
+      goToPage(1); // 重置到第一頁
+      const currentData = getCurrentData(stores);
+      setCurrentStores(currentData);
       setIsStoreModalOpen(false); // 成功才關閉 Modal
     } catch (error) {
       const errorMessage = extractErrorMessage(
@@ -184,11 +182,12 @@ const Stores = () => {
       setIsDeleteModalOpen(false);
       success('店家刪除成功！'); // 成功訊息
 
-      // 刪除後重新載入店家列表
+      // 刪除成功後重新載入店家列表、分頁重置到第一頁
       const stores = await getStores();
       setStores(stores);
-      const currentStores = getCurrentData(stores);
-      setCurrentStores(currentStores);
+      goToPage(1); // 重置到第一頁
+      const currentData = getCurrentData(stores);
+      setCurrentStores(currentData);
     } catch (error) {
       const errorMessage = extractErrorMessage(
         error,
@@ -221,8 +220,8 @@ const Stores = () => {
       try {
         const stores = await getStores();
         setStores(stores);
-        const currentStores = getCurrentData(stores);
-        setCurrentStores(currentStores);
+        const currentData = getCurrentData(stores);
+        setCurrentStores(currentData);
       } catch (error) {
         const errorMessage = extractErrorMessage(
           error,
