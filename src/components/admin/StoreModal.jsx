@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import MapViewer from '@/components/shared/MapViewer';
 
+// components
+import MapViewer from '@/components/shared/MapViewer';
+// constants
 import {
   AREA_OPTIONS,
   STORE_TYPE_OPTIONS,

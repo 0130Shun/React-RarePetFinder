@@ -1,15 +1,19 @@
-import SubHero from '@/components/subHero/SubHero';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { storeService } from '@/services/storeService'; // 更新api路徑
 import { User, MapPin, Phone, Link as LinkIcon } from 'react-feather';
 
-// 圖片引入
+// assets
 import ShopImg from '@/assets/img/Shop.png';
 import HotelImg from '@/assets/img/hotel.png';
 import ClinicImg from '@/assets/img/clinic.png';
 
-export default function StoreDetail() {
+// services
+import { storeService } from '@/services/storeService'; // 更新api路徑
+// components
+import SubHero from '@/components/subHero/SubHero';
+import MapViewer from '@/components/shared/MapViewer';
+
+const StoreDetail = () => {
   // 透過useEffect的await storeService.getStoreDetail(storeId)去讀取資料後，再把資料傳給StoreDetailHero，
   // 這邊暫時用storeData代表實際的store店家物件資料，
   // 未來應該是store+favorite筆數+評論比數混合倒入，測試時請自由刪減type、petTypes
@@ -105,9 +109,21 @@ export default function StoreDetail() {
               </div>
               <div className="add-text">
                 <h4>地址</h4>
-                <p>{store.address}</p>
+                <p className="mb-1">{store.address}</p>
+                {/* 經緯度都存在才顯示map */}
+                {store.lat && store.lng && (
+                  <MapViewer
+                    className="shadow-sm" // 可傳 className 做額外樣式
+                    lat={store.lat}
+                    lng={store.lng}
+                    storeName={store.storeName}
+                    height="250px" // 這裡可以改成想要的高度
+                    zoom={17} // 可調整預設縮放等級
+                  />
+                )}
               </div>
             </div>
+
             <div className="store-tel d-flex align-items-center gap-4 mb-4">
               <div className="tel-icon">
                 <Phone className="feather" />
@@ -188,4 +204,6 @@ export default function StoreDetail() {
       </section>
     </>
   );
-}
+};
+
+export default StoreDetail;
