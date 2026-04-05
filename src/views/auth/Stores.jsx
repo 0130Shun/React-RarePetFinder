@@ -10,6 +10,7 @@ import DeleteModal from '@/components/admin/DeleteModal';
 // hook;
 import { useToast } from '@/hooks/useToast';
 import { usePagination } from '@/hooks/usePagination';
+import { useGeocode } from '@/hooks/useGeocode';
 // utils
 import { extractErrorMessage } from '@/utils/errorHandler';
 // constants
@@ -20,6 +21,7 @@ import { STORE_TYPE_ICON_MAP, PET_ICON_MAP } from '@/config/iconMap';
 const Stores = () => {
   const { showError, success } = useToast();
   const { getStores, createStore, updateStore, deleteStore } = adminService;
+  const { geocode } = useGeocode();
 
   // 先宣告所有 state
   const [stores, setStores] = useState([]);
@@ -53,11 +55,6 @@ const Stores = () => {
     }));
   };
   // Modal 控制
-  const normalizeStore = (m = {}) => ({
-    ...DEFAULT_STORE,
-    ...m,
-    // favoritePetTypes: m.favoritePetTypes || [],
-  });
 
   const handleStoreTypeChange = (type) => {
     setTempStore((prev) => {
@@ -70,6 +67,45 @@ const Stores = () => {
           : [...prev.type, type],
       };
     });
+  };
+
+  const handleStoreGeocode = async (address, storeName) => {
+    if (!address || address.trim() === '') {
+      showError('請先輸入店家地址');
+      return;
+    }
+
+    // edit 模式已有座標時先確認
+    if (modalMode === 'edit' && tempStore.lat && tempStore.lng) {
+      const confirm = window.confirm('已存在定位座標，確定要重新定位嗎？');
+      if (!confirm) return;
+    }
+
+    // create 模式不帶店名，避免干擾定位；edit 模式才帶店名當輔助
+    const effectiveStoreName = modalMode === 'create' ? '' : storeName || '';
+
+    try {
+      const geocodedData = await geocode(address, effectiveStoreName);
+
+      if (geocodedData) {
+        setTempStore((prev) => ({
+          ...prev,
+          lat: geocodedData.lat,
+          lng: geocodedData.lng,
+        }));
+
+        success('地址定位成功！');
+      } else {
+        showError('無法找到對應座標，請確認地址是否正確，或試試店名 + 地址');
+      }
+    } catch (error) {
+      const errorMessage = extractErrorMessage(
+        error,
+        null,
+        '地址定位失敗，請稍後再試。'
+      );
+      showError(errorMessage);
+    }
   };
 
   const handlePetTypeChange = (type) => {
@@ -93,10 +129,9 @@ const Stores = () => {
     if (mode === 'create') {
       setTempStore({ ...DEFAULT_STORE });
     } else {
-      const normalized = normalizeStore(store);
-
       setTempStore({
-        ...normalized,
+        ...DEFAULT_STORE, // 先給預設值
+        ...store, // 再覆蓋實際資料（lat, lng, storeName 等都會正確覆蓋）
       });
     }
     setIsStoreModalOpen(true);
@@ -107,11 +142,6 @@ const Stores = () => {
     if (!store.type) return '請輸入店家類型';
     if (!store.area) return '請輸入店家所在地';
     if (!store.petTypes) return '請輸入店家寵物類型';
-    if (!store.storeName) return '請輸入店家名稱';
-
-    // if (modalMode === 'create' && !store.password) {
-    //   return '請輸入密碼';
-    // }
 
     return null;
   };
@@ -133,7 +163,7 @@ const Stores = () => {
         await createStore({
           ...tempStore,
           createdAt: now,
-          isActive: true, // 新增的會員預設為啟用狀態
+          // isActive: true, // 新增店家請用狀態應該由管理者選取
         });
       } else {
         // edit：安全處理 password
@@ -159,6 +189,7 @@ const Stores = () => {
       const currentData = getCurrentData(stores);
       setCurrentStores(currentData);
       setIsStoreModalOpen(false); // 成功才關閉 Modal
+      setTempStore(DEFAULT_STORE); // 重置 tempStore
     } catch (error) {
       const errorMessage = extractErrorMessage(
         error,
@@ -188,6 +219,7 @@ const Stores = () => {
       goToPage(1); // 重置到第一頁
       const currentData = getCurrentData(stores);
       setCurrentStores(currentData);
+      setTempStore(DEFAULT_STORE); // 重置 tempStore
     } catch (error) {
       const errorMessage = extractErrorMessage(
         error,
@@ -212,7 +244,7 @@ const Stores = () => {
     setCurrentStores(currentData);
   }, [stores, currentPage, pageSize, getCurrentData]);
 
-  // 初次Stores列表載入
+  // 初次 Stores 列表載入
   useEffect(() => {
     const loadStores = async () => {
       setIsScreenLoading(true);
@@ -357,6 +389,7 @@ const Stores = () => {
         modalError={modalError}
         onStoreTypeChange={handleStoreTypeChange}
         onPetTypeChange={handlePetTypeChange}
+        onStoreGeocode={handleStoreGeocode}
         onModalChange={handleModalInputChange}
         onConfirm={handleUpdateStore}
       />

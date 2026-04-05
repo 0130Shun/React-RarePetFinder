@@ -5,6 +5,9 @@
 // 腳本會先嘗試用 LocationIQ 查詢，如果失敗再用 Nominatim 查詢，並且有一些清理地址的邏輯來提高成功率，
 // 最後會將結果寫回 db.json 中，以便會未來的Leaflet地圖使用。
 
+// 日後補強LocationIQ依舊不穩定有部分地址會查詢不到，所以需要申請google-mapAPI補強，
+// 流程是LocationIQ失敗 => google-mapAPI => NOMINATIM(走道NOMINATIM大概率還是失敗，可能考慮移除NOMINATIM)
+
 /* global process */
 import fs from 'fs';
 import path from 'path';

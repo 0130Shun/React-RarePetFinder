@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
+// CSS 載入順序建議（先 Leaflet → Bootstrap → 自訂樣式）
+import 'leaflet/dist/leaflet.css';
 // 載入 bootstrap 的 css 與 js
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/styles/main.scss'; // 入口 Sass

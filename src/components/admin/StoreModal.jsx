@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import MapViewer from '@/components/shared/MapViewer';
 
 import {
   AREA_OPTIONS,
@@ -14,6 +15,7 @@ const StoreModal = ({
   modalError,
   onStoreTypeChange,
   onPetTypeChange,
+  onStoreGeocode,
   onModalChange,
   onConfirm,
 }) => {
@@ -49,17 +51,17 @@ const StoreModal = ({
 
   return (
     <div
-      id="productModal"
+      id="storeModal"
       className={`modal fade ${isOpen ? 'show d-block' : ''}`}
       style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
     >
-      <div className="modal-dialog modal-dialog-centered modal-xl">
+      <div className="modal-dialog modal-dialog-centered modal-lg">
         <div className="modal-content border-0 shadow">
           <div className="modal-header border-bottom">
             <h5 className="modal-title fs-4">
               {modalMode === 'create'
                 ? '新增稀寵店家資料'
-                : '編輯稀寵店家資料 - ' + tempStore.userName}
+                : '編輯稀寵店家資料 - ' + tempStore.storeName}
             </h5>
             <button
               type="button"
@@ -254,8 +256,8 @@ const StoreModal = ({
                   />
                 </div> */}
                 <div className="mb-3">
-                  <label htmlFor="website" className="form-label">
-                    address
+                  <label htmlFor="address" className="form-label">
+                    店家地址
                     {/* （由後台管理員填寫，提供給前台使用者辨識店家位置，並用於Google
                     Map API轉換座標） */}
                   </label>
@@ -268,7 +270,51 @@ const StoreModal = ({
                     className="form-control"
                     placeholder="請輸入店家地址"
                   />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      onStoreGeocode(tempStore.address, tempStore.storeName)
+                    }
+                    className="btn btn-primary"
+                  >
+                    地址定位
+                  </button>
                 </div>
+
+                <div className="mb-4">
+                  <label className="form-label fw-bold">店家定位地圖</label>
+
+                  {/* 座標顯示（小字） */}
+                  <div className="mb-2 text-muted small">
+                    座標：
+                    <span>lat: {tempStore.lat ?? '尚未定位'}</span> {'、'}
+                    <span>lng: {tempStore.lng ?? '尚未定位'}</span>
+                  </div>
+
+                  {/* 其他頁面如何通用 StoreMap 元件範例 */}
+                  {/* <MapViewer
+                    lat={yourLat}
+                    lng={yourLng}
+                    storeName="我的店家名稱"
+                    height="380px" // 不同頁面想要不同高度就改這裡
+                    zoom={15}
+                    className="my-custom-map" // 可以透過 scss 針對這個 class 做特別調整
+                  /> */}
+                  <MapViewer
+                    className="shadow-sm admin-store-map" // 可傳 className 做額外樣式
+                    lat={tempStore.lat}
+                    lng={tempStore.lng}
+                    storeName={tempStore.storeName}
+                    height="420px" // 這裡可以改成想要的高度
+                    zoom={17} // 可調整預設縮放等級
+                  />
+
+                  {/* 小提醒文字 */}
+                  <div className="mt-2 text-muted small">
+                    ※ 點擊「地址定位」後，地圖會自動更新位置
+                  </div>
+                </div>
+
                 <div className="form-check">
                   <input
                     checked={Boolean(tempStore.isActive)}
