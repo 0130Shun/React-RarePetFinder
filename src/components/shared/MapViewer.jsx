@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'; // 雖然 main.jsx 已引入，這裡再保險一次也沒問題
 
+// utils
+// 修復React + Vite + Leaflet 在 GitHub Pages 部署問題
+import '@/utils/fixLeafletIcons';
+
 // 讓地圖在 Modal 或隱藏容器中正確顯示大小
 function MapResizer({ delay = 350 }) {
   const map = useMap();
