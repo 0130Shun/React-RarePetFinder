@@ -8,8 +8,8 @@ import { Dropdown } from 'bootstrap';
 // assets
 import logo from '@/assets/logo.png';
 // hook
-import { useConfirm } from '@/hook/useConfirm';
-import { useLogout } from '@/hook/useLogout';
+import { useConfirm } from '@/hooks/useConfirm';
+import { useLogout } from '@/hooks/useLogout';
 // config
 import { ISAUTH_ICON_MAP } from '@/config/iconMap';
 // 用物件映射（當有多個特殊 icon+ route 時最好維護)

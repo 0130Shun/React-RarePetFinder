@@ -5,7 +5,7 @@ import { adminService } from '@/services/adminService';
 // components
 import FullPageLoader from '@/components/shared/FullPageLoader';
 // hook;
-import { useToast } from '@/hook/useToast';
+import { useToast } from '@/hooks/useToast';
 // utils
 import { extractErrorMessage } from '@/utils/errorHandler';
 // config
@@ -99,6 +99,7 @@ const Dashboard = () => {
     };
 
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -152,6 +153,7 @@ const Dashboard = () => {
                           return (
                             <span
                               key={typeItem}
+                              title={`類型：${typeItem}`}
                               className="ui-subHero__meta-item d-flex align-items-center"
                             >
                               <Icon size={20} className="me-1" />
@@ -164,8 +166,12 @@ const Dashboard = () => {
 
                       <td>
                         {store.petTypes.map((pet, i) => (
-                          <span key={pet} className="me-2">
-                            {PET_ICON_MAP[pet]} {pet}
+                          <span
+                            key={pet}
+                            title={`類型：${pet}`}
+                            className="me-2"
+                          >
+                            {PET_ICON_MAP[pet]}
                             {i < store.petTypes.length - 1 && '、'}
                           </span>
                         ))}
@@ -190,10 +196,20 @@ const Dashboard = () => {
                       <div>{announcement.title}</div>
                       <div>{truncateText(announcement.content, 40)}</div>
                       <div>
-                        {announcement.type == 'alert' ? '[警示]' : '[資訊]'}
+                        {announcement.type == 'alert' ? (
+                          <span className="badge bg-danger">警示公告</span>
+                        ) : (
+                          <span className="badge bg-info">資訊公告</span>
+                        )}
                       </div>
-                      <div>{announcement.date || '未知上架日期'}</div>
-                      <div>{announcement.isSticky ? '置頂' : '未置頂狀態'}</div>
+                      <div>{announcement.publishAt || '未知上架日期'}</div>
+                      <div>
+                        {announcement.isSticky ? (
+                          <span className="badge bg-success">公告置頂</span>
+                        ) : (
+                          <span className="badge bg-secondary">非置頂</span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -215,8 +231,8 @@ const Dashboard = () => {
                       <div>{truncateText(event.description, 40)}</div>
                       <div>{event.petTypes.join(', ')}</div>
                       <div>
-                        {event.location || '未知地點'} |{' '}
-                        {event.date || '未知日期'}
+                        {event.location || '未知舉辦地點'} |{' '}
+                        {event.publishAt || '未知上架日期'}
                       </div>
                     </div>
                   </div>
@@ -245,94 +261,6 @@ const Dashboard = () => {
             })}
           </div>
         </div>
-
-        {/* old */}
-        {/* <div className="admin-grid mb-4">
-          <div className="admin-stat">
-            <div>
-              <div className="admin-stat__title">訂單數</div>
-              <div className="admin-stat__value">128</div>
-            </div>
-          </div>
-          <div className="admin-stat">
-            <div>
-              <div className="admin-stat__title">營收</div>
-              <div className="admin-stat__value">$12,300</div>
-            </div>
-          </div>
-
-          <div className="admin-stat">
-            <div>
-              <div className="admin-stat__title">會員數</div>
-              <div className="admin-stat__value">56</div>
-            </div>
-          </div>
-        </div>
-        <div className="admin-card mb-4">
-          <div className="admin-card__header">最近訂單</div>
-          <div className="admin-table-wrapper">
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>訂單編號</th>
-                  <th>客戶</th>
-                  <th>金額</th>
-                  <th>狀態</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>#001</td>
-                  <td>王小明</td>
-                  <td>$300</td>
-                  <td>已完成</td>
-                </tr>
-                <tr>
-                  <td>#002</td>
-                  <td>李小美</td>
-                  <td>$520</td>
-                  <td>處理中</td>
-                </tr>
-                <tr>
-                  <td>#003</td>
-                  <td>陳先生</td>
-                  <td>$180</td>
-                  <td>已取消</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="admin-card mb-4">
-          <div className="admin-card__header">最近活動</div>
-          <div className="admin-card__body">
-            <ul>
-              <li>新增商品：精品咖啡豆</li>
-              <li>會員註冊：user123</li>
-              <li>訂單完成：#001</li>
-            </ul>
-          </div>
-        </div>
-        <div className="admin-card">
-          <div className="admin-card__header">熱門商品</div>
-          <div className="admin-grid">
-            {[...Array(6)].map((_, i) => (
-              <div className="admin-card" key={i}>
-                <div className="admin-card__body">
-                  <div
-                    style={{
-                      height: '100px',
-                      background: '#eee',
-                      marginBottom: '10px',
-                    }}
-                  />
-                  <div>商品名稱 {i + 1}</div>
-                  <div>$ {100 + i * 50}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div> */}
       </div>
       {/* ScreenLoading */}
       <FullPageLoader show={isScreenLoading} zIndex={2000} />

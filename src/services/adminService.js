@@ -6,7 +6,7 @@ export const adminService = {
     const res = await apiClient.get('/users');
     return res.data;
   },
-  async registerMembers(id, data) {
+  async registerMembers(data) {
     const res = await apiClient.post('/register', data); // 改成 register 跑一次
     return res.data;
   },
@@ -16,7 +16,8 @@ export const adminService = {
     return res.data;
   },
 
-  // 店家相關 API
+  //=================================================
+  // 稀寵店家相關 API
   async getStores() {
     const res = await apiClient.get('/stores');
     return res.data;
@@ -34,7 +35,8 @@ export const adminService = {
     return apiClient.delete(`/stores/${id}`);
   },
 
-  // 文章相關 API
+  //=================================================
+  // 專文相關 API
   async getArticles() {
     const res = await apiClient.get('/articles');
     return res.data;
@@ -51,7 +53,8 @@ export const adminService = {
     return apiClient.delete(`/articles/${id}`);
   },
 
-  //
+  //=================================================
+  // 公告相關 API
   async getAnnouncements() {
     const res = await apiClient.get('/announcements');
     return res.data;
@@ -68,6 +71,7 @@ export const adminService = {
     return apiClient.delete(`/announcements/${id}`);
   },
 
+  //=================================================
   // 活動相關 API
   async getEvents() {
     const res = await apiClient.get('/events');

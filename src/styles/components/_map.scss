@@ -1,0 +1,45 @@
+.map-container {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background-color: #f8f9fa;
+
+  // 預設高度（可以在 component 用 props 蓋掉）
+  height: 360px;
+  width: 100%;
+
+  // 不同變體
+  &--large {
+    height: 480px;
+  }
+
+  &--medium {
+    height: 360px;
+  }
+
+  &--small {
+    height: 280px;
+  }
+
+  &--night {
+    filter: brightness(0.95) contrast(1.1);
+    border-color: #495057;
+  }
+}
+
+// 後台專用樣式（因為後台整體背景、間距較深色系）
+.admin .map-container {
+  border-color: #adb5bd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  // 後台地圖可以再微調一點視覺
+  &--large {
+    height: 450px;
+  }
+}
+
+// // 如果未來 Frontend 也需要地圖，可以這樣區隔
+// .frontend .map-container {
+//   // 前台如果需要不同風格再寫
+// }

@@ -11,20 +11,23 @@
     "preview": "vite preview",
     "backend": "json-server db.json --port 3001",
     "backend:auth": "json-server-auth db.json --port 3001 --no-hash",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "geocode": "node src/scripts/geocode.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
-    "axios": "^1.13.2",
+    "axios": "^1.14.0",
     "bootstrap": "^5.3.8",
     "feather-icons": "^4.29.2",
     "gh-pages": "^6.3.0",
     "json-server": "0.17.3",
     "json-server-auth": "2.1.0",
+    "leaflet": "^1.9.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-feather": "^2.0.10",
     "react-hook-form": "^7.72.0",
+    "react-leaflet": "^5.0.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.13.0",
     "swiper": "^12.1.0"

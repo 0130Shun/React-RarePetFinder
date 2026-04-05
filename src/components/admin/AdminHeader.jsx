@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Menu, User, LogOut } from 'react-feather';
 import { useSelector } from 'react-redux';
-import { useLogout } from '@/hook/useLogout';
+import { useLogout } from '@/hooks/useLogout';
 
 const AdminHeader = ({ onToggleSidebar }) => {
   const [open, setOpen] = useState(false);

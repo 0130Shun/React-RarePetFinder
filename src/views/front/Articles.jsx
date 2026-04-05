@@ -5,7 +5,7 @@ import FullPageLoader from '@/components/shared/FullPageLoader';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useEffect, useState, useMemo } from 'react';
 import { contentService } from '@/services/contentService';
-import useResponsivePageSize from '@/hook/useResponsivePageSize';
+import useResponsivePageSize from '@/hooks/useResponsivePageSize';
 import { Link } from 'react-router-dom';
 
 //引入圖片
@@ -215,7 +215,8 @@ export default function Articles() {
                       </div>
 
                       <div className="rp-article-body">
-                        <p className="rp-article-date">{item.date}</p>
+                        {/* 之後要改成上架日期，先用createdAt模擬 */}
+                        <p className="rp-article-date">{item.createdAt}</p>
                         <h3 className="rp-article-title">{item.title}</h3>
                         <p className="rp-article-desc">{item.summary}</p>
                         <Link

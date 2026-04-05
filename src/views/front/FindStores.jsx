@@ -23,7 +23,7 @@ import SubHero from '@/components/subHero/SubHero';
 import FullPageLoader from '@/components/shared/FullPageLoader';
 import StoreCard from '@/components/StoreCard.jsx';
 // hook
-import { useFavorite } from '@/hook/useFavorite';
+import { useFavorite } from '@/hooks/useFavorite';
 // utils
 import { buildSearchParams } from '@/utils/storeSearchUtils';
 import { processSearch } from '@/utils/storeFilterUtils';
@@ -67,8 +67,13 @@ const FindStores = () => {
         // 讓 loading 至少顯示 500ms（模擬載入中狀態500秒，實際上可以拿掉)
         await new Promise((r) => setTimeout(r, 1000));
 
-        const data = await storeService.getAllStores();
-        setAllStores(Array.isArray(data) ? data : []);
+        const storeData = await storeService.getAllStores();
+
+        // 更換成已isActiveStore才顯示
+        const isActiveStore = Array.isArray(storeData)
+          ? storeData.filter((item) => item.isActive) // 或直接寫 item.isActive === true
+          : [];
+        setAllStores(isActiveStore);
       } catch (err) {
         console.error(err);
         if (!mounted) return;
@@ -95,6 +100,8 @@ const FindStores = () => {
     }
 
     const loadFavorites = async () => {
+      // 我的收藏舊這邊就不管了，假設店家事先isActive後來被取消，使用者依然可以看到地到"歷史資料"，
+      // 但是會再查詢FindStores查不到，除非後來該store編號又重新isActive
       const favs = await getFavoritesApi(user.id);
 
       const map = {};

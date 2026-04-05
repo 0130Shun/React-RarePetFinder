@@ -7,36 +7,47 @@
       "role": "admin",
       "createdAt": "2026-03-29T01:02:13.220Z",
       "id": 1,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
       "email": "testadmin@example.com",
       "password": "$2a$10$GQRvffqDeg/51NA9ZsDAueHlGPem2U2XoDl1X4zlfs3d2w147HoNS",
-      "username": "testadmin",
+      "userName": "testadmin",
       "role": "admin",
       "id": 2,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
       "email": "te33stadmin@example.com",
       "password": "$2a$10$HGUJEyDnVAnGqQXP9C5C5O/mgUwRDsqxShNK2ktvFuz0H1moLn47G",
-      "username": "te33stadmin",
+      "userName": "te33stadmin",
       "role": "admin",
       "id": 3,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
       "email": "3669admin@example.com",
       "password": "$2a$10$0d/YX7aD4Kdp628xJIYKVufSJR5TwWZJQBacK6QqrYAZAMX9I8AnK",
-      "username": "3669admin",
+      "userName": "3669admin",
       "role": "admin",
       "id": 4,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
       "email": "admin@mail.com",
       "password": "$2a$10$RsCfGRjb6IibMpmc5sZMUOaBsorDbmQngrsnjR5CVAnWmRXCPQkee",
-      "username": "654321",
       "role": "admin",
       "id": 5,
       "userName": "admin",
@@ -52,6 +63,9 @@
       "role": "admin",
       "createdAt": "2026-03-29T10:40:56.435Z",
       "id": 6,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -61,6 +75,9 @@
       "role": "admin",
       "createdAt": "2026-03-29T10:42:26.899Z",
       "id": 7,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -70,6 +87,9 @@
       "role": "admin",
       "createdAt": "2026-03-29T12:29:28.729Z",
       "id": 8,
+      "bio": "",
+      "location": "",
+      "favoritePetTypes": [],
       "isActive": true
     },
     {
@@ -98,7 +118,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.77shop.tw/",
       "googleMapUrl": "https://www.google.com.tw/maps/search/77%E5%AF%B5%E7%89%A9%E9%BC%A0%E6%A8%82%E5%9C%92+%E6%A1%83%E5%9C%92%E5%B8%82%E6%A1%83%E5%9C%92%E5%8D%80%E6%B0%B8%E5%AE%89%E8%B7%AF968%E8%99%9F",
-      "address": "桃園市桃園區永安路968號"
+      "address": "桃園市桃園區永安路968號",
+      "lat": 25.008569,
+      "lng": 121.289518,
+      "isActive": true
     },
     {
       "id": 2,
@@ -112,7 +135,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/profile.php?id=61553645532094&mibextid=uzlsIk",
       "googleMapUrl": "https://www.google.com.tw/maps/search/%E6%9F%AF%E7%88%BE%E9%B4%A8%E7%B2%BE%E5%93%81%E4%BC%91%E9%96%92%E9%A4%A8+%E6%96%B0%E5%8C%97%E5%B8%82%E6%B7%A1%E6%B0%B4%E5%8D%80%E5%A4%A7%E6%99%BA%E8%A1%9746%E5%B7%B78%E8%99%9F",
-      "address": "新北市淡水區大智街46巷8號"
+      "address": "新北市淡水區大智街46巷8號",
+      "lat": 25.17394,
+      "lng": 121.442571,
+      "isActive": true
     },
     {
       "id": 3,
@@ -126,7 +152,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/p/%E6%9F%AF%E7%88%BE%E9%B4%A8%E7%B2%BE%E5%93%81%E4%BC%91%E9%96%92%E9%A4%A8-%E5%8F%B0%E4%B8%AD%E5%BA%97-61560479857611/",
       "googleMapUrl": "https://maps.app.goo.gl/gNdR3jSupw62Vg1t9",
-      "address": "台中市潭子區勝利八街53巷65號"
+      "address": "台中市潭子區勝利八街53巷65號",
+      "lat": 24.2113,
+      "lng": 120.69817,
+      "isActive": true
     },
     {
       "id": 4,
@@ -140,7 +169,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.tcpetbird.com/",
       "googleMapUrl": "",
-      "address": "台中市西屯區重慶路8號"
+      "address": "台中市西屯區重慶路8號",
+      "lat": 24.162716,
+      "lng": 120.654265,
+      "isActive": true
     },
     {
       "id": 5,
@@ -154,7 +186,10 @@
       "coverImage": "clinic.png",
       "website": "https://birdclinic.com.tw/",
       "googleMapUrl": "https://maps.app.goo.gl/EZmYjMGYWv2Q68zw5",
-      "address": "台北市大同區民族西路53號"
+      "address": "台北市大同區民族西路53號",
+      "lat": 25.068608,
+      "lng": 121.519164,
+      "isActive": true
     },
     {
       "id": 6,
@@ -168,7 +203,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.facebook.com/IAH.tw/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/TZzWNV8Q2c8Ffhyw8",
-      "address": "台中市西區三民西路83號"
+      "address": "台中市西區三民西路83號",
+      "lat": 24.13074,
+      "lng": 120.6659,
+      "isActive": true
     },
     {
       "id": 7,
@@ -182,7 +220,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/hamsterssweethome/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/DFrpwahjcwu9oTSD7",
-      "address": "高雄市大社區萬金路174號"
+      "address": "高雄市大社區萬金路174號",
+      "lat": 22.752397,
+      "lng": 120.340995,
+      "isActive": true
     },
     {
       "id": 8,
@@ -196,11 +237,14 @@
       "coverImage": "clinic.png",
       "website": "https://www.facebook.com/Bravevetnew/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/e3WjyaEU3FKMFvFw9",
-      "address": "台北市大同區民權西路227號"
+      "address": "台北市大同區民權西路227號",
+      "lat": 25.063397,
+      "lng": 121.51198,
+      "isActive": true
     },
     {
       "id": 9,
-      "storeName": "水手兩棲爬蟲.特寵-台中西屯店",
+      "storeName": "水手兩棲爬蟲.特寵(台中西屯店)",
       "type": ["賣家"],
       "area": "台中",
       "petTypes": ["守宮", "烏龜"],
@@ -210,7 +254,10 @@
       "coverImage": "Shop.png",
       "website": "",
       "googleMapUrl": "https://maps.app.goo.gl/mWrzQATtyFkLU9WD7",
-      "address": "台中市南屯區五權西路二段380號"
+      "address": "台中市南屯區五權西路二段380號",
+      "lat": 24.1404106,
+      "lng": 120.645928,
+      "isActive": true
     },
     {
       "id": 10,
@@ -224,7 +271,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.facebook.com/sailoreptile/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/e5X6biR3oRtLHqfZ6",
-      "address": "台北市大同區重慶北路三段270號"
+      "address": "台北市大同區重慶北路三段270號",
+      "lat": 25.071731,
+      "lng": 121.513584,
+      "isActive": true
     },
     {
       "id": 11,
@@ -238,7 +288,10 @@
       "coverImage": "Shop.png",
       "website": "",
       "googleMapUrl": "https://maps.app.goo.gl/qq8QRWvJaqZo229bA",
-      "address": "台北市南港區南港路二段20巷5號B1"
+      "address": "台北市南港區南港路二段20巷5號B1",
+      "lat": 25.04776,
+      "lng": 121.53185,
+      "isActive": true
     },
     {
       "id": 12,
@@ -252,7 +305,10 @@
       "coverImage": "Shop.png",
       "website": "",
       "googleMapUrl": "https://maps.app.goo.gl/AsUG44bso1GZNnRr8",
-      "address": "桃園市桃園區大興西路二段120號"
+      "address": "桃園市桃園區大興西路二段120號",
+      "lat": 25.010925,
+      "lng": 121.29709,
+      "isActive": true
     },
     {
       "id": 13,
@@ -266,7 +322,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.majihouse.com/Web/index.php",
       "googleMapUrl": "https://maps.app.goo.gl/3jhVjnqHEEKDe1CCA",
-      "address": "臺北市北投區西安街一段347號"
+      "address": "臺北市北投區西安街一段347號",
+      "lat": 25.113669,
+      "lng": 121.515697,
+      "isActive": true
     },
     {
       "id": 14,
@@ -280,7 +339,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/p/%E6%B0%B8%E8%B1%90%E9%B8%9A%E9%B5%A1%E6%A8%82%E5%9C%92-100063690566757/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/KnrTyiFL2mHz9Um77",
-      "address": "台北市萬華區和平西路三段58號"
+      "address": "台北市萬華區和平西路三段58號",
+      "lat": 25.034856,
+      "lng": 121.503337,
+      "isActive": true
     },
     {
       "id": 15,
@@ -294,7 +356,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/tortoies16888/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/AaxiruNZERuGtpkB6",
-      "address": "新北市新莊區中正路637巷28號"
+      "address": "新北市新莊區中正路637巷28號",
+      "lat": 24.995145,
+      "lng": 121.48481,
+      "isActive": true
     },
     {
       "id": 16,
@@ -308,7 +373,10 @@
       "coverImage": "clinic.png",
       "website": null,
       "googleMapUrl": "https://maps.app.goo.gl/m7fZuv6Kp2oVk4Cv7",
-      "address": "台北市松山區八德路四段305號"
+      "address": "台北市松山區八德路四段305號",
+      "lat": 25.04917,
+      "lng": 121.566531,
+      "isActive": true
     },
     {
       "id": 17,
@@ -322,7 +390,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.facebook.com/p/%E5%90%89%E6%9D%BE%E9%B3%A5%E5%BA%97-40%E5%B9%B4%E8%80%81%E5%AD%97%E8%99%9F-100068528250540/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/5uNSKvNx494QRKXS6",
-      "address": "台北市松山區八德路四段302號"
+      "address": "台北市松山區八德路四段302號",
+      "lat": 25.048999,
+      "lng": 121.56719,
+      "isActive": true
     },
     {
       "id": 18,
@@ -336,7 +407,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.facebook.com/p/%E6%9C%89%E9%AD%9A%E5%85%A9%E6%A3%B2%E7%88%AC%E8%9F%B2%E5%B0%88%E8%B3%A3-%E6%96%B0%E5%8C%97%E4%B8%89%E9%87%8D%E5%BA%97-100089235265231/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/DcBHohFJw5MpUxro9",
-      "address": "新北市三重區光復路一段14號"
+      "address": "新北市三重區光復路一段14號",
+      "lat": 25.082991,
+      "lng": 121.48167,
+      "isActive": true
     },
     {
       "id": 19,
@@ -350,7 +424,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.facebook.com/p/%E6%9C%89%E9%AD%9A%E5%85%A9%E6%A3%B2%E7%88%AC%E8%9F%B2%E5%B0%88%E8%B3%A3-%E6%A1%83%E5%9C%92%E4%B8%AD%E5%A3%A2%E5%BA%97-100063759947641/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/7p9VZPE6xBmEQeqt7",
-      "address": "桃園市中壢區環中東路718號"
+      "address": "桃園市中壢區環中東路718號",
+      "lat": 24.955078,
+      "lng": 121.245099,
+      "isActive": true
     },
     {
       "id": 20,
@@ -364,7 +441,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.facebook.com/UE26907797/",
       "googleMapUrl": "https://maps.app.goo.gl/z37NPM3mRq7KKYy49",
-      "address": "新北市汐止區大同路一段221號"
+      "address": "新北市汐止區大同路一段221號",
+      "lat": 25.069378,
+      "lng": 121.659588,
+      "isActive": true
     },
     {
       "id": 21,
@@ -378,7 +458,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.theorcs-reptile.com/",
       "googleMapUrl": "https://maps.app.goo.gl/GgGF96ymHc6ebCJY8",
-      "address": "屏東市民生路235號"
+      "address": "屏東市民生路235號",
+      "lat": 22.74009,
+      "lng": 120.582889,
+      "isActive": true
     },
     {
       "id": 22,
@@ -392,11 +475,14 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/Ponpon.Pet.hotel/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/ahbvmMF6jEiYAnkW8",
-      "address": "台北市中山區新生北路二段60巷16號4樓"
+      "address": "台北市中山區新生北路二段60巷16號4樓",
+      "lat": 25.055645,
+      "lng": 121.526883,
+      "isActive": true
     },
     {
       "id": 23,
-      "storeName": "星羽動物醫院 (三民院)",
+      "storeName": "星羽動物醫院(三民院)",
       "type": ["診所"],
       "area": "高雄",
       "petTypes": ["守宮", "刺蝟", "柯爾鴨", "倉鼠", "烏龜", "鸚鵡"],
@@ -406,11 +492,14 @@
       "coverImage": "clinic.png",
       "website": "https://starfeather.com.tw/",
       "googleMapUrl": "https://maps.app.goo.gl/znTRKkEB7crJNN3s8",
-      "address": "高雄市三民區信國路20號"
+      "address": "高雄市三民區信國路20號",
+      "lat": 22.647344,
+      "lng": 120.33871,
+      "isActive": true
     },
     {
       "id": 24,
-      "storeName": "星羽動物醫院 (大寮院)",
+      "storeName": "星羽動物醫院(大寮院)",
       "type": ["診所"],
       "area": "高雄",
       "petTypes": ["守宮", "刺蝟", "柯爾鴨", "倉鼠", "烏龜", "鸚鵡"],
@@ -420,7 +509,10 @@
       "coverImage": "clinic.png",
       "website": "https://starfeather.com.tw/",
       "googleMapUrl": "",
-      "address": "高雄市大寮區鳳林路四段790之1號"
+      "address": "高雄市大寮區鳳林路四段790之1號",
+      "lat": 22.545645,
+      "lng": 120.411108,
+      "isActive": true
     },
     {
       "id": 25,
@@ -434,7 +526,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.fiordah.com/",
       "googleMapUrl": "https://maps.app.goo.gl/RVY86ArjPLEq8rbg9",
-      "address": "台南市北區西門路四段442號"
+      "address": "台南市北區西門路四段442號",
+      "lat": 23.015795,
+      "lng": 120.210591,
+      "isActive": true
     },
     {
       "id": 26,
@@ -448,7 +543,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.tortoise-sell.com/",
       "googleMapUrl": "https://maps.app.goo.gl/npTNoqdYhbUq6Qst7",
-      "address": "嘉義縣民雄鄉75-1號"
+      "address": "嘉義縣民雄鄉秀林村林子尾75-1號",
+      "lat": 23.5558,
+      "lng": 120.4382,
+      "isActive": true
     },
     {
       "id": 27,
@@ -462,7 +560,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.tp-geckos-studio.com/",
       "googleMapUrl": "https://maps.app.goo.gl/i1Nx3qctV3McdTk7",
-      "address": "新北市新莊區景德路264巷16號"
+      "address": "新北市新莊區景德路264巷16號",
+      "lat": 25.03826,
+      "lng": 121.45064,
+      "isActive": true
     },
     {
       "id": 28,
@@ -476,7 +577,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.facebook.com/casiwaclinic/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/rdssynt7yLuXpkQ89",
-      "address": "台北市大安區和平東路三段292號"
+      "address": "台北市大安區和平東路三段292號",
+      "lat": 25.020942,
+      "lng": 121.556096,
+      "isActive": true
     },
     {
       "id": 29,
@@ -490,7 +594,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.ark.vet/",
       "googleMapUrl": "https://maps.app.goo.gl/ktZoL8xxnqK6qTYX9",
-      "address": "台北市內湖區成功路四段317號"
+      "address": "台北市內湖區成功路四段317號",
+      "lat": 25.084503,
+      "lng": 121.598605,
+      "isActive": true
     },
     {
       "id": 30,
@@ -504,7 +611,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.jurassiceah.tw/",
       "googleMapUrl": "https://maps.app.goo.gl/Lo6fNhXPdFmxhNGT8",
-      "address": "台中市西區英才路625號"
+      "address": "台中市西區英才路625號",
+      "lat": 24.142001,
+      "lng": 120.666016,
+      "isActive": true
     },
     {
       "id": 31,
@@ -518,7 +628,10 @@
       "coverImage": "Shop.png",
       "website": "https://pashou-reptile.com/",
       "googleMapUrl": "https://maps.app.goo.gl/FmhYhsCW77LuYQPv6",
-      "address": "台中市南屯區大墩十一街171號三樓"
+      "address": "台中市南屯區大墩十一街171號三樓",
+      "lat": 24.14897004,
+      "lng": 120.650778,
+      "isActive": true
     },
     {
       "id": 32,
@@ -532,7 +645,10 @@
       "coverImage": "Shop.png",
       "website": "https://meetreptile.com/",
       "googleMapUrl": "https://maps.app.goo.gl/SteTetr7GN83ghsE8",
-      "address": "新北市樹林區復興路86號1樓"
+      "address": "新北市樹林區復興路86號1樓",
+      "lat": 24.25063,
+      "lng": 120.718115,
+      "isActive": true
     },
     {
       "id": 33,
@@ -546,7 +662,10 @@
       "coverImage": "clinic.png",
       "website": "https://lumosvet.weebly.com/",
       "googleMapUrl": "https://maps.app.goo.gl/wqhEraXrbMndbvrGA",
-      "address": "台北市大同區民族西路65號1樓"
+      "address": "台北市大同區民族西路65號1樓",
+      "lat": 25.068614,
+      "lng": 121.518861,
+      "isActive": true
     },
     {
       "id": 34,
@@ -560,7 +679,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.facebook.com/profile.php?id=100063991902571&locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/LyG9aRebsHGqPxab7",
-      "address": "屏東市崇朝一路192號"
+      "address": "屏東市崇朝一路192號",
+      "lat": 22.679041,
+      "lng": 120.495772,
+      "isActive": true
     },
     {
       "id": 35,
@@ -574,7 +696,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.facebook.com/p/%E5%BA%A6%E5%BA%A6%E9%B3%A5%E7%89%B9%E6%AE%8A%E5%AF%B5%E7%89%A9%E5%B0%88%E7%A7%91%E9%86%AB%E9%99%A2-100075739882784/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/fv2V17D5WRucvapRA",
-      "address": "新竹縣竹北市中正東路228號"
+      "address": "新竹縣竹北市中正東路228號",
+      "lat": 24.8351428,
+      "lng": 121.0140302,
+      "isActive": true
     },
     {
       "id": 36,
@@ -588,11 +713,14 @@
       "coverImage": "clinic.png",
       "website": "https://wild-ah.com/",
       "googleMapUrl": "https://maps.app.goo.gl/6oZNMPZAj2bsA2GE7",
-      "address": "新北市樹林區中山路一段26-3號"
+      "address": "新北市樹林區中山路一段26-3號",
+      "lat": 24.110134,
+      "lng": 120.643725,
+      "isActive": true
     },
     {
       "id": 37,
-      "storeName": "宸禧園珍禽繁殖場",
+      "storeName": "宸禧園珍禽繁殖場(不開放參觀,線上詢問)",
       "type": ["賣家"],
       "area": "桃園",
       "petTypes": ["柯爾鴨"],
@@ -602,7 +730,10 @@
       "coverImage": "Shop.png",
       "website": "http://www.cxpetpark.com/",
       "googleMapUrl": "https://maps.app.goo.gl/fJq2tQeL7S7fbnScA",
-      "address": "桃園市龍潭區(不開放參觀,線上詢問)"
+      "address": "桃園市龍潭區",
+      "lat": 24.863851,
+      "lng": 121.216392,
+      "isActive": true
     },
     {
       "id": 38,
@@ -616,7 +747,10 @@
       "coverImage": "clinic.png",
       "website": "http://meah.tw/#",
       "googleMapUrl": "https://maps.app.goo.gl/zvo6R5kDomDkvYQV6",
-      "address": "新竹縣竹北市自強六街15號"
+      "address": "新竹縣竹北市自強六街15號",
+      "lat": 25.047305,
+      "lng": 121.086959,
+      "isActive": true
     },
     {
       "id": 39,
@@ -630,7 +764,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.madagascar.com.tw/",
       "googleMapUrl": "https://maps.app.goo.gl/egHKhDhX4rohZTif8",
-      "address": "新北市板橋區文化路二段500號"
+      "address": "新北市板橋區文化路二段500號",
+      "lat": 25.036091,
+      "lng": 121.480503,
+      "isActive": true
     },
     {
       "id": 40,
@@ -644,7 +781,10 @@
       "coverImage": "hotel.png",
       "website": "https://doubleslow43.easy.co/",
       "googleMapUrl": "https://maps.app.goo.gl/xj99R9WyhoJq8Awv7",
-      "address": "新北市永和區豫溪街72號1樓"
+      "address": "新北市永和區豫溪街72號1樓",
+      "lat": 24.64023,
+      "lng": 120.92669,
+      "isActive": true
     },
     {
       "id": 41,
@@ -658,7 +798,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.facebook.com/momomiss127/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/EtBA6dogEkeEXuE9",
-      "address": "新北市樹林區保安二街127號"
+      "address": "新北市樹林區保安二街127號",
+      "lat": 24.27028,
+      "lng": 120.7275,
+      "isActive": true
     },
     {
       "id": 42,
@@ -672,7 +815,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.yununggecko.com/",
       "googleMapUrl": "https://maps.app.goo.gl/xFYqYRbwrfAsEm379",
-      "address": "高雄市林園區港埔三路112巷2號1樓"
+      "address": "高雄市林園區港埔三路112巷2號1樓",
+      "lat": 22.497184,
+      "lng": 120.384108,
+      "isActive": true
     },
     {
       "id": 43,
@@ -686,7 +832,10 @@
       "coverImage": "Shop.png",
       "website": "https://turtle-adb.com.tw/",
       "googleMapUrl": "https://maps.app.goo.gl/eiC1RFKV928dwDuk6",
-      "address": "新北市林口區源泉街41號"
+      "address": "新北市林口區源泉街41號",
+      "lat": 25.071043,
+      "lng": 121.353271,
+      "isActive": true
     },
     {
       "id": 44,
@@ -700,7 +849,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.facebook.com/p/%E5%BB%A3%E8%88%88%E9%B3%A5%E5%9C%92-100063778106260/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/5SkLVuHZg3BRzhyD8",
-      "address": "彰化縣花壇鄉中山路二段802號"
+      "address": "彰化縣花壇鄉中山路二段802號",
+      "lat": 24.0837381,
+      "lng": 120.5513155,
+      "isActive": true
     },
     {
       "id": 45,
@@ -714,7 +866,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.facebook.com/chengyi171/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/XXgo11nU1JCKb9Za8",
-      "address": "台北市大安區安和路一段171巷13號"
+      "address": "台北市大安區安和路一段171巷13號",
+      "lat": 23.84084,
+      "lng": 120.59716,
+      "isActive": true
     },
     {
       "id": 46,
@@ -728,7 +883,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/profile.php?id=100083579970035",
       "googleMapUrl": "https://maps.app.goo.gl/RcosRh1NK4CMmWs8",
-      "address": "台北市信義區松山路229號1樓"
+      "address": "台北市信義區松山路229號1樓",
+      "lat": 25.044686,
+      "lng": 121.577944,
+      "isActive": true
     },
     {
       "id": 47,
@@ -742,7 +900,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.piggybabiesbnb.com/",
       "googleMapUrl": "https://maps.app.goo.gl/QUKqXwUYJ6vcJcq77",
-      "address": "新竹縣竹市成功一街160號一樓"
+      "address": "新竹縣竹市成功一街160號一樓",
+      "lat": 24.819865,
+      "lng": 121.026032,
+      "isActive": true
     },
     {
       "id": 48,
@@ -756,7 +917,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.turtlehouse.com.tw/",
       "googleMapUrl": "https://maps.app.goo.gl/8ZYNeGW8ph93ZXdm6",
-      "address": "新北市新莊區新樹路252號之2"
+      "address": "新北市新莊區新樹路252號之2",
+      "lat": 24.09453,
+      "lng": 120.53351,
+      "isActive": true
     },
     {
       "id": 49,
@@ -770,7 +934,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.facebook.com/MomongaAH/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/XMzLCyVWoSvGrkPu5",
-      "address": "新北市三重區重新路四段20號1樓"
+      "address": "新北市三重區重新路四段20號1樓",
+      "lat": 24.939017,
+      "lng": 121.371853,
+      "isActive": true
     },
     {
       "id": 50,
@@ -784,7 +951,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/K2Petbird/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/wGCFQ9r6sP4naG3a8",
-      "address": "新北市板橋區金門街209號"
+      "address": "新北市板橋區金門街209號",
+      "lat": 24.969733,
+      "lng": 121.300903,
+      "isActive": true
     },
     {
       "id": 51,
@@ -798,7 +968,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.parrothotel.com.tw/",
       "googleMapUrl": "https://maps.app.goo.gl/anPS6yYRBysvnTY7",
-      "address": "新北市新店區中正路504號4樓"
+      "address": "新北市新店區中正路504號4樓",
+      "lat": 24.95777,
+      "lng": 121.213009,
+      "isActive": true
     },
     {
       "id": 52,
@@ -812,11 +985,14 @@
       "coverImage": "hotel.png",
       "website": "https://parrotwu.waca.tw/",
       "googleMapUrl": "https://maps.app.goo.gl/4dPdTzh6CC7ZX6nG6",
-      "address": "新北市蘆洲區光復路77巷5號1樓"
+      "address": "新北市蘆洲區光復路77巷5號1樓",
+      "lat": 25.086216,
+      "lng": 121.463798,
+      "isActive": true
     },
     {
       "id": 53,
-      "storeName": "鸚鵡的家【台南館】",
+      "storeName": "鸚鵡的家(台南館)",
       "type": ["賣家", "旅館"],
       "area": "台南",
       "petTypes": ["鸚鵡"],
@@ -826,7 +1002,10 @@
       "coverImage": "Shop.png",
       "website": "https://www.facebook.com/Parrot.Tw/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/rTx1Tf1npREFJAKw9",
-      "address": "台南市新營區民治路183巷2號"
+      "address": "台南市新營區民治路183巷2號",
+      "lat": 25.126353,
+      "lng": 121.4713846,
+      "isActive": true
     },
     {
       "id": 54,
@@ -840,7 +1019,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/higogohotel/?locale=zh_TW",
       "googleMapUrl": "https://maps.app.goo.gl/Y9Toocmgm3JJ8wo8",
-      "address": "台北市內湖區星雲街20號"
+      "address": "台北市內湖區星雲街20號",
+      "lat": 25.077927,
+      "lng": 121.590678,
+      "isActive": true
     },
     {
       "id": 55,
@@ -854,7 +1036,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.rkreptile.com/",
       "googleMapUrl": "https://maps.app.goo.gl/yEhYs1EUjFZwUN2K7",
-      "address": "台中市西屯區黎明路一段961號2樓"
+      "address": "台中市西屯區黎明路一段961號2樓",
+      "lat": 24.136003,
+      "lng": 120.636636,
+      "isActive": true
     },
     {
       "id": 56,
@@ -868,7 +1053,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.taogeckos.com/",
       "googleMapUrl": "https://maps.app.goo.gl/W783457FPJjoAx6w5",
-      "address": "新北市永和區永亨路46號"
+      "address": "新北市永和區永亨路46號",
+      "lat": 24.64023,
+      "lng": 120.92669,
+      "isActive": true
     },
     {
       "id": 57,
@@ -882,7 +1070,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/p/Smile-%E5%BE%AE%E7%AC%91%E5%AF%B5%E7%89%A9%E7%BE%8E%E5%AE%B9%E6%97%85%E9%A4%A8-61557536859954/",
       "googleMapUrl": "https://share.google/8Z6G8tjjlb1DIh80P",
-      "address": "苗栗縣頭份市自強路二段530號"
+      "address": "苗栗縣頭份市自強路二段530號",
+      "lat": 24.682641,
+      "lng": 120.883918,
+      "isActive": true
     },
     {
       "id": 58,
@@ -896,7 +1087,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/p/%E8%A7%92%E8%90%BD%E6%A3%AE%E6%9E%97%E7%89%B9%E5%AF%B5%E7%B2%BE%E5%93%81%E6%97%85%E5%BA%97-100076200663692/?locale=zh_TW",
       "googleMapUrl": "https://share.google/7Q7btX0y3jjmnXcPX",
-      "address": "桃園市中壢區環西路二段220號"
+      "address": "桃園市中壢區環西路二段220號",
+      "lat": 24.964413,
+      "lng": 121.211397,
+      "isActive": true
     },
     {
       "id": 59,
@@ -910,7 +1104,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/hamsterfun22/",
       "googleMapUrl": "https://share.google/ZTqI5FDuhXqC2Rnn3",
-      "address": "台南市安南區安昌街174巷191弄111號3樓"
+      "address": "台南市安南區安昌街174巷191弄111號3樓",
+      "lat": 23.068207,
+      "lng": 120.221274,
+      "isActive": true
     },
     {
       "id": 60,
@@ -924,7 +1121,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/appletree.parrottree/",
       "googleMapUrl": "https://share.google/D3gmbnksUyXE9AO6e",
-      "address": "高雄市路竹區社龍街63號"
+      "address": "高雄市路竹區社龍街63號",
+      "lat": 22.861616,
+      "lng": 120.26485,
+      "isActive": true
     },
     {
       "id": 61,
@@ -938,7 +1138,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.parrotempire.com.tw/",
       "googleMapUrl": "https://share.google/BMvf23KEUtKVSXxxM",
-      "address": "高雄市湖內區中山路一段477-2號"
+      "address": "高雄市湖內區中山路一段477之2號",
+      "lat": 22.887525,
+      "lng": 120.243275,
+      "isActive": true
     },
     {
       "id": 62,
@@ -952,11 +1155,14 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/Parrot.Tw/?locale=zh_TW",
       "googleMapUrl": "https://share.google/RZp1Za0cOqoLGo3a3",
-      "address": "高雄市鳳山區過勇路40號"
+      "address": "高雄市鳳山區過勇路40號",
+      "lat": 22.586082,
+      "lng": 120.362878,
+      "isActive": true
     },
     {
       "id": 63,
-      "storeName": "小龜家 South Turtle",
+      "storeName": "小龜家 South Turtle(IG私訊詳細地址)",
       "type": ["旅館"],
       "area": "台南",
       "petTypes": ["烏龜"],
@@ -966,7 +1172,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.instagram.com/_south_turtle/",
       "googleMapUrl": "",
-      "address": "台南仁德(IG私訊地址)"
+      "address": "台南市仁德區",
+      "lat": 22.972212,
+      "lng": 120.25152,
+      "isActive": false
     },
     {
       "id": 64,
@@ -980,7 +1189,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/p/%E5%B9%B8%E7%A6%8F%E7%A8%AE%E5%AD%90%E5%AF%B5%E7%89%A9%E6%B2%99%E9%BE%8D%E9%B9%BD%E8%A1%8C%E5%BA%97%E7%89%B9%E5%AF%B5%E6%A5%AD%E5%AD%97%E7%AC%AC-U1080452%E8%99%9F-100064016230481/",
       "googleMapUrl": "https://share.google/bTEOSfp1BywNw5GhB",
-      "address": "台南市永康區中正南路636號"
+      "address": "台南市永康區中正南路636號",
+      "lat": 23.038514,
+      "lng": 120.234077,
+      "isActive": true
     },
     {
       "id": 65,
@@ -994,11 +1206,14 @@
       "coverImage": "hotel.png",
       "website": "https://www.kissherpet-hotel.com/",
       "googleMapUrl": "https://share.google/kdUG9USYaPnnR7q0V",
-      "address": "高雄市左營區大中二路262號"
+      "address": "高雄市左營區大中二路262號",
+      "lat": 22.680193,
+      "lng": 120.312504,
+      "isActive": true
     },
     {
       "id": 66,
-      "storeName": "沐沐家♡",
+      "storeName": "沐沐家♡(詳細地址私訊)",
       "type": ["旅館"],
       "area": "屏東",
       "petTypes": ["倉鼠"],
@@ -1008,7 +1223,9 @@
       "coverImage": "hotel.png",
       "website": "https://www.instagram.com/mmngt_1996?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw%3D%3D",
       "googleMapUrl": "",
-      "address": "屏東(詳細地址私訊)"
+      "address": "屏東縣",
+      "lat": 23.1538339,
+      "lng": 120.638983
     },
     {
       "id": 67,
@@ -1022,7 +1239,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/hamsterssweethome/?locale=zh_TW",
       "googleMapUrl": "https://share.google/C9tSL3vZBexAWwd30",
-      "address": "高雄市大社區萬金路174號"
+      "address": "高雄市大社區萬金路174號",
+      "lat": 22.752397,
+      "lng": 120.340995,
+      "isActive": true
     },
     {
       "id": 68,
@@ -1036,7 +1256,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/callduckgarden/?locale=zh_TW",
       "googleMapUrl": "",
-      "address": "高雄市大社區萬金路174號"
+      "address": "高雄市大社區萬金路174號",
+      "lat": 22.752397,
+      "lng": 120.340995,
+      "isActive": true
     },
     {
       "id": 69,
@@ -1050,7 +1273,10 @@
       "coverImage": "hotel.png",
       "website": "https://www.facebook.com/callduckgarden/?locale=zh_TW",
       "googleMapUrl": "https://share.google/xjyHkX7QESddkQvyq",
-      "address": "新北市板橋區館前西路120號二、三、四樓"
+      "address": "新北市板橋區館前西路120號二、三、四樓",
+      "lat": 25.01045,
+      "lng": 121.461379,
+      "isActive": true
     },
     {
       "id": 70,
@@ -1064,7 +1290,10 @@
       "coverImage": "clinic.png",
       "website": "https://www.facebook.com/ChiaYi.Jia.le.animal.hospital/?locale=zh_TW",
       "googleMapUrl": "https://share.google/KPbpAqdQybtGLixuu",
-      "address": "嘉義市東區民族路67號"
+      "address": "嘉義市東區民族路67號",
+      "lat": 23.31215,
+      "lng": 120.318391,
+      "isActive": true
     },
     {
       "id": 71,
@@ -1078,7 +1307,10 @@
       "coverImage": "clinic.png",
       "website": "https://mascot-animal.com/",
       "googleMapUrl": "https://maps.app.goo.gl/BmkNjBkQsq35DQe9A",
-      "address": "嘉義市東區大雅路二段563-5號"
+      "address": "嘉義市東區大雅路二段563-5號",
+      "lat": 23.477278,
+      "lng": 120.468629,
+      "isActive": false
     },
     {
       "id": 72,
@@ -1092,7 +1324,10 @@
       "coverImage": "clinic.png",
       "website": "https://website.ncyu.edu.tw/ncyuvh/",
       "googleMapUrl": "https://share.google/3xjMpzpKevldPPnGn",
-      "address": "嘉義市東區民族路67號"
+      "address": "嘉義市東區民族路67號",
+      "lat": 23.31215,
+      "lng": 120.318391,
+      "isActive": true
     }
   ],
   "favorites": [
@@ -1147,7 +1382,7 @@
       "summary": "鴨子腿軟通常是缺乏維生素 B 群或鈣質。本篇整理新手飼主必備的 3 種營養補充品清單與正確餵食...",
       "content": "",
       "image": "callDuckInfoA",
-      "date": "2024-03-15",
+      "createdAt": "2024-03-15",
       "author": "鴨鴨訓練師 小白"
     },
     {
@@ -1157,7 +1392,7 @@
       "summary": "刺蝟有乳糖不耐症，喝牛奶會腹瀉！還有葡萄、酪梨等看似健康的蔬果，其實對刺蝟有毒性，千萬別亂餵。",
       "content": "",
       "image": "hedgehogInfoA",
-      "date": "2025-03-15",
+      "createdAt": "2025-03-15",
       "author": "獸醫 Dr. Wu"
     },
     {
@@ -1167,7 +1402,7 @@
       "summary": "匯集全台 50 家合法爬蟲賣家與週邊商品，現場還有免費健檢服務。憑本站會員畫面入，再送精...",
       "content": "",
       "image": "gekkotaInfoA",
-      "date": "2026-03-15",
+      "createdAt": "2026-03-15",
       "author": "爬蟲專家 Leo"
     },
     {
@@ -1177,7 +1412,7 @@
       "summary": "匯集全台 50 家合法爬蟲賣家與週邊商品，現場還有免費健檢服務。憑本站會員畫面入，再送精...",
       "content": "",
       "image": "ScamInfoA",
-      "date": "2026-03-15",
+      "createdAt": "2026-03-15",
       "author": "爬蟲專家 Leo"
     },
     {
@@ -1187,7 +1422,7 @@
       "summary": "臉書出現大量冒名知名鴨舍的假粉專，盜用照片並以市價 1 折誘騙匯款。正規繁殖場不會要求私下...",
       "content": "",
       "image": "ScamInfoB",
-      "date": "2026-01-10",
+      "createdAt": "2026-01-10",
       "author": "鴨鴨訓練師 小白"
     },
     {
@@ -1197,7 +1432,7 @@
       "summary": "一年一度的柯爾鴨大型聚會來了！現場有聖誕變裝比賽與鴨鴨賽跑，歡迎帶家裡的寶貝一起來交朋友...",
       "content": "",
       "image": "callDuckInfoB",
-      "date": "2026-03-10",
+      "createdAt": "2026-03-10",
       "author": "鴨鴨訓練師 小白"
     },
     {
@@ -1207,7 +1442,7 @@
       "summary": "詐騙者聲稱因出國急需送養，只需付「空運費」或「籠子錢」。一旦匯款後，對方就會以海關卡關...",
       "content": "",
       "image": "tortoiseInfoA",
-      "date": "2025-08-20",
+      "createdAt": "2025-08-20",
       "author": "爬蟲專家 Leo"
     },
     {
@@ -1217,7 +1452,7 @@
       "summary": "這是新型態詐騙！詐騙集團假冒平台客服，謊稱賣場被凍結，誘導賣家掃碼並輸入銀行驗證碼，請勿上當...",
       "content": "",
       "image": "ScamInfoC",
-      "date": "2025-09-16",
+      "createdAt": "2025-09-16",
       "author": "小寵達人 Miffy"
     },
     {
@@ -1227,7 +1462,7 @@
       "summary": "台灣冬天濕冷，對陸龜是致命傷。別只看溫度計，燈泡距離與飼養箱通風也是關鍵，教你打造...",
       "content": "",
       "image": "tortoiseInfoC",
-      "date": "2025-09-16",
+      "createdAt": "2025-09-16",
       "author": "小寵達人 Miffy"
     },
     {
@@ -1237,7 +1472,7 @@
       "summary": "發現烏龜鼻子冒泡泡、張口呼吸、甚至側浮在水面上？這可能是致命的肺炎！除了看醫生，這幾點環境設定一定要改。",
       "content": "烏龜肺炎通常源於溫差過大。治療期間需將溫度提升至 28-30 度恆溫，並增加泡澡頻率以防脫水。切記，烏龜新陳代謝慢，病程恢復期較長，飼主需要極大耐心。",
       "image": "articlesId10",
-      "date": "2024-01-25",
+      "createdAt": "2024-01-25",
       "author": "獸醫 Dr. Wu"
     },
     {
@@ -1247,7 +1482,7 @@
       "summary": "想養一隻圓滾滾的柯爾鴨嗎？除了可愛，牠們需要足夠的戲水空間和防滑地板。這篇告訴你如何打造適合鴨鴨的家。",
       "content": "柯爾鴨雖然體型小，但排泄量大且需要水池。飼養前請務必準備：1. 易清洗的防滑地墊（保護腳掌） 2. 專屬戲水池（維持羽毛健康） 3. 室內尿布衣（如果你想養在室內）。",
       "image": "articlesId11",
-      "date": "2024-03-15",
+      "createdAt": "2024-03-15",
       "author": "鴨鴨訓練師 小白"
     },
     {
@@ -1257,7 +1492,7 @@
       "summary": "看到心愛的守宮尾巴斷掉嚇壞了嗎？別慌張！斷尾是守宮的求生本能。只要處理得當，傷口癒合後還會長出可愛的新尾巴喔！",
       "content": "守宮斷尾時，首要任務是保持環境清潔，將底材換成廚房紙巾避免感染。傷口處可塗抹無碘優碘，並注意環境濕度，約 1-2 個月後尾巴就會再生，雖然形狀可能不同，但依然可愛。",
       "image": "articlesId12",
-      "date": "2024-04-05",
+      "createdAt": "2024-04-05",
       "author": "爬蟲專家 Leo"
     },
     {
@@ -1267,7 +1502,7 @@
       "summary": "發現刺蝟身上掉皮屑、刺變得稀疏，甚至一直抓癢嗎？這可能是常見的皮膚病。早期發現治療，讓刺蝟重回健康。",
       "content": "刺蝟的皮膚非常敏感，疥癬蟲感染是常見問題。症狀包含：掉刺、皮屑增多、食慾下降。若發現上述徵兆，請務必尋求特寵獸醫協助，切勿自行塗抹人用藥膏。",
       "image": "articlesId13",
-      "date": "2024-02-20",
+      "createdAt": "2024-02-20",
       "author": "獸醫 Dr. Wu"
     },
     {
@@ -1277,7 +1512,7 @@
       "summary": "很多新手誤以為龜殼隆起很高很漂亮，其實那是濕度不足與鈣質吸收不良的警訊！如何養出圓潤平滑的龜殼？",
       "content": "隆背（Pyramiding）主要是因為環境濕度過低、缺乏日曬（UVB）或蛋白質攝取過高導致。一旦發生便不可逆，但透過調整飼養箱濕度與飲食，可以防止情況惡化。",
       "image": "articlesId14",
-      "date": "2024-01-10",
+      "createdAt": "2024-01-10",
       "author": "爬蟲專家 Leo"
     },
     {
@@ -1287,7 +1522,7 @@
       "summary": "手伸過去就被咬一口？鸚鵡咬人通常不是因為討厭你，而是因為恐懼或興奮。學習觀察瞳孔縮放與羽毛狀態。",
       "content": "鸚鵡不會無故攻擊。當牠們瞳孔快速縮放（Pinning）、或是全身羽毛緊繃時，代表牠處於激動狀態。這時應避免強行上手，改以響片訓練或正向引導來建立信任。",
       "image": "articlesId15",
-      "date": "2024-03-20",
+      "createdAt": "2024-03-20",
       "author": "鳥類行為師 Sam"
     },
     {
@@ -1297,7 +1532,7 @@
       "summary": "市面上沙子種類這麼多，哪種才適合黃金鼠？哪種適合三線鼠？選錯沙子可能會導致呼吸道過敏甚至眼睛受傷喔！",
       "content": "一般來說，黃金鼠（熊鼠）不需要浴沙，牠們會自己口水浴；而侏儒倉鼠（三線、一線）則需要浴沙清潔。請務必選擇無粉塵、無香精的天然礦砂，避免造成呼吸道負擔。",
       "image": "articlesId16",
-      "date": "2024-02-15",
+      "createdAt": "2024-02-15",
       "author": "小寵達人 Miffy"
     },
     {
@@ -1307,7 +1542,7 @@
       "summary": "爬蟲類是變溫動物，低溫會導致拒食甚至死亡。守宮主要吸收腹部熱能，該怎麼選擇加熱設備才安全不燙傷？",
       "content": "對於地棲型的豹紋守宮、肥尾守宮，底部加熱墊是首選，能幫助消化。但必須搭配「控溫器」使用，避免燙傷。若是樹棲型守宮或環境太冷，則需搭配陶瓷放熱燈提高整體室溫。",
       "image": "articlesId17",
-      "date": "2024-01-05",
+      "createdAt": "2024-01-05",
       "author": "爬蟲專家 Leo"
     },
     {
@@ -1317,7 +1552,7 @@
       "summary": "葵瓜子就像人類的薯條，好吃但高熱量！長期只吃種子會導致脂肪肝。教你三招無痛轉換健康的滋養丸主食。",
       "content": "轉換飲食不能急，建議採用「混合法」：將滋養丸磨成粉撒在種子上，讓鳥寶習慣味道。接著慢慢減少種子比例。也可以在早晨鳥寶最餓的時候提供滋養丸，成功率較高。",
       "image": "articlesId18",
-      "date": "2024-03-01",
+      "createdAt": "2024-03-01",
       "author": "獸醫 Dr. Wu"
     },
     {
@@ -1327,7 +1562,7 @@
       "summary": "剛回家的刺蝟總是縮成一團還噴氣？別灰心，這是正常防禦機制。透過氣味記憶法，讓刺蝟慢慢認得你是主人。",
       "content": "可以將一件穿過有你味道的舊衣服放在飼養箱旁（注意不要讓牠咬食），讓牠習慣你的氣味。每天固定時間嘗試用手餵食麵包蟲，讓「手=好吃的」，慢慢降低戒心。",
       "image": "articlesId19",
-      "date": "2024-02-28",
+      "createdAt": "2024-02-28",
       "author": "小寵達人 Miffy"
     }
   ],
@@ -1337,7 +1572,7 @@
       "type": "alert",
       "title": "【防詐騙重要公告】請勿聽信「解除分期付款」之電話",
       "content": "近期詐騙頻傳，本店絕不會要求您操作ATM解除分期、購買遊戲點數或提供信用卡末三碼。若接獲可疑電話（如+886開頭），請立即掛斷並撥打165反詐騙專線查證。",
-      "date": "2024-01-01",
+      "createdAt": "2024-01-01",
       "isSticky": true
     },
     {
@@ -1345,7 +1580,7 @@
       "type": "info",
       "title": "【系統維護】本週三 (4/24) 凌晨 02:00 - 04:00 進行伺服器升級",
       "content": "為了提供更穩定的瀏覽體驗，我們將於上述時段進行系統維護。維護期間網站可能會有短暫無法連線的情況，請避開此時段瀏覽，造成不便敬請見諒。",
-      "date": "2024-04-20",
+      "createdAt": "2024-04-20",
       "isSticky": false
     },
     {
@@ -1353,7 +1588,7 @@
       "type": "alert",
       "title": "【慎防假冒】請認明官方網址與粉絲專頁",
       "content": "近日發現有不肖人士盜用本平台圖片建立假粉絲頁。請注意，我們只有一個官方網站與 FB 粉專，不會透過私人 Line 帳號主動聯繫您。",
-      "date": "2024-04-15",
+      "createdAt": "2024-04-15",
       "isSticky": true
     },
     {
@@ -1361,7 +1596,7 @@
       "type": "info",
       "title": "【公休通知】配合大樓消毒，5/1 (三) 暫停客服一日",
       "content": "配合辦公大樓年度環境消毒作業，本平台客服團隊將於 5/1 暫停服務一日。您仍可透過 Email 留言，我們將於次一工作日優先回覆。",
-      "date": "2024-04-25",
+      "createdAt": "2024-04-25",
       "isSticky": false
     },
     {
@@ -1369,7 +1604,7 @@
       "type": "alert",
       "title": "【寒流特報】週末氣溫下探 10 度，請注意寵物保暖",
       "content": "氣象局發布低溫特報！請爬蟲類（守宮、烏龜）與刺蝟飼主務必檢查加溫墊、陶瓷燈是否正常運作。建議多備一顆備用燈泡，以免半夜燈泡燒壞導致寵物失溫。",
-      "date": "2024-01-20",
+      "createdAt": "2024-01-20",
       "isSticky": false
     },
     {
@@ -1377,7 +1612,7 @@
       "type": "info",
       "title": "【隱私權政策更新】請會員撥冗閱讀",
       "content": "為符合最新個資法規範，我們已更新網站隱私權政策，加強對會員資料的保護措施。詳細內容請至頁尾「隱私權政策」專區查看。",
-      "date": "2024-03-01",
+      "createdAt": "2024-03-01",
       "isSticky": false
     },
     {
@@ -1385,7 +1620,7 @@
       "type": "alert",
       "title": "【颱風快訊】配合政府公告，明日 (9/3) 客服暫停服務",
       "content": "因海葵颱風來襲，本市已宣布明日停班停課。為顧及同仁安全，平台客服與行政作業將暫停一日。請大家做好防颱準備，平安第一。",
-      "date": "2023-09-02",
+      "createdAt": "2023-09-02",
       "isSticky": false
     },
     {
@@ -1393,7 +1628,7 @@
       "type": "info",
       "title": "【資安提醒】建議定期更換您的會員密碼",
       "content": "為了您的帳號安全，建議每 3-6 個月更換一次登入密碼，並避免使用與其他網站相同的密碼組合，以降低帳號被盜風險。",
-      "date": "2024-02-10",
+      "createdAt": "2024-02-10",
       "isSticky": false
     },
     {
@@ -1401,7 +1636,7 @@
       "type": "info",
       "title": "【春節公告】農曆春節期間服務調整說明",
       "content": "農曆春節假期 (2/8 - 2/14) 期間，平台網站維持正常運作，但客服回覆速度可能較慢。所有諮詢將於開工後依序處理。",
-      "date": "2024-01-20",
+      "createdAt": "2024-01-20",
       "isSticky": false
     },
     {
@@ -1409,7 +1644,7 @@
       "type": "info",
       "title": "【健康提醒】夏季高溫，注意小動物中暑",
       "content": "近期氣溫飆升，請注意兔兔、天竺鼠與刺蝟的室內溫度。請勿將飼養籠放置於陽光直射處，並確保飲水充足，以免發生熱衰竭。",
-      "date": "2024-06-01",
+      "createdAt": "2024-06-01",
       "isSticky": false
     }
   ],
@@ -1420,7 +1655,8 @@
       "storeId": 2,
       "rating": 5,
       "comment": "第一次帶柯爾鴨來寄宿有點緊張，但店家照顧得很細心，還會回報狀況，真的很安心。",
-      "createdAt": "2026-03-20T10:15:00Z"
+      "createdAt": "2026-03-20T10:15:00Z",
+      "isActive": true
     },
     {
       "id": 2,
@@ -1428,7 +1664,8 @@
       "storeId": 4,
       "rating": 4,
       "comment": "醫生講解很仔細，對新手也很有耐心，環境也很乾淨，之後有問題還會再來。",
-      "createdAt": "2026-03-21T14:30:00Z"
+      "createdAt": "2026-03-21T14:30:00Z",
+      "isActive": true
     },
     {
       "id": 3,
@@ -1436,7 +1673,8 @@
       "storeId": 1,
       "rating": 5,
       "comment": "倉鼠用品種類很多，幾乎一次就能買齊，店員也會給一些飼養建議，很不錯。",
-      "createdAt": "2026-03-22T09:10:00Z"
+      "createdAt": "2026-03-22T09:10:00Z",
+      "isActive": true
     },
     {
       "id": 4,
@@ -1444,7 +1682,8 @@
       "storeId": 6,
       "rating": 4,
       "comment": "帶鸚鵡來看診，醫生處理得很專業，雖然需要等一下但整體體驗很好。",
-      "createdAt": "2026-03-23T16:45:00Z"
+      "createdAt": "2026-03-23T16:45:00Z",
+      "isActive": true
     },
     {
       "id": 5,
@@ -1452,7 +1691,8 @@
       "storeId": 8,
       "rating": 5,
       "comment": "這裡真的很適合異寵，新手也不會有壓力，醫療跟環境都讓人放心。",
-      "createdAt": "2026-03-24T11:20:00Z"
+      "createdAt": "2026-03-24T11:20:00Z",
+      "isActive": true
     },
     {
       "id": 6,
@@ -1460,7 +1700,8 @@
       "storeId": 3,
       "rating": 4,
       "comment": "寄宿環境比想像中好很多，空間也夠，服務人員態度很好。",
-      "createdAt": "2026-03-25T18:05:00Z"
+      "createdAt": "2026-03-25T18:05:00Z",
+      "isActive": true
     },
     {
       "id": 7,
@@ -1468,7 +1709,8 @@
       "storeId": 14,
       "rating": 5,
       "comment": "鸚鵡住宿環境很用心，還有互動時間，感覺孩子玩得很開心。",
-      "createdAt": "2026-03-26T13:40:00Z"
+      "createdAt": "2026-03-26T13:40:00Z",
+      "isActive": true
     }
   ],
   "events": [
@@ -1477,70 +1719,84 @@
       "title": "稀有寵物回娘家年度聚會",
       "description": "邀請當初領養的孩子們與飼主一同回來相聚，一起看看大家長大的模樣，留下珍貴回憶。",
       "location": "台北",
-      "date": "2026-06-15",
+      "createdAt": "2026-06-15",
       "petTypes": ["柯爾鴨", "鸚鵡", "倉鼠"],
       "coverImage": "event01.jpg",
-      "organizer": "稀寵平台"
+      "organizer": "稀寵平台",
+      "isActive": true,
+      "isSticky": false
     },
     {
       "id": 2,
       "title": "柯爾鴨同樂日",
       "description": "柯爾鴨小聚登場 🦆 開放歷屆飼主與孩子回館聚會，現場提供拍照區與簡單互動活動。",
       "location": "新北",
-      "date": "2026-07-03",
+      "createdAt": "2026-07-03",
       "petTypes": ["柯爾鴨"],
       "coverImage": "event02.jpg",
-      "organizer": "柯爾鴨精品館"
+      "organizer": "柯爾鴨精品館",
+      "isActive": true,
+      "isSticky": false
     },
     {
       "id": 3,
       "title": "異寵家庭日",
       "description": "屬於各種小生命的家庭日，鼓勵帶著你的特寵一起來交流與分享飼養經驗，現場有小型講座。",
       "location": "台中",
-      "date": "2026-07-20",
+      "createdAt": "2026-07-20",
       "petTypes": ["守宮", "刺蝟", "烏龜"],
       "coverImage": "event03.jpg",
-      "organizer": "特寵交流協會"
+      "organizer": "特寵交流協會",
+      "isActive": true,
+      "isSticky": false
     },
     {
       "id": 4,
       "title": "鸚鵡互動交流會",
       "description": "喜歡鸚鵡的你一定不能錯過，現場安排簡單飛行展示與互動分享，一起交流飼養心得。",
       "location": "台北",
-      "date": "2026-08-05",
+      "createdAt": "2026-08-05",
       "petTypes": ["鸚鵡"],
       "coverImage": "event04.jpg",
-      "organizer": "鳥類專科醫院"
+      "organizer": "鳥類專科醫院",
+      "isActive": true,
+      "isSticky": false
     },
     {
       "id": 5,
       "title": "倉鼠飼主小聚",
       "description": "小小倉鼠也有大大的世界 🐹 邀請飼主們一起分享飼養環境與心得，現場提供交流區。",
       "location": "桃園",
-      "date": "2026-08-18",
+      "createdAt": "2026-08-18",
       "petTypes": ["倉鼠"],
       "coverImage": "event05.jpg",
-      "organizer": "鼠來寶社群"
+      "organizer": "鼠來寶社群",
+      "isActive": true,
+      "isSticky": false
     },
     {
       "id": 6,
       "title": "爬蟲寵物交流日",
       "description": "守宮、烏龜等爬蟲寵物交流活動，提供新手交流與飼養經驗分享，歡迎帶寶貝來參加。",
       "location": "高雄",
-      "date": "2026-09-02",
+      "createdAt": "2026-09-02",
       "petTypes": ["守宮", "烏龜"],
       "coverImage": "event06.jpg",
-      "organizer": "爬蟲玩家社群"
+      "organizer": "爬蟲玩家社群",
+      "isActive": true,
+      "isSticky": false
     },
     {
       "id": 7,
       "title": "稀寵周年慶活動",
       "description": "稀寵平台周年慶 🎉 邀請所有飼主與寵物回來共襄盛舉，現場安排小禮物與紀念拍照區。",
       "location": "台北",
-      "date": "2026-09-20",
+      "createdAt": "2026-09-20",
       "petTypes": ["柯爾鴨", "鸚鵡", "倉鼠", "守宮"],
       "coverImage": "event07.jpg",
-      "organizer": "Rare Pet Finder"
+      "organizer": "Rare Pet Finder",
+      "isActive": true,
+      "isSticky": false
     }
   ]
 }
