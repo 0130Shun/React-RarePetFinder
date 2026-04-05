@@ -22,8 +22,8 @@ export const DEFAULT_STORE = {
   address: '',
   createdAt: '',
   isActive: false,
-  lat: 0,
-  lng: 0,
+  lat: null,
+  lng: null,
 
   // 可選欄位（目前後台沒開放輸入）
   openTime: '',

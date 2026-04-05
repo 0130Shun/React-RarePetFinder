@@ -47,11 +47,11 @@ const MemberModal = ({
 
   return (
     <div
-      id="productModal"
+      id="memberModal"
       className={`modal fade ${isOpen ? 'show d-block' : ''}`}
       style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
     >
-      <div className="modal-dialog modal-dialog-centered modal-xl">
+      <div className="modal-dialog modal-dialog-centered modal-lg">
         <div className="modal-content border-0 shadow">
           <div className="modal-header border-bottom">
             <h5 className="modal-title fs-4">

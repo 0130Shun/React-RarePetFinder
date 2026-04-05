@@ -15,7 +15,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const envPath = path.join(__dirname, '../../.env');
 
-// 使用 Node.js 內建方式載入 .env（不需要安裝任何套件）
+// 載入 .env
 import('node:process').then(({ loadEnvFile }) => {
   try {
     loadEnvFile(envPath);
@@ -25,10 +25,9 @@ import('node:process').then(({ loadEnvFile }) => {
   }
 });
 
-// 等待一點時間讓 .env 載入完成（臨時腳本用）
+// 等待 .env 載入
 await new Promise((resolve) => setTimeout(resolve, 100));
 
-// db.json 與 failed 檔案路徑
 const dbPath = path.join(__dirname, '../../db.json');
 const failedPath = path.join(__dirname, '../../failed-geocode.json');
 
@@ -39,72 +38,91 @@ const LOCATIONIQ_KEY =
   process.env.LocationIQ_API_KEY || process.env.LOCATIONIQ_API_KEY || '';
 
 const USE_LOCATIONIQ = !!LOCATIONIQ_KEY;
-// 如果暫時不想用 LocationIQ，可以直接把這兩行改成空字串和 false，
-// 或是直接註解掉這兩行，腳本會自動跳過 LocationIQ 的查詢。
-// const LOCATIONIQ_KEY = '';
-// const USE_LOCATIONIQ = false;
 // ===============================================
 
-// 加強版清理地址
+// ==================== 清理地址（與前端 hook 保持一致） ====================
 const cleanAddress = (address) => {
   if (!address) return '';
 
-  return address
+  let cleaned = address
     .replace(/[（(].*?[）)]/g, '')
-    .replace(/(\d+)-(\d+)/g, '$1之$2') // 解決 477-2 → 477之2
+    .replace(/(\d+)-(\d+)/g, '$1之$2')
     .replace(/[\d一二三四五六七八九十]+樓/g, '')
     .replace(/之\d+/g, '')
     .replace(/號之\d+/g, '號')
     .replace(/\s+/g, ' ')
-    .replace(/段(\d+)/g, '第$1段')
-    .replace(/巷(\d+)/g, '$1巷')
-    .replace(/弄(\d+)/g, '$1弄')
     .trim();
+
+  // 主正則：處理縣市 + 區 + 路（最重要的一段）
+  cleaned = cleaned.replace(
+    /([台臺北新中南高桃][^市]?市?)\s*([^\s]+?區)\s*([^\s]+?(?:路|街|大道|東路|西路|南路|北路|巷|弄|橋))/g,
+    '$1 $2 $3'
+  );
+
+  // 保險正則（處理沒有縣市的短地址）
+  cleaned = cleaned.replace(
+    /([^\s]+區)\s*([^\s]+?(?:路|街|大道|東路|西路|南路|北路|巷|弄|橋))/g,
+    '$1 $2'
+  );
+
+  return cleaned.trim();
 };
 
-// 單一查詢函式
-const searchGeocode = async (query, service = 'locationiq') => {
+// ==================== 單一查詢函式 ====================
+const searchGeocode = async (query, service = 'nominatim') => {
   try {
     let url, params;
+    const baseQuery = query.trim();
 
     if (service === 'locationiq' && LOCATIONIQ_KEY) {
       url = 'https://eu1.locationiq.com/v1/search';
       params = {
         key: LOCATIONIQ_KEY,
-        q: query + ' 台灣',
+        q: baseQuery,
         format: 'json',
         limit: 3,
         countrycodes: 'tw',
+        addressdetails: 1,
       };
     } else {
       url = 'https://nominatim.openstreetmap.org/search';
       params = {
-        q: query + ' 台灣',
+        q: baseQuery,
         format: 'json',
         limit: 3,
         countrycodes: 'tw',
+        addressdetails: 1,
       };
     }
 
-    console.log(`👉 ${service.toUpperCase()} 查詢: ${query}`);
+    console.log(`👉 使用 [${service.toUpperCase()}] 查詢 → ${baseQuery}`);
 
     const res = await axios.get(url, {
       params,
-      headers: { 'User-Agent': 'rarepetfinder-app' },
+      headers: { 'User-Agent': 'rarepetfinder-geocode-script' },
     });
 
     if (res.data && res.data.length > 0) {
-      const { lat, lon } = res.data[0];
-      return { lat: parseFloat(lat), lng: parseFloat(lon) };
+      const first = res.data[0];
+      console.log(
+        `✅ ${service.toUpperCase()} 成功 | display_name: ${first.display_name}`
+      );
+
+      return {
+        lat: parseFloat(first.lat),
+        lng: parseFloat(first.lon),
+      };
     }
+
+    console.log(`❌ ${service.toUpperCase()} 無結果`);
     return null;
   } catch (err) {
-    console.error(`[${service}] 錯誤:`, err.message);
+    console.error(`❌ [${service}] 錯誤:`, err.message);
     return null;
   }
 };
 
-// 主 geocode 函式
+// ==================== 主 geocode 函式 ====================
 const geocode = async (address, simpleName) => {
   const fuzzyKeywords = [
     '私訊',
@@ -114,20 +132,25 @@ const geocode = async (address, simpleName) => {
     '線上詢問',
     '仁德(IG',
   ];
+
   if (fuzzyKeywords.some((kw) => (address || '').includes(kw))) {
-    console.log('⚠️ 地址模糊，跳過自動 geocode（建議手動補座標）');
+    console.log('⚠️ 地址模糊，跳過自動 geocode');
     return null;
   }
 
   let result = null;
   const clean = cleanAddress(address);
 
+  console.log(`   清理後地址: ${clean}`);
+
+  // 1. 先試乾淨地址
   if (clean.length > 5) {
     if (USE_LOCATIONIQ) result = await searchGeocode(clean, 'locationiq');
     if (!result) result = await searchGeocode(clean, 'nominatim');
   }
 
-  if (!result) {
+  // 2. Fallback：店名 + 地址
+  if (!result && simpleName) {
     const combined = `${simpleName} ${clean}`.trim();
     if (combined.length > 8) {
       console.log('↪ fallback：店名 + 地址');
@@ -136,7 +159,8 @@ const geocode = async (address, simpleName) => {
     }
   }
 
-  if (!result && simpleName.length > 3) {
+  // 3. Fallback：只用店名
+  if (!result && simpleName && simpleName.length > 3) {
     console.log('↪ fallback：只用店名');
     if (USE_LOCATIONIQ) result = await searchGeocode(simpleName, 'locationiq');
     if (!result) result = await searchGeocode(simpleName, 'nominatim');
@@ -147,7 +171,7 @@ const geocode = async (address, simpleName) => {
 
 // ==================== 主流程 ====================
 const run = async () => {
-  console.log('開始 geocode...\n');
+  console.log('🚀 開始批次 Geocode 處理...\n');
 
   const rawData = fs.readFileSync(dbPath);
   const db = JSON.parse(rawData);
@@ -158,12 +182,12 @@ const run = async () => {
 
   for (const store of db.stores) {
     if (store.lat && store.lng) {
-      console.log(`⏭️ 已存在：${store.storeName}`);
+      console.log(`⏭️ 已存在座標：${store.storeName}`);
       skip++;
       continue;
     }
 
-    console.log(`🔍 查詢：${store.storeName}`);
+    console.log(`🔍 處理：${store.storeName}`);
 
     const simpleName = store.storeName
       .replace(/\(.*?\)/g, '')
@@ -173,13 +197,14 @@ const run = async () => {
     const result = await geocode(store.address, simpleName);
 
     if (result) {
-      console.log(`  取得：lat ${result.lat}、lng ${result.lng}`);
       store.lat = result.lat;
       store.lng = result.lng;
-      console.log(`✅ 成功`);
+      console.log(`✅ 成功 → lat: ${result.lat}, lng: ${result.lng}\n`);
       success++;
     } else {
-      console.log(`❌ 失敗：${store.storeName} | ${store.address || '無地址'}`);
+      console.log(
+        `❌ 失敗 → ${store.storeName} | ${store.address || '無地址'}\n`
+      );
       failedList.push({
         id: store.id,
         storeName: store.storeName,
@@ -187,22 +212,23 @@ const run = async () => {
       });
     }
 
-    await delay(1000);
+    await delay(1000); // 避免被 ban
   }
 
+  // 寫回 db.json
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
 
   if (failedList.length > 0) {
     fs.writeFileSync(failedPath, JSON.stringify(failedList, null, 2));
     console.log(
-      `\n⚠️ 有 ${failedList.length} 筆失敗，已記錄到 failed-geocode.json`
+      `⚠️ 有 ${failedList.length} 筆失敗，已記錄到 failed-geocode.json`
     );
   }
 
-  console.log('\n🎉 完成！');
+  console.log('\n🎉 批次處理完成！');
   console.log(`✅ 成功：${success}`);
   console.log(`⏭️ 跳過：${skip}`);
   console.log(`❌ 失敗：${failedList.length}`);
 };
 
-run();
+run().catch(console.error);
